@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="verifiers" nsURI="http://verifiers/1.0" nsPrefix="org.osate.xtext.aadl2.agcl.analysis.verifiers">
+  <eClassifiers xsi:type="ecore:EClass" name="VerificationResult" abstract="true"
+      interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Positive" eSuperTypes="#//VerificationResult"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Negative" eSuperTypes="#//VerificationResult">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="counterexample" eType="#//CounterExample"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Model" abstract="true" interface="true">
+    <eOperations name="text" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="This method should return a textual representation of the model. &#xA;&#xA;@param args&#x9;information that may be required to produced the textual representation&#xA;"/>
+      </eAnnotations>
+      <eParameters name="args" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+    </eOperations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Specification" abstract="true" interface="true">
+    <eOperations name="text" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="This method should return a textual representation of the specification. &#xA;&#xA;@param args&#x9;information that may be required to produced the textual representation&#xA;"/>
+      </eAnnotations>
+      <eParameters name="args" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+    </eOperations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CounterExample" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="UniversalModel" abstract="true" interface="true"
+      eSuperTypes="#//Model"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ModelChecker" abstract="true">
+    <eOperations name="setUp">
+      <eParameters name="resource" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EResource"/>
+    </eOperations>
+    <eOperations name="checkModel" lowerBound="1" eType="#//VerificationResult">
+      <eParameters name="model" eType="#//Model"/>
+      <eParameters name="spec" eType="#//Specification"/>
+    </eOperations>
+    <eOperations name="prepareInput" lowerBound="1" eType="#//ModelCheckerInput">
+      <eParameters name="model" eType="#//Model"/>
+      <eParameters name="spec" eType="#//Specification"/>
+    </eOperations>
+    <eOperations name="processOutput" lowerBound="1" eType="#//VerificationResult">
+      <eParameters name="output" eType="#//ModelCheckerOutput"/>
+    </eOperations>
+    <eOperations name="callExternal" lowerBound="1" eType="#//ModelCheckerOutput">
+      <eParameters name="input" eType="#//ModelCheckerInput"/>
+    </eOperations>
+    <eOperations name="checkSpecSatisfability" eType="#//VerificationResult">
+      <eParameters name="spec" eType="#//Specification"/>
+    </eOperations>
+    <eOperations name="checkSpecValidity" eType="#//VerificationResult">
+      <eParameters name="spec" eType="#//Specification"/>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="resourceContext" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EResource"
+        transient="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NuSMVModelChecker" eSuperTypes="#//ModelChecker"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ModelCheckerInput" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ModelCheckerOutput" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="NuSMVInput" eSuperTypes="#//ModelCheckerInput">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="modelSourceFile" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+        <details key="processing" value="skip"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sessionScript" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+        <details key="processing" value="skip"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NuSMVOutput" eSuperTypes="#//ModelCheckerOutput">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="outputFile" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+        <details key="processing" value="skip"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="counterExampleFile" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+        <details key="processing" value="skip"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NuSMVModel" eSuperTypes="#//Model"/>
+  <eClassifiers xsi:type="ecore:EClass" name="NuSMVUniversalModel" eSuperTypes="#//NuSMVModel #//UniversalModel"/>
+  <eClassifiers xsi:type="ecore:EClass" name="NuSMVSpecification" eSuperTypes="#//Specification"/>
+</ecore:EPackage>

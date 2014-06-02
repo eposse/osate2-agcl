@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.osate.xtext.aadl2.agcl.analysis/src" modelPluginID="org.osate.xtext.aadl2.agcl.analysis"
+    modelName="Verifiers" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="7.0" copyrightFields="false"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>verifiers.ecore</foreignModel>
+  <genPackages prefix="Verifiers" basePackage="org.osate.xtext.aadl2.agcl.analysis"
+      resource="XML" disposableProviderFactory="true" ecorePackage="verifiers.ecore#/">
+    <genClasses image="false" ecoreClass="verifiers.ecore#//VerificationResult"/>
+    <genClasses ecoreClass="verifiers.ecore#//Positive"/>
+    <genClasses ecoreClass="verifiers.ecore#//Negative">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference verifiers.ecore#//Negative/counterexample"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="verifiers.ecore#//Model"/>
+    <genClasses image="false" ecoreClass="verifiers.ecore#//Specification"/>
+    <genClasses image="false" ecoreClass="verifiers.ecore#//CounterExample"/>
+    <genClasses image="false" ecoreClass="verifiers.ecore#//UniversalModel"/>
+    <genClasses image="false" ecoreClass="verifiers.ecore#//ModelChecker">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference verifiers.ecore#//ModelChecker/externalModelChecker"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference verifiers.ecore#//ModelChecker/outputConsumer"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference verifiers.ecore#//ModelChecker/inputProducer"/>
+      <genOperations ecoreOperation="verifiers.ecore#//ModelChecker/check">
+        <genParameters ecoreParameter="verifiers.ecore#//ModelChecker/check/model"/>
+        <genParameters ecoreParameter="verifiers.ecore#//ModelChecker/check/spec"/>
+      </genOperations>
+    </genClasses>
+    <genClasses image="false" ecoreClass="verifiers.ecore#//ExternalModelChecker">
+      <genOperations ecoreOperation="verifiers.ecore#//ExternalModelChecker/check">
+        <genParameters ecoreParameter="verifiers.ecore#//ExternalModelChecker/check/input"/>
+      </genOperations>
+    </genClasses>
+    <genClasses image="false" ecoreClass="verifiers.ecore#//LogicalValidityChecker">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference verifiers.ecore#//LogicalValidityChecker/modelChecker"/>
+      <genOperations ecoreOperation="verifiers.ecore#//LogicalValidityChecker/check">
+        <genParameters ecoreParameter="verifiers.ecore#//LogicalValidityChecker/check/spec"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="verifiers.ecore#//NuSMV"/>
+    <genClasses ecoreClass="verifiers.ecore#//ModelCheckerInput"/>
+    <genClasses ecoreClass="verifiers.ecore#//ModelCheckerOutput"/>
+    <genClasses ecoreClass="verifiers.ecore#//ModelCheckerInputProducer">
+      <genOperations ecoreOperation="verifiers.ecore#//ModelCheckerInputProducer/makeInput">
+        <genParameters ecoreParameter="verifiers.ecore#//ModelCheckerInputProducer/makeInput/model"/>
+        <genParameters ecoreParameter="verifiers.ecore#//ModelCheckerInputProducer/makeInput/spec"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="verifiers.ecore#//ModelCheckerOutputConsumer">
+      <genOperations ecoreOperation="verifiers.ecore#//ModelCheckerOutputConsumer/processOutput">
+        <genParameters ecoreParameter="verifiers.ecore#//ModelCheckerOutputConsumer/processOutput/output"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="verifiers.ecore#//NuSMVInput">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute verifiers.ecore#//NuSMVInput/modelSourceFile"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute verifiers.ecore#//NuSMVInput/sessionScript"/>
+    </genClasses>
+    <genClasses ecoreClass="verifiers.ecore#//NuSMVOutput">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute verifiers.ecore#//NuSMVOutput/counterExampleFile"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute verifiers.ecore#//NuSMVOutput/outputFile"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

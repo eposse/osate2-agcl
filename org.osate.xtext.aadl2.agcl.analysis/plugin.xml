@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            label="OSATE Contract Analysis Action Set"
+            visible="true"
+            id="org.osate.xtext.aadl2.agcl.analysis.actionSet">
+         <menu
+               id="menu.osate"
+               label="OSATE"
+               path="project">
+            <groupMarker name="file.grp"/>
+            <separator name="instance.grp"/>
+            <separator name="general.grp"/>
+         </menu>
+         <menu
+               id="menu.analyses"
+               label="Analyses"
+               path="menu.osate">
+            <groupMarker
+                  name="top.grp">
+            </groupMarker>
+            <groupMarker
+                  name="bottom.grp">
+            </groupMarker>
+         </menu>
+         <menu
+               id="menu.contracts"
+               label="Contract-based Analyses"
+               path="menu.analyses/top.grp">
+            <groupMarker
+                  name="stuff.grp">
+            </groupMarker>
+         </menu>
+         <action
+               label="&amp;Check contracts"
+               icon="icons/agicon.gif"
+               class="org.osate.xtext.aadl2.agcl.analysis.actions.CheckContractsAction"
+               tooltip="Perform contract analysis"
+               menubarPath="menu.analyses/menu.contracts/stuff.grp"
+               toolbarPath="agcl.toolbar"
+               id="org.osate.xtext.aadl2.agcl.analysis.actions.CheckContractsAction">
+         </action>
+         <action
+               class="org.osate.xtext.aadl2.agcl.analysis.actions.PrintPSLSpecsAction"
+               icon="icons/agcl_printpsl.gif"
+               id="org.osate.xtext.aadl2.agcl.analysis.actions.PrintPSLSpecsAction"
+               label="Print PSL Specs"
+               menubarPath="menu.analyses/menu.contracts/stuff.grp"
+               style="push"
+               toolbarPath="agcl.toolbar"
+               tooltip="Print PSL Specs">
+         </action>
+         <action
+               class="org.osate.xtext.aadl2.agcl.analysis.actions.AtomicAnalysisAction"
+               icon="icons/ag_atomic_analysis_icon.gif"
+               id="org.osate.xtext.aadl2.agcl.analysis.atomic_analysis_action"
+               label="A/G &amp;atomic analysis"
+               menubarPath="menu.analyses/menu.contracts/stuff.grp"
+               style="push"
+               toolbarPath="agcl.toolbar"
+               tooltip="Perform A/G atomic analysis">
+         </action>
+         <action
+               class="org.osate.xtext.aadl2.agcl.analysis.actions.CompositeAnalysisAction"
+               icon="icons/ag_composite_analysis_icon.gif"
+               id="org.osate.xtext.aadl2.agcl.analysis.composite_analysis_action"
+               label="A/G &amp;composite analysis"
+               menubarPath="menu.analyses/menu.contracts/stuff.grp"
+               style="push"
+               toolbarPath="agcl.toolbar"
+               tooltip="Perform A/G compositional analysis">
+         </action>
+         <action
+               class="org.osate.xtext.aadl2.agcl.analysis.actions.ImplementationTypeConformanceAction"
+               icon="icons/ag_impl_type_analysis_icon.gif"
+               id="org.osate.xtext.aadl2.agcl.analysis.impl_type_conf_action"
+               label="A/G implementation/type conformance analysis"
+               menubarPath="menu.analyses/menu.contracts/stuff.grp"
+               style="push"
+               toolbarPath="agcl.toolbar"
+               tooltip="Perform implementation/type conformance analysis">
+         </action>
+         <action
+               class="org.osate.xtext.aadl2.agcl.analysis.actions.ImplementationParentConformanceAction"
+               icon="icons/ag_impl_impl_analysis_icon.gif"
+               id="org.osate.xtext.aadl2.agcl.analysis.impl_parent_conf_action"
+               label="A/G implementation/parent conformance analysis"
+               menubarPath="menu.analyses/menu.contracts/stuff.grp"
+               style="push"
+               toolbarPath="agcl.toolbar"
+               tooltip="Perform implementation/parent conformance analysis">
+         </action>
+         <action
+               class="org.osate.xtext.aadl2.agcl.analysis.actions.TypeParentConformanceAction"
+               icon="icons/ag_type_type_analysis_icon.gif"
+               id="org.osate.xtext.aadl2.agcl.analysis.type_parent_conf_action"
+               label="A/G type/parent conformance analysis"
+               menubarPath="menu.analyses/menu.contracts/stuff.grp"
+               style="push"
+               toolbarPath="agcl.toolbar"
+               tooltip="Perform type/parent conformance analysis">
+         </action>
+      </actionSet>
+   </extension>
+
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated verifiers -->
+      <package
+            uri="http://verifiers/1.0"
+            class="org.osate.xtext.aadl2.agcl.analysis.verifiers.VerifiersPackage"
+            genModel="models/verifiers.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated verifiers -->
+      <parser
+            type="verifiers"
+            class="org.osate.xtext.aadl2.agcl.analysis.verifiers.util.VerifiersResourceFactoryImpl"/>
+   </extension>
+   <extension
+         id="org.osate.xtext.aadl2.agcl.analysis.config.preferences"
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="org.osate.xtext.aadl2.agcl.analysis.config.AGCLPreferencesPage"
+            id="org.osate.xtext.aadl2.agcl.analysis.config.defaultpreferences"
+            name="AGCL Analysis">
+      </page>
+   </extension>
+   <extension
+         id="org.osate.xtext.aadl2.agcl.analysis.config.preferences"
+         point="org.eclipse.ui.propertyPages">
+      <page
+            adaptable="true"
+            class="org.osate.xtext.aadl2.agcl.analysis.config.AGCLPreferencesPage"
+            id="org.osate.xtext.aadl2.agcl.analysis.config.defaultpreferences"
+            name="AGCL analysis project-specific preferences"
+            objectClass="org.eclipse.core.resources.IProject">
+      </page>
+   </extension>
+</plugin>

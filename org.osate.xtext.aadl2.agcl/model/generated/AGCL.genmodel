@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.osate.xtext.aadl2.agcl/src-gen" editDirectory="/org.osate.xtext.aadl2.agcl.edit/src"
+    editorDirectory="/org.osate.xtext.aadl2.agcl.editor/src" modelPluginID="org.osate.xtext.aadl2.agcl"
+    forceOverwrite="true" modelName="AGCL" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    complianceLevel="5.0" copyrightFields="false" editPluginID="org.osate.xtext.aadl2.agcl.edit"
+    editorPluginID="org.osate.xtext.aadl2.agcl.editor" runtimeVersion="2.9" usedGenPackages="../../../org.osate.aadl2/model/aadl2-nouml.genmodel#//aadl2">
+  <genPackages prefix="Agcl" basePackage="org.osate.xtext.aadl2.agcl" resource="XML"
+      disposableProviderFactory="true" fileExtensions="agcl" ecorePackage="AGCL.ecore#/">
+    <genClasses ecoreClass="AGCL.ecore#//AGCLGrammarRoot">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference AGCL.ecore#//AGCLGrammarRoot/lib"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference AGCL.ecore#//AGCLGrammarRoot/subclause"/>
+    </genClasses>
+    <genClasses ecoreClass="AGCL.ecore#//AGCLAnnexLibrary">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference AGCL.ecore#//AGCLAnnexLibrary/viewpoints"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference AGCL.ecore#//AGCLAnnexLibrary/enforceclauses"/>
+    </genClasses>
+    <genClasses ecoreClass="AGCL.ecore#//AGCLViewpoint">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute AGCL.ecore#//AGCLViewpoint/name"/>
+    </genClasses>
+    <genClasses ecoreClass="AGCL.ecore#//AGCLEnforce">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute AGCL.ecore#//AGCLEnforce/name"/>
+    </genClasses>
+    <genClasses ecoreClass="AGCL.ecore#//AGCLAnnexSubclause">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference AGCL.ecore#//AGCLAnnexSubclause/declarations"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference AGCL.ecore#//AGCLAnnexSubclause/behaviour"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference AGCL.ecore#//AGCLAnnexSubclause/contracts"/>
+    </genClasses>
+    <genClasses ecoreClass="AGCL.ecore#//AGCLContract">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute AGCL.ecore#//AGCLContract/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference AGCL.ecore#//AGCLContract/declarations"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference AGCL.ecore#//AGCLContract/assumption"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference AGCL.ecore#//AGCLContract/guarantee"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute AGCL.ecore#//AGCLContract/ename"/>
+    </genClasses>
+    <genClasses ecoreClass="AGCL.ecore#//AGCLPropertyDecl">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute AGCL.ecore#//AGCLPropertyDecl/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference AGCL.ecore#//AGCLPropertyDecl/params"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference AGCL.ecore#//AGCLPropertyDecl/spec"/>
+    </genClasses>
+    <genClasses ecoreClass="AGCL.ecore#//AGCLAssumption">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference AGCL.ecore#//AGCLAssumption/spec"/>
+    </genClasses>
+    <genClasses ecoreClass="AGCL.ecore#//AGCLGuarantee">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference AGCL.ecore#//AGCLGuarantee/spec"/>
+    </genClasses>
+    <genClasses ecoreClass="AGCL.ecore#//AGCLBehaviour">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference AGCL.ecore#//AGCLBehaviour/spec"/>
+    </genClasses>
+    <genClasses ecoreClass="AGCL.ecore#//PSLSpec">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference AGCL.ecore#//PSLSpec/formula"/>
+    </genClasses>
+    <genClasses ecoreClass="AGCL.ecore#//PSLFormula"/>
+    <genClasses ecoreClass="AGCL.ecore#//PSLBooleanExpression"/>
+    <genClasses ecoreClass="AGCL.ecore#//BooleanConstant">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute AGCL.ecore#//BooleanConstant/val"/>
+    </genClasses>
+    <genClasses ecoreClass="AGCL.ecore#//AtomicProp"/>
+    <genClasses ecoreClass="AGCL.ecore#//Var">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute AGCL.ecore#//Var/name"/>
+    </genClasses>
+    <genClasses ecoreClass="AGCL.ecore#//Input">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute AGCL.ecore#//Input/link"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute AGCL.ecore#//Input/event"/>
+    </genClasses>
+    <genClasses ecoreClass="AGCL.ecore#//Output">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute AGCL.ecore#//Output/link"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute AGCL.ecore#//Output/event"/>
+    </genClasses>
+    <genClasses ecoreClass="AGCL.ecore#//PSLDisjunction">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference AGCL.ecore#//PSLDisjunction/terms"/>
+    </genClasses>
+    <genClasses ecoreClass="AGCL.ecore#//PSLConjunction">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference AGCL.ecore#//PSLConjunction/factors"/>
+    </genClasses>
+    <genClasses ecoreClass="AGCL.ecore#//PSLAtom"/>
+    <genClasses ecoreClass="AGCL.ecore#//PSLNegation"/>
+    <genClasses ecoreClass="AGCL.ecore#//Parameter"/>
+  </genPackages>
+</genmodel:GenModel>

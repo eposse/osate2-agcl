@@ -1,0 +1,172 @@
+/**
+ */
+package org.osate.xtext.aadl2.agcl.analysis.verifiers.impl;
+
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
+
+import org.eclipse.emf.ecore.impl.EFactoryImpl;
+
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
+
+import org.osate.xtext.aadl2.agcl.analysis.verifiers.*;
+
+/**
+ * <!-- begin-user-doc -->
+ * An implementation of the model <b>Factory</b>.
+ * <!-- end-user-doc -->
+ * @generated
+ */
+public class VerifiersFactoryImpl extends EFactoryImpl implements VerifiersFactory {
+	/**
+	 * Creates the default factory implementation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static VerifiersFactory init() {
+		try {
+			VerifiersFactory theVerifiersFactory = (VerifiersFactory)EPackage.Registry.INSTANCE.getEFactory(VerifiersPackage.eNS_URI);
+			if (theVerifiersFactory != null) {
+				return theVerifiersFactory;
+			}
+		}
+		catch (Exception exception) {
+			EcorePlugin.INSTANCE.log(exception);
+		}
+		return new VerifiersFactoryImpl();
+	}
+
+	/**
+	 * Creates an instance of the factory.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public VerifiersFactoryImpl() {
+		super();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EObject create(EClass eClass) {
+		switch (eClass.getClassifierID()) {
+			case VerifiersPackage.POSITIVE: return createPositive();
+			case VerifiersPackage.NEGATIVE: return createNegative();
+			case VerifiersPackage.NU_SMV_MODEL_CHECKER: return createNuSMVModelChecker();
+			case VerifiersPackage.NU_SMV_INPUT: return createNuSMVInput();
+			case VerifiersPackage.NU_SMV_OUTPUT: return createNuSMVOutput();
+			case VerifiersPackage.NU_SMV_MODEL: return createNuSMVModel();
+			case VerifiersPackage.NU_SMV_UNIVERSAL_MODEL: return createNuSMVUniversalModel();
+			case VerifiersPackage.NU_SMV_SPECIFICATION: return createNuSMVSpecification();
+			default:
+				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Positive createPositive() {
+		PositiveImpl positive = new PositiveImpl();
+		return positive;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Negative createNegative() {
+		NegativeImpl negative = new NegativeImpl();
+		return negative;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NuSMVModelChecker createNuSMVModelChecker() {
+		NuSMVModelCheckerImpl nuSMVModelChecker = new NuSMVModelCheckerImpl();
+		return nuSMVModelChecker;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NuSMVInput createNuSMVInput() {
+		NuSMVInputImpl nuSMVInput = new NuSMVInputImpl();
+		return nuSMVInput;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NuSMVOutput createNuSMVOutput() {
+		NuSMVOutputImpl nuSMVOutput = new NuSMVOutputImpl();
+		return nuSMVOutput;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NuSMVModel createNuSMVModel() {
+		NuSMVModelImpl nuSMVModel = new NuSMVModelImpl();
+		return nuSMVModel;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NuSMVUniversalModel createNuSMVUniversalModel() {
+		NuSMVUniversalModelImpl nuSMVUniversalModel = new NuSMVUniversalModelImpl();
+		return nuSMVUniversalModel;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NuSMVSpecification createNuSMVSpecification() {
+		NuSMVSpecificationImpl nuSMVSpecification = new NuSMVSpecificationImpl();
+		return nuSMVSpecification;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public VerifiersPackage getVerifiersPackage() {
+		return (VerifiersPackage)getEPackage();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @deprecated
+	 * @generated
+	 */
+	@Deprecated
+	public static VerifiersPackage getPackage() {
+		return VerifiersPackage.eINSTANCE;
+	}
+
+} //VerifiersFactoryImpl

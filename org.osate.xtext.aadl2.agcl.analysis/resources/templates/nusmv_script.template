@@ -1,0 +1,7 @@
+set on_failure_script_quits 1
+set default_trace_plugin 4
+set nusmv_stderr "${stderr}"
+set nusmv_stdout "${stdout}"
+process_model -i ${inputmodel}
+show_traces -o "${counterexamples}"
+quit

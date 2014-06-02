@@ -1,0 +1,174 @@
+grammar org.osate.xtext.aadl2.agcl.AGCL with org.eclipse.xtext.common.Terminals
+
+// import "http://agcl/1.0" 
+generate agcl "http://www.osate.org/xtext/aadl2/agcl/AGCL"
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+import "platform:/resource/org.osate.aadl2/model/aadl2.ecore" as aadl2
+
+// This leads to a build-dependency cycle
+
+//import "platform:/resource/org.osate.xtext.aadl2.agcl.analysis/models/verifiers.ecore" as verifiers
+//import "http://verifiers/1.0" as verifiers
+
+AGCLGrammarRoot :    
+      'library' lib = AGCLAnnexLibrary 
+    | 'subclause' subclause = AGCLAnnexSubclause
+;
+
+AnnexLibrary returns aadl2::AnnexLibrary:
+     AGCLAnnexLibrary
+;
+
+AnnexSubclause returns aadl2::AnnexSubclause:
+     AGCLAnnexSubclause
+//    AGCLTypeSubclause | AGCLImplSubclause
+;
+
+AGCLAnnexLibrary returns AGCLAnnexLibrary:
+    {AGCLAnnexLibrary}
+    ( viewpoints += AGCLViewpoint (viewpoints += AGCLViewpoint)* )?
+    ( enforceclauses += AGCLEnforce (enforceclauses += AGCLEnforce)* )?
+;
+
+AGCLViewpoint returns AGCLViewpoint:
+    'viewpoint' name = ID ';'
+;
+
+AGCLEnforce returns AGCLEnforce:
+    'enforce' name = ID ';'
+;
+
+AGCLAnnexSubclause returns AGCLAnnexSubclause:
+    {AGCLAnnexSubclause}
+    ( declarations += AGCLPropertyDecl (declarations += AGCLPropertyDecl)* )?
+    ( behaviour = AGCLBehaviour )?
+    ( contracts += AGCLContract (contracts += AGCLContract)* )?
+;
+
+
+//AGCLAnnexSubclause returns AGCLAnnexSubclause:
+//    AGCLTypeSubclause | AGCLImplSubclause
+//;
+
+//AGCLAnnexSubclause returns AGCLAnnexSubclause:
+//    {AGCLAnnexSubclause}
+//    ( declarations += AGCLPropertyDecl (declarations += AGCLPropertyDecl)* )?
+//    ( contracts += AGCLContract (contracts += AGCLContract)* )?
+//;
+
+//AGCLTypeSubclause returns AGCLTypeSubclause:
+//    {AGCLTypeSubclause}
+//    ( declarations += AGCLPropertyDecl (declarations += AGCLPropertyDecl)* )?
+//    ( contracts += AGCLContract (contracts += AGCLContract)* )?
+//;
+//
+//AGCLImplSubclause returns AGCLImplSubclause:
+//    {AGCLImplSubclause}
+//    ( declarations += AGCLPropertyDecl (declarations += AGCLPropertyDecl)* )?
+//    ( behaviour = AGCLBehaviour )?
+//    ( contracts += AGCLContract (contracts += AGCLContract)* )?
+//;
+
+AGCLContract returns AGCLContract:
+    'contract' name = ID
+        ( declarations += AGCLPropertyDecl (declarations += AGCLPropertyDecl)* )?
+        assumption = AGCLAssumption
+        guarantee = AGCLGuarantee
+    'end' ename = ID ';'
+;
+
+AGCLPropertyDecl returns AGCLPropertyDecl:
+    'property' name = ID 
+        ( '(' params += Parameter ( "," params += Parameter)* ')' )? '='
+            spec=PSLSpec
+    ';'
+;
+
+AGCLAssumption returns AGCLAssumption:
+    'assumption' spec = PSLSpec ';'
+;
+
+AGCLGuarantee returns AGCLGuarantee:
+    'guarantee' spec = PSLSpec ';'
+;
+
+AGCLBehaviour returns AGCLBehaviour:
+    ('behaviour' | 'behavior') spec = PSLSpec ';'
+;
+
+// This leads to a build-dependency cycle
+//PSLSpecification returns verifiers::Specification:
+//    PSLSpec
+//;
+
+PSLSpec returns PSLSpec:
+    'psl'? formula = PSLFormula
+;
+
+PSLFormula returns PSLFormula:
+    PSLBooleanExpression
+;
+
+PSLBooleanExpression returns PSLBooleanExpression:
+    PSLDisjunction
+;
+
+BooleanConstant returns BooleanConstant:
+    {BooleanConstant}
+	val = TRUE | val = FALSE
+;
+
+AtomicProp:
+      Var
+    | Input
+    | Output
+;
+
+Var:
+    name = ID
+;
+
+Input:
+    'in' link = ID (':' event = ID)? 
+;
+
+Output:
+    'out' link = ID (':' event = ID)? 
+;
+
+PSLDisjunction:
+    terms += PSLConjunction (OR terms += PSLConjunction)*
+;
+
+PSLConjunction:
+    factors += PSLAtom (AND factors += PSLAtom)*
+;
+
+PSLAtom:
+      BooleanConstant
+    | AtomicProp
+    | PSLNegation
+    | '(' PSLBooleanExpression ')'
+;
+
+PSLNegation:
+    NOT PSLBooleanExpression
+;
+
+Parameter returns Parameter:
+    ID;
+
+//EString returns ecore::EString:
+//    STRING | ID;
+
+terminal SL_COMMENT:
+    '--' !('\n' | '\r')* ('\r'? '\n')?;
+
+terminal TRUE: 'T' | 'true' | '1';
+terminal FALSE: 'F' | 'false' | '0';
+terminal AND: '&&' | '&' | 'and';
+terminal OR: '||' | '|' | 'or';
+terminal NOT: '!' | 'not';
+terminal IMPL: '->';
+terminal IFF: '<->';
+ 

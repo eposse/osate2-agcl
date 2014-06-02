@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature id="org.osate.xtext.aadl2.agcl.sdk"
+	label="AGCL SDK Feature "
+	version="1.0.0.qualifier">
+	<plugin
+			id="org.osate.xtext.aadl2.agcl"
+			download-size="0"
+			install-size="0"
+			version="0.0.0"
+			unpack="false"/>
+	<plugin
+			id="org.osate.xtext.aadl2.agcl.ui"
+			download-size="0"
+			install-size="0"
+			version="0.0.0"
+			unpack="false"/>
+</feature>

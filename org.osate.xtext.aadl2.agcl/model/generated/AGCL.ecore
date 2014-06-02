@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="agcl" nsURI="http://www.osate.org/xtext/aadl2/agcl/AGCL" nsPrefix="agcl">
+  <eClassifiers xsi:type="ecore:EClass" name="AGCLGrammarRoot">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="lib" eType="#//AGCLAnnexLibrary"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subclause" eType="#//AGCLAnnexSubclause"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AGCLAnnexLibrary" eSuperTypes="../../../org.osate.aadl2/model/aadl2.ecore#//AnnexLibrary">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="viewpoints" upperBound="-1"
+        eType="#//AGCLViewpoint" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="enforceclauses" upperBound="-1"
+        eType="#//AGCLEnforce" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AGCLViewpoint">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AGCLEnforce">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AGCLAnnexSubclause" eSuperTypes="../../../org.osate.aadl2/model/aadl2.ecore#//AnnexSubclause">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="declarations" upperBound="-1"
+        eType="#//AGCLPropertyDecl" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="behaviour" eType="#//AGCLBehaviour"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="contracts" upperBound="-1"
+        eType="#//AGCLContract" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AGCLContract">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="declarations" upperBound="-1"
+        eType="#//AGCLPropertyDecl" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="assumption" eType="#//AGCLAssumption"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="guarantee" eType="#//AGCLGuarantee"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ename" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AGCLPropertyDecl">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="params" upperBound="-1"
+        eType="#//Parameter" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="spec" eType="#//PSLSpec"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AGCLAssumption">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="spec" eType="#//PSLSpec"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AGCLGuarantee">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="spec" eType="#//PSLSpec"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AGCLBehaviour">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="spec" eType="#//PSLSpec"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PSLSpec">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="formula" eType="#//PSLFormula"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PSLFormula"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PSLBooleanExpression" eSuperTypes="#//PSLFormula #//PSLAtom #//PSLNegation"/>
+  <eClassifiers xsi:type="ecore:EClass" name="BooleanConstant" eSuperTypes="#//PSLAtom">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="val" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AtomicProp" eSuperTypes="#//PSLAtom"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Var" eSuperTypes="#//AtomicProp">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Input" eSuperTypes="#//AtomicProp">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="link" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="event" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Output" eSuperTypes="#//AtomicProp">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="link" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="event" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PSLDisjunction" eSuperTypes="#//PSLBooleanExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="terms" upperBound="-1"
+        eType="#//PSLConjunction" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PSLConjunction">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="factors" upperBound="-1"
+        eType="#//PSLAtom" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PSLAtom"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PSLNegation" eSuperTypes="#//PSLAtom"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Parameter"/>
+</ecore:EPackage>
