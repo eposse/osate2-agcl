@@ -136,6 +136,7 @@ public class AGCLAnalysisPlugin extends AbstractUIPlugin {
 		URL[] templateURLs = FileLocator.findEntries(bundle, templatesRelPath);
 		for (URL url : templateURLs) {
 			try {
+				Logger.getLogger(getClass()).debug(url);
 				java.nio.file.Path sourceTemplatesPath = PathUtil.stripProtocolsPath(url);
 				Logger.getLogger(getClass()).debug("src: " + sourceTemplatesPath);
 				Files.copy(sourceTemplatesPath, targetTemplatesPath);
