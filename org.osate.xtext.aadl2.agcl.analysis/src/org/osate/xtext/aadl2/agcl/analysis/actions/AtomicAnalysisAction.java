@@ -59,7 +59,7 @@ public class AtomicAnalysisAction extends AaxlReadOnlyActionAsJob {
 			AGCLAnalysisPlugin.getDefault().getActiveModelChecker().setUp(root.eResource());
 			// Count the model elements we are going to traverse
 			Class<?>[] classifiersOfInterest = 
-				{ org.osate.aadl2.ThreadImplementation.class,
+				{ org.osate.aadl2.AnnexSubclause.class,
 				  org.osate.aadl2.AnnexLibrary.class };
 			int totalElements = AGCLUtil.countClassifiers(root, classifiersOfInterest);
 			// Create the viewpoint-context which stores the viewpoints to verify.

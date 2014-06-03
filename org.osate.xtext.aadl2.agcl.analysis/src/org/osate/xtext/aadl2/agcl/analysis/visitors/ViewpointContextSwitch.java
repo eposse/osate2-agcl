@@ -8,6 +8,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
+import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.ThreadImplementation;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
@@ -74,8 +75,16 @@ public class ViewpointContextSwitch extends AadlProcessingSwitchWithProgress {
 		aadl2Switch = new Aadl2Switch<String>() {
 			public String caseAnnexLibrary(AnnexLibrary obj) {
 				monitor.subTask("AnnexLibrary" + obj.getName());
+				Logger.getLogger(getClass()).debug("visiting: " + obj);
+				if (obj instanceof DefaultAnnexLibrary)
+					return "";
+				Logger.getLogger(getClass()).debug("visiting non-default annex library");
+				if (!(obj instanceof AGCLAnnexLibrary))
+					return "";
+				Logger.getLogger(getClass()).debug("visiting AGCL annex library");
 				if (obj.getName().equals("AGCL")) {
-					agclSwitch.doSwitch(obj); // Could be optimized by invoking caseAGCLAnnexLibrary directly
+					agclSwitch.caseAGCLAnnexLibrary((AGCLAnnexLibrary) obj);
+//					agclSwitch.doSwitch(obj); // Could be optimized by invoking caseAGCLAnnexLibrary directly
 //					agclSwitch.doSwitch((AGCLAnnexLibrary) obj); // Could be optimized by invoking caseAGCLAnnexLibrary directly
 				}
 			    monitor.worked(1);

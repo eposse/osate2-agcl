@@ -27,9 +27,9 @@ import org.osate.xtext.aadl2.agcl.analysis.config.IPreferenceConstants;
  */
 public class AGCLUtil {
 	
-	public static int countClassifiers(Element root, Class[] classifiersOfInterest) {
+	public static int countClassifiers(Element root, Class<?>[] classifiersOfInterest) {
 		int totalElements = 0;
-		for (Class classifier : classifiersOfInterest) {
+		for (Class<?> classifier : classifiersOfInterest) {
 			totalElements += AadlUtil.countElementsBySubclass(root, classifier);
 		}
 		return totalElements;

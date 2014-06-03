@@ -1,29 +1,18 @@
 package org.osate.xtext.aadl2.agcl.analysis.visitors;
 
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
-import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.Classifier;
-import org.osate.aadl2.ThreadImplementation;
-import org.osate.aadl2.ThreadType;
-import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
+import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
 import org.osate.aadl2.util.Aadl2Switch;
-import org.osate.xtext.aadl2.agcl.agcl.AGCLAnnexLibrary;
 import org.osate.xtext.aadl2.agcl.agcl.AGCLAnnexSubclause;
 import org.osate.xtext.aadl2.agcl.agcl.AGCLBehaviour;
 import org.osate.xtext.aadl2.agcl.agcl.AGCLContract;
-import org.osate.xtext.aadl2.agcl.agcl.AGCLEnforce;
-import org.osate.xtext.aadl2.agcl.agcl.AGCLViewpoint;
-import org.osate.xtext.aadl2.agcl.agcl.impl.AGCLAnnexSubclauseImpl;
 import org.osate.xtext.aadl2.agcl.agcl.util.AgclSwitch;
+import org.osate.xtext.aadl2.agcl.analysis.verifiers.Negative;
+import org.osate.xtext.aadl2.agcl.analysis.verifiers.Positive;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.VerificationResult;
 
 /**
@@ -91,25 +80,17 @@ public class AtomicAnalysisSwitch extends AadlProcessingSwitchWithProgress {
 			}
 		};
 		aadl2Switch = new Aadl2Switch<String>() {
-			public String caseThreadImplementation(ThreadImplementation obj) {
-				monitor.subTask("ThreadImplementation" + obj.getName());
-				Logger.getLogger(getClass()).info("processing thread implementation '" + obj.getName() + "'");
-				// We look for an *owned* (non-inherited) AGCL annex for this thread implementation.
-				// We don't look for inherited annexes because that is a separate analysis.
-				EList<AnnexSubclause> annexes = obj.getOwnedAnnexSubclauses();
-				AnnexSubclause agclAnnexSubclause = null;
-//				AGCLAnnexSubclause agclAnnexSubclause = null;
-				for (AnnexSubclause annexSubclause : annexes) {
-					if (annexSubclause.getName().equals("AGCL")) {
-						agclAnnexSubclause = annexSubclause;
-//						agclAnnexSubclause = (AGCLAnnexSubclause) annexSubclause;
-						break; // We chose the first annex sub-clause named AGCL; others are ignored.
-					}
-				}
-				// We process the thread implementation's AGCL annex. 
-				// If no AGCL annex was found, we ignore this thread implementation.
-				if (agclAnnexSubclause != null) {
-					agclSwitch.doSwitch(agclAnnexSubclause);  // Could be optimized by invoking caseAGCLAnnexSubclause directly
+			public String caseAnnexSubclause(AnnexSubclause obj) {
+				monitor.subTask("AnnexSubclause " + obj.getName());
+				Logger.getLogger(getClass()).debug("visiting: " + obj);
+				if (obj instanceof DefaultAnnexSubclause) 
+					return "";
+				Logger.getLogger(getClass()).debug("visiting non-default annex subclause: " + obj);
+				if (!(obj instanceof AGCLAnnexSubclause))
+					return "";
+				Logger.getLogger(getClass()).debug("visiting AGCL annex subclause: " + obj);
+				if (obj.getName().equals("AGCL")) {
+					agclSwitch.caseAGCLAnnexSubclause((AGCLAnnexSubclause) obj);
 				}
 				monitor.worked(1);
 				return obj.toString();
