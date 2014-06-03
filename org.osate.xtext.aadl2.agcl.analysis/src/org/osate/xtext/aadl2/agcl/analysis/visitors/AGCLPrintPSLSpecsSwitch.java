@@ -56,9 +56,9 @@ public class AGCLPrintPSLSpecsSwitch extends AadlProcessingSwitchWithProgress {
 				
 			}
 			public String caseAGCLBehaviour(AGCLBehaviour obj) {
-				monitor.subTask("AGCL behaviour" + obj.getSpec().getFormula().toString());
+				monitor.subTask("AGCL behaviour" + obj.getSpec().getExpr().toString());
 				System.out.println("* AGCL behaviour");
-				System.out.println("    formula = '" + obj.getSpec().getFormula().toString() + "'");
+				System.out.println("    expr = '" + obj.getSpec().getExpr().toString() + "'");
 				String s = serializer.serialize(obj);
 				System.out.println("    serialized = '" + s + "'");
 				monitor.worked(1);

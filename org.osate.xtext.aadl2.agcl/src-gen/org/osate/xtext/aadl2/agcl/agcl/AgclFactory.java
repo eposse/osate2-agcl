@@ -122,13 +122,13 @@ public interface AgclFactory extends EFactory
   PSLSpec createPSLSpec();
 
   /**
-   * Returns a new object of class '<em>PSL Formula</em>'.
+   * Returns a new object of class '<em>PSL Expression</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>PSL Formula</em>'.
+   * @return a new object of class '<em>PSL Expression</em>'.
    * @generated
    */
-  PSLFormula createPSLFormula();
+  PSLExpression createPSLExpression();
 
   /**
    * Returns a new object of class '<em>PSL Boolean Expression</em>'.
@@ -228,6 +228,15 @@ public interface AgclFactory extends EFactory
    * @generated
    */
   Parameter createParameter();
+
+  /**
+   * Returns a new object of class '<em>Property Name</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Property Name</em>'.
+   * @generated
+   */
+  PropertyName createPropertyName();
 
   /**
    * Returns the package supported by this factory.

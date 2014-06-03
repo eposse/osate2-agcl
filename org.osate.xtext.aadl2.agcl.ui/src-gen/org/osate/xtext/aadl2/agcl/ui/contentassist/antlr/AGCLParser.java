@@ -39,6 +39,7 @@ public class AGCLParser extends AbstractContentAssistParser {
 				{
 					put(grammarAccess.getAGCLGrammarRootAccess().getAlternatives(), "rule__AGCLGrammarRoot__Alternatives");
 					put(grammarAccess.getAGCLBehaviourAccess().getAlternatives_0(), "rule__AGCLBehaviour__Alternatives_0");
+					put(grammarAccess.getPSLExpressionAccess().getAlternatives_1(), "rule__PSLExpression__Alternatives_1");
 					put(grammarAccess.getBooleanConstantAccess().getAlternatives(), "rule__BooleanConstant__Alternatives");
 					put(grammarAccess.getAtomicPropAccess().getAlternatives(), "rule__AtomicProp__Alternatives");
 					put(grammarAccess.getPSLAtomAccess().getAlternatives(), "rule__PSLAtom__Alternatives");
@@ -61,6 +62,9 @@ public class AGCLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAGCLGuaranteeAccess().getGroup(), "rule__AGCLGuarantee__Group__0");
 					put(grammarAccess.getAGCLBehaviourAccess().getGroup(), "rule__AGCLBehaviour__Group__0");
 					put(grammarAccess.getPSLSpecAccess().getGroup(), "rule__PSLSpec__Group__0");
+					put(grammarAccess.getPSLExpressionAccess().getGroup(), "rule__PSLExpression__Group__0");
+					put(grammarAccess.getPSLExpressionAccess().getGroup_1_0(), "rule__PSLExpression__Group_1_0__0");
+					put(grammarAccess.getPSLExpressionAccess().getGroup_1_1(), "rule__PSLExpression__Group_1_1__0");
 					put(grammarAccess.getBooleanConstantAccess().getGroup_0(), "rule__BooleanConstant__Group_0__0");
 					put(grammarAccess.getInputAccess().getGroup(), "rule__Input__Group__0");
 					put(grammarAccess.getInputAccess().getGroup_2(), "rule__Input__Group_2__0");
@@ -98,7 +102,12 @@ public class AGCLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAGCLAssumptionAccess().getSpecAssignment_1(), "rule__AGCLAssumption__SpecAssignment_1");
 					put(grammarAccess.getAGCLGuaranteeAccess().getSpecAssignment_1(), "rule__AGCLGuarantee__SpecAssignment_1");
 					put(grammarAccess.getAGCLBehaviourAccess().getSpecAssignment_1(), "rule__AGCLBehaviour__SpecAssignment_1");
-					put(grammarAccess.getPSLSpecAccess().getFormulaAssignment_1(), "rule__PSLSpec__FormulaAssignment_1");
+					put(grammarAccess.getPSLSpecAccess().getExprAssignment_1(), "rule__PSLSpec__ExprAssignment_1");
+					put(grammarAccess.getPSLExpressionAccess().getConditionAssignment_0(), "rule__PSLExpression__ConditionAssignment_0");
+					put(grammarAccess.getPSLExpressionAccess().getImplicationAssignment_1_0_0(), "rule__PSLExpression__ImplicationAssignment_1_0_0");
+					put(grammarAccess.getPSLExpressionAccess().getConclusionAssignment_1_0_1(), "rule__PSLExpression__ConclusionAssignment_1_0_1");
+					put(grammarAccess.getPSLExpressionAccess().getBiconditionalAssignment_1_1_0(), "rule__PSLExpression__BiconditionalAssignment_1_1_0");
+					put(grammarAccess.getPSLExpressionAccess().getOtherAssignment_1_1_1(), "rule__PSLExpression__OtherAssignment_1_1_1");
 					put(grammarAccess.getBooleanConstantAccess().getValAssignment_0_1(), "rule__BooleanConstant__ValAssignment_0_1");
 					put(grammarAccess.getBooleanConstantAccess().getValAssignment_1(), "rule__BooleanConstant__ValAssignment_1");
 					put(grammarAccess.getVarAccess().getNameAssignment(), "rule__Var__NameAssignment");
@@ -110,6 +119,7 @@ public class AGCLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getPSLDisjunctionAccess().getTermsAssignment_1_1(), "rule__PSLDisjunction__TermsAssignment_1_1");
 					put(grammarAccess.getPSLConjunctionAccess().getFactorsAssignment_0(), "rule__PSLConjunction__FactorsAssignment_0");
 					put(grammarAccess.getPSLConjunctionAccess().getFactorsAssignment_1_1(), "rule__PSLConjunction__FactorsAssignment_1_1");
+					put(grammarAccess.getPSLNegationAccess().getNegatedAssignment_1(), "rule__PSLNegation__NegatedAssignment_1");
 				}
 			};
 		}

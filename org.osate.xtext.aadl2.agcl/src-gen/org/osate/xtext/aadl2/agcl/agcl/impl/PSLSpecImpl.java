@@ -12,7 +12,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.osate.xtext.aadl2.agcl.agcl.AgclPackage;
-import org.osate.xtext.aadl2.agcl.agcl.PSLFormula;
+import org.osate.xtext.aadl2.agcl.agcl.PSLExpression;
 import org.osate.xtext.aadl2.agcl.agcl.PSLSpec;
 
 /**
@@ -22,7 +22,7 @@ import org.osate.xtext.aadl2.agcl.agcl.PSLSpec;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.xtext.aadl2.agcl.agcl.impl.PSLSpecImpl#getFormula <em>Formula</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.agcl.agcl.impl.PSLSpecImpl#getExpr <em>Expr</em>}</li>
  * </ul>
  * </p>
  *
@@ -31,14 +31,14 @@ import org.osate.xtext.aadl2.agcl.agcl.PSLSpec;
 public class PSLSpecImpl extends MinimalEObjectImpl.Container implements PSLSpec
 {
   /**
-   * The cached value of the '{@link #getFormula() <em>Formula</em>}' containment reference.
+   * The cached value of the '{@link #getExpr() <em>Expr</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getFormula()
+   * @see #getExpr()
    * @generated
    * @ordered
    */
-  protected PSLFormula formula;
+  protected PSLExpression expr;
 
   /**
    * <!-- begin-user-doc -->
@@ -66,9 +66,9 @@ public class PSLSpecImpl extends MinimalEObjectImpl.Container implements PSLSpec
    * <!-- end-user-doc -->
    * @generated
    */
-  public PSLFormula getFormula()
+  public PSLExpression getExpr()
   {
-    return formula;
+    return expr;
   }
 
   /**
@@ -76,13 +76,13 @@ public class PSLSpecImpl extends MinimalEObjectImpl.Container implements PSLSpec
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetFormula(PSLFormula newFormula, NotificationChain msgs)
+  public NotificationChain basicSetExpr(PSLExpression newExpr, NotificationChain msgs)
   {
-    PSLFormula oldFormula = formula;
-    formula = newFormula;
+    PSLExpression oldExpr = expr;
+    expr = newExpr;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AgclPackage.PSL_SPEC__FORMULA, oldFormula, newFormula);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AgclPackage.PSL_SPEC__EXPR, oldExpr, newExpr);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -93,20 +93,20 @@ public class PSLSpecImpl extends MinimalEObjectImpl.Container implements PSLSpec
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setFormula(PSLFormula newFormula)
+  public void setExpr(PSLExpression newExpr)
   {
-    if (newFormula != formula)
+    if (newExpr != expr)
     {
       NotificationChain msgs = null;
-      if (formula != null)
-        msgs = ((InternalEObject)formula).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AgclPackage.PSL_SPEC__FORMULA, null, msgs);
-      if (newFormula != null)
-        msgs = ((InternalEObject)newFormula).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AgclPackage.PSL_SPEC__FORMULA, null, msgs);
-      msgs = basicSetFormula(newFormula, msgs);
+      if (expr != null)
+        msgs = ((InternalEObject)expr).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AgclPackage.PSL_SPEC__EXPR, null, msgs);
+      if (newExpr != null)
+        msgs = ((InternalEObject)newExpr).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AgclPackage.PSL_SPEC__EXPR, null, msgs);
+      msgs = basicSetExpr(newExpr, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AgclPackage.PSL_SPEC__FORMULA, newFormula, newFormula));
+      eNotify(new ENotificationImpl(this, Notification.SET, AgclPackage.PSL_SPEC__EXPR, newExpr, newExpr));
   }
 
   /**
@@ -119,8 +119,8 @@ public class PSLSpecImpl extends MinimalEObjectImpl.Container implements PSLSpec
   {
     switch (featureID)
     {
-      case AgclPackage.PSL_SPEC__FORMULA:
-        return basicSetFormula(null, msgs);
+      case AgclPackage.PSL_SPEC__EXPR:
+        return basicSetExpr(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -135,8 +135,8 @@ public class PSLSpecImpl extends MinimalEObjectImpl.Container implements PSLSpec
   {
     switch (featureID)
     {
-      case AgclPackage.PSL_SPEC__FORMULA:
-        return getFormula();
+      case AgclPackage.PSL_SPEC__EXPR:
+        return getExpr();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -151,8 +151,8 @@ public class PSLSpecImpl extends MinimalEObjectImpl.Container implements PSLSpec
   {
     switch (featureID)
     {
-      case AgclPackage.PSL_SPEC__FORMULA:
-        setFormula((PSLFormula)newValue);
+      case AgclPackage.PSL_SPEC__EXPR:
+        setExpr((PSLExpression)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -168,8 +168,8 @@ public class PSLSpecImpl extends MinimalEObjectImpl.Container implements PSLSpec
   {
     switch (featureID)
     {
-      case AgclPackage.PSL_SPEC__FORMULA:
-        setFormula((PSLFormula)null);
+      case AgclPackage.PSL_SPEC__EXPR:
+        setExpr((PSLExpression)null);
         return;
     }
     super.eUnset(featureID);
@@ -185,8 +185,8 @@ public class PSLSpecImpl extends MinimalEObjectImpl.Container implements PSLSpec
   {
     switch (featureID)
     {
-      case AgclPackage.PSL_SPEC__FORMULA:
-        return formula != null;
+      case AgclPackage.PSL_SPEC__EXPR:
+        return expr != null;
     }
     return super.eIsSet(featureID);
   }

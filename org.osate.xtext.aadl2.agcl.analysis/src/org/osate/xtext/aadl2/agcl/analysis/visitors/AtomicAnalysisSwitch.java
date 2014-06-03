@@ -11,9 +11,16 @@ import org.osate.aadl2.util.Aadl2Switch;
 import org.osate.xtext.aadl2.agcl.agcl.AGCLAnnexSubclause;
 import org.osate.xtext.aadl2.agcl.agcl.AGCLBehaviour;
 import org.osate.xtext.aadl2.agcl.agcl.AGCLContract;
+import org.osate.xtext.aadl2.agcl.agcl.AgclFactory;
+import org.osate.xtext.aadl2.agcl.agcl.PSLBooleanExpression;
+import org.osate.xtext.aadl2.agcl.agcl.PSLConjunction;
+import org.osate.xtext.aadl2.agcl.agcl.PSLDisjunction;
+import org.osate.xtext.aadl2.agcl.agcl.PSLExpression;
+import org.osate.xtext.aadl2.agcl.agcl.PSLNegation;
 import org.osate.xtext.aadl2.agcl.agcl.PSLSpec;
 import org.osate.xtext.aadl2.agcl.agcl.util.AgclSwitch;
 import org.osate.xtext.aadl2.agcl.analysis.AGCLAnalysisPlugin;
+import org.osate.xtext.aadl2.agcl.analysis.util.AGCLSyntaxUtil;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.Negative;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.Positive;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.VerificationResult;
@@ -131,8 +138,38 @@ public class AtomicAnalysisSwitch extends AadlProcessingSwitchWithProgress {
 		Logger.getLogger(getClass()).info("behaviour  = " + behaviourStr);
 		Logger.getLogger(getClass()).info("assumption = " + assumptionStr);
 		Logger.getLogger(getClass()).info("guarantee  = " + guaranteeStr);
+		PSLExpression expr = AgclFactory.eINSTANCE.createPSLExpression();
+		PSLSpec combined = makeCombinedFormula(behaviourSpec, assumptionSpec, guaranteeSpec);
+		String combinedStr = serializer.serialize(combined);
+		Logger.getLogger(getClass()).debug("combined = " + combinedStr);
 		return null;
 		
+	}
+	
+	private PSLSpec makeCombinedFormula(PSLSpec behaviourSpec, PSLSpec assumptionSpec, PSLSpec guaranteeSpec) {
+		PSLSpec newSpec = AgclFactory.eINSTANCE.createPSLSpec();
+		PSLExpression newExpr = AgclFactory.eINSTANCE.createPSLExpression();
+		PSLExpression behaviourExpr   = behaviourSpec.getExpr();
+		PSLExpression assumptionrExpr = assumptionSpec.getExpr();
+		PSLExpression guaranteeExpr   = guaranteeSpec.getExpr();
+		PSLBooleanExpression behaviourBoolExpr   = AGCLSyntaxUtil.getBooleanExpressionFromExpression(behaviourExpr);
+		PSLBooleanExpression assumptionrBoolExpr = AGCLSyntaxUtil.getBooleanExpressionFromExpression(assumptionrExpr);
+		PSLBooleanExpression guaranteeBoolExpr   = AGCLSyntaxUtil.getBooleanExpressionFromExpression(guaranteeExpr);
+		// Build "B & A -> G"
+		// newCond = B & A
+		PSLDisjunction newCond = AgclFactory.eINSTANCE.createPSLDisjunction();
+		PSLConjunction newCondLeft = AgclFactory.eINSTANCE.createPSLConjunction();
+		newCondLeft.getFactors().add(behaviourBoolExpr);
+		newCondLeft.getFactors().add(assumptionrBoolExpr);
+		// newCondLeft = 'B & A'
+		newCond.getTerms().add(newCondLeft);
+		// newCond = 'B & A'
+		newExpr.setCondition(newCond);
+		newExpr.setConclusion(guaranteeBoolExpr);
+		newExpr.setImplication(true);
+		// newExpr = 'B & A -> G'
+		newSpec.setExpr(newExpr);
+		return newSpec;
 	}
 
 }

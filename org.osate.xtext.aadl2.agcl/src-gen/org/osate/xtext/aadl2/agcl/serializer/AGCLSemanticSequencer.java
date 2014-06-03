@@ -29,6 +29,8 @@ import org.osate.xtext.aadl2.agcl.agcl.Input;
 import org.osate.xtext.aadl2.agcl.agcl.Output;
 import org.osate.xtext.aadl2.agcl.agcl.PSLConjunction;
 import org.osate.xtext.aadl2.agcl.agcl.PSLDisjunction;
+import org.osate.xtext.aadl2.agcl.agcl.PSLExpression;
+import org.osate.xtext.aadl2.agcl.agcl.PSLNegation;
 import org.osate.xtext.aadl2.agcl.agcl.PSLSpec;
 import org.osate.xtext.aadl2.agcl.agcl.Var;
 import org.osate.xtext.aadl2.agcl.services.AGCLGrammarAccess;
@@ -135,10 +137,21 @@ public class AGCLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 			case AgclPackage.PSL_DISJUNCTION:
 				if(context == grammarAccess.getPSLAtomRule() ||
 				   context == grammarAccess.getPSLBooleanExpressionRule() ||
-				   context == grammarAccess.getPSLDisjunctionRule() ||
-				   context == grammarAccess.getPSLFormulaRule() ||
-				   context == grammarAccess.getPSLNegationRule()) {
+				   context == grammarAccess.getPSLDisjunctionRule()) {
 					sequence_PSLDisjunction(context, (PSLDisjunction) semanticObject); 
+					return; 
+				}
+				else break;
+			case AgclPackage.PSL_EXPRESSION:
+				if(context == grammarAccess.getPSLExpressionRule()) {
+					sequence_PSLExpression(context, (PSLExpression) semanticObject); 
+					return; 
+				}
+				else break;
+			case AgclPackage.PSL_NEGATION:
+				if(context == grammarAccess.getPSLAtomRule() ||
+				   context == grammarAccess.getPSLNegationRule()) {
+					sequence_PSLNegation(context, (PSLNegation) semanticObject); 
 					return; 
 				}
 				else break;
@@ -339,16 +352,41 @@ public class AGCLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     formula=PSLFormula
+	 *     (condition=PSLBooleanExpression ((implication?=IMPL conclusion=PSLBooleanExpression) | (biconditional?=IFF other=PSLBooleanExpression))?)
 	 */
-	protected void sequence_PSLSpec(EObject context, PSLSpec semanticObject) {
+	protected void sequence_PSLExpression(EObject context, PSLExpression semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     negated=PSLBooleanExpression
+	 */
+	protected void sequence_PSLNegation(EObject context, PSLNegation semanticObject) {
 		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, AgclPackage.Literals.PSL_SPEC__FORMULA) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AgclPackage.Literals.PSL_SPEC__FORMULA));
+			if(transientValues.isValueTransient(semanticObject, AgclPackage.Literals.PSL_NEGATION__NEGATED) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AgclPackage.Literals.PSL_NEGATION__NEGATED));
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getPSLSpecAccess().getFormulaPSLFormulaParserRuleCall_1_0(), semanticObject.getFormula());
+		feeder.accept(grammarAccess.getPSLNegationAccess().getNegatedPSLBooleanExpressionParserRuleCall_1_0(), semanticObject.getNegated());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     expr=PSLExpression
+	 */
+	protected void sequence_PSLSpec(EObject context, PSLSpec semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, AgclPackage.Literals.PSL_SPEC__EXPR) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AgclPackage.Literals.PSL_SPEC__EXPR));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getPSLSpecAccess().getExprPSLExpressionParserRuleCall_1_0(), semanticObject.getExpr());
 		feeder.finish();
 	}
 	

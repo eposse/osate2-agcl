@@ -7,25 +7,25 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.osate.xtext.aadl2.agcl.agcl.AgclPackage;
-import org.osate.xtext.aadl2.agcl.agcl.PSLFormula;
+import org.osate.xtext.aadl2.agcl.agcl.PropertyName;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>PSL Formula</b></em>'.
+ * An implementation of the model object '<em><b>Property Name</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
-public class PSLFormulaImpl extends MinimalEObjectImpl.Container implements PSLFormula
+public class PropertyNameImpl extends MinimalEObjectImpl.Container implements PropertyName
 {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected PSLFormulaImpl()
+  protected PropertyNameImpl()
   {
     super();
   }
@@ -38,7 +38,7 @@ public class PSLFormulaImpl extends MinimalEObjectImpl.Container implements PSLF
   @Override
   protected EClass eStaticClass()
   {
-    return AgclPackage.Literals.PSL_FORMULA;
+    return AgclPackage.Literals.PROPERTY_NAME;
   }
 
-} //PSLFormulaImpl
+} //PropertyNameImpl

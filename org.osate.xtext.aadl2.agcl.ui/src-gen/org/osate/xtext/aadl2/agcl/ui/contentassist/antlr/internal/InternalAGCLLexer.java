@@ -15,7 +15,7 @@ public class InternalAGCLLexer extends Lexer {
     public static final int RULE_ID=4;
     public static final int T__29=29;
     public static final int T__28=28;
-    public static final int RULE_IFF=12;
+    public static final int RULE_IFF=9;
     public static final int T__27=27;
     public static final int T__26=26;
     public static final int T__25=25;
@@ -23,21 +23,21 @@ public class InternalAGCLLexer extends Lexer {
     public static final int T__23=23;
     public static final int T__22=22;
     public static final int RULE_ANY_OTHER=17;
-    public static final int RULE_IMPL=11;
+    public static final int RULE_IMPL=8;
     public static final int T__21=21;
     public static final int T__20=20;
     public static final int RULE_OR=5;
     public static final int RULE_AND=6;
-    public static final int RULE_SL_COMMENT=10;
+    public static final int RULE_SL_COMMENT=12;
     public static final int EOF=-1;
     public static final int RULE_NOT=7;
-    public static final int RULE_TRUE=8;
+    public static final int RULE_TRUE=10;
     public static final int RULE_ML_COMMENT=15;
     public static final int T__30=30;
     public static final int T__19=19;
     public static final int T__31=31;
     public static final int T__32=32;
-    public static final int RULE_FALSE=9;
+    public static final int RULE_FALSE=11;
     public static final int RULE_STRING=14;
     public static final int T__33=33;
     public static final int T__34=34;
@@ -480,12 +480,12 @@ public class InternalAGCLLexer extends Lexer {
         try {
             int _type = RULE_SL_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4017:17: ( '--' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
-            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4017:19: '--' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
+            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4316:17: ( '--' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
+            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4316:19: '--' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
             {
             match("--"); 
 
-            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4017:24: (~ ( ( '\\n' | '\\r' ) ) )*
+            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4316:24: (~ ( ( '\\n' | '\\r' ) ) )*
             loop1:
             do {
                 int alt1=2;
@@ -498,7 +498,7 @@ public class InternalAGCLLexer extends Lexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4017:24: ~ ( ( '\\n' | '\\r' ) )
+            	    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4316:24: ~ ( ( '\\n' | '\\r' ) )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -518,7 +518,7 @@ public class InternalAGCLLexer extends Lexer {
                 }
             } while (true);
 
-            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4017:40: ( ( '\\r' )? '\\n' )?
+            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4316:40: ( ( '\\r' )? '\\n' )?
             int alt3=2;
             int LA3_0 = input.LA(1);
 
@@ -527,9 +527,9 @@ public class InternalAGCLLexer extends Lexer {
             }
             switch (alt3) {
                 case 1 :
-                    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4017:41: ( '\\r' )? '\\n'
+                    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4316:41: ( '\\r' )? '\\n'
                     {
-                    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4017:41: ( '\\r' )?
+                    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4316:41: ( '\\r' )?
                     int alt2=2;
                     int LA2_0 = input.LA(1);
 
@@ -538,7 +538,7 @@ public class InternalAGCLLexer extends Lexer {
                     }
                     switch (alt2) {
                         case 1 :
-                            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4017:41: '\\r'
+                            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4316:41: '\\r'
                             {
                             match('\r'); 
 
@@ -570,10 +570,10 @@ public class InternalAGCLLexer extends Lexer {
         try {
             int _type = RULE_TRUE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4019:11: ( ( 'T' | 'true' | '1' ) )
-            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4019:13: ( 'T' | 'true' | '1' )
+            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4318:11: ( ( 'T' | 'true' | '1' ) )
+            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4318:13: ( 'T' | 'true' | '1' )
             {
-            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4019:13: ( 'T' | 'true' | '1' )
+            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4318:13: ( 'T' | 'true' | '1' )
             int alt4=3;
             switch ( input.LA(1) ) {
             case 'T':
@@ -600,14 +600,14 @@ public class InternalAGCLLexer extends Lexer {
 
             switch (alt4) {
                 case 1 :
-                    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4019:14: 'T'
+                    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4318:14: 'T'
                     {
                     match('T'); 
 
                     }
                     break;
                 case 2 :
-                    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4019:18: 'true'
+                    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4318:18: 'true'
                     {
                     match("true"); 
 
@@ -615,7 +615,7 @@ public class InternalAGCLLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4019:25: '1'
+                    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4318:25: '1'
                     {
                     match('1'); 
 
@@ -640,10 +640,10 @@ public class InternalAGCLLexer extends Lexer {
         try {
             int _type = RULE_FALSE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4021:12: ( ( 'F' | 'false' | '0' ) )
-            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4021:14: ( 'F' | 'false' | '0' )
+            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4320:12: ( ( 'F' | 'false' | '0' ) )
+            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4320:14: ( 'F' | 'false' | '0' )
             {
-            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4021:14: ( 'F' | 'false' | '0' )
+            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4320:14: ( 'F' | 'false' | '0' )
             int alt5=3;
             switch ( input.LA(1) ) {
             case 'F':
@@ -670,14 +670,14 @@ public class InternalAGCLLexer extends Lexer {
 
             switch (alt5) {
                 case 1 :
-                    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4021:15: 'F'
+                    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4320:15: 'F'
                     {
                     match('F'); 
 
                     }
                     break;
                 case 2 :
-                    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4021:19: 'false'
+                    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4320:19: 'false'
                     {
                     match("false"); 
 
@@ -685,7 +685,7 @@ public class InternalAGCLLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4021:27: '0'
+                    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4320:27: '0'
                     {
                     match('0'); 
 
@@ -710,10 +710,10 @@ public class InternalAGCLLexer extends Lexer {
         try {
             int _type = RULE_AND;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4023:10: ( ( '&&' | '&' | 'and' ) )
-            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4023:12: ( '&&' | '&' | 'and' )
+            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4322:10: ( ( '&&' | '&' | 'and' ) )
+            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4322:12: ( '&&' | '&' | 'and' )
             {
-            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4023:12: ( '&&' | '&' | 'and' )
+            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4322:12: ( '&&' | '&' | 'and' )
             int alt6=3;
             int LA6_0 = input.LA(1);
 
@@ -737,7 +737,7 @@ public class InternalAGCLLexer extends Lexer {
             }
             switch (alt6) {
                 case 1 :
-                    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4023:13: '&&'
+                    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4322:13: '&&'
                     {
                     match("&&"); 
 
@@ -745,14 +745,14 @@ public class InternalAGCLLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4023:18: '&'
+                    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4322:18: '&'
                     {
                     match('&'); 
 
                     }
                     break;
                 case 3 :
-                    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4023:22: 'and'
+                    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4322:22: 'and'
                     {
                     match("and"); 
 
@@ -778,10 +778,10 @@ public class InternalAGCLLexer extends Lexer {
         try {
             int _type = RULE_OR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4025:9: ( ( '||' | '|' | 'or' ) )
-            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4025:11: ( '||' | '|' | 'or' )
+            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4324:9: ( ( '||' | '|' | 'or' ) )
+            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4324:11: ( '||' | '|' | 'or' )
             {
-            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4025:11: ( '||' | '|' | 'or' )
+            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4324:11: ( '||' | '|' | 'or' )
             int alt7=3;
             int LA7_0 = input.LA(1);
 
@@ -805,7 +805,7 @@ public class InternalAGCLLexer extends Lexer {
             }
             switch (alt7) {
                 case 1 :
-                    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4025:12: '||'
+                    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4324:12: '||'
                     {
                     match("||"); 
 
@@ -813,14 +813,14 @@ public class InternalAGCLLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4025:17: '|'
+                    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4324:17: '|'
                     {
                     match('|'); 
 
                     }
                     break;
                 case 3 :
-                    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4025:21: 'or'
+                    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4324:21: 'or'
                     {
                     match("or"); 
 
@@ -846,10 +846,10 @@ public class InternalAGCLLexer extends Lexer {
         try {
             int _type = RULE_NOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4027:10: ( ( '!' | 'not' ) )
-            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4027:12: ( '!' | 'not' )
+            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4326:10: ( ( '!' | 'not' ) )
+            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4326:12: ( '!' | 'not' )
             {
-            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4027:12: ( '!' | 'not' )
+            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4326:12: ( '!' | 'not' )
             int alt8=2;
             int LA8_0 = input.LA(1);
 
@@ -867,14 +867,14 @@ public class InternalAGCLLexer extends Lexer {
             }
             switch (alt8) {
                 case 1 :
-                    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4027:13: '!'
+                    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4326:13: '!'
                     {
                     match('!'); 
 
                     }
                     break;
                 case 2 :
-                    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4027:17: 'not'
+                    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4326:17: 'not'
                     {
                     match("not"); 
 
@@ -900,8 +900,8 @@ public class InternalAGCLLexer extends Lexer {
         try {
             int _type = RULE_IMPL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4029:11: ( '->' )
-            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4029:13: '->'
+            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4328:11: ( '->' )
+            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4328:13: '->'
             {
             match("->"); 
 
@@ -921,8 +921,8 @@ public class InternalAGCLLexer extends Lexer {
         try {
             int _type = RULE_IFF;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4031:10: ( '<->' )
-            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4031:12: '<->'
+            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4330:10: ( '<->' )
+            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4330:12: '<->'
             {
             match("<->"); 
 
@@ -942,10 +942,10 @@ public class InternalAGCLLexer extends Lexer {
         try {
             int _type = RULE_ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4033:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
-            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4033:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4332:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
+            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4332:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             {
-            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4033:11: ( '^' )?
+            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4332:11: ( '^' )?
             int alt9=2;
             int LA9_0 = input.LA(1);
 
@@ -954,7 +954,7 @@ public class InternalAGCLLexer extends Lexer {
             }
             switch (alt9) {
                 case 1 :
-                    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4033:11: '^'
+                    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4332:11: '^'
                     {
                     match('^'); 
 
@@ -972,7 +972,7 @@ public class InternalAGCLLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4033:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4332:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             loop10:
             do {
                 int alt10=2;
@@ -1021,10 +1021,10 @@ public class InternalAGCLLexer extends Lexer {
         try {
             int _type = RULE_INT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4035:10: ( ( '0' .. '9' )+ )
-            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4035:12: ( '0' .. '9' )+
+            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4334:10: ( ( '0' .. '9' )+ )
+            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4334:12: ( '0' .. '9' )+
             {
-            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4035:12: ( '0' .. '9' )+
+            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4334:12: ( '0' .. '9' )+
             int cnt11=0;
             loop11:
             do {
@@ -1038,7 +1038,7 @@ public class InternalAGCLLexer extends Lexer {
 
                 switch (alt11) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4035:13: '0' .. '9'
+            	    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4334:13: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -1070,10 +1070,10 @@ public class InternalAGCLLexer extends Lexer {
         try {
             int _type = RULE_STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4037:13: ( ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
-            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4037:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4336:13: ( ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
+            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4336:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             {
-            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4037:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4336:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             int alt14=2;
             int LA14_0 = input.LA(1);
 
@@ -1091,10 +1091,10 @@ public class InternalAGCLLexer extends Lexer {
             }
             switch (alt14) {
                 case 1 :
-                    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4037:16: '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
+                    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4336:16: '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
                     {
                     match('\"'); 
-                    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4037:20: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )*
+                    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4336:20: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )*
                     loop12:
                     do {
                         int alt12=3;
@@ -1110,7 +1110,7 @@ public class InternalAGCLLexer extends Lexer {
 
                         switch (alt12) {
                     	case 1 :
-                    	    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4037:21: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
+                    	    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4336:21: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
                     	    {
                     	    match('\\'); 
                     	    if ( input.LA(1)=='\"'||input.LA(1)=='\''||input.LA(1)=='\\'||input.LA(1)=='b'||input.LA(1)=='f'||input.LA(1)=='n'||input.LA(1)=='r'||(input.LA(1)>='t' && input.LA(1)<='u') ) {
@@ -1126,7 +1126,7 @@ public class InternalAGCLLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4037:66: ~ ( ( '\\\\' | '\"' ) )
+                    	    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4336:66: ~ ( ( '\\\\' | '\"' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -1151,10 +1151,10 @@ public class InternalAGCLLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4037:86: '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
+                    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4336:86: '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
                     {
                     match('\''); 
-                    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4037:91: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )*
+                    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4336:91: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )*
                     loop13:
                     do {
                         int alt13=3;
@@ -1170,7 +1170,7 @@ public class InternalAGCLLexer extends Lexer {
 
                         switch (alt13) {
                     	case 1 :
-                    	    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4037:92: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
+                    	    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4336:92: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
                     	    {
                     	    match('\\'); 
                     	    if ( input.LA(1)=='\"'||input.LA(1)=='\''||input.LA(1)=='\\'||input.LA(1)=='b'||input.LA(1)=='f'||input.LA(1)=='n'||input.LA(1)=='r'||(input.LA(1)>='t' && input.LA(1)<='u') ) {
@@ -1186,7 +1186,7 @@ public class InternalAGCLLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4037:137: ~ ( ( '\\\\' | '\\'' ) )
+                    	    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4336:137: ~ ( ( '\\\\' | '\\'' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -1229,12 +1229,12 @@ public class InternalAGCLLexer extends Lexer {
         try {
             int _type = RULE_ML_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4039:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
-            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4039:19: '/*' ( options {greedy=false; } : . )* '*/'
+            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4338:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
+            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4338:19: '/*' ( options {greedy=false; } : . )* '*/'
             {
             match("/*"); 
 
-            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4039:24: ( options {greedy=false; } : . )*
+            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4338:24: ( options {greedy=false; } : . )*
             loop15:
             do {
                 int alt15=2;
@@ -1259,7 +1259,7 @@ public class InternalAGCLLexer extends Lexer {
 
                 switch (alt15) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4039:52: .
+            	    // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4338:52: .
             	    {
             	    matchAny(); 
 
@@ -1289,10 +1289,10 @@ public class InternalAGCLLexer extends Lexer {
         try {
             int _type = RULE_WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4041:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
-            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4041:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4340:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
+            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4340:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             {
-            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4041:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4340:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             int cnt16=0;
             loop16:
             do {
@@ -1346,8 +1346,8 @@ public class InternalAGCLLexer extends Lexer {
         try {
             int _type = RULE_ANY_OTHER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4043:16: ( . )
-            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4043:18: .
+            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4342:16: ( . )
+            // ../org.osate.xtext.aadl2.agcl.ui/src-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/antlr/internal/InternalAGCL.g:4342:18: .
             {
             matchAny(); 
 

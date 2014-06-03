@@ -13,6 +13,6 @@ package org.osate.xtext.aadl2.agcl.agcl;
  * @model
  * @generated
  */
-public interface PSLBooleanExpression extends PSLFormula, PSLAtom, PSLNegation
+public interface PSLBooleanExpression extends PSLAtom
 {
 } // PSLBooleanExpression

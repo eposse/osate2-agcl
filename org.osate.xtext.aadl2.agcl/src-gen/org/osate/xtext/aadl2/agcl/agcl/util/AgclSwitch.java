@@ -162,10 +162,10 @@ public class AgclSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case AgclPackage.PSL_FORMULA:
+      case AgclPackage.PSL_EXPRESSION:
       {
-        PSLFormula pslFormula = (PSLFormula)theEObject;
-        T result = casePSLFormula(pslFormula);
+        PSLExpression pslExpression = (PSLExpression)theEObject;
+        T result = casePSLExpression(pslExpression);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -173,8 +173,6 @@ public class AgclSwitch<T> extends Switch<T>
       {
         PSLBooleanExpression pslBooleanExpression = (PSLBooleanExpression)theEObject;
         T result = casePSLBooleanExpression(pslBooleanExpression);
-        if (result == null) result = casePSLFormula(pslBooleanExpression);
-        if (result == null) result = casePSLNegation(pslBooleanExpression);
         if (result == null) result = casePSLAtom(pslBooleanExpression);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -227,8 +225,6 @@ public class AgclSwitch<T> extends Switch<T>
         PSLDisjunction pslDisjunction = (PSLDisjunction)theEObject;
         T result = casePSLDisjunction(pslDisjunction);
         if (result == null) result = casePSLBooleanExpression(pslDisjunction);
-        if (result == null) result = casePSLFormula(pslDisjunction);
-        if (result == null) result = casePSLNegation(pslDisjunction);
         if (result == null) result = casePSLAtom(pslDisjunction);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -259,6 +255,13 @@ public class AgclSwitch<T> extends Switch<T>
       {
         Parameter parameter = (Parameter)theEObject;
         T result = caseParameter(parameter);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AgclPackage.PROPERTY_NAME:
+      {
+        PropertyName propertyName = (PropertyName)theEObject;
+        T result = casePropertyName(propertyName);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -443,17 +446,17 @@ public class AgclSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>PSL Formula</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>PSL Expression</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>PSL Formula</em>'.
+   * @return the result of interpreting the object as an instance of '<em>PSL Expression</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T casePSLFormula(PSLFormula object)
+  public T casePSLExpression(PSLExpression object)
   {
     return null;
   }
@@ -630,6 +633,22 @@ public class AgclSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseParameter(Parameter object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Property Name</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Property Name</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casePropertyName(PropertyName object)
   {
     return null;
   }

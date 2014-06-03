@@ -75,7 +75,7 @@ public class AgclFactoryImpl extends EFactoryImpl implements AgclFactory
       case AgclPackage.AGCL_GUARANTEE: return createAGCLGuarantee();
       case AgclPackage.AGCL_BEHAVIOUR: return createAGCLBehaviour();
       case AgclPackage.PSL_SPEC: return createPSLSpec();
-      case AgclPackage.PSL_FORMULA: return createPSLFormula();
+      case AgclPackage.PSL_EXPRESSION: return createPSLExpression();
       case AgclPackage.PSL_BOOLEAN_EXPRESSION: return createPSLBooleanExpression();
       case AgclPackage.BOOLEAN_CONSTANT: return createBooleanConstant();
       case AgclPackage.ATOMIC_PROP: return createAtomicProp();
@@ -87,6 +87,7 @@ public class AgclFactoryImpl extends EFactoryImpl implements AgclFactory
       case AgclPackage.PSL_ATOM: return createPSLAtom();
       case AgclPackage.PSL_NEGATION: return createPSLNegation();
       case AgclPackage.PARAMETER: return createParameter();
+      case AgclPackage.PROPERTY_NAME: return createPropertyName();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -218,10 +219,10 @@ public class AgclFactoryImpl extends EFactoryImpl implements AgclFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public PSLFormula createPSLFormula()
+  public PSLExpression createPSLExpression()
   {
-    PSLFormulaImpl pslFormula = new PSLFormulaImpl();
-    return pslFormula;
+    PSLExpressionImpl pslExpression = new PSLExpressionImpl();
+    return pslExpression;
   }
 
   /**
@@ -343,6 +344,17 @@ public class AgclFactoryImpl extends EFactoryImpl implements AgclFactory
   {
     ParameterImpl parameter = new ParameterImpl();
     return parameter;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PropertyName createPropertyName()
+  {
+    PropertyNameImpl propertyName = new PropertyNameImpl();
+    return propertyName;
   }
 
   /**

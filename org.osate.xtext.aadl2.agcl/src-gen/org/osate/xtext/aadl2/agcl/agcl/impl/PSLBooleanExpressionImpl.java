@@ -16,7 +16,7 @@ import org.osate.xtext.aadl2.agcl.agcl.PSLBooleanExpression;
  *
  * @generated
  */
-public class PSLBooleanExpressionImpl extends PSLFormulaImpl implements PSLBooleanExpression
+public class PSLBooleanExpressionImpl extends PSLAtomImpl implements PSLBooleanExpression
 {
   /**
    * <!-- begin-user-doc -->

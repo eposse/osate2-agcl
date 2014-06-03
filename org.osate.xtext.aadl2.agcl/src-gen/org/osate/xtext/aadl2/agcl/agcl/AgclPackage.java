@@ -538,13 +538,13 @@ public interface AgclPackage extends EPackage
   int PSL_SPEC = 10;
 
   /**
-   * The feature id for the '<em><b>Formula</b></em>' containment reference.
+   * The feature id for the '<em><b>Expr</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int PSL_SPEC__FORMULA = 0;
+  int PSL_SPEC__EXPR = 0;
 
   /**
    * The number of structural features of the '<em>PSL Spec</em>' class.
@@ -556,42 +556,68 @@ public interface AgclPackage extends EPackage
   int PSL_SPEC_FEATURE_COUNT = 1;
 
   /**
-   * The meta object id for the '{@link org.osate.xtext.aadl2.agcl.agcl.impl.PSLFormulaImpl <em>PSL Formula</em>}' class.
+   * The meta object id for the '{@link org.osate.xtext.aadl2.agcl.agcl.impl.PSLExpressionImpl <em>PSL Expression</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.osate.xtext.aadl2.agcl.agcl.impl.PSLFormulaImpl
-   * @see org.osate.xtext.aadl2.agcl.agcl.impl.AgclPackageImpl#getPSLFormula()
+   * @see org.osate.xtext.aadl2.agcl.agcl.impl.PSLExpressionImpl
+   * @see org.osate.xtext.aadl2.agcl.agcl.impl.AgclPackageImpl#getPSLExpression()
    * @generated
    */
-  int PSL_FORMULA = 11;
+  int PSL_EXPRESSION = 11;
 
   /**
-   * The number of structural features of the '<em>PSL Formula</em>' class.
+   * The feature id for the '<em><b>Condition</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int PSL_FORMULA_FEATURE_COUNT = 0;
+  int PSL_EXPRESSION__CONDITION = 0;
 
   /**
-   * The meta object id for the '{@link org.osate.xtext.aadl2.agcl.agcl.impl.PSLBooleanExpressionImpl <em>PSL Boolean Expression</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.xtext.aadl2.agcl.agcl.impl.PSLBooleanExpressionImpl
-   * @see org.osate.xtext.aadl2.agcl.agcl.impl.AgclPackageImpl#getPSLBooleanExpression()
-   * @generated
-   */
-  int PSL_BOOLEAN_EXPRESSION = 12;
-
-  /**
-   * The number of structural features of the '<em>PSL Boolean Expression</em>' class.
+   * The feature id for the '<em><b>Implication</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int PSL_BOOLEAN_EXPRESSION_FEATURE_COUNT = PSL_FORMULA_FEATURE_COUNT + 0;
+  int PSL_EXPRESSION__IMPLICATION = 1;
+
+  /**
+   * The feature id for the '<em><b>Conclusion</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PSL_EXPRESSION__CONCLUSION = 2;
+
+  /**
+   * The feature id for the '<em><b>Biconditional</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PSL_EXPRESSION__BICONDITIONAL = 3;
+
+  /**
+   * The feature id for the '<em><b>Other</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PSL_EXPRESSION__OTHER = 4;
+
+  /**
+   * The number of structural features of the '<em>PSL Expression</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PSL_EXPRESSION_FEATURE_COUNT = 5;
 
   /**
    * The meta object id for the '{@link org.osate.xtext.aadl2.agcl.agcl.impl.PSLAtomImpl <em>PSL Atom</em>}' class.
@@ -611,6 +637,25 @@ public interface AgclPackage extends EPackage
    * @ordered
    */
   int PSL_ATOM_FEATURE_COUNT = 0;
+
+  /**
+   * The meta object id for the '{@link org.osate.xtext.aadl2.agcl.agcl.impl.PSLBooleanExpressionImpl <em>PSL Boolean Expression</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.xtext.aadl2.agcl.agcl.impl.PSLBooleanExpressionImpl
+   * @see org.osate.xtext.aadl2.agcl.agcl.impl.AgclPackageImpl#getPSLBooleanExpression()
+   * @generated
+   */
+  int PSL_BOOLEAN_EXPRESSION = 12;
+
+  /**
+   * The number of structural features of the '<em>PSL Boolean Expression</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PSL_BOOLEAN_EXPRESSION_FEATURE_COUNT = PSL_ATOM_FEATURE_COUNT + 0;
 
   /**
    * The meta object id for the '{@link org.osate.xtext.aadl2.agcl.agcl.impl.BooleanConstantImpl <em>Boolean Constant</em>}' class.
@@ -828,13 +873,22 @@ public interface AgclPackage extends EPackage
   int PSL_NEGATION = 21;
 
   /**
+   * The feature id for the '<em><b>Negated</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PSL_NEGATION__NEGATED = PSL_ATOM_FEATURE_COUNT + 0;
+
+  /**
    * The number of structural features of the '<em>PSL Negation</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int PSL_NEGATION_FEATURE_COUNT = PSL_ATOM_FEATURE_COUNT + 0;
+  int PSL_NEGATION_FEATURE_COUNT = PSL_ATOM_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link org.osate.xtext.aadl2.agcl.agcl.impl.ParameterImpl <em>Parameter</em>}' class.
@@ -854,6 +908,25 @@ public interface AgclPackage extends EPackage
    * @ordered
    */
   int PARAMETER_FEATURE_COUNT = 0;
+
+  /**
+   * The meta object id for the '{@link org.osate.xtext.aadl2.agcl.agcl.impl.PropertyNameImpl <em>Property Name</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.xtext.aadl2.agcl.agcl.impl.PropertyNameImpl
+   * @see org.osate.xtext.aadl2.agcl.agcl.impl.AgclPackageImpl#getPropertyName()
+   * @generated
+   */
+  int PROPERTY_NAME = 23;
+
+  /**
+   * The number of structural features of the '<em>Property Name</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PROPERTY_NAME_FEATURE_COUNT = 0;
 
 
   /**
@@ -1187,25 +1260,80 @@ public interface AgclPackage extends EPackage
   EClass getPSLSpec();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.agcl.agcl.PSLSpec#getFormula <em>Formula</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.agcl.agcl.PSLSpec#getExpr <em>Expr</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Formula</em>'.
-   * @see org.osate.xtext.aadl2.agcl.agcl.PSLSpec#getFormula()
+   * @return the meta object for the containment reference '<em>Expr</em>'.
+   * @see org.osate.xtext.aadl2.agcl.agcl.PSLSpec#getExpr()
    * @see #getPSLSpec()
    * @generated
    */
-  EReference getPSLSpec_Formula();
+  EReference getPSLSpec_Expr();
 
   /**
-   * Returns the meta object for class '{@link org.osate.xtext.aadl2.agcl.agcl.PSLFormula <em>PSL Formula</em>}'.
+   * Returns the meta object for class '{@link org.osate.xtext.aadl2.agcl.agcl.PSLExpression <em>PSL Expression</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>PSL Formula</em>'.
-   * @see org.osate.xtext.aadl2.agcl.agcl.PSLFormula
+   * @return the meta object for class '<em>PSL Expression</em>'.
+   * @see org.osate.xtext.aadl2.agcl.agcl.PSLExpression
    * @generated
    */
-  EClass getPSLFormula();
+  EClass getPSLExpression();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.agcl.agcl.PSLExpression#getCondition <em>Condition</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Condition</em>'.
+   * @see org.osate.xtext.aadl2.agcl.agcl.PSLExpression#getCondition()
+   * @see #getPSLExpression()
+   * @generated
+   */
+  EReference getPSLExpression_Condition();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.agcl.agcl.PSLExpression#isImplication <em>Implication</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Implication</em>'.
+   * @see org.osate.xtext.aadl2.agcl.agcl.PSLExpression#isImplication()
+   * @see #getPSLExpression()
+   * @generated
+   */
+  EAttribute getPSLExpression_Implication();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.agcl.agcl.PSLExpression#getConclusion <em>Conclusion</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Conclusion</em>'.
+   * @see org.osate.xtext.aadl2.agcl.agcl.PSLExpression#getConclusion()
+   * @see #getPSLExpression()
+   * @generated
+   */
+  EReference getPSLExpression_Conclusion();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.agcl.agcl.PSLExpression#isBiconditional <em>Biconditional</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Biconditional</em>'.
+   * @see org.osate.xtext.aadl2.agcl.agcl.PSLExpression#isBiconditional()
+   * @see #getPSLExpression()
+   * @generated
+   */
+  EAttribute getPSLExpression_Biconditional();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.agcl.agcl.PSLExpression#getOther <em>Other</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Other</em>'.
+   * @see org.osate.xtext.aadl2.agcl.agcl.PSLExpression#getOther()
+   * @see #getPSLExpression()
+   * @generated
+   */
+  EReference getPSLExpression_Other();
 
   /**
    * Returns the meta object for class '{@link org.osate.xtext.aadl2.agcl.agcl.PSLBooleanExpression <em>PSL Boolean Expression</em>}'.
@@ -1396,6 +1524,17 @@ public interface AgclPackage extends EPackage
   EClass getPSLNegation();
 
   /**
+   * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.agcl.agcl.PSLNegation#getNegated <em>Negated</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Negated</em>'.
+   * @see org.osate.xtext.aadl2.agcl.agcl.PSLNegation#getNegated()
+   * @see #getPSLNegation()
+   * @generated
+   */
+  EReference getPSLNegation_Negated();
+
+  /**
    * Returns the meta object for class '{@link org.osate.xtext.aadl2.agcl.agcl.Parameter <em>Parameter</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1404,6 +1543,16 @@ public interface AgclPackage extends EPackage
    * @generated
    */
   EClass getParameter();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.xtext.aadl2.agcl.agcl.PropertyName <em>Property Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Property Name</em>'.
+   * @see org.osate.xtext.aadl2.agcl.agcl.PropertyName
+   * @generated
+   */
+  EClass getPropertyName();
 
   /**
    * Returns the factory that creates the instances of the model.
@@ -1699,22 +1848,62 @@ public interface AgclPackage extends EPackage
     EClass PSL_SPEC = eINSTANCE.getPSLSpec();
 
     /**
-     * The meta object literal for the '<em><b>Formula</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Expr</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference PSL_SPEC__FORMULA = eINSTANCE.getPSLSpec_Formula();
+    EReference PSL_SPEC__EXPR = eINSTANCE.getPSLSpec_Expr();
 
     /**
-     * The meta object literal for the '{@link org.osate.xtext.aadl2.agcl.agcl.impl.PSLFormulaImpl <em>PSL Formula</em>}' class.
+     * The meta object literal for the '{@link org.osate.xtext.aadl2.agcl.agcl.impl.PSLExpressionImpl <em>PSL Expression</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.osate.xtext.aadl2.agcl.agcl.impl.PSLFormulaImpl
-     * @see org.osate.xtext.aadl2.agcl.agcl.impl.AgclPackageImpl#getPSLFormula()
+     * @see org.osate.xtext.aadl2.agcl.agcl.impl.PSLExpressionImpl
+     * @see org.osate.xtext.aadl2.agcl.agcl.impl.AgclPackageImpl#getPSLExpression()
      * @generated
      */
-    EClass PSL_FORMULA = eINSTANCE.getPSLFormula();
+    EClass PSL_EXPRESSION = eINSTANCE.getPSLExpression();
+
+    /**
+     * The meta object literal for the '<em><b>Condition</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference PSL_EXPRESSION__CONDITION = eINSTANCE.getPSLExpression_Condition();
+
+    /**
+     * The meta object literal for the '<em><b>Implication</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute PSL_EXPRESSION__IMPLICATION = eINSTANCE.getPSLExpression_Implication();
+
+    /**
+     * The meta object literal for the '<em><b>Conclusion</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference PSL_EXPRESSION__CONCLUSION = eINSTANCE.getPSLExpression_Conclusion();
+
+    /**
+     * The meta object literal for the '<em><b>Biconditional</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute PSL_EXPRESSION__BICONDITIONAL = eINSTANCE.getPSLExpression_Biconditional();
+
+    /**
+     * The meta object literal for the '<em><b>Other</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference PSL_EXPRESSION__OTHER = eINSTANCE.getPSLExpression_Other();
 
     /**
      * The meta object literal for the '{@link org.osate.xtext.aadl2.agcl.agcl.impl.PSLBooleanExpressionImpl <em>PSL Boolean Expression</em>}' class.
@@ -1881,6 +2070,14 @@ public interface AgclPackage extends EPackage
     EClass PSL_NEGATION = eINSTANCE.getPSLNegation();
 
     /**
+     * The meta object literal for the '<em><b>Negated</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference PSL_NEGATION__NEGATED = eINSTANCE.getPSLNegation_Negated();
+
+    /**
      * The meta object literal for the '{@link org.osate.xtext.aadl2.agcl.agcl.impl.ParameterImpl <em>Parameter</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1889,6 +2086,16 @@ public interface AgclPackage extends EPackage
      * @generated
      */
     EClass PARAMETER = eINSTANCE.getParameter();
+
+    /**
+     * The meta object literal for the '{@link org.osate.xtext.aadl2.agcl.agcl.impl.PropertyNameImpl <em>Property Name</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.xtext.aadl2.agcl.agcl.impl.PropertyNameImpl
+     * @see org.osate.xtext.aadl2.agcl.agcl.impl.AgclPackageImpl#getPropertyName()
+     * @generated
+     */
+    EClass PROPERTY_NAME = eINSTANCE.getPropertyName();
 
   }
 

@@ -136,9 +136,9 @@ public class AgclAdapterFactory extends AdapterFactoryImpl
         return createPSLSpecAdapter();
       }
       @Override
-      public Adapter casePSLFormula(PSLFormula object)
+      public Adapter casePSLExpression(PSLExpression object)
       {
-        return createPSLFormulaAdapter();
+        return createPSLExpressionAdapter();
       }
       @Override
       public Adapter casePSLBooleanExpression(PSLBooleanExpression object)
@@ -194,6 +194,11 @@ public class AgclAdapterFactory extends AdapterFactoryImpl
       public Adapter caseParameter(Parameter object)
       {
         return createParameterAdapter();
+      }
+      @Override
+      public Adapter casePropertyName(PropertyName object)
+      {
+        return createPropertyNameAdapter();
       }
       @Override
       public Adapter caseElement(Element object)
@@ -408,16 +413,16 @@ public class AgclAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.agcl.agcl.PSLFormula <em>PSL Formula</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.agcl.agcl.PSLExpression <em>PSL Expression</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.xtext.aadl2.agcl.agcl.PSLFormula
+   * @see org.osate.xtext.aadl2.agcl.agcl.PSLExpression
    * @generated
    */
-  public Adapter createPSLFormulaAdapter()
+  public Adapter createPSLExpressionAdapter()
   {
     return null;
   }
@@ -583,6 +588,21 @@ public class AgclAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createParameterAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.agcl.agcl.PropertyName <em>Property Name</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.xtext.aadl2.agcl.agcl.PropertyName
+   * @generated
+   */
+  public Adapter createPropertyNameAdapter()
   {
     return null;
   }

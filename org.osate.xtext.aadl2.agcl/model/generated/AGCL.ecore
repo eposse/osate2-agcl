@@ -57,11 +57,20 @@
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PSLSpec">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="formula" eType="#//PSLFormula"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="expr" eType="#//PSLExpression"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PSLFormula"/>
-  <eClassifiers xsi:type="ecore:EClass" name="PSLBooleanExpression" eSuperTypes="#//PSLFormula #//PSLAtom #//PSLNegation"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PSLExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="#//PSLBooleanExpression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="implication" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="conclusion" eType="#//PSLBooleanExpression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="biconditional" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="other" eType="#//PSLBooleanExpression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PSLBooleanExpression" eSuperTypes="#//PSLAtom"/>
   <eClassifiers xsi:type="ecore:EClass" name="BooleanConstant" eSuperTypes="#//PSLAtom">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="val" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
@@ -86,6 +95,10 @@
         eType="#//PSLAtom" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PSLAtom"/>
-  <eClassifiers xsi:type="ecore:EClass" name="PSLNegation" eSuperTypes="#//PSLAtom"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PSLNegation" eSuperTypes="#//PSLAtom">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="negated" eType="#//PSLBooleanExpression"
+        containment="true"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Parameter"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PropertyName"/>
 </ecore:EPackage>

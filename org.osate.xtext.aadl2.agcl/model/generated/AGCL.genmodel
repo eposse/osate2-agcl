@@ -48,9 +48,15 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference AGCL.ecore#//AGCLBehaviour/spec"/>
     </genClasses>
     <genClasses ecoreClass="AGCL.ecore#//PSLSpec">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference AGCL.ecore#//PSLSpec/formula"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference AGCL.ecore#//PSLSpec/expr"/>
     </genClasses>
-    <genClasses ecoreClass="AGCL.ecore#//PSLFormula"/>
+    <genClasses ecoreClass="AGCL.ecore#//PSLExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference AGCL.ecore#//PSLExpression/condition"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute AGCL.ecore#//PSLExpression/implication"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference AGCL.ecore#//PSLExpression/conclusion"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute AGCL.ecore#//PSLExpression/biconditional"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference AGCL.ecore#//PSLExpression/other"/>
+    </genClasses>
     <genClasses ecoreClass="AGCL.ecore#//PSLBooleanExpression"/>
     <genClasses ecoreClass="AGCL.ecore#//BooleanConstant">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute AGCL.ecore#//BooleanConstant/val"/>
@@ -74,7 +80,10 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference AGCL.ecore#//PSLConjunction/factors"/>
     </genClasses>
     <genClasses ecoreClass="AGCL.ecore#//PSLAtom"/>
-    <genClasses ecoreClass="AGCL.ecore#//PSLNegation"/>
+    <genClasses ecoreClass="AGCL.ecore#//PSLNegation">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference AGCL.ecore#//PSLNegation/negated"/>
+    </genClasses>
     <genClasses ecoreClass="AGCL.ecore#//Parameter"/>
+    <genClasses ecoreClass="AGCL.ecore#//PropertyName"/>
   </genPackages>
 </genmodel:GenModel>

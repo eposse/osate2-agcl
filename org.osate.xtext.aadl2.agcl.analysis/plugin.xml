@@ -45,16 +45,6 @@
                id="org.osate.xtext.aadl2.agcl.analysis.actions.CheckContractsAction">
          </action>
          <action
-               class="org.osate.xtext.aadl2.agcl.analysis.actions.PrintPSLSpecsAction"
-               icon="icons/agcl_printpsl.gif"
-               id="org.osate.xtext.aadl2.agcl.analysis.actions.PrintPSLSpecsAction"
-               label="Print PSL Specs"
-               menubarPath="menu.analyses/menu.contracts/stuff.grp"
-               style="push"
-               toolbarPath="agcl.toolbar"
-               tooltip="Print PSL Specs">
-         </action>
-         <action
                class="org.osate.xtext.aadl2.agcl.analysis.actions.AtomicAnalysisAction"
                icon="icons/ag_atomic_analysis_icon.gif"
                id="org.osate.xtext.aadl2.agcl.analysis.atomic_analysis_action"
