@@ -198,13 +198,22 @@ public interface VerifiersPackage extends EPackage {
 	int SPECIFICATION = 4;
 
 	/**
+	 * The feature id for the '<em><b>Spec</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SPECIFICATION__SPEC = 0;
+
+	/**
 	 * The number of structural features of the '<em>Specification</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SPECIFICATION_FEATURE_COUNT = 0;
+	int SPECIFICATION_FEATURE_COUNT = 1;
 
 	/**
 	 * The operation id for the '<em>Text</em>' operation.
@@ -723,6 +732,15 @@ public interface VerifiersPackage extends EPackage {
 	int NU_SMV_SPECIFICATION = 15;
 
 	/**
+	 * The feature id for the '<em><b>Spec</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NU_SMV_SPECIFICATION__SPEC = SPECIFICATION__SPEC;
+
+	/**
 	 * The number of structural features of the '<em>Nu SMV Specification</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -820,6 +838,17 @@ public interface VerifiersPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getSpecification();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.Specification#getSpec <em>Spec</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Spec</em>'.
+	 * @see org.osate.xtext.aadl2.agcl.analysis.verifiers.Specification#getSpec()
+	 * @see #getSpecification()
+	 * @generated
+	 */
+	EAttribute getSpecification_Spec();
 
 	/**
 	 * Returns the meta object for the '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.Specification#text(java.lang.Object) <em>Text</em>}' operation.
@@ -1154,6 +1183,14 @@ public interface VerifiersPackage extends EPackage {
 		 * @generated
 		 */
 		EClass SPECIFICATION = eINSTANCE.getSpecification();
+
+		/**
+		 * The meta object literal for the '<em><b>Spec</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SPECIFICATION__SPEC = eINSTANCE.getSpecification_Spec();
 
 		/**
 		 * The meta object literal for the '<em><b>Text</b></em>' operation.

@@ -18,11 +18,16 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.xtext.serializer.ISerializer;
+import org.eclipse.xtext.serializer.impl.Serializer;
+import org.osate.xtext.aadl2.agcl.AGCLStandaloneSetup;
 import org.osate.xtext.aadl2.agcl.analysis.config.IPreferenceConstants;
 import org.osate.xtext.aadl2.agcl.analysis.util.PathUtil;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.ModelChecker;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
+
+import com.google.inject.Injector;
 
 /**
  * The activator class controls the plug-in life cycle
@@ -44,7 +49,9 @@ public class AGCLAnalysisPlugin extends AbstractUIPlugin {
 	private IPath loggerConfigPath = null;
 	private IPath bundleLoc = null;
 	private IPath stateLoc;
-
+	private Injector injector = new AGCLStandaloneSetup().createInjectorAndDoEMFRegistration();
+    private ISerializer serializer = injector.getInstance(Serializer.class);   
+    
 	private ModelChecker activeModelChecker;
 	private Map<String,ModelChecker> modelCheckerRegistry;
 
@@ -291,5 +298,19 @@ public class AGCLAnalysisPlugin extends AbstractUIPlugin {
 	 */
 	public void activateModelChecker(String name) {
 		setActiveModelChecker(getModelChecker(name));
+	}
+
+	/**
+	 * @return the serializer
+	 */
+	public ISerializer getSerializer() {
+		return serializer;
+	}
+
+	/**
+	 * @param serializer the serializer to set
+	 */
+	public void setSerializer(ISerializer serializer) {
+		this.serializer = serializer;
 	}
 }

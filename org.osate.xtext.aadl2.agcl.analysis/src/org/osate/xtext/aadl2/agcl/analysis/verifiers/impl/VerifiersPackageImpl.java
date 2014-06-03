@@ -275,6 +275,15 @@ public class VerifiersPackageImpl extends EPackageImpl implements VerifiersPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getSpecification_Spec() {
+		return (EAttribute)specificationEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EOperation getSpecification__Text__Object() {
 		return specificationEClass.getEOperations().get(0);
 	}
@@ -525,6 +534,7 @@ public class VerifiersPackageImpl extends EPackageImpl implements VerifiersPacka
 		createEOperation(modelEClass, MODEL___TEXT__OBJECT);
 
 		specificationEClass = createEClass(SPECIFICATION);
+		createEAttribute(specificationEClass, SPECIFICATION__SPEC);
 		createEOperation(specificationEClass, SPECIFICATION___TEXT__OBJECT);
 
 		counterExampleEClass = createEClass(COUNTER_EXAMPLE);
@@ -615,6 +625,7 @@ public class VerifiersPackageImpl extends EPackageImpl implements VerifiersPacka
 		addEParameter(op, ecorePackage.getEJavaObject(), "args", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(specificationEClass, Specification.class, "Specification", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getSpecification_Spec(), ecorePackage.getEJavaObject(), "spec", null, 0, 1, Specification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		op = initEOperation(getSpecification__Text__Object(), ecorePackage.getEString(), "text", 1, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEJavaObject(), "args", 0, 1, IS_UNIQUE, IS_ORDERED);

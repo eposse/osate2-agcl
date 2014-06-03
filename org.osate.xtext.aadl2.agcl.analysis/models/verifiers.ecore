@@ -22,6 +22,7 @@
       </eAnnotations>
       <eParameters name="args" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
     </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="spec" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CounterExample" abstract="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="UniversalModel" abstract="true" interface="true"

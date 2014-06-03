@@ -2,6 +2,7 @@ package org.osate.xtext.aadl2.agcl.analysis.visitors;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.xtext.serializer.ISerializer;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.DefaultAnnexSubclause;
@@ -10,7 +11,9 @@ import org.osate.aadl2.util.Aadl2Switch;
 import org.osate.xtext.aadl2.agcl.agcl.AGCLAnnexSubclause;
 import org.osate.xtext.aadl2.agcl.agcl.AGCLBehaviour;
 import org.osate.xtext.aadl2.agcl.agcl.AGCLContract;
+import org.osate.xtext.aadl2.agcl.agcl.PSLSpec;
 import org.osate.xtext.aadl2.agcl.agcl.util.AgclSwitch;
+import org.osate.xtext.aadl2.agcl.analysis.AGCLAnalysisPlugin;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.Negative;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.Positive;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.VerificationResult;
@@ -44,6 +47,7 @@ public class AtomicAnalysisSwitch extends AadlProcessingSwitchWithProgress {
 	private AgclSwitch<Void> agclSwitch;
 	private ViewpointContext viewpointContext;
 	private AnalysisResults analysisResults;
+	private ISerializer serializer;
 
 	/**
 	 * @param pm				a progress monitor
@@ -54,6 +58,7 @@ public class AtomicAnalysisSwitch extends AadlProcessingSwitchWithProgress {
 		super(pm);
 		this.viewpointContext = viewpointContext;
 		this.analysisResults = analysisResults;
+		this.serializer = AGCLAnalysisPlugin.getDefault().getSerializer();
 	}
 
 	@Override
@@ -117,6 +122,15 @@ public class AtomicAnalysisSwitch extends AadlProcessingSwitchWithProgress {
 	 */
 	public VerificationResult checkBehaviourWRTContract(AGCLBehaviour behaviour, AGCLContract contract) {
 		Logger.getLogger(getClass()).info("checking behaviour w.r.t. a contract");
+		PSLSpec behaviourSpec = behaviour.getSpec();
+		PSLSpec assumptionSpec = contract.getAssumption().getSpec();
+		PSLSpec guaranteeSpec = contract.getGuarantee().getSpec();
+		String behaviourStr = serializer.serialize(behaviourSpec);
+		String assumptionStr = serializer.serialize(assumptionSpec);
+		String guaranteeStr = serializer.serialize(guaranteeSpec);
+		Logger.getLogger(getClass()).info("behaviour  = " + behaviourStr);
+		Logger.getLogger(getClass()).info("assumption = " + assumptionStr);
+		Logger.getLogger(getClass()).info("guarantee  = " + guaranteeStr);
 		return null;
 		
 	}

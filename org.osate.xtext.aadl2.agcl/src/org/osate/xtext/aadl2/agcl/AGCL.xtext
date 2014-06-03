@@ -106,7 +106,8 @@ PSLSpec returns PSLSpec:
 ;
 
 PSLFormula returns PSLFormula:
-    PSLBooleanExpression
+      expr = PSLBooleanExpression
+    | cond = PSLBooleanExpression IMPL concl = PSLBooleanExpression
 ;
 
 PSLBooleanExpression returns PSLBooleanExpression:

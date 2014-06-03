@@ -10,6 +10,7 @@ import org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVInput;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVModel;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVModelChecker;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVSpecification;
+import org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVUniversalModel;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.Specification;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.VerificationResult;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.VerifiersFactory;
@@ -74,6 +75,12 @@ public class NuSMVModelCheckerImpl extends ModelCheckerImpl implements NuSMVMode
 	public ModelCheckerOutput callExternal(ModelCheckerInput input) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public VerificationResult checkSpecValidity(Specification spec) {
+		NuSMVUniversalModel universalModel = VerifiersFactory.eINSTANCE.createNuSMVUniversalModel();
+		return check(universalModel, spec);
 	}
 
 } //NuSMVModelCheckerImpl
