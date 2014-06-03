@@ -3,10 +3,13 @@
  */
 package org.osate.xtext.aadl2.agcl.analysis.util;
 
+import java.io.ByteArrayInputStream;
+
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
@@ -31,7 +34,32 @@ public class AGCLUtil {
 		}
 		return totalElements;
 	}
-	
+
+	/**
+	 * Recursively creates resources, by creating their parent if it does not exist.
+	 * @param resource
+	 * @throws CoreException
+	 */
+	public static void createResource(final IResource resource) throws CoreException {
+		if (resource == null || resource.exists())
+			return;
+		if (!resource.getParent().exists()) {
+			createResource(resource.getParent());
+		}
+		switch (resource.getType()) {
+		case IResource.FILE:
+			((IFile) resource).create(new ByteArrayInputStream(new byte[0]), true, null);
+			break;
+		case IResource.FOLDER:
+			((IFolder) resource).create(IResource.NONE, true, null);
+			break;
+		case IResource.PROJECT:
+			((IProject) resource).create(null);
+			((IProject) resource).open(null);
+			break;
+		}
+	}
+
 	/**
 	 * Creates or returns a project-specific folder
 	 * @param resource
@@ -45,7 +73,8 @@ public class AGCLUtil {
 		if (!folder.exists()) {
 			Logger.getLogger(AGCLUtil.class).info("requested folder for model-checker doesn't exist: " + dirName);
 			try {
-				folder.create(false, true, null);
+				createResource(folder);
+//				folder.create(false, true, null);
 				Logger.getLogger(AGCLUtil.class).info("folder for model-checker created: " + dirName);
 			} catch (CoreException e) {
 				e.printStackTrace();

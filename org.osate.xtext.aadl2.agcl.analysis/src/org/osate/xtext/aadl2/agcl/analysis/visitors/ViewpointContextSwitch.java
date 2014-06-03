@@ -50,7 +50,7 @@ public class ViewpointContextSwitch extends AadlProcessingSwitchWithProgress {
 	protected void initSwitches() {
 		agclSwitch = new AgclSwitch<Void>() {
 			public Void caseAGCLAnnexLibrary(AGCLAnnexLibrary obj) {
-				monitor.subTask("AGCLAnnexLibrary" + obj.getName());
+				//monitor.subTask("AGCLAnnexLibrary" + obj.getName());
 				// We collect all declared viewpoints in this package
 				for (AGCLViewpoint v : obj.getViewpoints()) {
 					Logger.getLogger(getClass()).info("declared viewpoint: " + v.getName());
@@ -67,7 +67,7 @@ public class ViewpointContextSwitch extends AadlProcessingSwitchWithProgress {
 						Logger.getLogger(getClass()).warn("ignoring undeclared viewpoint: " + viewpointName);
 					}
 				}
-			    monitor.worked(1);
+			    //monitor.worked(1);
 				return null;
 			}
 		};
@@ -75,7 +75,8 @@ public class ViewpointContextSwitch extends AadlProcessingSwitchWithProgress {
 			public String caseAnnexLibrary(AnnexLibrary obj) {
 				monitor.subTask("AnnexLibrary" + obj.getName());
 				if (obj.getName().equals("AGCL")) {
-					agclSwitch.doSwitch((AGCLAnnexLibrary) obj); // Could be optimized by invoking caseAGCLAnnexLibrary directly
+					agclSwitch.doSwitch(obj); // Could be optimized by invoking caseAGCLAnnexLibrary directly
+//					agclSwitch.doSwitch((AGCLAnnexLibrary) obj); // Could be optimized by invoking caseAGCLAnnexLibrary directly
 				}
 			    monitor.worked(1);
 				return obj.toString();

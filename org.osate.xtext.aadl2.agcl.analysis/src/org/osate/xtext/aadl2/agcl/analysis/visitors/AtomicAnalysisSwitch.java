@@ -71,7 +71,7 @@ public class AtomicAnalysisSwitch extends AadlProcessingSwitchWithProgress {
 	protected void initSwitches() {
 		agclSwitch = new AgclSwitch<Void>() {
 			public Void caseAGCLAnnexSubclause(AGCLAnnexSubclause obj) {
-				monitor.subTask("AGCLAnnexSubclause" + obj.getName());
+				//monitor.subTask("AGCLAnnexSubclause" + obj.getName());
 				Classifier component = obj.getContainingClassifier();
 				String componentName = component.getName();
 				Logger.getLogger(getClass()).info("processing AGCL annex subclause for '" + componentName + "'");
@@ -81,12 +81,12 @@ public class AtomicAnalysisSwitch extends AadlProcessingSwitchWithProgress {
 				for (AGCLContract contract : obj.getContracts()) {
 					String viewpointName = contract.getName();
 					if (viewpointContext.containsViewpointToVerify(viewpointName)) {
-						// We verify only the contracts which belong to a viewpoint maked for verification 
+						// We verify only the contracts which belong to a viewpoint marked for verification 
 						VerificationResult result = checkBehaviourWRTContract(behaviour, contract);
-						analysisResults.record(viewpointName, componentName, result);
+						analysisResults.recordResult(viewpointName, componentName, result);
 					}
 				}
-				monitor.worked(1);
+				//monitor.worked(1);
 				return null;
 			}
 		};
@@ -97,10 +97,12 @@ public class AtomicAnalysisSwitch extends AadlProcessingSwitchWithProgress {
 				// We look for an *owned* (non-inherited) AGCL annex for this thread implementation.
 				// We don't look for inherited annexes because that is a separate analysis.
 				EList<AnnexSubclause> annexes = obj.getOwnedAnnexSubclauses();
-				AGCLAnnexSubclause agclAnnexSubclause = null;
+				AnnexSubclause agclAnnexSubclause = null;
+//				AGCLAnnexSubclause agclAnnexSubclause = null;
 				for (AnnexSubclause annexSubclause : annexes) {
 					if (annexSubclause.getName().equals("AGCL")) {
-						agclAnnexSubclause = (AGCLAnnexSubclause) annexSubclause;
+						agclAnnexSubclause = annexSubclause;
+//						agclAnnexSubclause = (AGCLAnnexSubclause) annexSubclause;
 						break; // We chose the first annex sub-clause named AGCL; others are ignored.
 					}
 				}
@@ -133,6 +135,7 @@ public class AtomicAnalysisSwitch extends AadlProcessingSwitchWithProgress {
 	 * 			contract, and {@link Negative} otherwise.
 	 */
 	public VerificationResult checkBehaviourWRTContract(AGCLBehaviour behaviour, AGCLContract contract) {
+		Logger.getLogger(getClass()).info("checking behaviour w.r.t. a contract");
 		return null;
 		
 	}

@@ -19,7 +19,7 @@ public class AnalysisResults {
 		allResults = new HashMap<String, Map<String, VerificationResult>>();
 	}
 	
-	public void record(String viewpointName, String componentName, VerificationResult result) {
+	public void recordResult(String viewpointName, String componentName, VerificationResult result) {
 		if (allResults.containsKey(viewpointName)) {
 			Map<String, VerificationResult> viewpointResults = allResults.get(viewpointName);
 			viewpointResults.put(componentName, result);
