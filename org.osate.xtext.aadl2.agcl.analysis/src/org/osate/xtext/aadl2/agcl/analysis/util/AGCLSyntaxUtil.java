@@ -3,8 +3,12 @@
  */
 package org.osate.xtext.aadl2.agcl.analysis.util;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.eclipse.xtext.resource.SaveOptions;
 import org.osate.xtext.aadl2.agcl.agcl.AgclFactory;
+import org.osate.xtext.aadl2.agcl.agcl.AtomicProp;
 import org.osate.xtext.aadl2.agcl.agcl.PSLBooleanExpression;
 import org.osate.xtext.aadl2.agcl.agcl.PSLConjunction;
 import org.osate.xtext.aadl2.agcl.agcl.PSLDisjunction;
@@ -63,4 +67,13 @@ public class AGCLSyntaxUtil {
 		return newBoolExpr;
 	}
 
+	/**
+	 * @param expr   a PSL expression
+	 * @return the set of atomic propositions of a PSL formula
+	 */
+	public static Set<AtomicProp> getAtomicPropositions(PSLExpression expr) {
+		HashSet<AtomicProp> result = new HashSet<AtomicProp>();
+		
+		return result;
+	}
 }
