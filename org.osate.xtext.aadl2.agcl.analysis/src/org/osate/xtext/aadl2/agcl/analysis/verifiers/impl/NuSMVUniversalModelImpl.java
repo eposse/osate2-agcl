@@ -3,12 +3,10 @@
 package org.osate.xtext.aadl2.agcl.analysis.verifiers.impl;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.xtext.serializer.ISerializer;

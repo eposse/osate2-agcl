@@ -455,7 +455,7 @@ public class VerifiersPackageImpl extends EPackageImpl implements VerifiersPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getNuSMVInput_ModelSourceFile() {
+	public EAttribute getNuSMVInput_ModelFileName() {
 		return (EAttribute)nuSMVInputEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -464,7 +464,7 @@ public class VerifiersPackageImpl extends EPackageImpl implements VerifiersPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getNuSMVInput_SessionScript() {
+	public EAttribute getNuSMVInput_SessionScriptFileName() {
 		return (EAttribute)nuSMVInputEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -482,7 +482,16 @@ public class VerifiersPackageImpl extends EPackageImpl implements VerifiersPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getNuSMVOutput_CounterExampleFile() {
+	public EAttribute getNuSMVOutput_OutputFileName() {
+		return (EAttribute)nuSMVOutputEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getNuSMVOutput_CounterExampleFileName() {
 		return (EAttribute)nuSMVOutputEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -538,15 +547,6 @@ public class VerifiersPackageImpl extends EPackageImpl implements VerifiersPacka
 	 */
 	public EClass getNuSMVSpecification() {
 		return nuSMVSpecificationEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getNuSMVOutput_OutputFile() {
-		return (EAttribute)nuSMVOutputEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -615,12 +615,12 @@ public class VerifiersPackageImpl extends EPackageImpl implements VerifiersPacka
 		modelCheckerOutputEClass = createEClass(MODEL_CHECKER_OUTPUT);
 
 		nuSMVInputEClass = createEClass(NU_SMV_INPUT);
-		createEAttribute(nuSMVInputEClass, NU_SMV_INPUT__MODEL_SOURCE_FILE);
-		createEAttribute(nuSMVInputEClass, NU_SMV_INPUT__SESSION_SCRIPT);
+		createEAttribute(nuSMVInputEClass, NU_SMV_INPUT__MODEL_FILE_NAME);
+		createEAttribute(nuSMVInputEClass, NU_SMV_INPUT__SESSION_SCRIPT_FILE_NAME);
 
 		nuSMVOutputEClass = createEClass(NU_SMV_OUTPUT);
-		createEAttribute(nuSMVOutputEClass, NU_SMV_OUTPUT__OUTPUT_FILE);
-		createEAttribute(nuSMVOutputEClass, NU_SMV_OUTPUT__COUNTER_EXAMPLE_FILE);
+		createEAttribute(nuSMVOutputEClass, NU_SMV_OUTPUT__OUTPUT_FILE_NAME);
+		createEAttribute(nuSMVOutputEClass, NU_SMV_OUTPUT__COUNTER_EXAMPLE_FILE_NAME);
 
 		nuSMVModelEClass = createEClass(NU_SMV_MODEL);
 		createEAttribute(nuSMVModelEClass, NU_SMV_MODEL__VARS);
@@ -730,12 +730,12 @@ public class VerifiersPackageImpl extends EPackageImpl implements VerifiersPacka
 		initEClass(modelCheckerOutputEClass, ModelCheckerOutput.class, "ModelCheckerOutput", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(nuSMVInputEClass, NuSMVInput.class, "NuSMVInput", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getNuSMVInput_ModelSourceFile(), ecorePackage.getEString(), "modelSourceFile", null, 0, 1, NuSMVInput.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getNuSMVInput_SessionScript(), ecorePackage.getEString(), "sessionScript", null, 0, 1, NuSMVInput.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getNuSMVInput_ModelFileName(), ecorePackage.getEString(), "modelFileName", null, 0, 1, NuSMVInput.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getNuSMVInput_SessionScriptFileName(), ecorePackage.getEString(), "sessionScriptFileName", null, 0, 1, NuSMVInput.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(nuSMVOutputEClass, NuSMVOutput.class, "NuSMVOutput", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getNuSMVOutput_OutputFile(), ecorePackage.getEString(), "outputFile", null, 0, 1, NuSMVOutput.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getNuSMVOutput_CounterExampleFile(), ecorePackage.getEString(), "counterExampleFile", null, 0, 1, NuSMVOutput.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getNuSMVOutput_OutputFileName(), ecorePackage.getEString(), "outputFileName", null, 0, 1, NuSMVOutput.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getNuSMVOutput_CounterExampleFileName(), ecorePackage.getEString(), "counterExampleFileName", null, 0, 1, NuSMVOutput.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(nuSMVModelEClass, NuSMVModel.class, "NuSMVModel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getNuSMVModel_Vars(), ecorePackage.getEJavaObject(), "vars", null, 0, 1, NuSMVModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -763,25 +763,25 @@ public class VerifiersPackageImpl extends EPackageImpl implements VerifiersPacka
 	protected void createExtendedMetaDataAnnotations() {
 		String source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData";				
 		addAnnotation
-		  (getNuSMVInput_ModelSourceFile(), 
+		  (getNuSMVInput_ModelFileName(), 
 		   source, 
 		   new String[] {
 			 "processing", "skip"
 		   });		
 		addAnnotation
-		  (getNuSMVInput_SessionScript(), 
+		  (getNuSMVInput_SessionScriptFileName(), 
 		   source, 
 		   new String[] {
 			 "processing", "skip"
 		   });		
 		addAnnotation
-		  (getNuSMVOutput_OutputFile(), 
+		  (getNuSMVOutput_OutputFileName(), 
 		   source, 
 		   new String[] {
 			 "processing", "skip"
 		   });		
 		addAnnotation
-		  (getNuSMVOutput_CounterExampleFile(), 
+		  (getNuSMVOutput_CounterExampleFileName(), 
 		   source, 
 		   new String[] {
 			 "processing", "skip"

@@ -2,6 +2,8 @@
  */
 package org.osate.xtext.aadl2.agcl.analysis.verifiers;
 
+import org.eclipse.core.resources.IFile;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -11,8 +13,8 @@ package org.osate.xtext.aadl2.agcl.analysis.verifiers;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVOutput#getOutputFile <em>Output File</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVOutput#getCounterExampleFile <em>Counter Example File</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVOutput#getOutputFileName <em>Output File Name</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVOutput#getCounterExampleFileName <em>Counter Example File Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -22,55 +24,63 @@ package org.osate.xtext.aadl2.agcl.analysis.verifiers;
  */
 public interface NuSMVOutput extends ModelCheckerOutput {
 	/**
-	 * Returns the value of the '<em><b>Counter Example File</b></em>' attribute.
+	 * Returns the value of the '<em><b>Output File Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Counter Example File</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Output File Name</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Counter Example File</em>' attribute.
-	 * @see #setCounterExampleFile(String)
-	 * @see org.osate.xtext.aadl2.agcl.analysis.verifiers.VerifiersPackage#getNuSMVOutput_CounterExampleFile()
+	 * @return the value of the '<em>Output File Name</em>' attribute.
+	 * @see #setOutputFileName(String)
+	 * @see org.osate.xtext.aadl2.agcl.analysis.verifiers.VerifiersPackage#getNuSMVOutput_OutputFileName()
 	 * @model extendedMetaData="processing='skip'"
 	 * @generated
 	 */
-	String getCounterExampleFile();
+	String getOutputFileName();
 
 	/**
-	 * Sets the value of the '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVOutput#getCounterExampleFile <em>Counter Example File</em>}' attribute.
+	 * Sets the value of the '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVOutput#getOutputFileName <em>Output File Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Counter Example File</em>' attribute.
-	 * @see #getCounterExampleFile()
+	 * @param value the new value of the '<em>Output File Name</em>' attribute.
+	 * @see #getOutputFileName()
 	 * @generated
 	 */
-	void setCounterExampleFile(String value);
+	void setOutputFileName(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Output File</b></em>' attribute.
+	 * Returns the value of the '<em><b>Counter Example File Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Output File</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Counter Example File Name</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Output File</em>' attribute.
-	 * @see #setOutputFile(String)
-	 * @see org.osate.xtext.aadl2.agcl.analysis.verifiers.VerifiersPackage#getNuSMVOutput_OutputFile()
+	 * @return the value of the '<em>Counter Example File Name</em>' attribute.
+	 * @see #setCounterExampleFileName(String)
+	 * @see org.osate.xtext.aadl2.agcl.analysis.verifiers.VerifiersPackage#getNuSMVOutput_CounterExampleFileName()
 	 * @model extendedMetaData="processing='skip'"
 	 * @generated
 	 */
-	String getOutputFile();
+	String getCounterExampleFileName();
 
 	/**
-	 * Sets the value of the '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVOutput#getOutputFile <em>Output File</em>}' attribute.
+	 * Sets the value of the '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVOutput#getCounterExampleFileName <em>Counter Example File Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Output File</em>' attribute.
-	 * @see #getOutputFile()
+	 * @param value the new value of the '<em>Counter Example File Name</em>' attribute.
+	 * @see #getCounterExampleFileName()
 	 * @generated
 	 */
-	void setOutputFile(String value);
+	void setCounterExampleFileName(String value);
+
+	IFile getOutputFile();
+	
+	void setOutputFile(IFile file);
+	
+	IFile getCounterexampleFile();
+	
+	void setCounterexampleFile(IFile file);
 
 } // NuSMVOutput

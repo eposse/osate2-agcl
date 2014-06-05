@@ -2,12 +2,10 @@
  */
 package org.osate.xtext.aadl2.agcl.analysis.verifiers.impl;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVInput;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.VerifiersPackage;
 
@@ -18,8 +16,8 @@ import org.osate.xtext.aadl2.agcl.analysis.verifiers.VerifiersPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.impl.NuSMVInputImpl#getModelSourceFile <em>Model Source File</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.impl.NuSMVInputImpl#getSessionScript <em>Session Script</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.impl.NuSMVInputImpl#getModelFileName <em>Model File Name</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.impl.NuSMVInputImpl#getSessionScriptFileName <em>Session Script File Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -27,45 +25,48 @@ import org.osate.xtext.aadl2.agcl.analysis.verifiers.VerifiersPackage;
  */
 public class NuSMVInputImpl extends ModelCheckerInputImpl implements NuSMVInput {
 	/**
-	 * The default value of the '{@link #getModelSourceFile() <em>Model Source File</em>}' attribute.
+	 * The default value of the '{@link #getModelFileName() <em>Model File Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getModelSourceFile()
+	 * @see #getModelFileName()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String MODEL_SOURCE_FILE_EDEFAULT = null;
+	protected static final String MODEL_FILE_NAME_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getModelSourceFile() <em>Model Source File</em>}' attribute.
+	 * The cached value of the '{@link #getModelFileName() <em>Model File Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getModelSourceFile()
+	 * @see #getModelFileName()
 	 * @generated
 	 * @ordered
 	 */
-	protected String modelSourceFile = MODEL_SOURCE_FILE_EDEFAULT;
+	protected String modelFileName = MODEL_FILE_NAME_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getSessionScript() <em>Session Script</em>}' attribute.
+	 * The default value of the '{@link #getSessionScriptFileName() <em>Session Script File Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getSessionScript()
+	 * @see #getSessionScriptFileName()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String SESSION_SCRIPT_EDEFAULT = null;
+	protected static final String SESSION_SCRIPT_FILE_NAME_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getSessionScript() <em>Session Script</em>}' attribute.
+	 * The cached value of the '{@link #getSessionScriptFileName() <em>Session Script File Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getSessionScript()
+	 * @see #getSessionScriptFileName()
 	 * @generated
 	 * @ordered
 	 */
-	protected String sessionScript = SESSION_SCRIPT_EDEFAULT;
+	protected String sessionScriptFileName = SESSION_SCRIPT_FILE_NAME_EDEFAULT;
 
+	private IFile modelFile;
+	private IFile sessionScriptFile;
+	
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -90,8 +91,8 @@ public class NuSMVInputImpl extends ModelCheckerInputImpl implements NuSMVInput 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getModelSourceFile() {
-		return modelSourceFile;
+	public String getModelFileName() {
+		return modelFileName;
 	}
 
 	/**
@@ -99,11 +100,11 @@ public class NuSMVInputImpl extends ModelCheckerInputImpl implements NuSMVInput 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setModelSourceFile(String newModelSourceFile) {
-		String oldModelSourceFile = modelSourceFile;
-		modelSourceFile = newModelSourceFile;
+	public void setModelFileName(String newModelFileName) {
+		String oldModelFileName = modelFileName;
+		modelFileName = newModelFileName;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, VerifiersPackage.NU_SMV_INPUT__MODEL_SOURCE_FILE, oldModelSourceFile, modelSourceFile));
+			eNotify(new ENotificationImpl(this, Notification.SET, VerifiersPackage.NU_SMV_INPUT__MODEL_FILE_NAME, oldModelFileName, modelFileName));
 	}
 
 	/**
@@ -111,8 +112,8 @@ public class NuSMVInputImpl extends ModelCheckerInputImpl implements NuSMVInput 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getSessionScript() {
-		return sessionScript;
+	public String getSessionScriptFileName() {
+		return sessionScriptFileName;
 	}
 
 	/**
@@ -120,11 +121,11 @@ public class NuSMVInputImpl extends ModelCheckerInputImpl implements NuSMVInput 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setSessionScript(String newSessionScript) {
-		String oldSessionScript = sessionScript;
-		sessionScript = newSessionScript;
+	public void setSessionScriptFileName(String newSessionScriptFileName) {
+		String oldSessionScriptFileName = sessionScriptFileName;
+		sessionScriptFileName = newSessionScriptFileName;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, VerifiersPackage.NU_SMV_INPUT__SESSION_SCRIPT, oldSessionScript, sessionScript));
+			eNotify(new ENotificationImpl(this, Notification.SET, VerifiersPackage.NU_SMV_INPUT__SESSION_SCRIPT_FILE_NAME, oldSessionScriptFileName, sessionScriptFileName));
 	}
 
 	/**
@@ -135,10 +136,10 @@ public class NuSMVInputImpl extends ModelCheckerInputImpl implements NuSMVInput 
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case VerifiersPackage.NU_SMV_INPUT__MODEL_SOURCE_FILE:
-				return getModelSourceFile();
-			case VerifiersPackage.NU_SMV_INPUT__SESSION_SCRIPT:
-				return getSessionScript();
+			case VerifiersPackage.NU_SMV_INPUT__MODEL_FILE_NAME:
+				return getModelFileName();
+			case VerifiersPackage.NU_SMV_INPUT__SESSION_SCRIPT_FILE_NAME:
+				return getSessionScriptFileName();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -151,11 +152,11 @@ public class NuSMVInputImpl extends ModelCheckerInputImpl implements NuSMVInput 
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case VerifiersPackage.NU_SMV_INPUT__MODEL_SOURCE_FILE:
-				setModelSourceFile((String)newValue);
+			case VerifiersPackage.NU_SMV_INPUT__MODEL_FILE_NAME:
+				setModelFileName((String)newValue);
 				return;
-			case VerifiersPackage.NU_SMV_INPUT__SESSION_SCRIPT:
-				setSessionScript((String)newValue);
+			case VerifiersPackage.NU_SMV_INPUT__SESSION_SCRIPT_FILE_NAME:
+				setSessionScriptFileName((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -169,11 +170,11 @@ public class NuSMVInputImpl extends ModelCheckerInputImpl implements NuSMVInput 
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case VerifiersPackage.NU_SMV_INPUT__MODEL_SOURCE_FILE:
-				setModelSourceFile(MODEL_SOURCE_FILE_EDEFAULT);
+			case VerifiersPackage.NU_SMV_INPUT__MODEL_FILE_NAME:
+				setModelFileName(MODEL_FILE_NAME_EDEFAULT);
 				return;
-			case VerifiersPackage.NU_SMV_INPUT__SESSION_SCRIPT:
-				setSessionScript(SESSION_SCRIPT_EDEFAULT);
+			case VerifiersPackage.NU_SMV_INPUT__SESSION_SCRIPT_FILE_NAME:
+				setSessionScriptFileName(SESSION_SCRIPT_FILE_NAME_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -187,10 +188,10 @@ public class NuSMVInputImpl extends ModelCheckerInputImpl implements NuSMVInput 
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case VerifiersPackage.NU_SMV_INPUT__MODEL_SOURCE_FILE:
-				return MODEL_SOURCE_FILE_EDEFAULT == null ? modelSourceFile != null : !MODEL_SOURCE_FILE_EDEFAULT.equals(modelSourceFile);
-			case VerifiersPackage.NU_SMV_INPUT__SESSION_SCRIPT:
-				return SESSION_SCRIPT_EDEFAULT == null ? sessionScript != null : !SESSION_SCRIPT_EDEFAULT.equals(sessionScript);
+			case VerifiersPackage.NU_SMV_INPUT__MODEL_FILE_NAME:
+				return MODEL_FILE_NAME_EDEFAULT == null ? modelFileName != null : !MODEL_FILE_NAME_EDEFAULT.equals(modelFileName);
+			case VerifiersPackage.NU_SMV_INPUT__SESSION_SCRIPT_FILE_NAME:
+				return SESSION_SCRIPT_FILE_NAME_EDEFAULT == null ? sessionScriptFileName != null : !SESSION_SCRIPT_FILE_NAME_EDEFAULT.equals(sessionScriptFileName);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -205,12 +206,40 @@ public class NuSMVInputImpl extends ModelCheckerInputImpl implements NuSMVInput 
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (modelSourceFile: ");
-		result.append(modelSourceFile);
-		result.append(", sessionScript: ");
-		result.append(sessionScript);
+		result.append(" (modelFileName: ");
+		result.append(modelFileName);
+		result.append(", sessionScriptFileName: ");
+		result.append(sessionScriptFileName);
 		result.append(')');
 		return result.toString();
+	}
+
+	/**
+	 * @return the modelFile
+	 */
+	public IFile getModelFile() {
+		return modelFile;
+	}
+
+	/**
+	 * @param modelFile the modelFile to set
+	 */
+	public void setModelFile(IFile modelFile) {
+		this.modelFile = modelFile;
+	}
+
+	/**
+	 * @return the sessionScriptFile
+	 */
+	public IFile getSessionScriptFile() {
+		return sessionScriptFile;
+	}
+
+	/**
+	 * @param sessionScriptFile the sessionScriptFile to set
+	 */
+	public void setSessionScriptFile(IFile sessionScriptFile) {
+		this.sessionScriptFile = sessionScriptFile;
 	}
 
 } //NuSMVInputImpl

@@ -2,12 +2,10 @@
  */
 package org.osate.xtext.aadl2.agcl.analysis.verifiers.impl;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVOutput;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.VerifiersPackage;
 
@@ -18,8 +16,8 @@ import org.osate.xtext.aadl2.agcl.analysis.verifiers.VerifiersPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.impl.NuSMVOutputImpl#getOutputFile <em>Output File</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.impl.NuSMVOutputImpl#getCounterExampleFile <em>Counter Example File</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.impl.NuSMVOutputImpl#getOutputFileName <em>Output File Name</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.impl.NuSMVOutputImpl#getCounterExampleFileName <em>Counter Example File Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -27,45 +25,48 @@ import org.osate.xtext.aadl2.agcl.analysis.verifiers.VerifiersPackage;
  */
 public class NuSMVOutputImpl extends ModelCheckerOutputImpl implements NuSMVOutput {
 	/**
-	 * The default value of the '{@link #getOutputFile() <em>Output File</em>}' attribute.
+	 * The default value of the '{@link #getOutputFileName() <em>Output File Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getOutputFile()
+	 * @see #getOutputFileName()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String OUTPUT_FILE_EDEFAULT = null;
+	protected static final String OUTPUT_FILE_NAME_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getOutputFile() <em>Output File</em>}' attribute.
+	 * The cached value of the '{@link #getOutputFileName() <em>Output File Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getOutputFile()
+	 * @see #getOutputFileName()
 	 * @generated
 	 * @ordered
 	 */
-	protected String outputFile = OUTPUT_FILE_EDEFAULT;
+	protected String outputFileName = OUTPUT_FILE_NAME_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getCounterExampleFile() <em>Counter Example File</em>}' attribute.
+	 * The default value of the '{@link #getCounterExampleFileName() <em>Counter Example File Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getCounterExampleFile()
+	 * @see #getCounterExampleFileName()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String COUNTER_EXAMPLE_FILE_EDEFAULT = null;
+	protected static final String COUNTER_EXAMPLE_FILE_NAME_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getCounterExampleFile() <em>Counter Example File</em>}' attribute.
+	 * The cached value of the '{@link #getCounterExampleFileName() <em>Counter Example File Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getCounterExampleFile()
+	 * @see #getCounterExampleFileName()
 	 * @generated
 	 * @ordered
 	 */
-	protected String counterExampleFile = COUNTER_EXAMPLE_FILE_EDEFAULT;
+	protected String counterExampleFileName = COUNTER_EXAMPLE_FILE_NAME_EDEFAULT;
 
+	private IFile outputFile;
+	private IFile counterexampleFile;
+	
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -90,8 +91,8 @@ public class NuSMVOutputImpl extends ModelCheckerOutputImpl implements NuSMVOutp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getCounterExampleFile() {
-		return counterExampleFile;
+	public String getOutputFileName() {
+		return outputFileName;
 	}
 
 	/**
@@ -99,11 +100,11 @@ public class NuSMVOutputImpl extends ModelCheckerOutputImpl implements NuSMVOutp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setCounterExampleFile(String newCounterExampleFile) {
-		String oldCounterExampleFile = counterExampleFile;
-		counterExampleFile = newCounterExampleFile;
+	public void setOutputFileName(String newOutputFileName) {
+		String oldOutputFileName = outputFileName;
+		outputFileName = newOutputFileName;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, VerifiersPackage.NU_SMV_OUTPUT__COUNTER_EXAMPLE_FILE, oldCounterExampleFile, counterExampleFile));
+			eNotify(new ENotificationImpl(this, Notification.SET, VerifiersPackage.NU_SMV_OUTPUT__OUTPUT_FILE_NAME, oldOutputFileName, outputFileName));
 	}
 
 	/**
@@ -111,8 +112,8 @@ public class NuSMVOutputImpl extends ModelCheckerOutputImpl implements NuSMVOutp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getOutputFile() {
-		return outputFile;
+	public String getCounterExampleFileName() {
+		return counterExampleFileName;
 	}
 
 	/**
@@ -120,11 +121,11 @@ public class NuSMVOutputImpl extends ModelCheckerOutputImpl implements NuSMVOutp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setOutputFile(String newOutputFile) {
-		String oldOutputFile = outputFile;
-		outputFile = newOutputFile;
+	public void setCounterExampleFileName(String newCounterExampleFileName) {
+		String oldCounterExampleFileName = counterExampleFileName;
+		counterExampleFileName = newCounterExampleFileName;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, VerifiersPackage.NU_SMV_OUTPUT__OUTPUT_FILE, oldOutputFile, outputFile));
+			eNotify(new ENotificationImpl(this, Notification.SET, VerifiersPackage.NU_SMV_OUTPUT__COUNTER_EXAMPLE_FILE_NAME, oldCounterExampleFileName, counterExampleFileName));
 	}
 
 	/**
@@ -135,10 +136,10 @@ public class NuSMVOutputImpl extends ModelCheckerOutputImpl implements NuSMVOutp
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case VerifiersPackage.NU_SMV_OUTPUT__OUTPUT_FILE:
-				return getOutputFile();
-			case VerifiersPackage.NU_SMV_OUTPUT__COUNTER_EXAMPLE_FILE:
-				return getCounterExampleFile();
+			case VerifiersPackage.NU_SMV_OUTPUT__OUTPUT_FILE_NAME:
+				return getOutputFileName();
+			case VerifiersPackage.NU_SMV_OUTPUT__COUNTER_EXAMPLE_FILE_NAME:
+				return getCounterExampleFileName();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -151,11 +152,11 @@ public class NuSMVOutputImpl extends ModelCheckerOutputImpl implements NuSMVOutp
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case VerifiersPackage.NU_SMV_OUTPUT__OUTPUT_FILE:
-				setOutputFile((String)newValue);
+			case VerifiersPackage.NU_SMV_OUTPUT__OUTPUT_FILE_NAME:
+				setOutputFileName((String)newValue);
 				return;
-			case VerifiersPackage.NU_SMV_OUTPUT__COUNTER_EXAMPLE_FILE:
-				setCounterExampleFile((String)newValue);
+			case VerifiersPackage.NU_SMV_OUTPUT__COUNTER_EXAMPLE_FILE_NAME:
+				setCounterExampleFileName((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -169,11 +170,11 @@ public class NuSMVOutputImpl extends ModelCheckerOutputImpl implements NuSMVOutp
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case VerifiersPackage.NU_SMV_OUTPUT__OUTPUT_FILE:
-				setOutputFile(OUTPUT_FILE_EDEFAULT);
+			case VerifiersPackage.NU_SMV_OUTPUT__OUTPUT_FILE_NAME:
+				setOutputFileName(OUTPUT_FILE_NAME_EDEFAULT);
 				return;
-			case VerifiersPackage.NU_SMV_OUTPUT__COUNTER_EXAMPLE_FILE:
-				setCounterExampleFile(COUNTER_EXAMPLE_FILE_EDEFAULT);
+			case VerifiersPackage.NU_SMV_OUTPUT__COUNTER_EXAMPLE_FILE_NAME:
+				setCounterExampleFileName(COUNTER_EXAMPLE_FILE_NAME_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -187,10 +188,10 @@ public class NuSMVOutputImpl extends ModelCheckerOutputImpl implements NuSMVOutp
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case VerifiersPackage.NU_SMV_OUTPUT__OUTPUT_FILE:
-				return OUTPUT_FILE_EDEFAULT == null ? outputFile != null : !OUTPUT_FILE_EDEFAULT.equals(outputFile);
-			case VerifiersPackage.NU_SMV_OUTPUT__COUNTER_EXAMPLE_FILE:
-				return COUNTER_EXAMPLE_FILE_EDEFAULT == null ? counterExampleFile != null : !COUNTER_EXAMPLE_FILE_EDEFAULT.equals(counterExampleFile);
+			case VerifiersPackage.NU_SMV_OUTPUT__OUTPUT_FILE_NAME:
+				return OUTPUT_FILE_NAME_EDEFAULT == null ? outputFileName != null : !OUTPUT_FILE_NAME_EDEFAULT.equals(outputFileName);
+			case VerifiersPackage.NU_SMV_OUTPUT__COUNTER_EXAMPLE_FILE_NAME:
+				return COUNTER_EXAMPLE_FILE_NAME_EDEFAULT == null ? counterExampleFileName != null : !COUNTER_EXAMPLE_FILE_NAME_EDEFAULT.equals(counterExampleFileName);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -205,12 +206,40 @@ public class NuSMVOutputImpl extends ModelCheckerOutputImpl implements NuSMVOutp
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (outputFile: ");
-		result.append(outputFile);
-		result.append(", counterExampleFile: ");
-		result.append(counterExampleFile);
+		result.append(" (outputFileName: ");
+		result.append(outputFileName);
+		result.append(", counterExampleFileName: ");
+		result.append(counterExampleFileName);
 		result.append(')');
 		return result.toString();
+	}
+
+	/**
+	 * @return the outputFile
+	 */
+	public IFile getOutputFile() {
+		return outputFile;
+	}
+
+	/**
+	 * @param outputFile the outputFile to set
+	 */
+	public void setOutputFile(IFile outputFile) {
+		this.outputFile = outputFile;
+	}
+
+	/**
+	 * @return the counterexampleFile
+	 */
+	public IFile getCounterexampleFile() {
+		return counterexampleFile;
+	}
+
+	/**
+	 * @param counterexampleFile the counterexampleFile to set
+	 */
+	public void setCounterexampleFile(IFile counterexampleFile) {
+		this.counterexampleFile = counterexampleFile;
 	}
 
 } //NuSMVOutputImpl

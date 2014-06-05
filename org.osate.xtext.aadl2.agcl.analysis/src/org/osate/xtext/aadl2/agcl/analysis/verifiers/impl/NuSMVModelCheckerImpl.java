@@ -2,7 +2,12 @@
  */
 package org.osate.xtext.aadl2.agcl.analysis.verifiers.impl;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -22,6 +27,7 @@ import org.osate.xtext.aadl2.agcl.analysis.verifiers.ModelCheckerOutput;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVInput;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVModel;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVModelChecker;
+import org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVOutput;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVSpecification;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVUniversalModel;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.Specification;
@@ -43,6 +49,7 @@ public class NuSMVModelCheckerImpl extends ModelCheckerImpl implements NuSMVMode
 	
 	private ISerializer serializer = AGCLAnalysisPlugin.getDefault().getSerializer();
 	private String label;
+	private Map<String,Object> commonPathsTable;
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -69,6 +76,7 @@ public class NuSMVModelCheckerImpl extends ModelCheckerImpl implements NuSMVMode
 	 */
 	@Override
 	public ModelCheckerInput prepareInput(Model model, Specification spec) {
+		Logger.getLogger(getClass()).info("preparing input for NuSMV");
 		assert model instanceof NuSMVModel;
 		assert spec instanceof NuSMVSpecification;
 		NuSMVModel nusmvModel = (NuSMVModel) model;
@@ -78,10 +86,11 @@ public class NuSMVModelCheckerImpl extends ModelCheckerImpl implements NuSMVMode
 		IFile scriptFile = prepareScriptFile(modelFile);
 		// Create NuSMV input with references to the file
 		NuSMVInput modelCheckerInput = VerifiersFactory.eINSTANCE.createNuSMVInput();
-		// TODO: instantiate script template and save it
-		// TODO: pass new file names to the NuSMVInput
-//		modelCheckerInput.setModelSourceFile(value);
-//		modelCheckerInput.setSessionScript(value);
+		modelCheckerInput.setModelFileName(modelFile.getName());
+		modelCheckerInput.setModelFile(modelFile);
+		modelCheckerInput.setSessionScriptFile(scriptFile);
+		modelCheckerInput.setSessionScriptFileName(scriptFile.getName());
+		Logger.getLogger(getClass()).info("input for NuSMV ready");
 		return modelCheckerInput;
 	}
 	
@@ -120,26 +129,37 @@ public class NuSMVModelCheckerImpl extends ModelCheckerImpl implements NuSMVMode
 	}
 	
 	private IFile prepareScriptFile(IFile inputModelFile) {
-		String stderrPath = "stderr";
-		String stdoutPath = "stdout";
-		IPath path = inputFolder.getFullPath().append(inputModelFile.getName()).makeAbsolute();
-		String inputmodelPath = path.toOSString();
-		String counterexamplesPath = "counterexamplesPath";
+		final String makeFileLabel = makeFileLabel();
+		populateCommonPathsTable(inputModelFile, makeFileLabel);
 		Template template = AGCLAnalysisPlugin.getDefault()
 				.getTemplateManager()
 				.get(IPreferenceConstants.MODEL_CHECKER_SCRIPT_TEMPLATE_PREFERENCE);
-		Map<String,Object> substitution = new HashMap<String,Object>();
-		substitution.put("stderr", stderrPath);
-		substitution.put("stdout", stdoutPath);
-		substitution.put("inputmodel", inputmodelPath);
-		substitution.put("counterexamples", counterexamplesPath);
+		Map<String,Object> substitution = commonPathsTable;
 		String result = template.substitute(substitution);
-		URI uri = resourceContext.getURI();
-		String resourceName = uri.lastSegment().replace('.', '_');
-		String newNuSMVScriptFileName = "session_script.nusmvrc"; 
+		String newNuSMVScriptFileName = makeFileLabel + "_session_script.nusmvrc"; 
 		IFile newNuSMVScriptFile = inputFolder.getFile(newNuSMVScriptFileName);
 		AGCLUtil.saveFile(newNuSMVScriptFile, result);
 		return newNuSMVScriptFile; 
+	}
+	
+	private void populateCommonPathsTable(IFile inputModelFile, String makeFileLabel) {
+		commonPathsTable = new HashMap<String,Object>();
+		String stderrFileName 			= makeFileLabel + ".stderr";
+		String stdoutFileName 			= makeFileLabel + ".stdout";
+		String inputModelFileName 		= inputModelFile.getName();
+		String counterexamplesFileName 	= makeFileLabel + "_counterexample.xml";
+		IPath stderrPath 			= outputFolder.getLocation().append(stderrFileName).makeAbsolute();
+		IPath stdoutPath 			= outputFolder.getLocation().append(stdoutFileName).makeAbsolute();
+		IPath inputModelPath 		= inputFolder.getLocation().append(inputModelFileName).makeAbsolute();
+		IPath counterexamplePath 	= inputFolder.getLocation().append(counterexamplesFileName).makeAbsolute();
+		String stderrPathStr 		= stderrPath.toOSString();
+		String stdoutPathStr 		= stdoutPath.toOSString();
+		String inputModelPathStr 	= inputModelPath.toOSString();
+		String counterexamplesPath 	= counterexamplePath.toOSString();
+		commonPathsTable.put("stderr", stderrPathStr);
+		commonPathsTable.put("stdout", stdoutPathStr);
+		commonPathsTable.put("inputmodel", inputModelPathStr);
+		commonPathsTable.put("counterexamples", counterexamplesPath);
 	}
 
 	@Override
@@ -150,8 +170,80 @@ public class NuSMVModelCheckerImpl extends ModelCheckerImpl implements NuSMVMode
 
 	@Override
 	public ModelCheckerOutput callExternal(ModelCheckerInput input) {
-		// TODO Auto-generated method stub
-		return null;
+		Logger.getLogger(getClass()).info("calling external program (NuSMV)");
+		assert input instanceof NuSMVInput;
+		NuSMVInput nusmvInput = (NuSMVInput) input;
+		// Obtain NuSMV's path
+		String nusmvPathStr = AGCLAnalysisPlugin.getDefault()
+				.getPreferenceStore()
+				.getString(IPreferenceConstants.MODEL_CHECKER_EXECUTABLE_PREFERENCE);
+		Logger.getLogger(getClass()).info("NuSMV path: " + nusmvPathStr);
+		// Obtain the model's full path
+		String inputmodelAbsPathStr = nusmvInput.getModelFile().getLocation().toOSString();
+		// Obtain the session script's full path
+		String scriptAbsPathStr = nusmvInput.getSessionScriptFile().getLocation().toOSString();
+		// Get other paths
+		String stderrPathStr 	= (String) commonPathsTable.get("stderr");
+		String stdoutPathStr 	= (String) commonPathsTable.get("stdout");
+		// Build the command to call NuSMV
+		String flagsTemplate = AGCLAnalysisPlugin.getDefault()
+				.getPreferenceStore()
+				.getString(IPreferenceConstants.MODEL_CHECKER_FLAGS_PREFERENCE);
+		Template template = new Template(flagsTemplate);
+		Map<String, Object> substitution = new HashMap<String, Object>();
+		substitution.put("script", scriptAbsPathStr);
+		substitution.put("inputmodel", inputmodelAbsPathStr);
+		String commandArgs = template.substitute(substitution);
+		String[] commandArray = { nusmvPathStr, commandArgs };
+		List<String> command = Arrays.asList(commandArray);
+		ProcessBuilder procBuilder = new ProcessBuilder(command);
+		File stderrFile = new File(stderrPathStr);
+		File stdoutFile = new File(stdoutPathStr);
+		procBuilder.redirectError(stderrFile);
+		procBuilder.redirectOutput(stdoutFile);
+		// Call the external process
+		try {
+			Process proc = procBuilder.start();
+			int exitCode = proc.waitFor();
+//			 TODO: check other exit codes
+			switch (exitCode) {
+			case 0:
+				Logger.getLogger(getClass()).info("NuSMV finished normally with script " + scriptAbsPathStr);
+				break;
+			case 255:
+				Logger.getLogger(getClass()).error("NuSMV finished with an error code with script " + scriptAbsPathStr);
+				break;
+			}
+		} catch (IOException e) {
+			Logger.getLogger(getClass()).error("There was an I/O error when calling NuSMV");
+		} catch (InterruptedException e) {
+			Logger.getLogger(getClass()).error("There was an interruption error when calling NuSMV");
+		}
+		// Create the output object with the appropriate files
+		NuSMVOutput modelCheckerOutput = VerifiersFactory.eINSTANCE.createNuSMVOutput();
+		IFile outputFile = getOutputFile();
+		modelCheckerOutput.setOutputFile(outputFile);
+		modelCheckerOutput.setOutputFileName(outputFile.getName());
+		IFile counterexamplesFile = getCounterexamplesFile();
+		modelCheckerOutput.setCounterexampleFile(counterexamplesFile);
+		modelCheckerOutput.setCounterExampleFileName(counterexamplesFile.getName());
+		return modelCheckerOutput;
+	}
+	
+	private IFile getOutputFile() {
+		final String makeFileLabel = makeFileLabel();
+		String stdoutFileName = makeFileLabel + ".stdout";
+//		IPath stdoutPath	  = outputFolder.getLocation().append(stdoutFileName).makeAbsolute();
+//		String stdoutPathStr  = stdoutPath.toOSString();
+		return outputFolder.getFile(stdoutFileName);
+	}
+	
+	private IFile getCounterexamplesFile() {
+		final String makeFileLabel = makeFileLabel();
+		String counterexamplesFileName 	= makeFileLabel + "_counterexample.xml";
+//		IPath counterexamplePath 		= inputFolder.getLocation().append(counterexamplesFileName).makeAbsolute();
+//		String counterexamplesPath 		= counterexamplePath.toOSString();
+		return outputFolder.getFile(counterexamplesFileName);
 	}
 
 	@Override

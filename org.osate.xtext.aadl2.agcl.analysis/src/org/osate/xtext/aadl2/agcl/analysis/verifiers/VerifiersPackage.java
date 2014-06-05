@@ -610,22 +610,22 @@ public interface VerifiersPackage extends EPackage {
 	int NU_SMV_INPUT = 11;
 
 	/**
-	 * The feature id for the '<em><b>Model Source File</b></em>' attribute.
+	 * The feature id for the '<em><b>Model File Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int NU_SMV_INPUT__MODEL_SOURCE_FILE = MODEL_CHECKER_INPUT_FEATURE_COUNT + 0;
+	int NU_SMV_INPUT__MODEL_FILE_NAME = MODEL_CHECKER_INPUT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Session Script</b></em>' attribute.
+	 * The feature id for the '<em><b>Session Script File Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int NU_SMV_INPUT__SESSION_SCRIPT = MODEL_CHECKER_INPUT_FEATURE_COUNT + 1;
+	int NU_SMV_INPUT__SESSION_SCRIPT_FILE_NAME = MODEL_CHECKER_INPUT_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Nu SMV Input</em>' class.
@@ -656,22 +656,22 @@ public interface VerifiersPackage extends EPackage {
 	int NU_SMV_OUTPUT = 12;
 
 	/**
-	 * The feature id for the '<em><b>Output File</b></em>' attribute.
+	 * The feature id for the '<em><b>Output File Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int NU_SMV_OUTPUT__OUTPUT_FILE = MODEL_CHECKER_OUTPUT_FEATURE_COUNT + 0;
+	int NU_SMV_OUTPUT__OUTPUT_FILE_NAME = MODEL_CHECKER_OUTPUT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Counter Example File</b></em>' attribute.
+	 * The feature id for the '<em><b>Counter Example File Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int NU_SMV_OUTPUT__COUNTER_EXAMPLE_FILE = MODEL_CHECKER_OUTPUT_FEATURE_COUNT + 1;
+	int NU_SMV_OUTPUT__COUNTER_EXAMPLE_FILE_NAME = MODEL_CHECKER_OUTPUT_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Nu SMV Output</em>' class.
@@ -1189,26 +1189,26 @@ public interface VerifiersPackage extends EPackage {
 	EClass getNuSMVInput();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVInput#getModelSourceFile <em>Model Source File</em>}'.
+	 * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVInput#getModelFileName <em>Model File Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Model Source File</em>'.
-	 * @see org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVInput#getModelSourceFile()
+	 * @return the meta object for the attribute '<em>Model File Name</em>'.
+	 * @see org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVInput#getModelFileName()
 	 * @see #getNuSMVInput()
 	 * @generated
 	 */
-	EAttribute getNuSMVInput_ModelSourceFile();
+	EAttribute getNuSMVInput_ModelFileName();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVInput#getSessionScript <em>Session Script</em>}'.
+	 * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVInput#getSessionScriptFileName <em>Session Script File Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Session Script</em>'.
-	 * @see org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVInput#getSessionScript()
+	 * @return the meta object for the attribute '<em>Session Script File Name</em>'.
+	 * @see org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVInput#getSessionScriptFileName()
 	 * @see #getNuSMVInput()
 	 * @generated
 	 */
-	EAttribute getNuSMVInput_SessionScript();
+	EAttribute getNuSMVInput_SessionScriptFileName();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVOutput <em>Nu SMV Output</em>}'.
@@ -1221,15 +1221,26 @@ public interface VerifiersPackage extends EPackage {
 	EClass getNuSMVOutput();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVOutput#getCounterExampleFile <em>Counter Example File</em>}'.
+	 * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVOutput#getOutputFileName <em>Output File Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Counter Example File</em>'.
-	 * @see org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVOutput#getCounterExampleFile()
+	 * @return the meta object for the attribute '<em>Output File Name</em>'.
+	 * @see org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVOutput#getOutputFileName()
 	 * @see #getNuSMVOutput()
 	 * @generated
 	 */
-	EAttribute getNuSMVOutput_CounterExampleFile();
+	EAttribute getNuSMVOutput_OutputFileName();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVOutput#getCounterExampleFileName <em>Counter Example File Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Counter Example File Name</em>'.
+	 * @see org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVOutput#getCounterExampleFileName()
+	 * @see #getNuSMVOutput()
+	 * @generated
+	 */
+	EAttribute getNuSMVOutput_CounterExampleFileName();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVModel <em>Nu SMV Model</em>}'.
@@ -1293,17 +1304,6 @@ public interface VerifiersPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getNuSMVSpecification();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVOutput#getOutputFile <em>Output File</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Output File</em>'.
-	 * @see org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVOutput#getOutputFile()
-	 * @see #getNuSMVOutput()
-	 * @generated
-	 */
-	EAttribute getNuSMVOutput_OutputFile();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -1569,20 +1569,20 @@ public interface VerifiersPackage extends EPackage {
 		EClass NU_SMV_INPUT = eINSTANCE.getNuSMVInput();
 
 		/**
-		 * The meta object literal for the '<em><b>Model Source File</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Model File Name</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute NU_SMV_INPUT__MODEL_SOURCE_FILE = eINSTANCE.getNuSMVInput_ModelSourceFile();
+		EAttribute NU_SMV_INPUT__MODEL_FILE_NAME = eINSTANCE.getNuSMVInput_ModelFileName();
 
 		/**
-		 * The meta object literal for the '<em><b>Session Script</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Session Script File Name</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute NU_SMV_INPUT__SESSION_SCRIPT = eINSTANCE.getNuSMVInput_SessionScript();
+		EAttribute NU_SMV_INPUT__SESSION_SCRIPT_FILE_NAME = eINSTANCE.getNuSMVInput_SessionScriptFileName();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.impl.NuSMVOutputImpl <em>Nu SMV Output</em>}' class.
@@ -1595,12 +1595,20 @@ public interface VerifiersPackage extends EPackage {
 		EClass NU_SMV_OUTPUT = eINSTANCE.getNuSMVOutput();
 
 		/**
-		 * The meta object literal for the '<em><b>Counter Example File</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Output File Name</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute NU_SMV_OUTPUT__COUNTER_EXAMPLE_FILE = eINSTANCE.getNuSMVOutput_CounterExampleFile();
+		EAttribute NU_SMV_OUTPUT__OUTPUT_FILE_NAME = eINSTANCE.getNuSMVOutput_OutputFileName();
+
+		/**
+		 * The meta object literal for the '<em><b>Counter Example File Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute NU_SMV_OUTPUT__COUNTER_EXAMPLE_FILE_NAME = eINSTANCE.getNuSMVOutput_CounterExampleFileName();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.impl.NuSMVModelImpl <em>Nu SMV Model</em>}' class.
@@ -1655,14 +1663,6 @@ public interface VerifiersPackage extends EPackage {
 		 * @generated
 		 */
 		EClass NU_SMV_SPECIFICATION = eINSTANCE.getNuSMVSpecification();
-
-		/**
-		 * The meta object literal for the '<em><b>Output File</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute NU_SMV_OUTPUT__OUTPUT_FILE = eINSTANCE.getNuSMVOutput_OutputFile();
 
 	}
 

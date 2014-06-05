@@ -2,6 +2,8 @@
  */
 package org.osate.xtext.aadl2.agcl.analysis.verifiers;
 
+import org.eclipse.core.resources.IFile;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -11,8 +13,8 @@ package org.osate.xtext.aadl2.agcl.analysis.verifiers;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVInput#getModelSourceFile <em>Model Source File</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVInput#getSessionScript <em>Session Script</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVInput#getModelFileName <em>Model File Name</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVInput#getSessionScriptFileName <em>Session Script File Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -22,55 +24,63 @@ package org.osate.xtext.aadl2.agcl.analysis.verifiers;
  */
 public interface NuSMVInput extends ModelCheckerInput {
 	/**
-	 * Returns the value of the '<em><b>Model Source File</b></em>' attribute.
+	 * Returns the value of the '<em><b>Model File Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Model Source File</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Model File Name</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Model Source File</em>' attribute.
-	 * @see #setModelSourceFile(String)
-	 * @see org.osate.xtext.aadl2.agcl.analysis.verifiers.VerifiersPackage#getNuSMVInput_ModelSourceFile()
+	 * @return the value of the '<em>Model File Name</em>' attribute.
+	 * @see #setModelFileName(String)
+	 * @see org.osate.xtext.aadl2.agcl.analysis.verifiers.VerifiersPackage#getNuSMVInput_ModelFileName()
 	 * @model extendedMetaData="processing='skip'"
 	 * @generated
 	 */
-	String getModelSourceFile();
+	String getModelFileName();
 
 	/**
-	 * Sets the value of the '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVInput#getModelSourceFile <em>Model Source File</em>}' attribute.
+	 * Sets the value of the '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVInput#getModelFileName <em>Model File Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Model Source File</em>' attribute.
-	 * @see #getModelSourceFile()
+	 * @param value the new value of the '<em>Model File Name</em>' attribute.
+	 * @see #getModelFileName()
 	 * @generated
 	 */
-	void setModelSourceFile(String value);
+	void setModelFileName(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Session Script</b></em>' attribute.
+	 * Returns the value of the '<em><b>Session Script File Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Session Script</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Session Script File Name</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Session Script</em>' attribute.
-	 * @see #setSessionScript(String)
-	 * @see org.osate.xtext.aadl2.agcl.analysis.verifiers.VerifiersPackage#getNuSMVInput_SessionScript()
+	 * @return the value of the '<em>Session Script File Name</em>' attribute.
+	 * @see #setSessionScriptFileName(String)
+	 * @see org.osate.xtext.aadl2.agcl.analysis.verifiers.VerifiersPackage#getNuSMVInput_SessionScriptFileName()
 	 * @model extendedMetaData="processing='skip'"
 	 * @generated
 	 */
-	String getSessionScript();
+	String getSessionScriptFileName();
 
 	/**
-	 * Sets the value of the '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVInput#getSessionScript <em>Session Script</em>}' attribute.
+	 * Sets the value of the '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVInput#getSessionScriptFileName <em>Session Script File Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Session Script</em>' attribute.
-	 * @see #getSessionScript()
+	 * @param value the new value of the '<em>Session Script File Name</em>' attribute.
+	 * @see #getSessionScriptFileName()
 	 * @generated
 	 */
-	void setSessionScript(String value);
+	void setSessionScriptFileName(String value);
+	
+	IFile getModelFile();
+	
+	void setModelFile(IFile file);
+	
+	IFile getSessionScriptFile();
+	
+	void setSessionScriptFile(IFile file);
 
 } // NuSMVInput
