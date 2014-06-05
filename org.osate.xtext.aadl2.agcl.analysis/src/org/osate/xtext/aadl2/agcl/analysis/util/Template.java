@@ -24,6 +24,10 @@ public class Template {
 		this.length = pattern.length();
 	}
 	
+	public String getPattern() {
+		return new String(pattern);
+	}
+	
 	/**
 	 * Substitutes all template variables by their String value as defined in the given substitution map.
 	 * @param substitution A map associating template variables with objects whose string representation is 

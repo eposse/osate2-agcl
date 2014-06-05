@@ -24,6 +24,7 @@ import org.osate.xtext.aadl2.agcl.analysis.verifiers.VerifiersPackage;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.impl.NuSMVSpecificationImpl#getSpec <em>Spec</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.impl.NuSMVSpecificationImpl#getContext <em>Context</em>}</li>
  * </ul>
  * </p>
  *
@@ -51,6 +52,26 @@ public class NuSMVSpecificationImpl extends MinimalEObjectImpl.Container impleme
 	 * @ordered
 	 */
 	protected Object spec = SPEC_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getContext() <em>Context</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getContext()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Object CONTEXT_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getContext() <em>Context</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getContext()
+	 * @generated
+	 * @ordered
+	 */
+	protected Object context = CONTEXT_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -95,6 +116,27 @@ public class NuSMVSpecificationImpl extends MinimalEObjectImpl.Container impleme
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Object getContext() {
+		return context;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setContext(Object newContext) {
+		Object oldContext = context;
+		context = newContext;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, VerifiersPackage.NU_SMV_SPECIFICATION__CONTEXT, oldContext, context));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	public String text(Object args) {
@@ -115,6 +157,8 @@ public class NuSMVSpecificationImpl extends MinimalEObjectImpl.Container impleme
 		switch (featureID) {
 			case VerifiersPackage.NU_SMV_SPECIFICATION__SPEC:
 				return getSpec();
+			case VerifiersPackage.NU_SMV_SPECIFICATION__CONTEXT:
+				return getContext();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -129,6 +173,9 @@ public class NuSMVSpecificationImpl extends MinimalEObjectImpl.Container impleme
 		switch (featureID) {
 			case VerifiersPackage.NU_SMV_SPECIFICATION__SPEC:
 				setSpec(newValue);
+				return;
+			case VerifiersPackage.NU_SMV_SPECIFICATION__CONTEXT:
+				setContext(newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -145,6 +192,9 @@ public class NuSMVSpecificationImpl extends MinimalEObjectImpl.Container impleme
 			case VerifiersPackage.NU_SMV_SPECIFICATION__SPEC:
 				setSpec(SPEC_EDEFAULT);
 				return;
+			case VerifiersPackage.NU_SMV_SPECIFICATION__CONTEXT:
+				setContext(CONTEXT_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -159,6 +209,8 @@ public class NuSMVSpecificationImpl extends MinimalEObjectImpl.Container impleme
 		switch (featureID) {
 			case VerifiersPackage.NU_SMV_SPECIFICATION__SPEC:
 				return SPEC_EDEFAULT == null ? spec != null : !SPEC_EDEFAULT.equals(spec);
+			case VerifiersPackage.NU_SMV_SPECIFICATION__CONTEXT:
+				return CONTEXT_EDEFAULT == null ? context != null : !CONTEXT_EDEFAULT.equals(context);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -189,6 +241,8 @@ public class NuSMVSpecificationImpl extends MinimalEObjectImpl.Container impleme
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (spec: ");
 		result.append(spec);
+		result.append(", context: ");
+		result.append(context);
 		result.append(')');
 		return result.toString();
 	}

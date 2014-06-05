@@ -2,9 +2,16 @@
  */
 package org.osate.xtext.aadl2.agcl.analysis.verifiers.impl;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.serializer.ISerializer;
 import org.osate.xtext.aadl2.agcl.agcl.PSLSpec;
+import org.osate.xtext.aadl2.agcl.analysis.AGCLAnalysisPlugin;
+import org.osate.xtext.aadl2.agcl.analysis.config.IPreferenceConstants;
+import org.osate.xtext.aadl2.agcl.analysis.util.Template;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.Model;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.ModelCheckerInput;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.ModelCheckerOutput;
@@ -29,6 +36,8 @@ import org.osate.xtext.aadl2.agcl.analysis.visitors.PSL2NuSMVSpecConverterExplic
  * @generated
  */
 public class NuSMVModelCheckerImpl extends ModelCheckerImpl implements NuSMVModelChecker {
+	
+	private ISerializer serializer = AGCLAnalysisPlugin.getDefault().getSerializer();
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -59,10 +68,29 @@ public class NuSMVModelCheckerImpl extends ModelCheckerImpl implements NuSMVMode
 		assert spec instanceof NuSMVSpecification;
 		NuSMVModel nusmvModel = (NuSMVModel) model;
 		NuSMVSpecification nusmvSpec = (NuSMVSpecification) spec;
-		// Obtain the files
-		String modelText = nusmvModel.text(null);
+		String varsText  = nusmvModel.variablesText();
+		String initText  = nusmvModel.initText();
+		String transText = nusmvModel.transText(); 
 		String specText = nusmvSpec.text(null);
+		
+		Template template = AGCLAnalysisPlugin.getDefault()
+				.getTemplateManager()
+				.get(IPreferenceConstants.MODEL_CHECKER_MODEL_TEMPLATE_PREFERENCE);
+		Map<String,Object> substitution = new HashMap<String,Object>();
+		substitution.put("variables", varsText);
+		substitution.put("init", initText);
+		substitution.put("trans", transText);
+		substitution.put("logic", "PSL");
+		substitution.put("spec", specText);
+		substitution.put("fairness", "true");
+		String result = template.substitute(substitution);
+		Logger.getLogger(getClass()).debug("resulting nusmv source:\n"+result);
+		
 		NuSMVInput modelCheckerInput = VerifiersFactory.eINSTANCE.createNuSMVInput();
+		// TODO: Continue here...
+		// TODO: save result into actual file 
+		// TODO: instantiate script template and save it
+		// TODO: pass new file names to the NuSMVInput
 //		modelCheckerInput.setModelSourceFile(value);
 //		modelCheckerInput.setSessionScript(value);
 		return modelCheckerInput;
@@ -83,7 +111,17 @@ public class NuSMVModelCheckerImpl extends ModelCheckerImpl implements NuSMVMode
 	@Override
 	public VerificationResult checkSpecValidity(Specification spec) {
 		NuSMVUniversalModel universalModel = VerifiersFactory.eINSTANCE.createNuSMVUniversalModel();
+		universalModel.setContext(spec.getSpec());
+		universalModel.synthesizeModelFromSpec();
+		Logger.getLogger(getClass()).debug("NuSMV univ. model: [" + universalModel.text(null) + "]");
 		return check(universalModel, spec);
+	}
+
+	@Override
+	public VerificationResult checkSpecValidity(PSLSpec pslSpec) {
+		Logger.getLogger(getClass()).debug("checking validity of " + serializer.serialize(pslSpec));
+		NuSMVSpecification nusmvSpec = nusmvSpecFromPSLSpec(pslSpec);
+		return checkSpecValidity(nusmvSpec);
 	}
 
 	/**
@@ -94,10 +132,12 @@ public class NuSMVModelCheckerImpl extends ModelCheckerImpl implements NuSMVMode
 	 * @return an {@code Specification} instance with the transformed specification 
 	 */
 	public NuSMVSpecification nusmvSpecFromPSLSpec(PSLSpec pslSpec) {
+		Logger.getLogger(getClass()).debug("transforming psl spec into nusmv spec: " + serializer.serialize(pslSpec) );
 		NuSMVSpecification result = VerifiersFactory.eINSTANCE.createNuSMVSpecification();
 		PSL2NuSMVSpecConverterExplicitSwitch conv = new PSL2NuSMVSpecConverterExplicitSwitch();
 		PSLSpec transformed = (PSLSpec)conv.doSwitch(pslSpec);
 		result.setSpec(transformed);
+		Logger.getLogger(getClass()).debug("transformed nusmv spec:                " + serializer.serialize(transformed) );
 		return result;
 	}
 

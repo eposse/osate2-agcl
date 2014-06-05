@@ -14,6 +14,8 @@
       </eAnnotations>
       <eParameters name="args" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
     </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="model" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="context" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Specification" abstract="true" interface="true">
     <eOperations name="text" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
@@ -23,6 +25,7 @@
       <eParameters name="args" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="spec" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="context" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CounterExample" abstract="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="UniversalModel" abstract="true" interface="true"
@@ -81,7 +84,11 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="NuSMVModel" eSuperTypes="#//Model"/>
+  <eClassifiers xsi:type="ecore:EClass" name="NuSMVModel" eSuperTypes="#//Model">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="vars" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="init" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="trans" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NuSMVUniversalModel" eSuperTypes="#//NuSMVModel #//UniversalModel"/>
   <eClassifiers xsi:type="ecore:EClass" name="NuSMVSpecification" eSuperTypes="#//Specification"/>
 </ecore:EPackage>

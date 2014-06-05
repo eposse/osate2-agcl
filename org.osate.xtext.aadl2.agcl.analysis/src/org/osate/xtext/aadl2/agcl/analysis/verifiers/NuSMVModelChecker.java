@@ -2,6 +2,8 @@
  */
 package org.osate.xtext.aadl2.agcl.analysis.verifiers;
 
+import org.osate.xtext.aadl2.agcl.agcl.PSLSpec;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -14,4 +16,7 @@ package org.osate.xtext.aadl2.agcl.analysis.verifiers;
  * @generated
  */
 public interface NuSMVModelChecker extends ModelChecker {
+
+	public VerificationResult checkSpecValidity(PSLSpec pslSpec);
+	
 } // NuSMVModelChecker

@@ -23,6 +23,8 @@ import org.eclipse.xtext.serializer.impl.Serializer;
 import org.osate.xtext.aadl2.agcl.AGCLStandaloneSetup;
 import org.osate.xtext.aadl2.agcl.analysis.config.IPreferenceConstants;
 import org.osate.xtext.aadl2.agcl.analysis.util.PathUtil;
+import org.osate.xtext.aadl2.agcl.analysis.util.Template;
+import org.osate.xtext.aadl2.agcl.analysis.util.TemplateManager;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.ModelChecker;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
@@ -44,13 +46,12 @@ public class AGCLAnalysisPlugin extends AbstractUIPlugin {
 	private Bundle bundle = getBundle();
 	private String configDir = "config";
 	private String loggerConfigFile = "logger.conf";
-	private String templatesDir = "resources/templates";
-	private String[] templateFiles = { "nusmv_script.template", "nusmv_model.template" };
 	private IPath loggerConfigPath = null;
 	private IPath bundleLoc = null;
 	private IPath stateLoc;
 	private Injector injector = new AGCLStandaloneSetup().createInjectorAndDoEMFRegistration();
     private ISerializer serializer = injector.getInstance(Serializer.class);   
+    private TemplateManager templateManager;
     
 	private ModelChecker activeModelChecker;
 	private Map<String,ModelChecker> modelCheckerRegistry;
@@ -73,11 +74,15 @@ public class AGCLAnalysisPlugin extends AbstractUIPlugin {
 		plugin = this;
 		findPluginLocations();
 		initLogger();
-		copyTemplates();
+		createTemplateManager();
 		createDefaultModelChecker();
         Logger.getLogger(getClass()).info("AGCL analysis plugin activated");
 	}
 	
+	private void createTemplateManager() {
+		templateManager = new TemplateManager();
+	}
+
 	/**
 	 * Determines the plug-in bundle actual location and the plug-in state location.
 	 * @throws MalformedURLException
@@ -119,74 +124,6 @@ public class AGCLAnalysisPlugin extends AbstractUIPlugin {
 		}
 	}
 
-	/**
-	 * Copies the template files from the resource folder in the bundle to the plugin's state location.
-	 * While strictly speaking this doesn't seem necessary, it is the appropriate place to put them. 
-	 * 
-	 * A user can modify the templates there and those will be used, while the default is still stored with the bundle.
-	 * 
-	 * @see {@link #getStateLocation()}
-	 */
-	private void copyTemplates() {
-		IPath templatesRelPath = new Path(templatesDir);
-		java.nio.file.Path targetTemplatesDirPath = Paths.get(stateLoc.toString()).resolve(templatesDir);
-		Logger.getLogger(getClass()).debug("target templates directory: " + targetTemplatesDirPath);
-		try {
-			Files.createDirectories(targetTemplatesDirPath);
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		URL[] templateURLs = FileLocator.findEntries(bundle, templatesRelPath);
-		for (URL url : templateURLs) {
-			try {
-				Logger.getLogger(getClass()).debug("template URL:               " + url);
-				URL resolvedURL = FileLocator.resolve(url);
-				Logger.getLogger(getClass()).debug("resolved template URL:      " + resolvedURL);
-				java.nio.file.Path sourceTemplatesDirPath = Paths.get(resolvedURL.getPath());
-				Logger.getLogger(getClass()).debug("source templates directory: " + sourceTemplatesDirPath);
-				for (String templateFile : templateFiles) {
-					java.nio.file.Path sourceTemplateFilePath = sourceTemplatesDirPath.resolve(templateFile);
-					Logger.getLogger(getClass()).debug("source template file:       " + sourceTemplateFilePath);
-					java.nio.file.Path targetTemplateFilePath = targetTemplatesDirPath.resolve(templateFile);
-					Logger.getLogger(getClass()).debug("target template file:       " + targetTemplateFilePath);
-					try {
-						Files.copy(sourceTemplateFilePath, targetTemplateFilePath);  // TODO: maybe change the policy to overwrite existing files?
-					}
-					catch (FileAlreadyExistsException e) {
-						Logger.getLogger(getClass()).info("target template file already exists; I'm keeping the existing file");
-					}
-				}
-			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-//        Enumeration<String> templateFiles = bundle.getEntryPaths(templatesDir);
-//        while (templateFiles.hasMoreElements()) {
-//        	String relativePath = templateFiles.nextElement();
-//        	IPath absolutePath = bundleLoc.append(relativePath);
-//        	Logger.getLogger(getClass()).debug("absolute path:   " + absolutePath);
-//        	File file = absolutePath.toFile();
-//        	String cannonicalPath;
-//			try {
-//				cannonicalPath = file.getCanonicalPath();
-//	        	Logger.getLogger(getClass()).debug("cannonical path: "+ cannonicalPath);
-//	        	java.nio.file.Path sourcePath = Paths.get(cannonicalPath);
-//	        	Logger.getLogger(getClass()).debug("source path:     " + sourcePath);
-//	        	java.nio.file.Path targetPath = Paths.get(stateLoc.toString()).resolve(file.getName());
-//	        	Logger.getLogger(getClass()).debug("target path:     " + targetPath);
-////	        	Files.copy(sourcePath, targetPath);
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//       }
-	}
-	
 	/** 
 	 * Copies a file to the plugin's state location.
 	 */
@@ -312,5 +249,13 @@ public class AGCLAnalysisPlugin extends AbstractUIPlugin {
 	 */
 	public void setSerializer(ISerializer serializer) {
 		this.serializer = serializer;
+	}
+
+	public TemplateManager getTemplateManager() {
+		return templateManager;
+	}
+
+	public void setTemplateManager(TemplateManager templateManager) {
+		this.templateManager = templateManager;
 	}
 }

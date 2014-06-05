@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.Specification#getSpec <em>Spec</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.Specification#getContext <em>Context</em>}</li>
  * </ul>
  * </p>
  *
@@ -47,6 +48,32 @@ public interface Specification extends EObject {
 	 * @generated
 	 */
 	void setSpec(Object value);
+
+	/**
+	 * Returns the value of the '<em><b>Context</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Context</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Context</em>' attribute.
+	 * @see #setContext(Object)
+	 * @see org.osate.xtext.aadl2.agcl.analysis.verifiers.VerifiersPackage#getSpecification_Context()
+	 * @model
+	 * @generated
+	 */
+	Object getContext();
+
+	/**
+	 * Sets the value of the '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.Specification#getContext <em>Context</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Context</em>' attribute.
+	 * @see #getContext()
+	 * @generated
+	 */
+	void setContext(Object value);
 
 	/**
 	 * <!-- begin-user-doc -->

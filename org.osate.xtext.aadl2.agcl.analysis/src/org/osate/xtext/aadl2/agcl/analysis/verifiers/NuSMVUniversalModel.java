@@ -14,4 +14,6 @@ package org.osate.xtext.aadl2.agcl.analysis.verifiers;
  * @generated
  */
 public interface NuSMVUniversalModel extends NuSMVModel, UniversalModel {
+
+	public void synthesizeModelFromSpec();
 } // NuSMVUniversalModel

@@ -1,6 +1,6 @@
 MODULE main
   VAR
-    ${atomicprops} : boolean;
+    ${variables} : boolean;
   ${logic}SPEC ${spec}
   FAIRNESS ${fairness}
 

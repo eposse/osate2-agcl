@@ -257,6 +257,24 @@ public class VerifiersPackageImpl extends EPackageImpl implements VerifiersPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getModel_Model() {
+		return (EAttribute)modelEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getModel_Context() {
+		return (EAttribute)modelEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EOperation getModel__Text__Object() {
 		return modelEClass.getEOperations().get(0);
 	}
@@ -277,6 +295,15 @@ public class VerifiersPackageImpl extends EPackageImpl implements VerifiersPacka
 	 */
 	public EAttribute getSpecification_Spec() {
 		return (EAttribute)specificationEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSpecification_Context() {
+		return (EAttribute)specificationEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -473,6 +500,33 @@ public class VerifiersPackageImpl extends EPackageImpl implements VerifiersPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getNuSMVModel_Vars() {
+		return (EAttribute)nuSMVModelEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getNuSMVModel_Init() {
+		return (EAttribute)nuSMVModelEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getNuSMVModel_Trans() {
+		return (EAttribute)nuSMVModelEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getNuSMVUniversalModel() {
 		return nuSMVUniversalModelEClass;
 	}
@@ -531,10 +585,13 @@ public class VerifiersPackageImpl extends EPackageImpl implements VerifiersPacka
 		createEReference(negativeEClass, NEGATIVE__COUNTEREXAMPLE);
 
 		modelEClass = createEClass(MODEL);
+		createEAttribute(modelEClass, MODEL__MODEL);
+		createEAttribute(modelEClass, MODEL__CONTEXT);
 		createEOperation(modelEClass, MODEL___TEXT__OBJECT);
 
 		specificationEClass = createEClass(SPECIFICATION);
 		createEAttribute(specificationEClass, SPECIFICATION__SPEC);
+		createEAttribute(specificationEClass, SPECIFICATION__CONTEXT);
 		createEOperation(specificationEClass, SPECIFICATION___TEXT__OBJECT);
 
 		counterExampleEClass = createEClass(COUNTER_EXAMPLE);
@@ -566,6 +623,9 @@ public class VerifiersPackageImpl extends EPackageImpl implements VerifiersPacka
 		createEAttribute(nuSMVOutputEClass, NU_SMV_OUTPUT__COUNTER_EXAMPLE_FILE);
 
 		nuSMVModelEClass = createEClass(NU_SMV_MODEL);
+		createEAttribute(nuSMVModelEClass, NU_SMV_MODEL__VARS);
+		createEAttribute(nuSMVModelEClass, NU_SMV_MODEL__INIT);
+		createEAttribute(nuSMVModelEClass, NU_SMV_MODEL__TRANS);
 
 		nuSMVUniversalModelEClass = createEClass(NU_SMV_UNIVERSAL_MODEL);
 
@@ -620,12 +680,15 @@ public class VerifiersPackageImpl extends EPackageImpl implements VerifiersPacka
 		initEReference(getNegative_Counterexample(), this.getCounterExample(), null, "counterexample", null, 0, 1, Negative.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(modelEClass, Model.class, "Model", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getModel_Model(), ecorePackage.getEJavaObject(), "model", null, 0, 1, Model.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getModel_Context(), ecorePackage.getEJavaObject(), "context", null, 0, 1, Model.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		EOperation op = initEOperation(getModel__Text__Object(), ecorePackage.getEString(), "text", 1, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEJavaObject(), "args", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(specificationEClass, Specification.class, "Specification", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getSpecification_Spec(), ecorePackage.getEJavaObject(), "spec", null, 0, 1, Specification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSpecification_Context(), ecorePackage.getEJavaObject(), "context", null, 0, 1, Specification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		op = initEOperation(getSpecification__Text__Object(), ecorePackage.getEString(), "text", 1, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEJavaObject(), "args", 0, 1, IS_UNIQUE, IS_ORDERED);
@@ -675,6 +738,9 @@ public class VerifiersPackageImpl extends EPackageImpl implements VerifiersPacka
 		initEAttribute(getNuSMVOutput_CounterExampleFile(), ecorePackage.getEString(), "counterExampleFile", null, 0, 1, NuSMVOutput.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(nuSMVModelEClass, NuSMVModel.class, "NuSMVModel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getNuSMVModel_Vars(), ecorePackage.getEJavaObject(), "vars", null, 0, 1, NuSMVModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getNuSMVModel_Init(), ecorePackage.getEJavaObject(), "init", null, 0, 1, NuSMVModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getNuSMVModel_Trans(), ecorePackage.getEJavaObject(), "trans", null, 0, 1, NuSMVModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(nuSMVUniversalModelEClass, NuSMVUniversalModel.class, "NuSMVUniversalModel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

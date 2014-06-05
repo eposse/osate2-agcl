@@ -161,13 +161,31 @@ public interface VerifiersPackage extends EPackage {
 	int MODEL = 3;
 
 	/**
+	 * The feature id for the '<em><b>Model</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL__MODEL = 0;
+
+	/**
+	 * The feature id for the '<em><b>Context</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL__CONTEXT = 1;
+
+	/**
 	 * The number of structural features of the '<em>Model</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MODEL_FEATURE_COUNT = 0;
+	int MODEL_FEATURE_COUNT = 2;
 
 	/**
 	 * The operation id for the '<em>Text</em>' operation.
@@ -207,13 +225,22 @@ public interface VerifiersPackage extends EPackage {
 	int SPECIFICATION__SPEC = 0;
 
 	/**
+	 * The feature id for the '<em><b>Context</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SPECIFICATION__CONTEXT = 1;
+
+	/**
 	 * The number of structural features of the '<em>Specification</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SPECIFICATION_FEATURE_COUNT = 1;
+	int SPECIFICATION_FEATURE_COUNT = 2;
 
 	/**
 	 * The operation id for the '<em>Text</em>' operation.
@@ -270,6 +297,24 @@ public interface VerifiersPackage extends EPackage {
 	 * @generated
 	 */
 	int UNIVERSAL_MODEL = 6;
+
+	/**
+	 * The feature id for the '<em><b>Model</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int UNIVERSAL_MODEL__MODEL = MODEL__MODEL;
+
+	/**
+	 * The feature id for the '<em><b>Context</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int UNIVERSAL_MODEL__CONTEXT = MODEL__CONTEXT;
 
 	/**
 	 * The number of structural features of the '<em>Universal Model</em>' class.
@@ -658,13 +703,58 @@ public interface VerifiersPackage extends EPackage {
 	int NU_SMV_MODEL = 13;
 
 	/**
+	 * The feature id for the '<em><b>Model</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NU_SMV_MODEL__MODEL = MODEL__MODEL;
+
+	/**
+	 * The feature id for the '<em><b>Context</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NU_SMV_MODEL__CONTEXT = MODEL__CONTEXT;
+
+	/**
+	 * The feature id for the '<em><b>Vars</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NU_SMV_MODEL__VARS = MODEL_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Init</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NU_SMV_MODEL__INIT = MODEL_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Trans</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NU_SMV_MODEL__TRANS = MODEL_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Nu SMV Model</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int NU_SMV_MODEL_FEATURE_COUNT = MODEL_FEATURE_COUNT + 0;
+	int NU_SMV_MODEL_FEATURE_COUNT = MODEL_FEATURE_COUNT + 3;
 
 	/**
 	 * The operation id for the '<em>Text</em>' operation.
@@ -693,6 +783,51 @@ public interface VerifiersPackage extends EPackage {
 	 * @generated
 	 */
 	int NU_SMV_UNIVERSAL_MODEL = 14;
+
+	/**
+	 * The feature id for the '<em><b>Model</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NU_SMV_UNIVERSAL_MODEL__MODEL = NU_SMV_MODEL__MODEL;
+
+	/**
+	 * The feature id for the '<em><b>Context</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NU_SMV_UNIVERSAL_MODEL__CONTEXT = NU_SMV_MODEL__CONTEXT;
+
+	/**
+	 * The feature id for the '<em><b>Vars</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NU_SMV_UNIVERSAL_MODEL__VARS = NU_SMV_MODEL__VARS;
+
+	/**
+	 * The feature id for the '<em><b>Init</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NU_SMV_UNIVERSAL_MODEL__INIT = NU_SMV_MODEL__INIT;
+
+	/**
+	 * The feature id for the '<em><b>Trans</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NU_SMV_UNIVERSAL_MODEL__TRANS = NU_SMV_MODEL__TRANS;
 
 	/**
 	 * The number of structural features of the '<em>Nu SMV Universal Model</em>' class.
@@ -739,6 +874,15 @@ public interface VerifiersPackage extends EPackage {
 	 * @ordered
 	 */
 	int NU_SMV_SPECIFICATION__SPEC = SPECIFICATION__SPEC;
+
+	/**
+	 * The feature id for the '<em><b>Context</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NU_SMV_SPECIFICATION__CONTEXT = SPECIFICATION__CONTEXT;
 
 	/**
 	 * The number of structural features of the '<em>Nu SMV Specification</em>' class.
@@ -820,6 +964,28 @@ public interface VerifiersPackage extends EPackage {
 	EClass getModel();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.Model#getModel <em>Model</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Model</em>'.
+	 * @see org.osate.xtext.aadl2.agcl.analysis.verifiers.Model#getModel()
+	 * @see #getModel()
+	 * @generated
+	 */
+	EAttribute getModel_Model();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.Model#getContext <em>Context</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Context</em>'.
+	 * @see org.osate.xtext.aadl2.agcl.analysis.verifiers.Model#getContext()
+	 * @see #getModel()
+	 * @generated
+	 */
+	EAttribute getModel_Context();
+
+	/**
 	 * Returns the meta object for the '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.Model#text(java.lang.Object) <em>Text</em>}' operation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -849,6 +1015,17 @@ public interface VerifiersPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getSpecification_Spec();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.Specification#getContext <em>Context</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Context</em>'.
+	 * @see org.osate.xtext.aadl2.agcl.analysis.verifiers.Specification#getContext()
+	 * @see #getSpecification()
+	 * @generated
+	 */
+	EAttribute getSpecification_Context();
 
 	/**
 	 * Returns the meta object for the '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.Specification#text(java.lang.Object) <em>Text</em>}' operation.
@@ -1065,6 +1242,39 @@ public interface VerifiersPackage extends EPackage {
 	EClass getNuSMVModel();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVModel#getVars <em>Vars</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Vars</em>'.
+	 * @see org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVModel#getVars()
+	 * @see #getNuSMVModel()
+	 * @generated
+	 */
+	EAttribute getNuSMVModel_Vars();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVModel#getInit <em>Init</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Init</em>'.
+	 * @see org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVModel#getInit()
+	 * @see #getNuSMVModel()
+	 * @generated
+	 */
+	EAttribute getNuSMVModel_Init();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVModel#getTrans <em>Trans</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Trans</em>'.
+	 * @see org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVModel#getTrans()
+	 * @see #getNuSMVModel()
+	 * @generated
+	 */
+	EAttribute getNuSMVModel_Trans();
+
+	/**
 	 * Returns the meta object for class '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVUniversalModel <em>Nu SMV Universal Model</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1167,6 +1377,22 @@ public interface VerifiersPackage extends EPackage {
 		EClass MODEL = eINSTANCE.getModel();
 
 		/**
+		 * The meta object literal for the '<em><b>Model</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MODEL__MODEL = eINSTANCE.getModel_Model();
+
+		/**
+		 * The meta object literal for the '<em><b>Context</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MODEL__CONTEXT = eINSTANCE.getModel_Context();
+
+		/**
 		 * The meta object literal for the '<em><b>Text</b></em>' operation.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1191,6 +1417,14 @@ public interface VerifiersPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute SPECIFICATION__SPEC = eINSTANCE.getSpecification_Spec();
+
+		/**
+		 * The meta object literal for the '<em><b>Context</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SPECIFICATION__CONTEXT = eINSTANCE.getSpecification_Context();
 
 		/**
 		 * The meta object literal for the '<em><b>Text</b></em>' operation.
@@ -1377,6 +1611,30 @@ public interface VerifiersPackage extends EPackage {
 		 * @generated
 		 */
 		EClass NU_SMV_MODEL = eINSTANCE.getNuSMVModel();
+
+		/**
+		 * The meta object literal for the '<em><b>Vars</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute NU_SMV_MODEL__VARS = eINSTANCE.getNuSMVModel_Vars();
+
+		/**
+		 * The meta object literal for the '<em><b>Init</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute NU_SMV_MODEL__INIT = eINSTANCE.getNuSMVModel_Init();
+
+		/**
+		 * The meta object literal for the '<em><b>Trans</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute NU_SMV_MODEL__TRANS = eINSTANCE.getNuSMVModel_Trans();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.impl.NuSMVUniversalModelImpl <em>Nu SMV Universal Model</em>}' class.
