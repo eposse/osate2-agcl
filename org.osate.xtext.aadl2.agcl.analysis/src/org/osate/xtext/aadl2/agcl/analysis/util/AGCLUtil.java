@@ -108,4 +108,11 @@ public class AGCLUtil {
 		return openDir(resource, outputDir);
 	}
 
+	public static String spaces(int n) {
+		char[] array = new char[n];
+		for (int i = 0; i < n; i++) {
+			array[i] = ' ';
+		}
+		return new String(array);
+	}
 }

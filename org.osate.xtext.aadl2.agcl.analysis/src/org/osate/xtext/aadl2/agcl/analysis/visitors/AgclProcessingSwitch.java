@@ -3,55 +3,47 @@
  */
 package org.osate.xtext.aadl2.agcl.analysis.visitors;
 
-import org.osate.aadl2.Element;
-import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
-import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
+import org.apache.log4j.Logger;
+import org.eclipse.emf.common.util.BasicEMap;
+import org.eclipse.emf.common.util.EMap;
+import org.eclipse.emf.common.util.TreeIterator;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.serializer.ISerializer;
 import org.osate.xtext.aadl2.agcl.agcl.util.AgclSwitch;
+import org.osate.xtext.aadl2.agcl.analysis.AGCLAnalysisPlugin;
 
 /**
- * @author eposse
+ * An AGCL-specific visitor (processing switch), very similar to {@code AadlProcessingSwitch} but works on AGCL's 
+ * constructs. It provides some traversal methods similar to those in {@link ForAllElement}.
+ * 
+ * @author Ernesto Posse
  *
  */
-public class AgclProcessingSwitch<T> extends ForAllElement {
-
-	protected AgclSwitch<T> agclSwitch;
+public class AgclProcessingSwitch<T> extends AgclSwitch<T> {
 	
-	/**
-	 * @param defTraversal
-	 * @param errMgr
-	 */
-	public AgclProcessingSwitch(int defTraversal,
-			AnalysisErrorReporterManager errMgr) {
-		super(defTraversal, errMgr);
-		initSwitch();
-	}
+	private EMap<EObject,T> results; 
 
-	/**
-	 * @param defTraversal
-	 */
-	public AgclProcessingSwitch(int defTraversal) {
-		this(defTraversal, AnalysisErrorReporterManager.NULL_ERROR_MANANGER);
-	}
-
-	/**
-	 * @param errMgr
-	 */
-	public AgclProcessingSwitch(AnalysisErrorReporterManager errMgr) {
-		this(DEFAULT_DEFAULT_TRAVERSAL, errMgr);
-	}
-
-	/**
-	 * 
-	 */
 	public AgclProcessingSwitch() {
-		this(AnalysisErrorReporterManager.NULL_ERROR_MANANGER);
+		results = new BasicEMap<EObject,T>();
 	}
 	
-	public void initSwitch() {
-		agclSwitch = new AgclSwitch<T>() {};
+	/**
+	 * @return the results
+	 */
+	public EMap<EObject,T> getResults() {
+		return results;
 	}
 
-	public final void process(final Element element) {
-		agclSwitch.doSwitch(element);
+	public void processPreOrderAll(EObject root) {
+		ISerializer serializer = AGCLAnalysisPlugin.getDefault().getSerializer();
+		TreeIterator<EObject> iterator = root.eAllContents();
+		while (iterator.hasNext()) {
+			EObject obj = iterator.next();
+			Logger.getLogger(getClass()).debug("visiting: '" + serializer.serialize(obj) + "';" + obj);
+			T result = doSwitch(obj);
+			results.put(obj, result);
+		}
 	}
+
 }
+

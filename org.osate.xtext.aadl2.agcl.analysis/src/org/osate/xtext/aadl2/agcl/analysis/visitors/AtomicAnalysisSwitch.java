@@ -1,17 +1,25 @@
 package org.osate.xtext.aadl2.agcl.analysis.visitors;
 
+import java.util.Map.Entry;
+import java.util.Set;
+
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.emf.common.util.BasicEMap;
+import org.eclipse.emf.common.util.EMap;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.serializer.ISerializer;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.DefaultAnnexSubclause;
+import org.osate.aadl2.Element;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
 import org.osate.aadl2.util.Aadl2Switch;
 import org.osate.xtext.aadl2.agcl.agcl.AGCLAnnexSubclause;
 import org.osate.xtext.aadl2.agcl.agcl.AGCLBehaviour;
 import org.osate.xtext.aadl2.agcl.agcl.AGCLContract;
 import org.osate.xtext.aadl2.agcl.agcl.AgclFactory;
+import org.osate.xtext.aadl2.agcl.agcl.AtomicProp;
 import org.osate.xtext.aadl2.agcl.agcl.PSLBooleanExpression;
 import org.osate.xtext.aadl2.agcl.agcl.PSLConjunction;
 import org.osate.xtext.aadl2.agcl.agcl.PSLDisjunction;
@@ -21,6 +29,7 @@ import org.osate.xtext.aadl2.agcl.agcl.PSLSpec;
 import org.osate.xtext.aadl2.agcl.agcl.util.AgclSwitch;
 import org.osate.xtext.aadl2.agcl.analysis.AGCLAnalysisPlugin;
 import org.osate.xtext.aadl2.agcl.analysis.util.AGCLSyntaxUtil;
+import org.osate.xtext.aadl2.agcl.analysis.util.SetFactory;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.Negative;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.Positive;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.VerificationResult;
@@ -142,6 +151,20 @@ public class AtomicAnalysisSwitch extends AadlProcessingSwitchWithProgress {
 		PSLSpec combined = makeCombinedFormula(behaviourSpec, assumptionSpec, guaranteeSpec);
 		String combinedStr = serializer.serialize(combined);
 		Logger.getLogger(getClass()).debug("combined = " + combinedStr);
+		Logger.getLogger(getClass()).debug("all atomic props:");
+		Set<AtomicProp> allAPs = AGCLSyntaxUtil.getAtomicPropositions(combined.getExpr());
+		for (AtomicProp ap : allAPs) {
+			String s = serializer.serialize(ap);
+			Logger.getLogger(getClass()).debug("ap: " + ap + " '" + s + "'");
+		}
+		PSL2NuSMVSpecConverterExplicitSwitch conv = new PSL2NuSMVSpecConverterExplicitSwitch();
+//		EObject transformed = conv.map(combined);
+//		conv.processPreOrderAll(combined);
+//		EObject transformed = conv.getResults().get(combined);
+		EObject transformed = conv.doSwitch(combined);
+		assert transformed != null;
+		String transformedStr = serializer.serialize(transformed);
+		Logger.getLogger(getClass()).debug("conversion = " + transformedStr);
 		return null;
 		
 	}

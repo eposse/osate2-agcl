@@ -5,8 +5,13 @@ package org.osate.xtext.aadl2.agcl.analysis.util;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Map.Entry;
 
+import org.apache.log4j.Logger;
+import org.eclipse.emf.common.util.EMap;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.resource.SaveOptions;
+import org.eclipse.xtext.serializer.ISerializer;
 import org.osate.xtext.aadl2.agcl.agcl.AgclFactory;
 import org.osate.xtext.aadl2.agcl.agcl.AtomicProp;
 import org.osate.xtext.aadl2.agcl.agcl.PSLBooleanExpression;
@@ -14,6 +19,8 @@ import org.osate.xtext.aadl2.agcl.agcl.PSLConjunction;
 import org.osate.xtext.aadl2.agcl.agcl.PSLDisjunction;
 import org.osate.xtext.aadl2.agcl.agcl.PSLExpression;
 import org.osate.xtext.aadl2.agcl.agcl.PSLNegation;
+import org.osate.xtext.aadl2.agcl.analysis.AGCLAnalysisPlugin;
+import org.osate.xtext.aadl2.agcl.analysis.visitors.PSLAtomicPropositionsSwitch;
 
 /**
  * Helper class with useful methods for manipulating AGCL syntax
@@ -24,7 +31,8 @@ import org.osate.xtext.aadl2.agcl.agcl.PSLNegation;
 public class AGCLSyntaxUtil {
 	
 	public static final SaveOptions serializerOptions = SaveOptions.newBuilder().format().noValidation().getOptions();
-
+	public static ISerializer serializer = AGCLAnalysisPlugin.getDefault().getSerializer();
+	
 	/**
 	 * In PSL syntax, a 'PSL Expression' may have the form 
 	 * 
@@ -72,8 +80,22 @@ public class AGCLSyntaxUtil {
 	 * @return the set of atomic propositions of a PSL formula
 	 */
 	public static Set<AtomicProp> getAtomicPropositions(PSLExpression expr) {
-		HashSet<AtomicProp> result = new HashSet<AtomicProp>();
-		
-		return result;
+		Set<AtomicProp> combinedResult = SetFactory.getNewSet();
+		PSLAtomicPropositionsSwitch aps = new PSLAtomicPropositionsSwitch();
+		aps.processPreOrderAll(expr);
+		EMap<EObject, Set<AtomicProp>> results = aps.getResults();
+		for (Entry<EObject, Set<AtomicProp>> entry : results.entrySet()) {
+			EObject node = entry.getKey();
+			Set<AtomicProp> nodeResult = entry.getValue();
+			Set<String> nodeResultStringsSet = SetFactory.getNewSet();
+			if (nodeResult != null) {
+				for (AtomicProp ap : nodeResult) {
+					combinedResult.add(ap);
+					nodeResultStringsSet.add(serializer.serialize(ap));
+				}
+			}
+			Logger.getLogger(AGCLSyntaxUtil.class).debug("result for '" + node + "' (" + serializer.serialize(node) + ") = " + nodeResultStringsSet);
+		};
+		return combinedResult;
 	}
 }

@@ -3,11 +3,16 @@
 package org.osate.xtext.aadl2.agcl.analysis.verifiers.impl;
 
 import java.lang.reflect.InvocationTargetException;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+import org.eclipse.xtext.serializer.ISerializer;
+import org.osate.xtext.aadl2.agcl.agcl.PSLExpression;
+import org.osate.xtext.aadl2.agcl.agcl.PSLSpec;
+import org.osate.xtext.aadl2.agcl.analysis.AGCLAnalysisPlugin;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVSpecification;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.VerifiersPackage;
 
@@ -25,6 +30,9 @@ import org.osate.xtext.aadl2.agcl.analysis.verifiers.VerifiersPackage;
  * @generated
  */
 public class NuSMVSpecificationImpl extends MinimalEObjectImpl.Container implements NuSMVSpecification {
+	
+	private ISerializer serializer = AGCLAnalysisPlugin.getDefault().getSerializer();
+	
 	/**
 	 * The default value of the '{@link #getSpec() <em>Spec</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -87,12 +95,14 @@ public class NuSMVSpecificationImpl extends MinimalEObjectImpl.Container impleme
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public String text(Object args) {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		Object specObj = getSpec();
+		assert specObj instanceof PSLSpec;
+		PSLSpec spec = (PSLSpec) specObj;
+		PSLExpression expr = spec.getExpr();
+		return serializer.serialize(expr);
 	}
 
 	/**
