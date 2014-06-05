@@ -4,6 +4,7 @@
 package org.osate.xtext.aadl2.agcl.analysis.actions;
 
 import org.apache.log4j.Logger;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.InstanceObject;
@@ -28,11 +29,7 @@ import org.osate.xtext.aadl2.agcl.analysis.visitors.ViewpointContextSwitch;
  */
 public class AtomicAnalysisAction extends AaxlReadOnlyActionAsJob {
 
-	/**
-	 * 
-	 */
 	public AtomicAnalysisAction() {
-		// TODO Auto-generated constructor stub
 	}
 
 	/* (non-Javadoc)
@@ -56,6 +53,11 @@ public class AtomicAnalysisAction extends AaxlReadOnlyActionAsJob {
 			OsateResourceUtil.getResourceSet().getResources().clear();
 			// Setup the model-checker for this analysis run; the resource is used to 
 			// determine the location of generated folders and files.
+			Logger.getLogger(getClass()).debug(AGCLAnalysisPlugin.getDefault());
+			Logger.getLogger(getClass()).debug(AGCLAnalysisPlugin.getDefault().getActiveModelChecker());
+			Logger.getLogger(getClass()).debug(root);
+			assert AGCLAnalysisPlugin.getDefault().getActiveModelChecker() != null;
+			assert root != null;
 			AGCLAnalysisPlugin.getDefault().getActiveModelChecker().setUp(root.eResource());
 			// Count the model elements we are going to traverse
 			Class<?>[] classifiersOfInterest = 
@@ -66,7 +68,7 @@ public class AtomicAnalysisAction extends AaxlReadOnlyActionAsJob {
 			ViewpointContext viewpointContext = new ViewpointContext();
 			ViewpointContextSwitch viewpointContextSwitch = new ViewpointContextSwitch(monitor, viewpointContext);
 			// Create an object to record analysis results.
-			AnalysisResults analysisResults = new AnalysisResults();
+			AnalysisResults analysisResults = new AnalysisResults(root.eResource());
 			// Create the object that will perform the actual analysis.
 			AtomicAnalysisSwitch analysisSwitch = new AtomicAnalysisSwitch(monitor, viewpointContext, analysisResults); 
 			monitor.beginTask(getActionName(),totalElements); 
@@ -75,7 +77,12 @@ public class AtomicAnalysisAction extends AaxlReadOnlyActionAsJob {
 			// Do the actual analysis
 			analysisSwitch.processPreOrderAll(root);
 			monitor.done();
+			Logger.getLogger(getClass()).info("Analysis results by component:\n" + analysisResults.allResultsByComponentToString());
+			Logger.getLogger(getClass()).info("Analysis results by viewpoint:\n" + analysisResults.allResultsByViewpointToString());
+			analysisResults.saveResults();
 		}
 	}
+	
+	
 
 }

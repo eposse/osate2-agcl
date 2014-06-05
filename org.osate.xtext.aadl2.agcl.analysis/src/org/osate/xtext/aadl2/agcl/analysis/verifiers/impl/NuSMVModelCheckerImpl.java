@@ -6,11 +6,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.xtext.serializer.ISerializer;
 import org.osate.xtext.aadl2.agcl.agcl.PSLSpec;
 import org.osate.xtext.aadl2.agcl.analysis.AGCLAnalysisPlugin;
 import org.osate.xtext.aadl2.agcl.analysis.config.IPreferenceConstants;
+import org.osate.xtext.aadl2.agcl.analysis.util.AGCLUtil;
 import org.osate.xtext.aadl2.agcl.analysis.util.Template;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.Model;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.ModelCheckerInput;
@@ -38,6 +42,7 @@ import org.osate.xtext.aadl2.agcl.analysis.visitors.PSL2NuSMVSpecConverterExplic
 public class NuSMVModelCheckerImpl extends ModelCheckerImpl implements NuSMVModelChecker {
 	
 	private ISerializer serializer = AGCLAnalysisPlugin.getDefault().getSerializer();
+	private String label;
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -68,11 +73,32 @@ public class NuSMVModelCheckerImpl extends ModelCheckerImpl implements NuSMVMode
 		assert spec instanceof NuSMVSpecification;
 		NuSMVModel nusmvModel = (NuSMVModel) model;
 		NuSMVSpecification nusmvSpec = (NuSMVSpecification) spec;
+		
+		IFile modelFile  = prepareModelFile(nusmvModel, nusmvSpec);
+		IFile scriptFile = prepareScriptFile(modelFile);
+		// Create NuSMV input with references to the file
+		NuSMVInput modelCheckerInput = VerifiersFactory.eINSTANCE.createNuSMVInput();
+		// TODO: instantiate script template and save it
+		// TODO: pass new file names to the NuSMVInput
+//		modelCheckerInput.setModelSourceFile(value);
+//		modelCheckerInput.setSessionScript(value);
+		return modelCheckerInput;
+	}
+	
+	private String makeFileLabel() {
+		URI uri = resourceContext.getURI();
+		String resourceName = uri.lastSegment().replace('.', '_');
+		return resourceName + "_" + label.replace('.', '_');
+	}
+	
+	private IFile prepareModelFile(NuSMVModel nusmvModel, NuSMVSpecification nusmvSpec) {
+		// Extract NuSMVModel elements
 		String varsText  = nusmvModel.variablesText();
 		String initText  = nusmvModel.initText();
 		String transText = nusmvModel.transText(); 
 		String specText = nusmvSpec.text(null);
 		
+		// Substitute in template
 		Template template = AGCLAnalysisPlugin.getDefault()
 				.getTemplateManager()
 				.get(IPreferenceConstants.MODEL_CHECKER_MODEL_TEMPLATE_PREFERENCE);
@@ -86,14 +112,34 @@ public class NuSMVModelCheckerImpl extends ModelCheckerImpl implements NuSMVMode
 		String result = template.substitute(substitution);
 		Logger.getLogger(getClass()).debug("resulting nusmv source:\n"+result);
 		
-		NuSMVInput modelCheckerInput = VerifiersFactory.eINSTANCE.createNuSMVInput();
-		// TODO: Continue here...
-		// TODO: save result into actual file 
-		// TODO: instantiate script template and save it
-		// TODO: pass new file names to the NuSMVInput
-//		modelCheckerInput.setModelSourceFile(value);
-//		modelCheckerInput.setSessionScript(value);
-		return modelCheckerInput;
+		// Save result in a file
+		String newNuSMVInputModelFileName = makeFileLabel() + ".smv";
+		IFile newNuSMVInputModelFile = inputFolder.getFile(newNuSMVInputModelFileName);
+		AGCLUtil.saveFile(newNuSMVInputModelFile, result);
+		return newNuSMVInputModelFile;
+	}
+	
+	private IFile prepareScriptFile(IFile inputModelFile) {
+		String stderrPath = "stderr";
+		String stdoutPath = "stdout";
+		IPath path = inputFolder.getFullPath().append(inputModelFile.getName()).makeAbsolute();
+		String inputmodelPath = path.toOSString();
+		String counterexamplesPath = "counterexamplesPath";
+		Template template = AGCLAnalysisPlugin.getDefault()
+				.getTemplateManager()
+				.get(IPreferenceConstants.MODEL_CHECKER_SCRIPT_TEMPLATE_PREFERENCE);
+		Map<String,Object> substitution = new HashMap<String,Object>();
+		substitution.put("stderr", stderrPath);
+		substitution.put("stdout", stdoutPath);
+		substitution.put("inputmodel", inputmodelPath);
+		substitution.put("counterexamples", counterexamplesPath);
+		String result = template.substitute(substitution);
+		URI uri = resourceContext.getURI();
+		String resourceName = uri.lastSegment().replace('.', '_');
+		String newNuSMVScriptFileName = "session_script.nusmvrc"; 
+		IFile newNuSMVScriptFile = inputFolder.getFile(newNuSMVScriptFileName);
+		AGCLUtil.saveFile(newNuSMVScriptFile, result);
+		return newNuSMVScriptFile; 
 	}
 
 	@Override
@@ -118,8 +164,9 @@ public class NuSMVModelCheckerImpl extends ModelCheckerImpl implements NuSMVMode
 	}
 
 	@Override
-	public VerificationResult checkSpecValidity(PSLSpec pslSpec) {
-		Logger.getLogger(getClass()).debug("checking validity of " + serializer.serialize(pslSpec));
+	public VerificationResult checkSpecValidity(PSLSpec pslSpec, String label) {
+		Logger.getLogger(getClass()).debug("checking validity of " + serializer.serialize(pslSpec) + " for " + label);
+		this.label = label;
 		NuSMVSpecification nusmvSpec = nusmvSpecFromPSLSpec(pslSpec);
 		return checkSpecValidity(nusmvSpec);
 	}

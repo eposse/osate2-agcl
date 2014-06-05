@@ -132,8 +132,8 @@ public class AGCLAnalysisPlugin extends AbstractUIPlugin {
 	 * Sets-up the default model-checker.
 	 */
 	private void createDefaultModelChecker() {
-		registerModelChecker(IPreferenceConstants.DEFAULT_MODEL_CHECKER, IPreferenceConstants.DEFAULT_MODEL_CHECKER_INSTANCE);
-		activateModelChecker(IPreferenceConstants.DEFAULT_MODEL_CHECKER);
+		registerModelChecker(IPreferenceConstants.DEFAULT_MODEL_CHECKER_NAME, IPreferenceConstants.DEFAULT_MODEL_CHECKER_INSTANCE);
+		activateModelChecker(IPreferenceConstants.DEFAULT_MODEL_CHECKER_NAME);
 	}
 
 	/*
@@ -175,12 +175,15 @@ public class AGCLAnalysisPlugin extends AbstractUIPlugin {
 
 	@Override 
 	protected void initializeDefaultPreferences(IPreferenceStore store) {
-		store.setDefault(IPreferenceConstants.MODEL_CHECKER_PREFERENCE, 				IPreferenceConstants.DEFAULT_MODEL_CHECKER);
+		store.setDefault(IPreferenceConstants.MODEL_CHECKER_NAME_PREFERENCE,			IPreferenceConstants.DEFAULT_MODEL_CHECKER_NAME);
+		store.setDefault(IPreferenceConstants.MODEL_CHECKER_EXECUTABLE_PREFERENCE,		IPreferenceConstants.DEFAULT_MODEL_CHECKER_EXECUTABLE);
 		store.setDefault(IPreferenceConstants.MODEL_CHECKER_FLAGS_PREFERENCE, 			IPreferenceConstants.DEFAULT_MODEL_CHECKER_FLAGS);
 		store.setDefault(IPreferenceConstants.MODEL_CHECKER_SCRIPT_TEMPLATE_PREFERENCE,	IPreferenceConstants.DEFAULT_MODEL_CHECKER_SCRIPT_TEMPLATE);
 		store.setDefault(IPreferenceConstants.MODEL_CHECKER_MODEL_TEMPLATE_PREFERENCE,	IPreferenceConstants.DEFAULT_MODEL_CHECKER_MODEL_TEMPLATE);
 		store.setDefault(IPreferenceConstants.MODEL_CHECKER_INPUT_DIR_PREFERENCE, 		IPreferenceConstants.DEFAULT_MODEL_CHECKER_INPUT_DIR);
 		store.setDefault(IPreferenceConstants.MODEL_CHECKER_OUTPUT_DIR_PREFERENCE, 		IPreferenceConstants.DEFAULT_MODEL_CHECKER_OUTPUT_DIR);
+		store.setDefault(IPreferenceConstants.ANALYSIS_RESULTS_DIR_PREFERENCE, 			IPreferenceConstants.DEFAULT_ANALYSIS_RESULTS_DIR);
+		store.setDefault(IPreferenceConstants.ANALYSIS_RESULTS_OPTION_PREFERENCE, 		IPreferenceConstants.DEFAULT_ANALYSIS_RESULTS_OPTION);
 	}
 
 	/**

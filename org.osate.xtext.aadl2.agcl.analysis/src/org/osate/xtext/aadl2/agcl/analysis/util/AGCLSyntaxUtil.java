@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.resource.SaveOptions;
 import org.eclipse.xtext.serializer.ISerializer;
 import org.osate.xtext.aadl2.agcl.agcl.AgclFactory;
@@ -21,6 +22,7 @@ import org.osate.xtext.aadl2.agcl.agcl.PSLExpression;
 import org.osate.xtext.aadl2.agcl.agcl.PSLNegation;
 import org.osate.xtext.aadl2.agcl.analysis.AGCLAnalysisPlugin;
 import org.osate.xtext.aadl2.agcl.analysis.visitors.PSLAtomicPropositionsSwitch;
+import org.osate.xtext.aadl2.agcl.analysis.visitors.PSLDeepCopyerExplicitSwitch;
 
 /**
  * Helper class with useful methods for manipulating AGCL syntax
@@ -32,6 +34,15 @@ public class AGCLSyntaxUtil {
 	
 	public static final SaveOptions serializerOptions = SaveOptions.newBuilder().format().noValidation().getOptions();
 	public static ISerializer serializer = AGCLAnalysisPlugin.getDefault().getSerializer();
+	
+	/**
+	 * @param expr  a PSL expression
+	 * @return a deep copy of the expression
+	 */
+	public static PSLExpression deepCopy(PSLExpression expr) {
+		PSLDeepCopyerExplicitSwitch copier = new PSLDeepCopyerExplicitSwitch();
+		return (PSLExpression) copier.doSwitch(expr);
+	}
 	
 	/**
 	 * In PSL syntax, a 'PSL Expression' may have the form 
@@ -49,17 +60,18 @@ public class AGCLSyntaxUtil {
 	 * @return
 	 */
 	public static PSLBooleanExpression getBooleanExpressionFromExpression(PSLExpression expr) {
+		PSLExpression exprCopy = deepCopy(expr);
 		PSLBooleanExpression newBoolExpr = null;
 		if (expr.isImplication()) {
 			// Transform "b1 -> b2" into "not b1 or b2" 
 			PSLDisjunction newDisj = AgclFactory.eINSTANCE.createPSLDisjunction();
 			PSLConjunction newDisjLeft = AgclFactory.eINSTANCE.createPSLConjunction();
 			PSLNegation negCond = AgclFactory.eINSTANCE.createPSLNegation();
-			negCond.setNegated(expr.getCondition());
+			negCond.setNegated(exprCopy.getCondition());
 			newDisjLeft.getFactors().add(negCond);
 			// newDisjLeft = 'not b1'
 			PSLConjunction newDisjRight = AgclFactory.eINSTANCE.createPSLConjunction();
-			newDisjRight.getFactors().add(expr.getConclusion());
+			newDisjRight.getFactors().add(exprCopy.getConclusion());
 			// newDisjRight = 'b2'
 			newDisj.getTerms().add(newDisjLeft);
 			newDisj.getTerms().add(newDisjRight);
@@ -70,7 +82,7 @@ public class AGCLSyntaxUtil {
 			// TODO: Transform "b1 <-> b2" into "(b1 and b2) or (not b1 and not b2)"
 		}
 		else {
-			newBoolExpr = expr.getCondition();
+			newBoolExpr = exprCopy.getCondition();
 		}
 		return newBoolExpr;
 	}

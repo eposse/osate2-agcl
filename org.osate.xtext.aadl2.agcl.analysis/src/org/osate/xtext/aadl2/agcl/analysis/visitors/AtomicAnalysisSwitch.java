@@ -64,9 +64,10 @@ import org.osate.xtext.aadl2.agcl.analysis.verifiers.VerifiersFactory;
 public class AtomicAnalysisSwitch extends AadlProcessingSwitchWithProgress {
 
 	private AgclSwitch<Void> agclSwitch;
-	private ViewpointContext viewpointContext;
-	private AnalysisResults analysisResults;
-	private ISerializer serializer;
+	private final ViewpointContext viewpointContext;
+	private final AnalysisResults analysisResults;
+	private final ISerializer serializer;
+	private final ModelChecker checker;
 
 	/**
 	 * @param pm				a progress monitor
@@ -78,6 +79,7 @@ public class AtomicAnalysisSwitch extends AadlProcessingSwitchWithProgress {
 		this.viewpointContext = viewpointContext;
 		this.analysisResults = analysisResults;
 		this.serializer = AGCLAnalysisPlugin.getDefault().getSerializer();
+		this.checker = AGCLAnalysisPlugin.getDefault().getActiveModelChecker();
 	}
 
 	@Override
@@ -95,7 +97,7 @@ public class AtomicAnalysisSwitch extends AadlProcessingSwitchWithProgress {
 					String viewpointName = contract.getName();
 					if (viewpointContext.containsViewpointToVerify(viewpointName)) {
 						// We verify only the contracts which belong to a viewpoint marked for verification 
-						VerificationResult result = checkBehaviourWRTContract(behaviour, contract);
+						VerificationResult result = checkBehaviourSatisfiesContract(behaviour, contract, viewpointName, componentName);
 						analysisResults.recordResult(viewpointName, componentName, result);
 					}
 				}
@@ -139,42 +141,28 @@ public class AtomicAnalysisSwitch extends AadlProcessingSwitchWithProgress {
 	 * @return a {@link VerificationResult} which is {@link Positive} if the behaviour satisfies the
 	 * 			contract, and {@link Negative} otherwise.
 	 */
-	public VerificationResult checkBehaviourWRTContract(AGCLBehaviour behaviour, AGCLContract contract) {
+	public VerificationResult checkBehaviourSatisfiesContract(AGCLBehaviour behaviour, AGCLContract contract, String viewpointName, String componentName) {
 		Logger.getLogger(getClass()).info("checking behaviour w.r.t. a contract");
-		PSLSpec behaviourSpec = behaviour.getSpec();
+		PSLSpec behaviourSpec  = behaviour.getSpec();
 		PSLSpec assumptionSpec = contract.getAssumption().getSpec();
-		PSLSpec guaranteeSpec = contract.getGuarantee().getSpec();
-		String behaviourStr = serializer.serialize(behaviourSpec);
-		String assumptionStr = serializer.serialize(assumptionSpec);
-		String guaranteeStr = serializer.serialize(guaranteeSpec);
-		Logger.getLogger(getClass()).info("behaviour  = " + behaviourStr);
-		Logger.getLogger(getClass()).info("assumption = " + assumptionStr);
-		Logger.getLogger(getClass()).info("guarantee  = " + guaranteeStr);
-		PSLExpression expr = AgclFactory.eINSTANCE.createPSLExpression();
-		PSLSpec combined = makeCombinedFormula(behaviourSpec, assumptionSpec, guaranteeSpec);
-		String combinedStr = serializer.serialize(combined);
-		Logger.getLogger(getClass()).debug("combined = " + combinedStr);
-//		Logger.getLogger(getClass()).debug("all atomic props:");
-//		Set<AtomicProp> allAPs = AGCLSyntaxUtil.getAtomicPropositions(combined.getExpr());
-//		for (AtomicProp ap : allAPs) {
-//			String s = serializer.serialize(ap);
-//			Logger.getLogger(getClass()).debug("ap: " + ap + " '" + s + "'");
-//		}
-//		PSL2NuSMVSpecConverterExplicitSwitch conv = new PSL2NuSMVSpecConverterExplicitSwitch();
-////		EObject transformed = conv.map(combined);
-////		conv.processPreOrderAll(combined);
-////		EObject transformed = conv.getResults().get(combined);
-//		EObject transformed = conv.doSwitch(combined);
-//		assert transformed != null;
-//		String transformedStr = serializer.serialize(transformed);
-//		Logger.getLogger(getClass()).debug("conversion = " + transformedStr);
-		ModelChecker checker = AGCLAnalysisPlugin.getDefault().getActiveModelChecker();
+		PSLSpec guaranteeSpec  = contract.getGuarantee().getSpec();
+		Logger.getLogger(getClass()).info("behaviour  = " + serializer.serialize(behaviourSpec));
+		Logger.getLogger(getClass()).info("assumption = " + serializer.serialize(assumptionSpec));
+		Logger.getLogger(getClass()).info("guarantee  = " + serializer.serialize(guaranteeSpec));
+		PSLSpec combinedSpec = makeCombinedFormula(behaviourSpec, assumptionSpec, guaranteeSpec);
+		Logger.getLogger(getClass()).debug("combined = " + serializer.serialize(combinedSpec));
 		NuSMVModelChecker theChecker = (NuSMVModelChecker) checker;  // TODO: make it independent of NuSMV
-		VerificationResult result = theChecker.checkSpecValidity(combined);
+		VerificationResult result = theChecker.checkSpecValidity(combinedSpec, "atomic_" + viewpointName + "_" + componentName);
 		return result;
 		
 	}
 	
+	/**
+	 * @param behaviourSpec     a PSL behaviour spec B
+	 * @param assumptionSpec	a PSL assumption spec A
+	 * @param guaranteeSpec		a PSL guarantee spec G
+	 * @return a combined PSL spec of the form B && A -> G
+	 */
 	private PSLSpec makeCombinedFormula(PSLSpec behaviourSpec, PSLSpec assumptionSpec, PSLSpec guaranteeSpec) {
 		PSLSpec newSpec = AgclFactory.eINSTANCE.createPSLSpec();
 		PSLExpression newExpr = AgclFactory.eINSTANCE.createPSLExpression();

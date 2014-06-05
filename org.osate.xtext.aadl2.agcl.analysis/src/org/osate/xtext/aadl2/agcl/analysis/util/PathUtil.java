@@ -102,7 +102,7 @@ public class PathUtil {
 		Logger.getLogger(r.getClass()).debug("plugin state location:    " + psl);
 		Logger.getLogger(r.getClass()).debug("  same?     " + psl.equals(pwl));
 		IPreferenceStore prefStore = AGCLAnalysisPlugin.getDefault().getPreferenceStore();
-		String mc = prefStore.getString(IPreferenceConstants.MODEL_CHECKER_PREFERENCE);
+		String mc = prefStore.getString(IPreferenceConstants.MODEL_CHECKER_NAME_PREFERENCE);
 		Logger.getLogger(r.getClass()).debug("model checker used: " + mc);
 		String mcf = prefStore.getString(IPreferenceConstants.MODEL_CHECKER_FLAGS_PREFERENCE);
 		Logger.getLogger(r.getClass()).debug("model checker flags used: " + mcf);

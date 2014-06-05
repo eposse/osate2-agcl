@@ -14,6 +14,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.xtext.util.StringInputStream;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.xtext.aadl2.agcl.analysis.AGCLAnalysisPlugin;
@@ -108,11 +109,40 @@ public class AGCLUtil {
 		return openDir(resource, outputDir);
 	}
 
+	/**
+	 * Creates the project-specific analysis results directory if it doesn't exist
+	 * @param resource
+	 * @return the output directory for analysis results
+	 */
+	public static IFolder openResultsDir(Resource resource) {
+		IPreferenceStore prefStore = AGCLAnalysisPlugin.getDefault().getPreferenceStore();
+		String resultsDir = prefStore.getString(IPreferenceConstants.ANALYSIS_RESULTS_DIR_PREFERENCE);
+		Logger.getLogger(AGCLUtil.class).info("opening output folder for analysis results: " + resultsDir);
+		return openDir(resource, resultsDir);
+	}
+
 	public static String spaces(int n) {
+		return repchar(' ', n);
+	}
+	
+	public static String repchar(char c, int n) {
 		char[] array = new char[n];
 		for (int i = 0; i < n; i++) {
-			array[i] = ' ';
+			array[i] = c;
 		}
 		return new String(array);
+	}
+
+	public static void saveFile(IFile file, String contents) {
+		StringInputStream source = new StringInputStream(contents);
+		try {
+			file.create(source, true, null);
+		} catch (CoreException e) {
+			try {
+				file.setContents(source, true, true, null);
+			} catch (CoreException e1) {
+				e1.printStackTrace();
+			}
+		}
 	}
 }

@@ -6,6 +6,7 @@ package org.osate.xtext.aadl2.agcl.analysis.config;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.FileFieldEditor;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.preference.RadioGroupFieldEditor;
 import org.eclipse.jface.preference.StringFieldEditor;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
@@ -13,6 +14,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.osate.xtext.aadl2.agcl.analysis.AGCLAnalysisPlugin;
+import org.osate.xtext.aadl2.agcl.analysis.visitors.AnalysisResults;
 
 /**
  * Preference page for the AGCL analysis plug-in.
@@ -46,18 +48,26 @@ public class AGCLPreferencesPage
 	protected void createFieldEditors() {
 		Composite parent = getFieldEditorParent();
 		IPreferenceStore store = getPreferenceStore();
-		FileFieldEditor modelChecker = new FileFieldEditor(
-				IPreferenceConstants.MODEL_CHECKER_PREFERENCE,
-				"&Model-checker",
+		StringFieldEditor modelCheckerName = new StringFieldEditor(
+				IPreferenceConstants.MODEL_CHECKER_NAME_PREFERENCE,
+				"Model-checker &Name",
+				parent);
+		addField(modelCheckerName);
+		modelCheckerName.setPreferenceStore(store);
+		FileFieldEditor modelCheckerExecutable = new FileFieldEditor(
+				IPreferenceConstants.MODEL_CHECKER_EXECUTABLE_PREFERENCE,
+				"Model-checker &Executable",
 				true,
 				parent);
-		addField(modelChecker);	
-		modelChecker.setPreferenceStore(store);
+		addField(modelCheckerExecutable);	
+		modelCheckerExecutable.setPreferenceStore(store);
 		IPropertyChangeListener modelCheckerListener =
 			new IPropertyChangeListener() {
 				public void propertyChange(PropertyChangeEvent event) {
 					String newActiveModelChecker = (String) event.getNewValue();
-					AGCLAnalysisPlugin.getDefault().activateModelChecker(newActiveModelChecker);
+					// TODO: register new instance
+					// TODO: change executable
+//					AGCLAnalysisPlugin.getDefault().activateModelChecker(newActiveModelChecker);
 				}
 			};
 		store.addPropertyChangeListener(modelCheckerListener);
@@ -67,17 +77,25 @@ public class AGCLPreferencesPage
 				parent);
 		addField(flags);
 		flags.setPreferenceStore(store);
-		FileFieldEditor modelCheckerScriptTemplate = new FileFieldEditor(
+//		FileFieldEditor modelCheckerScriptTemplate = new FileFieldEditor(
+//		IPreferenceConstants.MODEL_CHECKER_SCRIPT_TEMPLATE_PREFERENCE,
+//		"Model-checker &Script template",
+//		false,
+//		parent);
+		StringFieldEditor modelCheckerScriptTemplate = new StringFieldEditor(
 				IPreferenceConstants.MODEL_CHECKER_SCRIPT_TEMPLATE_PREFERENCE,
 				"Model-checker &Script template",
-				false,
 				parent);
 		addField(modelCheckerScriptTemplate);	
 		modelCheckerScriptTemplate.setPreferenceStore(store);
-		FileFieldEditor modelCheckerModelTemplate = new FileFieldEditor(
+//		FileFieldEditor modelCheckerModelTemplate = new FileFieldEditor(
+//				IPreferenceConstants.MODEL_CHECKER_MODEL_TEMPLATE_PREFERENCE,
+//				"Model-checker &Model template",
+//				false,
+//				parent);
+		StringFieldEditor modelCheckerModelTemplate = new StringFieldEditor(
 				IPreferenceConstants.MODEL_CHECKER_MODEL_TEMPLATE_PREFERENCE,
 				"Model-checker &Model template",
-				false,
 				parent);
 		addField(modelCheckerModelTemplate);	
 		modelCheckerModelTemplate.setPreferenceStore(store);
@@ -93,6 +111,23 @@ public class AGCLPreferencesPage
 				parent);
 		addField(modelCheckerOutputDir);
 		modelCheckerOutputDir.setPreferenceStore(store);
+		StringFieldEditor analysisResultsDir = new StringFieldEditor(
+				IPreferenceConstants.ANALYSIS_RESULTS_DIR_PREFERENCE,
+				"Analysis &Results directory",
+				parent);
+		addField(analysisResultsDir);
+		analysisResultsDir.setPreferenceStore(store);
+		RadioGroupFieldEditor analysisResultsOption = new RadioGroupFieldEditor(
+				IPreferenceConstants.ANALYSIS_RESULTS_OPTION_PREFERENCE, 
+				"Analysis Results sorting option", 
+				1,
+				new String[][] {
+					{"By viewpoint", AnalysisResults.BYVIEWPOINT},
+					{"By component", AnalysisResults.BYCOMPONENT}
+				},
+	          parent);
+        addField(analysisResultsOption);
+        analysisResultsOption.setPreferenceStore(store);
 	}
 
 }
