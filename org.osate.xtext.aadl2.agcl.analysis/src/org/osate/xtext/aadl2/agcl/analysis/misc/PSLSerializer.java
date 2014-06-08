@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.osate.xtext.aadl2.agcl.analysis.visitors;
+package org.osate.xtext.aadl2.agcl.analysis.misc;
 
 import org.osate.xtext.aadl2.agcl.agcl.Input;
 import org.osate.xtext.aadl2.agcl.agcl.Output;

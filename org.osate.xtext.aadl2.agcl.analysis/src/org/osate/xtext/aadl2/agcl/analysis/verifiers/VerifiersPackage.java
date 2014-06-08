@@ -885,13 +885,22 @@ public interface VerifiersPackage extends EPackage {
 	int NU_SMV_SPECIFICATION__CONTEXT = SPECIFICATION__CONTEXT;
 
 	/**
+	 * The feature id for the '<em><b>Logic</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NU_SMV_SPECIFICATION__LOGIC = SPECIFICATION_FEATURE_COUNT + 0;
+
+	/**
 	 * The number of structural features of the '<em>Nu SMV Specification</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int NU_SMV_SPECIFICATION_FEATURE_COUNT = SPECIFICATION_FEATURE_COUNT + 0;
+	int NU_SMV_SPECIFICATION_FEATURE_COUNT = SPECIFICATION_FEATURE_COUNT + 1;
 
 	/**
 	 * The operation id for the '<em>Text</em>' operation.
@@ -1306,6 +1315,17 @@ public interface VerifiersPackage extends EPackage {
 	EClass getNuSMVSpecification();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVSpecification#getLogic <em>Logic</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Logic</em>'.
+	 * @see org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVSpecification#getLogic()
+	 * @see #getNuSMVSpecification()
+	 * @generated
+	 */
+	EAttribute getNuSMVSpecification_Logic();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1663,6 +1683,14 @@ public interface VerifiersPackage extends EPackage {
 		 * @generated
 		 */
 		EClass NU_SMV_SPECIFICATION = eINSTANCE.getNuSMVSpecification();
+
+		/**
+		 * The meta object literal for the '<em><b>Logic</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute NU_SMV_SPECIFICATION__LOGIC = eINSTANCE.getNuSMVSpecification_Logic();
 
 	}
 

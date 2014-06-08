@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.osate.xtext.aadl2.agcl.analysis.visitors;
+package org.osate.xtext.aadl2.agcl.analysis.misc;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -24,9 +24,6 @@ import org.eclipse.xtext.serializer.ISerializer;
 import org.osate.xtext.aadl2.agcl.agcl.util.AgclSwitch;
 import org.osate.xtext.aadl2.agcl.analysis.AGCLAnalysisPlugin;
 import org.osate.xtext.aadl2.agcl.analysis.util.AGCLUtil;
-import org.osate.xtext.aadl2.agcl.analysis.util.EFunction;
-import org.osate.xtext.aadl2.agcl.analysis.util.EFunctionNEObject;
-import org.osate.xtext.aadl2.agcl.analysis.util.Function;
 
 /**
  * Acts as a map (in the sense of transformation/function) from AGCL AST's to AGCL AST'.

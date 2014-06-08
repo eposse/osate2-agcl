@@ -8,8 +8,8 @@ import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.ui.dialogs.Dialog;
+import org.osate.xtext.aadl2.agcl.analysis.misc.AGCLCheckContractsSwitch;
 import org.osate.xtext.aadl2.agcl.analysis.util.*;
-import org.osate.xtext.aadl2.agcl.analysis.visitors.AGCLCheckContractsSwitch;
 
 
 /**

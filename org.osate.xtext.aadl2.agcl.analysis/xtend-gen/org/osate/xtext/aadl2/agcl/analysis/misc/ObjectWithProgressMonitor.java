@@ -1,4 +1,4 @@
-package org.osate.xtext.aadl2.agcl.analysis.util;
+package org.osate.xtext.aadl2.agcl.analysis.misc;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 

@@ -1,9 +1,9 @@
-package org.osate.xtext.aadl2.agcl.analysis.util;
+package org.osate.xtext.aadl2.agcl.analysis.misc;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
-import org.osate.xtext.aadl2.agcl.analysis.util.AADLSwitchWithProgressDelegate;
-import org.osate.xtext.aadl2.agcl.analysis.util.AnnexSwitchWithProgressDelegate;
+import org.osate.xtext.aadl2.agcl.analysis.misc.AADLSwitchWithProgressDelegate;
+import org.osate.xtext.aadl2.agcl.analysis.misc.AnnexSwitchWithProgressDelegate;
 
 @SuppressWarnings("all")
 public class AADLSwitchWithProgressDelegator<T extends Object> extends AadlProcessingSwitchWithProgress {
@@ -20,6 +20,7 @@ public class AADLSwitchWithProgressDelegator<T extends Object> extends AadlProce
   }
   
   protected void initSwitches() {
-    throw new UnsupportedOperationException("TODO: auto-generated method stub");
+    UnsupportedOperationException _unsupportedOperationException = new UnsupportedOperationException("TODO: auto-generated method stub");
+    throw _unsupportedOperationException;
   }
 }

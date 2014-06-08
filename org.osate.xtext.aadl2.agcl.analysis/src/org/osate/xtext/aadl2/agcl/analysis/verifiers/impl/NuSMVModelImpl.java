@@ -406,7 +406,7 @@ public class NuSMVModelImpl extends MinimalEObjectImpl.Container implements NuSM
 			String item = iterator.next();
 			result += item;
 			if (iterator.hasNext()) {
-				result += ",\n    ";
+				result += " : boolean;\n    ";
 			}
 		}
 		return result;

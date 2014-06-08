@@ -2,6 +2,7 @@
  */
 package org.osate.xtext.aadl2.agcl.analysis.verifiers;
 
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 
@@ -126,5 +127,13 @@ public interface ModelChecker extends EObject {
 	 * @generated
 	 */
 	VerificationResult checkModel(Model model, Specification spec);
+	
+	IFolder getInputFolder();
+	
+	IFolder getOutputFolder();
+	
+	void setInputFolder(IFolder inputFolder);
+	
+	void setOutputFolder(IFolder outputFolder);
 
 } // ModelChecker

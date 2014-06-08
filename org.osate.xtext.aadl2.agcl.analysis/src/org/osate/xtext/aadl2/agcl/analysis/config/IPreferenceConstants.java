@@ -1,8 +1,8 @@
 package org.osate.xtext.aadl2.agcl.analysis.config;
 
+import org.osate.xtext.aadl2.agcl.analysis.results.AnalysisResults;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.ModelChecker;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.VerifiersFactory;
-import org.osate.xtext.aadl2.agcl.analysis.visitors.AnalysisResults;
 
 public interface IPreferenceConstants {
 

@@ -1,7 +1,5 @@
 MODULE main
   VAR
-    ${variables} : boolean;
-  ${logic}SPEC ${spec}
-  FAIRNESS ${fairness}
-
-          
+    ${variables}
+  ${logic}SPEC ${spec};
+  FAIRNESS ${fairness};

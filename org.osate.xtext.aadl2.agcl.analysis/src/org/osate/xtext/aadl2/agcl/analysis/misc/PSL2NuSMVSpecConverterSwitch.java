@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.osate.xtext.aadl2.agcl.analysis.visitors;
+package org.osate.xtext.aadl2.agcl.analysis.misc;
 
 import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.EObject;

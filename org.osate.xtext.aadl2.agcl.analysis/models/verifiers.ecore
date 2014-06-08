@@ -92,5 +92,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="trans" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NuSMVUniversalModel" eSuperTypes="#//NuSMVModel #//UniversalModel"/>
-  <eClassifiers xsi:type="ecore:EClass" name="NuSMVSpecification" eSuperTypes="#//Specification"/>
+  <eClassifiers xsi:type="ecore:EClass" name="NuSMVSpecification" eSuperTypes="#//Specification">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="logic" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+  </eClassifiers>
 </ecore:EPackage>

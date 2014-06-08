@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.osate.xtext.aadl2.agcl.analysis.util;
+package org.osate.xtext.aadl2.agcl.analysis.misc;
 
 import org.eclipse.emf.ecore.EObject;
 

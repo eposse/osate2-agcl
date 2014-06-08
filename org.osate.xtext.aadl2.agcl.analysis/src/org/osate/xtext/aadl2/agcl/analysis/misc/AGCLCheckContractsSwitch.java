@@ -1,4 +1,4 @@
-package org.osate.xtext.aadl2.agcl.analysis.visitors;
+package org.osate.xtext.aadl2.agcl.analysis.misc;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.xtext.parsetree.reconstr.IParseTreeConstructor;

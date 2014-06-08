@@ -25,6 +25,7 @@ import org.osate.xtext.aadl2.agcl.analysis.verifiers.VerifiersPackage;
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.impl.NuSMVSpecificationImpl#getSpec <em>Spec</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.impl.NuSMVSpecificationImpl#getContext <em>Context</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.impl.NuSMVSpecificationImpl#getLogic <em>Logic</em>}</li>
  * </ul>
  * </p>
  *
@@ -72,6 +73,26 @@ public class NuSMVSpecificationImpl extends MinimalEObjectImpl.Container impleme
 	 * @ordered
 	 */
 	protected Object context = CONTEXT_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getLogic() <em>Logic</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLogic()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Object LOGIC_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getLogic() <em>Logic</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLogic()
+	 * @generated
+	 * @ordered
+	 */
+	protected Object logic = LOGIC_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -137,6 +158,27 @@ public class NuSMVSpecificationImpl extends MinimalEObjectImpl.Container impleme
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Object getLogic() {
+		return logic;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setLogic(Object newLogic) {
+		Object oldLogic = logic;
+		logic = newLogic;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, VerifiersPackage.NU_SMV_SPECIFICATION__LOGIC, oldLogic, logic));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	public String text(Object args) {
@@ -159,6 +201,8 @@ public class NuSMVSpecificationImpl extends MinimalEObjectImpl.Container impleme
 				return getSpec();
 			case VerifiersPackage.NU_SMV_SPECIFICATION__CONTEXT:
 				return getContext();
+			case VerifiersPackage.NU_SMV_SPECIFICATION__LOGIC:
+				return getLogic();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -176,6 +220,9 @@ public class NuSMVSpecificationImpl extends MinimalEObjectImpl.Container impleme
 				return;
 			case VerifiersPackage.NU_SMV_SPECIFICATION__CONTEXT:
 				setContext(newValue);
+				return;
+			case VerifiersPackage.NU_SMV_SPECIFICATION__LOGIC:
+				setLogic(newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -195,6 +242,9 @@ public class NuSMVSpecificationImpl extends MinimalEObjectImpl.Container impleme
 			case VerifiersPackage.NU_SMV_SPECIFICATION__CONTEXT:
 				setContext(CONTEXT_EDEFAULT);
 				return;
+			case VerifiersPackage.NU_SMV_SPECIFICATION__LOGIC:
+				setLogic(LOGIC_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -211,6 +261,8 @@ public class NuSMVSpecificationImpl extends MinimalEObjectImpl.Container impleme
 				return SPEC_EDEFAULT == null ? spec != null : !SPEC_EDEFAULT.equals(spec);
 			case VerifiersPackage.NU_SMV_SPECIFICATION__CONTEXT:
 				return CONTEXT_EDEFAULT == null ? context != null : !CONTEXT_EDEFAULT.equals(context);
+			case VerifiersPackage.NU_SMV_SPECIFICATION__LOGIC:
+				return LOGIC_EDEFAULT == null ? logic != null : !LOGIC_EDEFAULT.equals(logic);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -243,8 +295,15 @@ public class NuSMVSpecificationImpl extends MinimalEObjectImpl.Container impleme
 		result.append(spec);
 		result.append(", context: ");
 		result.append(context);
+		result.append(", logic: ");
+		result.append(logic);
 		result.append(')');
 		return result.toString();
+	}
+
+	@Override
+	public String logicText() {
+		return getLogic().toString();
 	}
 
 } //NuSMVSpecificationImpl

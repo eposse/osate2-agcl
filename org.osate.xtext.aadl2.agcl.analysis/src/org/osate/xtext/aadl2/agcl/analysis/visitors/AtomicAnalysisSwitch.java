@@ -1,41 +1,24 @@
 package org.osate.xtext.aadl2.agcl.analysis.visitors;
 
-import java.util.Map.Entry;
-import java.util.Set;
-
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.emf.common.util.BasicEMap;
-import org.eclipse.emf.common.util.EMap;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtext.serializer.ISerializer;
-import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.Classifier;
-import org.osate.aadl2.DefaultAnnexSubclause;
-import org.osate.aadl2.Element;
-import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
-import org.osate.aadl2.util.Aadl2Switch;
 import org.osate.xtext.aadl2.agcl.agcl.AGCLAnnexSubclause;
 import org.osate.xtext.aadl2.agcl.agcl.AGCLBehaviour;
 import org.osate.xtext.aadl2.agcl.agcl.AGCLContract;
 import org.osate.xtext.aadl2.agcl.agcl.AgclFactory;
-import org.osate.xtext.aadl2.agcl.agcl.AtomicProp;
 import org.osate.xtext.aadl2.agcl.agcl.PSLBooleanExpression;
 import org.osate.xtext.aadl2.agcl.agcl.PSLConjunction;
 import org.osate.xtext.aadl2.agcl.agcl.PSLDisjunction;
 import org.osate.xtext.aadl2.agcl.agcl.PSLExpression;
-import org.osate.xtext.aadl2.agcl.agcl.PSLNegation;
 import org.osate.xtext.aadl2.agcl.agcl.PSLSpec;
 import org.osate.xtext.aadl2.agcl.agcl.util.AgclSwitch;
-import org.osate.xtext.aadl2.agcl.analysis.AGCLAnalysisPlugin;
+import org.osate.xtext.aadl2.agcl.analysis.results.AnalysisResults;
 import org.osate.xtext.aadl2.agcl.analysis.util.AGCLSyntaxUtil;
-import org.osate.xtext.aadl2.agcl.analysis.util.SetFactory;
-import org.osate.xtext.aadl2.agcl.analysis.verifiers.ModelChecker;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.Negative;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVModelChecker;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.Positive;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.VerificationResult;
-import org.osate.xtext.aadl2.agcl.analysis.verifiers.VerifiersFactory;
 
 /**
  * This class implements the main algorithm for A/G analysis of atomic capsules, i.e. thread 
@@ -61,13 +44,7 @@ import org.osate.xtext.aadl2.agcl.analysis.verifiers.VerifiersFactory;
  * @author Ernesto Posse
  *
  */
-public class AtomicAnalysisSwitch extends AadlProcessingSwitchWithProgress {
-
-	private AgclSwitch<Void> agclSwitch;
-	private final ViewpointContext viewpointContext;
-	private final AnalysisResults analysisResults;
-	private final ISerializer serializer;
-	private final ModelChecker checker;
+public class AtomicAnalysisSwitch extends CommonAGCLAnalysisSwitch {
 
 	/**
 	 * @param pm				a progress monitor
@@ -75,15 +52,11 @@ public class AtomicAnalysisSwitch extends AadlProcessingSwitchWithProgress {
 	 * @param analysisResults	an object to record the analysis results
 	 */
 	public AtomicAnalysisSwitch(IProgressMonitor pm, ViewpointContext viewpointContext, AnalysisResults analysisResults) {
-		super(pm);
-		this.viewpointContext = viewpointContext;
-		this.analysisResults = analysisResults;
-		this.serializer = AGCLAnalysisPlugin.getDefault().getSerializer();
-		this.checker = AGCLAnalysisPlugin.getDefault().getActiveModelChecker();
+		super(pm, viewpointContext, analysisResults);
 	}
 
 	@Override
-	protected void initSwitches() {
+	protected void initAGCLSwitch() {
 		agclSwitch = new AgclSwitch<Void>() {
 			public Void caseAGCLAnnexSubclause(AGCLAnnexSubclause obj) {
 				//monitor.subTask("AGCLAnnexSubclause" + obj.getName());
@@ -103,23 +76,6 @@ public class AtomicAnalysisSwitch extends AadlProcessingSwitchWithProgress {
 				}
 				//monitor.worked(1);
 				return null;
-			}
-		};
-		aadl2Switch = new Aadl2Switch<String>() {
-			public String caseAnnexSubclause(AnnexSubclause obj) {
-				monitor.subTask("AnnexSubclause " + obj.getName());
-				Logger.getLogger(getClass()).debug("visiting: " + obj);
-				if (obj instanceof DefaultAnnexSubclause) 
-					return "";
-				Logger.getLogger(getClass()).debug("visiting non-default annex subclause: " + obj);
-				if (!(obj instanceof AGCLAnnexSubclause))
-					return "";
-				Logger.getLogger(getClass()).debug("visiting AGCL annex subclause: " + obj);
-				if (obj.getName().equals("AGCL")) {
-					agclSwitch.caseAGCLAnnexSubclause((AGCLAnnexSubclause) obj);
-				}
-				monitor.worked(1);
-				return obj.toString();
 			}
 		};
 	}

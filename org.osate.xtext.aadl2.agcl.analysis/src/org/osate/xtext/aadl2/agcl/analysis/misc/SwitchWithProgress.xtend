@@ -1,6 +1,6 @@
-package org.osate.xtext.aadl2.agcl.analysis.util
+package org.osate.xtext.aadl2.agcl.analysis.misc
 
-import org.osate.xtext.aadl2.agcl.analysis.util.ObjectWithProgressMonitor
+import org.osate.xtext.aadl2.agcl.analysis.misc.ObjectWithProgressMonitor
 import org.eclipse.emf.ecore.EObject
 
 interface SwitchWithProgress<T> extends ObjectWithProgressMonitor {

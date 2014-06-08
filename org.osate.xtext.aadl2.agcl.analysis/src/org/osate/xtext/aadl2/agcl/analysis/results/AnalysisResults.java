@@ -1,4 +1,4 @@
-package org.osate.xtext.aadl2.agcl.analysis.visitors;
+package org.osate.xtext.aadl2.agcl.analysis.results;
 
 import java.util.HashMap;
 import java.util.HashSet;

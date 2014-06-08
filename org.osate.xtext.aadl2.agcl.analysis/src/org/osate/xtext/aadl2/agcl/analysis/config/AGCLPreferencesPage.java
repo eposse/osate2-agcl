@@ -14,7 +14,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.osate.xtext.aadl2.agcl.analysis.AGCLAnalysisPlugin;
-import org.osate.xtext.aadl2.agcl.analysis.visitors.AnalysisResults;
+import org.osate.xtext.aadl2.agcl.analysis.results.AnalysisResults;
 
 /**
  * Preference page for the AGCL analysis plug-in.

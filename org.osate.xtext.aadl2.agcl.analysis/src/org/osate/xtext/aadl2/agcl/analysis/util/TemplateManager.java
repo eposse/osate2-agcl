@@ -5,10 +5,13 @@ package org.osate.xtext.aadl2.agcl.analysis.util;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
+
 import static java.nio.file.StandardCopyOption.*;
+
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
@@ -96,7 +99,12 @@ public class TemplateManager {
 				Logger.getLogger(getClass()).debug("template URL:               " + url);
 				URL resolvedURL = FileLocator.resolve(url);
 				Logger.getLogger(getClass()).debug("resolved template URL:      " + resolvedURL);
-				java.nio.file.Path sourceTemplatesDirPath = Paths.get(resolvedURL.getPath());
+				Logger.getLogger(getClass()).debug("resolved template URL path: " + resolvedURL.getPath());
+				IPath absoluteTemplatePath  = new Path(resolvedURL.getPath()).makeAbsolute();
+				Logger.getLogger(getClass()).debug("absolute template path:     " + absoluteTemplatePath);
+				String absoluteTemplateOSPath = absoluteTemplatePath.toOSString();
+				Logger.getLogger(getClass()).debug("absolute template OS path:  " + absoluteTemplateOSPath);
+				java.nio.file.Path sourceTemplatesDirPath = Paths.get(absoluteTemplateOSPath);
 				Logger.getLogger(getClass()).debug("source templates directory: " + sourceTemplatesDirPath);
 				for (Entry<String,String> entry : templateFiles.entrySet() ) {
 					String templateName = entry.getKey();

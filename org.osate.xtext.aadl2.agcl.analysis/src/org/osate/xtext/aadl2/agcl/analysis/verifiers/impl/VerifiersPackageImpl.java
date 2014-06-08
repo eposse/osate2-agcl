@@ -554,6 +554,15 @@ public class VerifiersPackageImpl extends EPackageImpl implements VerifiersPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getNuSMVSpecification_Logic() {
+		return (EAttribute)nuSMVSpecificationEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public VerifiersFactory getVerifiersFactory() {
 		return (VerifiersFactory)getEFactoryInstance();
 	}
@@ -630,6 +639,7 @@ public class VerifiersPackageImpl extends EPackageImpl implements VerifiersPacka
 		nuSMVUniversalModelEClass = createEClass(NU_SMV_UNIVERSAL_MODEL);
 
 		nuSMVSpecificationEClass = createEClass(NU_SMV_SPECIFICATION);
+		createEAttribute(nuSMVSpecificationEClass, NU_SMV_SPECIFICATION__LOGIC);
 	}
 
 	/**
@@ -745,6 +755,7 @@ public class VerifiersPackageImpl extends EPackageImpl implements VerifiersPacka
 		initEClass(nuSMVUniversalModelEClass, NuSMVUniversalModel.class, "NuSMVUniversalModel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(nuSMVSpecificationEClass, NuSMVSpecification.class, "NuSMVSpecification", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getNuSMVSpecification_Logic(), ecorePackage.getEJavaObject(), "logic", null, 0, 1, NuSMVSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

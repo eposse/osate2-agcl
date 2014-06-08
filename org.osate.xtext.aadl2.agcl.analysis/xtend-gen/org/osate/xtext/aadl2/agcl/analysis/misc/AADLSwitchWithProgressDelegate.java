@@ -1,8 +1,8 @@
-package org.osate.xtext.aadl2.agcl.analysis.util;
+package org.osate.xtext.aadl2.agcl.analysis.misc;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.util.Aadl2Switch;
-import org.osate.xtext.aadl2.agcl.analysis.util.SwitchWithProgress;
+import org.osate.xtext.aadl2.agcl.analysis.misc.SwitchWithProgress;
 
 @SuppressWarnings("all")
 public abstract class AADLSwitchWithProgressDelegate<T extends Object> extends Aadl2Switch<T> implements SwitchWithProgress<T> {
