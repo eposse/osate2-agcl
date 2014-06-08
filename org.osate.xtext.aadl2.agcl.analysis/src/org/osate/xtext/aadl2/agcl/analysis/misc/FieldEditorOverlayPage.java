@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.osate.xtext.aadl2.agcl.analysis.config;
+package org.osate.xtext.aadl2.agcl.analysis.misc;
 
 import java.util.ArrayList;
 import java.util.Iterator;

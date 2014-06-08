@@ -4,6 +4,7 @@ package org.osate.xtext.aadl2.agcl.analysis.verifiers.impl;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -179,7 +180,7 @@ public class NuSMVModelCheckerImpl extends ModelCheckerImpl implements NuSMVMode
 		IPath stderrPath 			= outputFolder.getLocation().append(stderrFileName).makeAbsolute();
 		IPath stdoutPath 			= outputFolder.getLocation().append(stdoutFileName).makeAbsolute();
 		IPath inputModelPath 		= inputFolder.getLocation().append(inputModelFileName).makeAbsolute();
-		IPath counterexamplePath 	= inputFolder.getLocation().append(counterexamplesFileName).makeAbsolute();
+		IPath counterexamplePath 	= outputFolder.getLocation().append(counterexamplesFileName).makeAbsolute();
 		String stderrPathStr 		= stderrPath.toOSString();
 		String stdoutPathStr 		= stdoutPath.toOSString();
 		String inputModelPathStr 	= inputModelPath.toOSString();
@@ -196,7 +197,7 @@ public class NuSMVModelCheckerImpl extends ModelCheckerImpl implements NuSMVMode
 		assert input instanceof NuSMVInput;
 		NuSMVInput nusmvInput = (NuSMVInput) input;
 		String nusmvPathStr = getCommandPath();
-		String commandArgs = getCommandLineArgs(nusmvInput);
+		String[] commandArgs = getCommandLineArgs(nusmvInput);
 		ProcessBuilder procBuilder = buildCommand(nusmvPathStr, commandArgs);
 		runCommand(procBuilder);
 		NuSMVOutput modelCheckerOutput = createNuSMVOutputInstance();
@@ -219,8 +220,8 @@ public class NuSMVModelCheckerImpl extends ModelCheckerImpl implements NuSMVMode
 	 * @param nusmvInput a NuSMV input instance with the input model and script 
 	 * @return the command-line arguments to feed NuSMV
 	 */
-	private String getCommandLineArgs(NuSMVInput nusmvInput) {
-		String commandArgs;
+	private String[] getCommandLineArgs(NuSMVInput nusmvInput) {
+		String[] commandArgs;
 		// Obtain the model's full path
 		String inputmodelAbsPathStr = nusmvInput.getModelFile().getLocation().toOSString();
 		// Obtain the session script's full path
@@ -232,8 +233,10 @@ public class NuSMVModelCheckerImpl extends ModelCheckerImpl implements NuSMVMode
 		Map<String, Object> substitution = new HashMap<String, Object>();
 		substitution.put("script", scriptAbsPathStr);
 		substitution.put("inputmodel", inputmodelAbsPathStr);
-		commandArgs =  template.substitute(substitution);
-		Logger.getLogger(getClass()).debug("flags:" + commandArgs);
+		String concatenatedCommandArgs =  template.substitute(substitution);
+		Logger.getLogger(getClass()).debug("concat flags:'" + concatenatedCommandArgs + "'");
+		commandArgs = concatenatedCommandArgs.split(" ");
+		Logger.getLogger(getClass()).debug("command args:" + Arrays.asList(commandArgs));
 		return commandArgs;
 	}
 	
@@ -242,9 +245,12 @@ public class NuSMVModelCheckerImpl extends ModelCheckerImpl implements NuSMVMode
 	 * @param commandArgs	the command-line arguments
 	 * @return a process builder with redirected stdout and stderr streams
 	 */
-	private ProcessBuilder buildCommand(String commandPath, String commandArgs) {
-		String[] commandArray = { commandPath, commandArgs };
-		List<String> command = Arrays.asList(commandArray);
+	private ProcessBuilder buildCommand(String commandPath, String[] commandArgs) {
+		List<String> commandArgsList = Arrays.asList(commandArgs);
+		List<String> command = new ArrayList<String>();
+		command.add(commandPath);
+		command.addAll(commandArgsList);
+		Logger.getLogger(getClass()).debug("full command: '" + command + "'");
 		ProcessBuilder procBuilder = new ProcessBuilder(command);
 		// Get paths for redirected stdout and stderr
 		String stderrPathStr 	= (String) commonPathsTable.get("stderr");

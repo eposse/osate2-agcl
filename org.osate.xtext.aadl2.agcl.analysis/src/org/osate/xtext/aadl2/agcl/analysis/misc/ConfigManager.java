@@ -1,4 +1,4 @@
-package org.osate.xtext.aadl2.agcl.analysis.config;
+package org.osate.xtext.aadl2.agcl.analysis.misc;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

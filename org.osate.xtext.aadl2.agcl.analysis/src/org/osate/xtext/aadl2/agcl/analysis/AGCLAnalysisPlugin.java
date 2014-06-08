@@ -124,10 +124,6 @@ public class AGCLAnalysisPlugin extends AbstractUIPlugin {
 		}
 	}
 
-	/** 
-	 * Copies a file to the plugin's state location.
-	 */
-
 	/**
 	 * Sets-up the default model-checker.
 	 */
@@ -164,14 +160,6 @@ public class AGCLAnalysisPlugin extends AbstractUIPlugin {
 	public static ImageDescriptor getImageDescriptor(String path) {
 		return imageDescriptorFromPlugin(PLUGIN_ID, path);
 	}
-
-//	/**
-//	 * Returns the shared instance of the {@link ConfigManager}
-//	 * @return the shared instance of the {@link ConfigManager}
-//	 */
-//	public static ConfigManager getConfigManager() {
-//		return configManager;
-//	}
 
 	@Override 
 	protected void initializeDefaultPreferences(IPreferenceStore store) {

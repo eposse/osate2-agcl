@@ -1,4 +1,5 @@
 set on_failure_script_quits 1
+set verbose_level 0
 set default_trace_plugin 4
 set nusmv_stderr "${stderr}"
 set nusmv_stdout "${stdout}"

@@ -1,4 +1,4 @@
-package org.osate.xtext.aadl2.agcl.analysis.config;
+package org.osate.xtext.aadl2.agcl.analysis.misc;
 
 import java.nio.file.Path;
 import java.util.HashMap;
