@@ -2,7 +2,7 @@
  * 
  */
 package org.osate.xtext.aadl2.agcl.analysis.visitors;
-
+ 
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.xtext.serializer.ISerializer;

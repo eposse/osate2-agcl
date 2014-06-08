@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.osate.xtext.aadl2.agcl.analysis.actions;
+package org.osate.xtext.aadl2.agcl.analysis.actions; 
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IResource;
