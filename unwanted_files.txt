@@ -1,0 +1,15 @@
+org.osate.xtext.aadl2.agcl.analysis/xtend-gen/org/osate/xtext/aadl2/agcl/analysis/visitors/.AnnexSwitchWithProgress.java._trace
+org.osate.xtext.aadl2.agcl.analysis/xtend-gen/org/osate/xtext/aadl2/agcl/analysis/visitors/.SampleXtendAADLSwitchImpl.java._trace
+org.osate.xtext.aadl2.agcl.analysis/xtend-gen/org/osate/xtext/aadl2/agcl/analysis/visitors/.SampleXtendAGCLSwitch.java._trace
+org.osate.xtext.aadl2.agcl.tests/xtend-gen/org/osate/xtext/aadl2/agcl/tests/.AGCLSerializationTests.java._trace
+org.osate.xtext.aadl2.agcl.tests/xtend-gen/org/osate/xtext/aadl2/agcl/tests/.HelloUnitTesting.java._trace
+org.osate.xtext.aadl2.agcl.ui/xtend-gen/org/osate/xtext/aadl2/agcl/ui/contentassist/.AGCLProposalProvider.java._trace
+org.osate.xtext.aadl2.agcl.ui/xtend-gen/org/osate/xtext/aadl2/agcl/ui/labeling/.AGCLDescriptionLabelProvider.java._trace
+org.osate.xtext.aadl2.agcl.ui/xtend-gen/org/osate/xtext/aadl2/agcl/ui/labeling/.AGCLLabelProvider.java._trace
+org.osate.xtext.aadl2.agcl.ui/xtend-gen/org/osate/xtext/aadl2/agcl/ui/outline/.AGCLOutlineTreeProvider.java._trace
+org.osate.xtext.aadl2.agcl.ui/xtend-gen/org/osate/xtext/aadl2/agcl/ui/quickfix/.AGCLQuickfixProvider.java._trace
+org.osate.xtext.aadl2.agcl/xtend-gen/org/osate/xtext/aadl2/agcl/formatting/.AGCLFormatter.java._trace
+org.osate.xtext.aadl2.agcl/xtend-gen/org/osate/xtext/aadl2/agcl/generator/.AGCLGenerator.java._trace
+org.osate.xtext.aadl2.agcl/xtend-gen/org/osate/xtext/aadl2/agcl/scoping/.AGCLScopeProvider.java._trace
+org.osate.xtext.aadl2.agcl/xtend-gen/org/osate/xtext/aadl2/agcl/validation/.AGCLValidator.java._trace
+
