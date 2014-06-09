@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.osate.xtext.aadl2.agcl.analysis.util.AGCLUtil;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.Component;
+import org.osate.xtext.aadl2.agcl.analysis.verifiers.ComponentCollection;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.Model;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.ModelChecker;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.ModelCheckerInput;
@@ -29,22 +30,49 @@ import org.osate.xtext.aadl2.agcl.analysis.verifiers.VerificationUnit;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.VerifiersFactory;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.VerifiersPackage;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.Viewpoint;
+import org.osate.xtext.aadl2.agcl.analysis.verifiers.ViewpointCollection;
 
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Model Checker</b></em>'.
  * 
+ * <p>This class is intended to be used in two possible ways:
+ * 
+ * <ol>
+ * 		<li> verify a single {@link VerificationUnit} and return a {@link VerificationResult}
+ * 		<li> verifiy of a collection of {@link VerificationUnit}s and collect all results in a 
+ * 				{@link ResultsCollection}.
+ * </ol>
+ * 
  * Typical use:
  * 
  * <p><blockquote><pre>
  * Resource r = ...;
- * Model m = ...;
- * Specification s = ...;
- * ModelChecker mc = new SomeModelCheckerImpl(); // A concrete subclass of ModelCheckerImpl
- * mc.setResourceContext(r);
- * mc.setUp();
- * VerificationResult result = mc.check(m,s);
+ * Model m1 = ...;
+ * Specification s1 = ...;
+ * Viewpoint v1 = ...;
+ * Component c1 = ...;
+ * VerificationUnit vc1 = VerifiersFactory.eINSTANCE.createVerificationUnit();
+ * vc1.setModel(m1);
+ * vc1.setSpecification(s1);
+ * vc1.setViewpoint(v1);
+ * vc1.setComponetn(c1);
+ * // possibly more VerificationUnits
+ * ModelChecker mc = VerifiersFactory.eINSTANCE.createModelCheckerImpl(); 
+ * mc.setUp(r);
+ * // use case 1
+ * VerificationResult result = mc.checkVerificationUnit(vc);
+ * // ... or 
+ * // use case 2
+ * mc.addVerificationUnit(vc1);
+ * mc.addVerificationUnit(vc2);
+ * // ...
+ * mv.checkAll();
+ * ResultsCollection rc = mc.getResultsCollection();
  * </pre></blockquote><p>
+ * 
+ * <p> The {@link #setUp} method records the {@link Resource} context and creates a {@link ResultsCollection} to
+ * record all results when invoked with {@link #checkAll()}.
  * 
  * <!-- end-user-doc -->
  * <p>
@@ -53,6 +81,8 @@ import org.osate.xtext.aadl2.agcl.analysis.verifiers.Viewpoint;
  *   <li>{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.impl.ModelCheckerImpl#getResourceContext <em>Resource Context</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.impl.ModelCheckerImpl#getResults <em>Results</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.impl.ModelCheckerImpl#getVerificationUnits <em>Verification Units</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.impl.ModelCheckerImpl#getViewpointCollection <em>Viewpoint Collection</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.impl.ModelCheckerImpl#getComponentCollection <em>Component Collection</em>}</li>
  * </ul>
  * </p>
  *
@@ -95,6 +125,24 @@ public abstract class ModelCheckerImpl extends MinimalEObjectImpl.Container impl
 	 * @ordered
 	 */
 	protected EList<VerificationUnit> verificationUnits;
+	/**
+	 * The cached value of the '{@link #getViewpointCollection() <em>Viewpoint Collection</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getViewpointCollection()
+	 * @generated
+	 * @ordered
+	 */
+	protected ViewpointCollection viewpointCollection;
+	/**
+	 * The cached value of the '{@link #getComponentCollection() <em>Component Collection</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getComponentCollection()
+	 * @generated
+	 * @ordered
+	 */
+	protected ComponentCollection componentCollection;
 	protected IFolder inputFolder;
 	protected IFolder outputFolder;
 
@@ -131,6 +179,9 @@ public abstract class ModelCheckerImpl extends MinimalEObjectImpl.Container impl
 		setResourceContext(resource);
 		inputFolder = AGCLUtil.openInputDir(resourceContext);
 		outputFolder = AGCLUtil.openOutputDir(resourceContext);
+		viewpointCollection = VerifiersFactory.eINSTANCE.createViewpointCollection();
+		componentCollection = VerifiersFactory.eINSTANCE.createComponentCollection();
+		results = VerifiersFactory.eINSTANCE.createResultsCollection();
 	}
 
 	/**
@@ -333,6 +384,12 @@ public abstract class ModelCheckerImpl extends MinimalEObjectImpl.Container impl
 				return basicGetResults();
 			case VerifiersPackage.MODEL_CHECKER__VERIFICATION_UNITS:
 				return getVerificationUnits();
+			case VerifiersPackage.MODEL_CHECKER__VIEWPOINT_COLLECTION:
+				if (resolve) return getViewpointCollection();
+				return basicGetViewpointCollection();
+			case VerifiersPackage.MODEL_CHECKER__COMPONENT_COLLECTION:
+				if (resolve) return getComponentCollection();
+				return basicGetComponentCollection();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -356,6 +413,12 @@ public abstract class ModelCheckerImpl extends MinimalEObjectImpl.Container impl
 				getVerificationUnits().clear();
 				getVerificationUnits().addAll((Collection<? extends VerificationUnit>)newValue);
 				return;
+			case VerifiersPackage.MODEL_CHECKER__VIEWPOINT_COLLECTION:
+				setViewpointCollection((ViewpointCollection)newValue);
+				return;
+			case VerifiersPackage.MODEL_CHECKER__COMPONENT_COLLECTION:
+				setComponentCollection((ComponentCollection)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -377,6 +440,12 @@ public abstract class ModelCheckerImpl extends MinimalEObjectImpl.Container impl
 			case VerifiersPackage.MODEL_CHECKER__VERIFICATION_UNITS:
 				getVerificationUnits().clear();
 				return;
+			case VerifiersPackage.MODEL_CHECKER__VIEWPOINT_COLLECTION:
+				setViewpointCollection((ViewpointCollection)null);
+				return;
+			case VerifiersPackage.MODEL_CHECKER__COMPONENT_COLLECTION:
+				setComponentCollection((ComponentCollection)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -395,6 +464,10 @@ public abstract class ModelCheckerImpl extends MinimalEObjectImpl.Container impl
 				return results != null;
 			case VerifiersPackage.MODEL_CHECKER__VERIFICATION_UNITS:
 				return verificationUnits != null && !verificationUnits.isEmpty();
+			case VerifiersPackage.MODEL_CHECKER__VIEWPOINT_COLLECTION:
+				return viewpointCollection != null;
+			case VerifiersPackage.MODEL_CHECKER__COMPONENT_COLLECTION:
+				return componentCollection != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -466,6 +539,82 @@ public abstract class ModelCheckerImpl extends MinimalEObjectImpl.Container impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ViewpointCollection getViewpointCollection() {
+		if (viewpointCollection != null && viewpointCollection.eIsProxy()) {
+			InternalEObject oldViewpointCollection = (InternalEObject)viewpointCollection;
+			viewpointCollection = (ViewpointCollection)eResolveProxy(oldViewpointCollection);
+			if (viewpointCollection != oldViewpointCollection) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, VerifiersPackage.MODEL_CHECKER__VIEWPOINT_COLLECTION, oldViewpointCollection, viewpointCollection));
+			}
+		}
+		return viewpointCollection;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ViewpointCollection basicGetViewpointCollection() {
+		return viewpointCollection;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setViewpointCollection(ViewpointCollection newViewpointCollection) {
+		ViewpointCollection oldViewpointCollection = viewpointCollection;
+		viewpointCollection = newViewpointCollection;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, VerifiersPackage.MODEL_CHECKER__VIEWPOINT_COLLECTION, oldViewpointCollection, viewpointCollection));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ComponentCollection getComponentCollection() {
+		if (componentCollection != null && componentCollection.eIsProxy()) {
+			InternalEObject oldComponentCollection = (InternalEObject)componentCollection;
+			componentCollection = (ComponentCollection)eResolveProxy(oldComponentCollection);
+			if (componentCollection != oldComponentCollection) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, VerifiersPackage.MODEL_CHECKER__COMPONENT_COLLECTION, oldComponentCollection, componentCollection));
+			}
+		}
+		return componentCollection;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ComponentCollection basicGetComponentCollection() {
+		return componentCollection;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setComponentCollection(ComponentCollection newComponentCollection) {
+		ComponentCollection oldComponentCollection = componentCollection;
+		componentCollection = newComponentCollection;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, VerifiersPackage.MODEL_CHECKER__COMPONENT_COLLECTION, oldComponentCollection, componentCollection));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eInvoke(int operationID, EList<?> arguments) throws InvocationTargetException {
 		switch (operationID) {
@@ -478,7 +627,7 @@ public abstract class ModelCheckerImpl extends MinimalEObjectImpl.Container impl
 				return makeVerificationUnit((Specification)arguments.get(0), (Viewpoint)arguments.get(1), (Component)arguments.get(2));
 			case VerifiersPackage.MODEL_CHECKER___CHECK_VERIFICATION_UNIT__VERIFICATIONUNIT:
 				return checkVerificationUnit((VerificationUnit)arguments.get(0));
-			case VerifiersPackage.MODEL_CHECKER___PREPARE_INPUT__MODEL_SPECIFICATION:
+			case VerifiersPackage.MODEL_CHECKER___PREPARE_INPUT__VERIFICATIONUNIT:
 				return prepareInput((VerificationUnit)arguments.get(0));
 			case VerifiersPackage.MODEL_CHECKER___CALL_EXTERNAL__MODELCHECKERINPUT:
 				return callExternal((ModelCheckerInput)arguments.get(0));

@@ -438,6 +438,24 @@ public class VerifiersPackageImpl extends EPackageImpl implements VerifiersPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getModelChecker_ViewpointCollection() {
+		return (EReference)modelCheckerEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getModelChecker_ComponentCollection() {
+		return (EReference)modelCheckerEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EOperation getModelChecker__SetUp__Resource() {
 		return modelCheckerEClass.getEOperations().get(0);
 	}
@@ -474,7 +492,7 @@ public class VerifiersPackageImpl extends EPackageImpl implements VerifiersPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EOperation getModelChecker__PrepareInput__Model_Specification() {
+	public EOperation getModelChecker__PrepareInput__VerificationUnit() {
 		return modelCheckerEClass.getEOperations().get(4);
 	}
 
@@ -951,6 +969,15 @@ public class VerifiersPackageImpl extends EPackageImpl implements VerifiersPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EOperation getViewpointCollection__ContainsViewpoint__String() {
+		return viewpointCollectionEClass.getEOperations().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getComponentCollection() {
 		return componentCollectionEClass;
 	}
@@ -989,6 +1016,15 @@ public class VerifiersPackageImpl extends EPackageImpl implements VerifiersPacka
 	 */
 	public EOperation getComponentCollection__RemoveComponent__String() {
 		return componentCollectionEClass.getEOperations().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EOperation getComponentCollection__ContainsComponent__String() {
+		return componentCollectionEClass.getEOperations().get(3);
 	}
 
 	/**
@@ -1044,11 +1080,13 @@ public class VerifiersPackageImpl extends EPackageImpl implements VerifiersPacka
 		createEAttribute(modelCheckerEClass, MODEL_CHECKER__RESOURCE_CONTEXT);
 		createEReference(modelCheckerEClass, MODEL_CHECKER__RESULTS);
 		createEReference(modelCheckerEClass, MODEL_CHECKER__VERIFICATION_UNITS);
+		createEReference(modelCheckerEClass, MODEL_CHECKER__VIEWPOINT_COLLECTION);
+		createEReference(modelCheckerEClass, MODEL_CHECKER__COMPONENT_COLLECTION);
 		createEOperation(modelCheckerEClass, MODEL_CHECKER___SET_UP__RESOURCE);
 		createEOperation(modelCheckerEClass, MODEL_CHECKER___MAKE_VERIFICATION_UNIT__MODEL_SPECIFICATION_VIEWPOINT_COMPONENT);
 		createEOperation(modelCheckerEClass, MODEL_CHECKER___MAKE_VERIFICATION_UNIT__SPECIFICATION_VIEWPOINT_COMPONENT);
 		createEOperation(modelCheckerEClass, MODEL_CHECKER___CHECK_VERIFICATION_UNIT__VERIFICATIONUNIT);
-		createEOperation(modelCheckerEClass, MODEL_CHECKER___PREPARE_INPUT__MODEL_SPECIFICATION);
+		createEOperation(modelCheckerEClass, MODEL_CHECKER___PREPARE_INPUT__VERIFICATIONUNIT);
 		createEOperation(modelCheckerEClass, MODEL_CHECKER___CALL_EXTERNAL__MODELCHECKERINPUT);
 		createEOperation(modelCheckerEClass, MODEL_CHECKER___PROCESS_OUTPUT__MODELCHECKEROUTPUT);
 		createEOperation(modelCheckerEClass, MODEL_CHECKER___ADD_VERIFICATION_UNIT__VERIFICATIONUNIT);
@@ -1116,12 +1154,14 @@ public class VerifiersPackageImpl extends EPackageImpl implements VerifiersPacka
 		createEOperation(viewpointCollectionEClass, VIEWPOINT_COLLECTION___GET_VIEWPOINT__STRING);
 		createEOperation(viewpointCollectionEClass, VIEWPOINT_COLLECTION___ADD_VIEWPOINT__STRING_OBJECT);
 		createEOperation(viewpointCollectionEClass, VIEWPOINT_COLLECTION___REMOVE_VIEWPOINT__STRING);
+		createEOperation(viewpointCollectionEClass, VIEWPOINT_COLLECTION___CONTAINS_VIEWPOINT__STRING);
 
 		componentCollectionEClass = createEClass(COMPONENT_COLLECTION);
 		createEReference(componentCollectionEClass, COMPONENT_COLLECTION__COMPONENTS);
 		createEOperation(componentCollectionEClass, COMPONENT_COLLECTION___GET_COMPONENT__STRING);
 		createEOperation(componentCollectionEClass, COMPONENT_COLLECTION___ADD_COMPONENT__STRING_OBJECT);
 		createEOperation(componentCollectionEClass, COMPONENT_COLLECTION___REMOVE_COMPONENT__STRING);
+		createEOperation(componentCollectionEClass, COMPONENT_COLLECTION___CONTAINS_COMPONENT__STRING);
 	}
 
 	/**
@@ -1170,7 +1210,7 @@ public class VerifiersPackageImpl extends EPackageImpl implements VerifiersPacka
 		initEClass(positiveEClass, Positive.class, "Positive", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(negativeEClass, Negative.class, "Negative", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getNegative_Counterexample(), this.getCounterExample(), null, "counterexample", null, 0, 1, Negative.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getNegative_Counterexample(), this.getCounterExample(), null, "counterexample", null, 0, 1, Negative.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(modelEClass, Model.class, "Model", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getModel_Model(), ecorePackage.getEJavaObject(), "model", null, 0, 1, Model.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1194,6 +1234,8 @@ public class VerifiersPackageImpl extends EPackageImpl implements VerifiersPacka
 		initEAttribute(getModelChecker_ResourceContext(), ecorePackage.getEResource(), "resourceContext", null, 0, 1, ModelChecker.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getModelChecker_Results(), this.getResultsCollection(), null, "results", null, 0, 1, ModelChecker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getModelChecker_VerificationUnits(), this.getVerificationUnit(), null, "verificationUnits", null, 0, -1, ModelChecker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getModelChecker_ViewpointCollection(), this.getViewpointCollection(), null, "viewpointCollection", null, 0, 1, ModelChecker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getModelChecker_ComponentCollection(), this.getComponentCollection(), null, "componentCollection", null, 0, 1, ModelChecker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		op = initEOperation(getModelChecker__SetUp__Resource(), null, "setUp", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEResource(), "resource", 0, 1, IS_UNIQUE, IS_ORDERED);
@@ -1212,7 +1254,7 @@ public class VerifiersPackageImpl extends EPackageImpl implements VerifiersPacka
 		op = initEOperation(getModelChecker__CheckVerificationUnit__VerificationUnit(), this.getVerificationResult(), "checkVerificationUnit", 1, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getVerificationUnit(), "verificationUnit", 0, 1, IS_UNIQUE, IS_ORDERED);
 
-		op = initEOperation(getModelChecker__PrepareInput__Model_Specification(), this.getModelCheckerInput(), "prepareInput", 1, 1, IS_UNIQUE, IS_ORDERED);
+		op = initEOperation(getModelChecker__PrepareInput__VerificationUnit(), this.getModelCheckerInput(), "prepareInput", 1, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getVerificationUnit(), "verificationUnit", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		op = initEOperation(getModelChecker__CallExternal__ModelCheckerInput(), this.getModelCheckerOutput(), "callExternal", 1, 1, IS_UNIQUE, IS_ORDERED);
@@ -1265,7 +1307,7 @@ public class VerifiersPackageImpl extends EPackageImpl implements VerifiersPacka
 		initEAttribute(getUnknown_Reason(), ecorePackage.getEString(), "reason", null, 0, 1, Unknown.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(resultsCollectionEClass, ResultsCollection.class, "ResultsCollection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getResultsCollection_Entries(), this.getResultEntry(), null, "entries", null, 0, -1, ResultsCollection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getResultsCollection_Entries(), this.getResultEntry(), null, "entries", null, 0, -1, ResultsCollection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		op = initEOperation(getResultsCollection__RecordResult__VerificationUnit_VerificationResult(), null, "recordResult", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getVerificationUnit(), "verificationUnit", 0, 1, IS_UNIQUE, IS_ORDERED);
@@ -1291,29 +1333,35 @@ public class VerifiersPackageImpl extends EPackageImpl implements VerifiersPacka
 		initEReference(getResultEntry_Result(), this.getVerificationResult(), null, "result", null, 0, 1, ResultEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(viewpointCollectionEClass, ViewpointCollection.class, "ViewpointCollection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getViewpointCollection_Viewpoints(), this.getViewpoint(), null, "viewpoints", null, 0, -1, ViewpointCollection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getViewpointCollection_Viewpoints(), this.getViewpoint(), null, "viewpoints", null, 0, -1, ViewpointCollection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		op = initEOperation(getViewpointCollection__GetViewpoint__String(), this.getViewpoint(), "getViewpoint", 1, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEString(), "viewpointName", 0, 1, IS_UNIQUE, IS_ORDERED);
 
-		op = initEOperation(getViewpointCollection__AddViewpoint__String_Object(), null, "addViewpoint", 1, 1, IS_UNIQUE, IS_ORDERED);
+		op = initEOperation(getViewpointCollection__AddViewpoint__String_Object(), this.getViewpoint(), "addViewpoint", 1, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEString(), "viewpointName", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEJavaObject(), "object", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		op = initEOperation(getViewpointCollection__RemoveViewpoint__String(), null, "removeViewpoint", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEString(), "viewpointName", 0, 1, IS_UNIQUE, IS_ORDERED);
 
+		op = initEOperation(getViewpointCollection__ContainsViewpoint__String(), ecorePackage.getEBoolean(), "containsViewpoint", 1, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEString(), "viewpointName", 0, 1, IS_UNIQUE, IS_ORDERED);
+
 		initEClass(componentCollectionEClass, ComponentCollection.class, "ComponentCollection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getComponentCollection_Components(), this.getComponent(), null, "components", null, 0, -1, ComponentCollection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getComponentCollection_Components(), this.getComponent(), null, "components", null, 0, -1, ComponentCollection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		op = initEOperation(getComponentCollection__GetComponent__String(), this.getComponent(), "getComponent", 1, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEString(), "componentName", 0, 1, IS_UNIQUE, IS_ORDERED);
 
-		op = initEOperation(getComponentCollection__AddComponent__String_Object(), null, "addComponent", 0, 1, IS_UNIQUE, IS_ORDERED);
+		op = initEOperation(getComponentCollection__AddComponent__String_Object(), this.getComponent(), "addComponent", 1, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEString(), "componentName", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEJavaObject(), "object", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		op = initEOperation(getComponentCollection__RemoveComponent__String(), null, "removeComponent", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEString(), "componentName", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		op = initEOperation(getComponentCollection__ContainsComponent__String(), ecorePackage.getEBoolean(), "containsComponent", 1, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEString(), "componentName", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		// Create resource

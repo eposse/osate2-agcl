@@ -24,7 +24,7 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface ResultsCollection extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Entries</b></em>' reference list.
+	 * Returns the value of the '<em><b>Entries</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.xtext.aadl2.agcl.analysis.verifiers.ResultEntry}.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -32,9 +32,9 @@ public interface ResultsCollection extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Entries</em>' reference list.
+	 * @return the value of the '<em>Entries</em>' containment reference list.
 	 * @see org.osate.xtext.aadl2.agcl.analysis.verifiers.VerifiersPackage#getResultsCollection_Entries()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<ResultEntry> getEntries();

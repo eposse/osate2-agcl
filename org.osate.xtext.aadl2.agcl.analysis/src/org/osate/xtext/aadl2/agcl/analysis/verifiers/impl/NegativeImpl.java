@@ -4,6 +4,7 @@ package org.osate.xtext.aadl2.agcl.analysis.verifiers.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
@@ -29,7 +30,7 @@ import org.osate.xtext.aadl2.agcl.analysis.verifiers.VerifiersPackage;
  */
 public class NegativeImpl extends MinimalEObjectImpl.Container implements Negative {
 	/**
-	 * The cached value of the '{@link #getCounterexample() <em>Counterexample</em>}' reference.
+	 * The cached value of the '{@link #getCounterexample() <em>Counterexample</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getCounterexample()
@@ -63,14 +64,6 @@ public class NegativeImpl extends MinimalEObjectImpl.Container implements Negati
 	 * @generated
 	 */
 	public CounterExample getCounterexample() {
-		if (counterexample != null && counterexample.eIsProxy()) {
-			InternalEObject oldCounterexample = (InternalEObject)counterexample;
-			counterexample = (CounterExample)eResolveProxy(oldCounterexample);
-			if (counterexample != oldCounterexample) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, VerifiersPackage.NEGATIVE__COUNTEREXAMPLE, oldCounterexample, counterexample));
-			}
-		}
 		return counterexample;
 	}
 
@@ -79,8 +72,14 @@ public class NegativeImpl extends MinimalEObjectImpl.Container implements Negati
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public CounterExample basicGetCounterexample() {
-		return counterexample;
+	public NotificationChain basicSetCounterexample(CounterExample newCounterexample, NotificationChain msgs) {
+		CounterExample oldCounterexample = counterexample;
+		counterexample = newCounterexample;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, VerifiersPackage.NEGATIVE__COUNTEREXAMPLE, oldCounterexample, newCounterexample);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -89,10 +88,31 @@ public class NegativeImpl extends MinimalEObjectImpl.Container implements Negati
 	 * @generated
 	 */
 	public void setCounterexample(CounterExample newCounterexample) {
-		CounterExample oldCounterexample = counterexample;
-		counterexample = newCounterexample;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, VerifiersPackage.NEGATIVE__COUNTEREXAMPLE, oldCounterexample, counterexample));
+		if (newCounterexample != counterexample) {
+			NotificationChain msgs = null;
+			if (counterexample != null)
+				msgs = ((InternalEObject)counterexample).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - VerifiersPackage.NEGATIVE__COUNTEREXAMPLE, null, msgs);
+			if (newCounterexample != null)
+				msgs = ((InternalEObject)newCounterexample).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - VerifiersPackage.NEGATIVE__COUNTEREXAMPLE, null, msgs);
+			msgs = basicSetCounterexample(newCounterexample, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, VerifiersPackage.NEGATIVE__COUNTEREXAMPLE, newCounterexample, newCounterexample));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case VerifiersPackage.NEGATIVE__COUNTEREXAMPLE:
+				return basicSetCounterexample(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -104,8 +124,7 @@ public class NegativeImpl extends MinimalEObjectImpl.Container implements Negati
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case VerifiersPackage.NEGATIVE__COUNTEREXAMPLE:
-				if (resolve) return getCounterexample();
-				return basicGetCounterexample();
+				return getCounterexample();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}

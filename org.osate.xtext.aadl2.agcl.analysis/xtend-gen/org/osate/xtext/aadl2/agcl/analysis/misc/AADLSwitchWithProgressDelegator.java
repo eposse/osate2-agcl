@@ -20,7 +20,6 @@ public class AADLSwitchWithProgressDelegator<T extends Object> extends AadlProce
   }
   
   protected void initSwitches() {
-    UnsupportedOperationException _unsupportedOperationException = new UnsupportedOperationException("TODO: auto-generated method stub");
-    throw _unsupportedOperationException;
+    throw new UnsupportedOperationException("TODO: auto-generated method stub");
   }
 }

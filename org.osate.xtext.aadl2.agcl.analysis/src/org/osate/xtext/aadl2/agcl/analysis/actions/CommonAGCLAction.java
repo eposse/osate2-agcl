@@ -56,7 +56,7 @@ public abstract class CommonAGCLAction extends AaxlReadOnlyActionAsJob {
 			ViewpointContext viewpointContext = new ViewpointContext();
 			ViewpointContextSwitch viewpointContextSwitch = new ViewpointContextSwitch(monitor, viewpointContext);
 			// Create an object to record analysis results.
-			AnalysisResults analysisResults = new AnalysisResults(root.eResource(), modelChecker);
+			AnalysisResults analysisResults = new AnalysisResults(root.eResource());
 			// Create an instance of the analysis visitor
 			analysisSwitch = createConcreteAnalysisSwitch(monitor, viewpointContext); 
 //			analysisSwitch = createConcreteAnalysisSwitch(monitor, viewpointContext, analysisResults); 
@@ -66,9 +66,9 @@ public abstract class CommonAGCLAction extends AaxlReadOnlyActionAsJob {
 			// Do the actual analysis
 			analysisSwitch.processPreOrderAll(root);
 			monitor.done();
+			analysisResults.saveResults();
 			Logger.getLogger(getClass()).info("Analysis results by component:\n" + analysisResults.allResultsByComponentToString());
 			Logger.getLogger(getClass()).info("Analysis results by viewpoint:\n" + analysisResults.allResultsByViewpointToString());
-			analysisResults.saveResults();
 		}
 	}
 	

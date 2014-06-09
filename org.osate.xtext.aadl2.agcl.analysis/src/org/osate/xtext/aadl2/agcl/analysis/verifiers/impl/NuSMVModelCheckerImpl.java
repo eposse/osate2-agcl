@@ -20,6 +20,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.xtext.serializer.ISerializer;
@@ -50,6 +51,8 @@ import org.osate.xtext.aadl2.agcl.analysis.visitors.PSL2NuSMVSpecConverterExplic
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Nu SMV Model Checker</b></em>'.
+ * 
+ * <p> 
  * <!-- end-user-doc -->
  * <p>
  * </p>
@@ -402,6 +405,7 @@ public class NuSMVModelCheckerImpl extends ModelCheckerImpl implements NuSMVMode
 	 * 		{@link Unknown#reason})
 	 */
 	private VerificationResult parseOutputFile(IFile outputFile) {
+		Logger.getLogger(getClass()).debug("parsing NuSMV output file: " + outputFile.getName());
 		VerificationResult result = null;
 		Matcher matcher;
 		String line = "";
@@ -419,6 +423,7 @@ public class NuSMVModelCheckerImpl extends ModelCheckerImpl implements NuSMVMode
 				matcher = pattern.matcher(line);
 				if (matcher.find()) {
 					String r = matcher.group(2);  // In the REGEX for the line, group 0 is the whole line, group 1 is the spec and group 2 is either "true" or "false"
+					Logger.getLogger(getClass()).info("result reported by NuSMV: " + r);
 					if (r.equals("true")) {
 						result = VerifiersFactory.eINSTANCE.createPositive();
 					}
@@ -452,6 +457,7 @@ public class NuSMVModelCheckerImpl extends ModelCheckerImpl implements NuSMVMode
 				}
 		}
 		if (!foundResult) {
+			Logger.getLogger(getClass()).error("no result fould in NuSMV output file (this is bizarre)");
 			result = VerifiersFactory.eINSTANCE.createUnknown();
 			((Unknown) result).setReason("result not found in output file");;
 		}
@@ -468,11 +474,9 @@ public class NuSMVModelCheckerImpl extends ModelCheckerImpl implements NuSMVMode
 		VerificationUnit verificationUnit = VerifiersFactory.eINSTANCE.createVerificationUnit();
 		verificationUnit.setModel(universalModel);
 		verificationUnit.setSpecification(spec);
-		Viewpoint viewpoint = VerifiersFactory.eINSTANCE.createViewpoint();
-		viewpoint.setName(viewpointName);
+		Viewpoint viewpoint = getViewpointCollection().addViewpoint(viewpointName, null);
 		verificationUnit.setViewpoint(viewpoint);
-		Component component = VerifiersFactory.eINSTANCE.createComponent();
-		component.setName(componentName);
+		Component component = getComponentCollection().addComponent(componentName, null);
 		verificationUnit.setComponent(component);
 		// Perform the actual verification
 		VerificationResult result =  checkVerificationUnit(verificationUnit);

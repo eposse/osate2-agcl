@@ -24,7 +24,7 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface ComponentCollection extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Components</b></em>' reference list.
+	 * Returns the value of the '<em><b>Components</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.xtext.aadl2.agcl.analysis.verifiers.Component}.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -32,9 +32,9 @@ public interface ComponentCollection extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Components</em>' reference list.
+	 * @return the value of the '<em>Components</em>' containment reference list.
 	 * @see org.osate.xtext.aadl2.agcl.analysis.verifiers.VerifiersPackage#getComponentCollection_Components()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<Component> getComponents();
@@ -50,10 +50,10 @@ public interface ComponentCollection extends EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
-	void addComponent(String componentName, Object object);
+	Component addComponent(String componentName, Object object);
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -62,5 +62,13 @@ public interface ComponentCollection extends EObject {
 	 * @generated
 	 */
 	void removeComponent(String componentName);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model required="true"
+	 * @generated
+	 */
+	boolean containsComponent(String componentName);
 
 } // ComponentCollection

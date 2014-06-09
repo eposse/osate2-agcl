@@ -3,3 +3,8 @@
 /.ObjectWithProgressMonitor.java._trace
 /.SwitchWithProgress.java._trace
 /.AnnexSwitchWithProgressDelegate.java._trace
+/AADLSwitchWithProgressDelegate.java
+/AADLSwitchWithProgressDelegator.java
+/AnnexSwitchWithProgressDelegate.java
+/ObjectWithProgressMonitor.java
+/SwitchWithProgress.java

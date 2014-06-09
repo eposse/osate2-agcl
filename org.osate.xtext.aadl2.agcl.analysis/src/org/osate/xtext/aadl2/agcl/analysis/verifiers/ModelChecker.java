@@ -9,7 +9,46 @@ import org.eclipse.emf.ecore.resource.Resource;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Model Checker</b></em>'.
+ * The interface of model checkers.
+ * 
+ * <p>This interface is intended to be used in two possible ways:
+ * 
+ * <ol>
+ * 		<li> verify a single {@link VerificationUnit} and return a {@link VerificationResult}
+ * 		<li> verifiy of a collection of {@link VerificationUnit}s and collect all results in a 
+ * 				{@link ResultsCollection}.
+ * </ol>
+ * 
+ * Typical use:
+ * 
+ * <p><blockquote><pre>
+ * Resource r = ...;
+ * Model m1 = ...;
+ * Specification s1 = ...;
+ * Viewpoint v1 = ...;
+ * Component c1 = ...;
+ * VerificationUnit vc1 = VerifiersFactory.eINSTANCE.createVerificationUnit();
+ * vc1.setModel(m1);
+ * vc1.setSpecification(s1);
+ * vc1.setViewpoint(v1);
+ * vc1.setComponetn(c1);
+ * // possibly more VerificationUnits
+ * ModelChecker mc = SomeModelCheckerFactory.eINSTANCE.createSomeModelChecker(); // A concrete subclass of ModelCheckerImpl
+ * mc.setUp(r);
+ * // use case 1
+ * VerificationResult result = mc.checkVerificationUnit(vc);
+ * // ... or 
+ * // use case 2
+ * mc.addVerificationUnit(vc1);
+ * mc.addVerificationUnit(vc2);
+ * // ...
+ * mv.checkAll();
+ * ResultsCollection rc = mc.getResultsCollection();
+ * </pre></blockquote><p>
+ * 
+ * <p> The {@link #setUp} method records the {@link Resource} context and creates a {@link ResultsCollection} to
+ * record all results when invoked with {@link #checkAll()}.
+ * 
  * <!-- end-user-doc -->
  *
  * <p>
@@ -18,6 +57,8 @@ import org.eclipse.emf.ecore.resource.Resource;
  *   <li>{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.ModelChecker#getResourceContext <em>Resource Context</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.ModelChecker#getResults <em>Results</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.ModelChecker#getVerificationUnits <em>Verification Units</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.ModelChecker#getViewpointCollection <em>Viewpoint Collection</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.ModelChecker#getComponentCollection <em>Component Collection</em>}</li>
  * </ul>
  * </p>
  *
@@ -198,6 +239,58 @@ public interface ModelChecker extends EObject {
 	 * @generated
 	 */
 	EList<VerificationUnit> getVerificationUnits();
+
+	/**
+	 * Returns the value of the '<em><b>Viewpoint Collection</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Viewpoint Collection</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Viewpoint Collection</em>' reference.
+	 * @see #setViewpointCollection(ViewpointCollection)
+	 * @see org.osate.xtext.aadl2.agcl.analysis.verifiers.VerifiersPackage#getModelChecker_ViewpointCollection()
+	 * @model
+	 * @generated
+	 */
+	ViewpointCollection getViewpointCollection();
+
+	/**
+	 * Sets the value of the '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.ModelChecker#getViewpointCollection <em>Viewpoint Collection</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Viewpoint Collection</em>' reference.
+	 * @see #getViewpointCollection()
+	 * @generated
+	 */
+	void setViewpointCollection(ViewpointCollection value);
+
+	/**
+	 * Returns the value of the '<em><b>Component Collection</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Component Collection</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Component Collection</em>' reference.
+	 * @see #setComponentCollection(ComponentCollection)
+	 * @see org.osate.xtext.aadl2.agcl.analysis.verifiers.VerifiersPackage#getModelChecker_ComponentCollection()
+	 * @model
+	 * @generated
+	 */
+	ComponentCollection getComponentCollection();
+
+	/**
+	 * Sets the value of the '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.ModelChecker#getComponentCollection <em>Component Collection</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Component Collection</em>' reference.
+	 * @see #getComponentCollection()
+	 * @generated
+	 */
+	void setComponentCollection(ComponentCollection value);
 
 	IFolder getInputFolder();
 	

@@ -154,5 +154,5 @@ public interface VerificationUnit extends EObject {
 	 * @generated
 	 */
 	void setName(String value);
-
+	
 } // VerificationUnit

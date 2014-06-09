@@ -4,6 +4,7 @@
 package org.osate.xtext.aadl2.agcl.analysis.util;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
@@ -11,7 +12,9 @@ import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.xtext.util.StringInputStream;
@@ -134,15 +137,39 @@ public class AGCLUtil {
 	}
 
 	public static void saveFile(IFile file, String contents) {
+		Logger.getLogger(AGCLUtil.class).debug("saving file '" + file.getName() + "'");
 		StringInputStream source = new StringInputStream(contents);
 		try {
-			file.create(source, true, null);
-		} catch (CoreException e) {
-			try {
-				file.setContents(source, true, true, null);
-			} catch (CoreException e1) {
-				e1.printStackTrace();
-			}
+			if (!file.exists()) {
+				file.create(source, true, null);
+			} 
+			file.setContents(source, true, true, null);
+		}
+		catch (CoreException e) {
+			Logger.getLogger(AGCLUtil.class).error("unable to save file '" + file.getName() + "'");
+			e.printStackTrace();
 		}
 	}
+	
+	public static void saveEObject(Resource resource, EObject obj) {
+		resource.getContents().add(obj);
+		try {
+			resource.save(null);
+		} catch (IOException e) {
+			Logger.getLogger(AGCLUtil.class).error("unable to save resource '" + resource + "'");
+			e.printStackTrace();
+		}
+	} 
+
+	public static void saveEObject(IFile file, ResourceSet resourceSet, EObject obj) {
+		Logger.getLogger(AGCLUtil.class).debug("saving EObject to file: '" + file.getName() + "'");
+		java.net.URI javaURI = file.getLocationURI();
+		Logger.getLogger(AGCLUtil.class).debug("java uri: '" + javaURI + "'");
+		org.eclipse.emf.common.util.URI emfURI = org.eclipse.emf.common.util.URI.createURI(javaURI.toString());
+		Logger.getLogger(AGCLUtil.class).debug("emf uri: '" + emfURI + "'");
+		Resource newResource = resourceSet.createResource(emfURI);
+		Logger.getLogger(AGCLUtil.class).debug("new resource uri: '" + newResource.getURI() + "'");
+		saveEObject(newResource, obj);
+	}
+	
 }

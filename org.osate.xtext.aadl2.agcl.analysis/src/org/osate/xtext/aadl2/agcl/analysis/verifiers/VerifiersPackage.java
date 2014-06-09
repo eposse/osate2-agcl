@@ -124,7 +124,7 @@ public interface VerifiersPackage extends EPackage {
 	int NEGATIVE = 2;
 
 	/**
-	 * The feature id for the '<em><b>Counterexample</b></em>' reference.
+	 * The feature id for the '<em><b>Counterexample</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -381,13 +381,31 @@ public interface VerifiersPackage extends EPackage {
 	int MODEL_CHECKER__VERIFICATION_UNITS = 2;
 
 	/**
+	 * The feature id for the '<em><b>Viewpoint Collection</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_CHECKER__VIEWPOINT_COLLECTION = 3;
+
+	/**
+	 * The feature id for the '<em><b>Component Collection</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_CHECKER__COMPONENT_COLLECTION = 4;
+
+	/**
 	 * The number of structural features of the '<em>Model Checker</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MODEL_CHECKER_FEATURE_COUNT = 3;
+	int MODEL_CHECKER_FEATURE_COUNT = 5;
 
 	/**
 	 * The operation id for the '<em>Set Up</em>' operation.
@@ -432,7 +450,7 @@ public interface VerifiersPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MODEL_CHECKER___PREPARE_INPUT__MODEL_SPECIFICATION = 4;
+	int MODEL_CHECKER___PREPARE_INPUT__VERIFICATIONUNIT = 4;
 
 	/**
 	 * The operation id for the '<em>Call External</em>' operation.
@@ -535,6 +553,24 @@ public interface VerifiersPackage extends EPackage {
 	int NU_SMV_MODEL_CHECKER__VERIFICATION_UNITS = MODEL_CHECKER__VERIFICATION_UNITS;
 
 	/**
+	 * The feature id for the '<em><b>Viewpoint Collection</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NU_SMV_MODEL_CHECKER__VIEWPOINT_COLLECTION = MODEL_CHECKER__VIEWPOINT_COLLECTION;
+
+	/**
+	 * The feature id for the '<em><b>Component Collection</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NU_SMV_MODEL_CHECKER__COMPONENT_COLLECTION = MODEL_CHECKER__COMPONENT_COLLECTION;
+
+	/**
 	 * The number of structural features of the '<em>Nu SMV Model Checker</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -586,7 +622,7 @@ public interface VerifiersPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int NU_SMV_MODEL_CHECKER___PREPARE_INPUT__MODEL_SPECIFICATION = MODEL_CHECKER___PREPARE_INPUT__MODEL_SPECIFICATION;
+	int NU_SMV_MODEL_CHECKER___PREPARE_INPUT__VERIFICATIONUNIT = MODEL_CHECKER___PREPARE_INPUT__VERIFICATIONUNIT;
 
 	/**
 	 * The operation id for the '<em>Call External</em>' operation.
@@ -1168,7 +1204,7 @@ public interface VerifiersPackage extends EPackage {
 	int RESULTS_COLLECTION = 17;
 
 	/**
-	 * The feature id for the '<em><b>Entries</b></em>' reference list.
+	 * The feature id for the '<em><b>Entries</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1426,7 +1462,7 @@ public interface VerifiersPackage extends EPackage {
 	int VIEWPOINT_COLLECTION = 22;
 
 	/**
-	 * The feature id for the '<em><b>Viewpoints</b></em>' reference list.
+	 * The feature id for the '<em><b>Viewpoints</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1471,13 +1507,22 @@ public interface VerifiersPackage extends EPackage {
 	int VIEWPOINT_COLLECTION___REMOVE_VIEWPOINT__STRING = 2;
 
 	/**
+	 * The operation id for the '<em>Contains Viewpoint</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VIEWPOINT_COLLECTION___CONTAINS_VIEWPOINT__STRING = 3;
+
+	/**
 	 * The number of operations of the '<em>Viewpoint Collection</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VIEWPOINT_COLLECTION_OPERATION_COUNT = 3;
+	int VIEWPOINT_COLLECTION_OPERATION_COUNT = 4;
 
 	/**
 	 * The meta object id for the '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.impl.ComponentCollectionImpl <em>Component Collection</em>}' class.
@@ -1490,7 +1535,7 @@ public interface VerifiersPackage extends EPackage {
 	int COMPONENT_COLLECTION = 23;
 
 	/**
-	 * The feature id for the '<em><b>Components</b></em>' reference list.
+	 * The feature id for the '<em><b>Components</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1535,13 +1580,22 @@ public interface VerifiersPackage extends EPackage {
 	int COMPONENT_COLLECTION___REMOVE_COMPONENT__STRING = 2;
 
 	/**
+	 * The operation id for the '<em>Contains Component</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_COLLECTION___CONTAINS_COMPONENT__STRING = 3;
+
+	/**
 	 * The number of operations of the '<em>Component Collection</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COMPONENT_COLLECTION_OPERATION_COUNT = 3;
+	int COMPONENT_COLLECTION_OPERATION_COUNT = 4;
 
 
 	/**
@@ -1575,10 +1629,10 @@ public interface VerifiersPackage extends EPackage {
 	EClass getNegative();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.Negative#getCounterexample <em>Counterexample</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.Negative#getCounterexample <em>Counterexample</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Counterexample</em>'.
+	 * @return the meta object for the containment reference '<em>Counterexample</em>'.
 	 * @see org.osate.xtext.aadl2.agcl.analysis.verifiers.Negative#getCounterexample()
 	 * @see #getNegative()
 	 * @generated
@@ -1733,6 +1787,28 @@ public interface VerifiersPackage extends EPackage {
 	EReference getModelChecker_VerificationUnits();
 
 	/**
+	 * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.ModelChecker#getViewpointCollection <em>Viewpoint Collection</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Viewpoint Collection</em>'.
+	 * @see org.osate.xtext.aadl2.agcl.analysis.verifiers.ModelChecker#getViewpointCollection()
+	 * @see #getModelChecker()
+	 * @generated
+	 */
+	EReference getModelChecker_ViewpointCollection();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.ModelChecker#getComponentCollection <em>Component Collection</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Component Collection</em>'.
+	 * @see org.osate.xtext.aadl2.agcl.analysis.verifiers.ModelChecker#getComponentCollection()
+	 * @see #getModelChecker()
+	 * @generated
+	 */
+	EReference getModelChecker_ComponentCollection();
+
+	/**
 	 * Returns the meta object for the '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.ModelChecker#setUp(org.eclipse.emf.ecore.resource.Resource) <em>Set Up</em>}' operation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1780,7 +1856,7 @@ public interface VerifiersPackage extends EPackage {
 	 * @see org.osate.xtext.aadl2.agcl.analysis.verifiers.ModelChecker#prepareInput(org.osate.xtext.aadl2.agcl.analysis.verifiers.VerificationUnit)
 	 * @generated
 	 */
-	EOperation getModelChecker__PrepareInput__Model_Specification();
+	EOperation getModelChecker__PrepareInput__VerificationUnit();
 
 	/**
 	 * Returns the meta object for the '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.ModelChecker#processOutput(org.osate.xtext.aadl2.agcl.analysis.verifiers.ModelCheckerOutput) <em>Process Output</em>}' operation.
@@ -2097,10 +2173,10 @@ public interface VerifiersPackage extends EPackage {
 	EClass getResultsCollection();
 
 	/**
-	 * Returns the meta object for the reference list '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.ResultsCollection#getEntries <em>Entries</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.ResultsCollection#getEntries <em>Entries</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Entries</em>'.
+	 * @return the meta object for the containment reference list '<em>Entries</em>'.
 	 * @see org.osate.xtext.aadl2.agcl.analysis.verifiers.ResultsCollection#getEntries()
 	 * @see #getResultsCollection()
 	 * @generated
@@ -2289,10 +2365,10 @@ public interface VerifiersPackage extends EPackage {
 	EClass getViewpointCollection();
 
 	/**
-	 * Returns the meta object for the reference list '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.ViewpointCollection#getViewpoints <em>Viewpoints</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.ViewpointCollection#getViewpoints <em>Viewpoints</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Viewpoints</em>'.
+	 * @return the meta object for the containment reference list '<em>Viewpoints</em>'.
 	 * @see org.osate.xtext.aadl2.agcl.analysis.verifiers.ViewpointCollection#getViewpoints()
 	 * @see #getViewpointCollection()
 	 * @generated
@@ -2330,6 +2406,16 @@ public interface VerifiersPackage extends EPackage {
 	EOperation getViewpointCollection__RemoveViewpoint__String();
 
 	/**
+	 * Returns the meta object for the '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.ViewpointCollection#containsViewpoint(java.lang.String) <em>Contains Viewpoint</em>}' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the '<em>Contains Viewpoint</em>' operation.
+	 * @see org.osate.xtext.aadl2.agcl.analysis.verifiers.ViewpointCollection#containsViewpoint(java.lang.String)
+	 * @generated
+	 */
+	EOperation getViewpointCollection__ContainsViewpoint__String();
+
+	/**
 	 * Returns the meta object for class '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.ComponentCollection <em>Component Collection</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2340,10 +2426,10 @@ public interface VerifiersPackage extends EPackage {
 	EClass getComponentCollection();
 
 	/**
-	 * Returns the meta object for the reference list '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.ComponentCollection#getComponents <em>Components</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.ComponentCollection#getComponents <em>Components</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Components</em>'.
+	 * @return the meta object for the containment reference list '<em>Components</em>'.
 	 * @see org.osate.xtext.aadl2.agcl.analysis.verifiers.ComponentCollection#getComponents()
 	 * @see #getComponentCollection()
 	 * @generated
@@ -2379,6 +2465,16 @@ public interface VerifiersPackage extends EPackage {
 	 * @generated
 	 */
 	EOperation getComponentCollection__RemoveComponent__String();
+
+	/**
+	 * Returns the meta object for the '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.ComponentCollection#containsComponent(java.lang.String) <em>Contains Component</em>}' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the '<em>Contains Component</em>' operation.
+	 * @see org.osate.xtext.aadl2.agcl.analysis.verifiers.ComponentCollection#containsComponent(java.lang.String)
+	 * @generated
+	 */
+	EOperation getComponentCollection__ContainsComponent__String();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -2434,7 +2530,7 @@ public interface VerifiersPackage extends EPackage {
 		EClass NEGATIVE = eINSTANCE.getNegative();
 
 		/**
-		 * The meta object literal for the '<em><b>Counterexample</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Counterexample</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -2564,6 +2660,22 @@ public interface VerifiersPackage extends EPackage {
 		EReference MODEL_CHECKER__VERIFICATION_UNITS = eINSTANCE.getModelChecker_VerificationUnits();
 
 		/**
+		 * The meta object literal for the '<em><b>Viewpoint Collection</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MODEL_CHECKER__VIEWPOINT_COLLECTION = eINSTANCE.getModelChecker_ViewpointCollection();
+
+		/**
+		 * The meta object literal for the '<em><b>Component Collection</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MODEL_CHECKER__COMPONENT_COLLECTION = eINSTANCE.getModelChecker_ComponentCollection();
+
+		/**
 		 * The meta object literal for the '<em><b>Set Up</b></em>' operation.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -2601,7 +2713,7 @@ public interface VerifiersPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EOperation MODEL_CHECKER___PREPARE_INPUT__MODEL_SPECIFICATION = eINSTANCE.getModelChecker__PrepareInput__Model_Specification();
+		EOperation MODEL_CHECKER___PREPARE_INPUT__VERIFICATIONUNIT = eINSTANCE.getModelChecker__PrepareInput__VerificationUnit();
 
 		/**
 		 * The meta object literal for the '<em><b>Process Output</b></em>' operation.
@@ -2864,7 +2976,7 @@ public interface VerifiersPackage extends EPackage {
 		EClass RESULTS_COLLECTION = eINSTANCE.getResultsCollection();
 
 		/**
-		 * The meta object literal for the '<em><b>Entries</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Entries</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -3018,7 +3130,7 @@ public interface VerifiersPackage extends EPackage {
 		EClass VIEWPOINT_COLLECTION = eINSTANCE.getViewpointCollection();
 
 		/**
-		 * The meta object literal for the '<em><b>Viewpoints</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Viewpoints</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -3050,6 +3162,14 @@ public interface VerifiersPackage extends EPackage {
 		EOperation VIEWPOINT_COLLECTION___REMOVE_VIEWPOINT__STRING = eINSTANCE.getViewpointCollection__RemoveViewpoint__String();
 
 		/**
+		 * The meta object literal for the '<em><b>Contains Viewpoint</b></em>' operation.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EOperation VIEWPOINT_COLLECTION___CONTAINS_VIEWPOINT__STRING = eINSTANCE.getViewpointCollection__ContainsViewpoint__String();
+
+		/**
 		 * The meta object literal for the '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.impl.ComponentCollectionImpl <em>Component Collection</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -3060,7 +3180,7 @@ public interface VerifiersPackage extends EPackage {
 		EClass COMPONENT_COLLECTION = eINSTANCE.getComponentCollection();
 
 		/**
-		 * The meta object literal for the '<em><b>Components</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Components</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -3090,6 +3210,14 @@ public interface VerifiersPackage extends EPackage {
 		 * @generated
 		 */
 		EOperation COMPONENT_COLLECTION___REMOVE_COMPONENT__STRING = eINSTANCE.getComponentCollection__RemoveComponent__String();
+
+		/**
+		 * The meta object literal for the '<em><b>Contains Component</b></em>' operation.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EOperation COMPONENT_COLLECTION___CONTAINS_COMPONENT__STRING = eINSTANCE.getComponentCollection__ContainsComponent__String();
 
 	}
 

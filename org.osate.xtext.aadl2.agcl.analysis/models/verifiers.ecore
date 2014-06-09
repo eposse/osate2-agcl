@@ -5,7 +5,8 @@
       interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="Positive" eSuperTypes="#//VerificationResult"/>
   <eClassifiers xsi:type="ecore:EClass" name="Negative" eSuperTypes="#//VerificationResult">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="counterexample" eType="#//CounterExample"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="counterexample" eType="#//CounterExample"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Model" abstract="true" interface="true">
     <eOperations name="text" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
@@ -72,6 +73,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="results" eType="#//ResultsCollection"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="verificationUnits" upperBound="-1"
         eType="#//VerificationUnit"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="viewpointCollection" eType="#//ViewpointCollection"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="componentCollection" eType="#//ComponentCollection"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NuSMVModelChecker" eSuperTypes="#//ModelChecker"/>
   <eClassifiers xsi:type="ecore:EClass" name="ModelCheckerInput" abstract="true">
@@ -129,7 +132,7 @@
       <eParameters name="result" eType="#//VerificationResult"/>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="entries" upperBound="-1"
-        eType="#//ResultEntry"/>
+        eType="#//ResultEntry" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Component">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -154,28 +157,34 @@
     <eOperations name="getViewpoint" lowerBound="1" eType="#//Viewpoint">
       <eParameters name="viewpointName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eOperations>
-    <eOperations name="addViewpoint" lowerBound="1">
+    <eOperations name="addViewpoint" lowerBound="1" eType="#//Viewpoint">
       <eParameters name="viewpointName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eParameters name="object" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
     </eOperations>
     <eOperations name="removeViewpoint">
       <eParameters name="viewpointName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eOperations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="viewpoints" upperBound="-1"
-        eType="#//Viewpoint"/>
+    <eOperations name="containsViewpoint" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eParameters name="viewpointName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="viewpoints" ordered="false"
+        upperBound="-1" eType="#//Viewpoint" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ComponentCollection">
     <eOperations name="getComponent" lowerBound="1" eType="#//Component">
       <eParameters name="componentName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eOperations>
-    <eOperations name="addComponent">
+    <eOperations name="addComponent" lowerBound="1" eType="#//Component">
       <eParameters name="componentName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eParameters name="object" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
     </eOperations>
     <eOperations name="removeComponent">
       <eParameters name="componentName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eOperations>
+    <eOperations name="containsComponent" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eParameters name="componentName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="components" upperBound="-1"
-        eType="#//Component"/>
+        eType="#//Component" containment="true"/>
   </eClassifiers>
 </ecore:EPackage>

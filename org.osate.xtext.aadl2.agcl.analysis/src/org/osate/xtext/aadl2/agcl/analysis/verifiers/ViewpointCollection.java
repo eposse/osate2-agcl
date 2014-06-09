@@ -24,7 +24,7 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface ViewpointCollection extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Viewpoints</b></em>' reference list.
+	 * Returns the value of the '<em><b>Viewpoints</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.xtext.aadl2.agcl.analysis.verifiers.Viewpoint}.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -32,9 +32,9 @@ public interface ViewpointCollection extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Viewpoints</em>' reference list.
+	 * @return the value of the '<em>Viewpoints</em>' containment reference list.
 	 * @see org.osate.xtext.aadl2.agcl.analysis.verifiers.VerifiersPackage#getViewpointCollection_Viewpoints()
-	 * @model
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<Viewpoint> getViewpoints();
@@ -50,10 +50,10 @@ public interface ViewpointCollection extends EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
-	void addViewpoint(String viewpointName, Object object);
+	Viewpoint addViewpoint(String viewpointName, Object object);
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -62,5 +62,13 @@ public interface ViewpointCollection extends EObject {
 	 * @generated
 	 */
 	void removeViewpoint(String viewpointName);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model required="true"
+	 * @generated
+	 */
+	boolean containsViewpoint(String viewpointName);
 
 } // ViewpointCollection

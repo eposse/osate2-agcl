@@ -4,11 +4,13 @@ package org.osate.xtext.aadl2.agcl.analysis.verifiers.impl;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
-
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.Component;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.ComponentCollection;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.VerifiersFactory;
@@ -29,7 +31,7 @@ import org.osate.xtext.aadl2.agcl.analysis.verifiers.VerifiersPackage;
  */
 public class ComponentCollectionImpl extends MinimalEObjectImpl.Container implements ComponentCollection {
 	/**
-	 * The cached value of the '{@link #getComponents() <em>Components</em>}' reference list.
+	 * The cached value of the '{@link #getComponents() <em>Components</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getComponents()
@@ -64,7 +66,7 @@ public class ComponentCollectionImpl extends MinimalEObjectImpl.Container implem
 	 */
 	public EList<Component> getComponents() {
 		if (components == null) {
-			components = new EObjectResolvingEList<Component>(Component.class, this, VerifiersPackage.COMPONENT_COLLECTION__COMPONENTS);
+			components = new EObjectContainmentEList<Component>(Component.class, this, VerifiersPackage.COMPONENT_COLLECTION__COMPONENTS);
 		}
 		return components;
 	}
@@ -89,13 +91,18 @@ public class ComponentCollectionImpl extends MinimalEObjectImpl.Container implem
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @return 
 	 * @generated NOT
 	 */
-	public void addComponent(String componentName, Object object) {
-		Component c = VerifiersFactory.eINSTANCE.createComponent();
-		c.setName(componentName);
-		c.setObject(object);
-		getComponents().add(c);
+	public Component addComponent(String componentName, Object object) {
+		Component component = getComponent(componentName);
+		if (component == null) {
+			component = VerifiersFactory.eINSTANCE.createComponent();
+			component.setName(componentName);
+			component.setObject(object);
+			getComponents().add(component);
+		}
+		return component;
 	}
 
 	/**
@@ -105,6 +112,37 @@ public class ComponentCollectionImpl extends MinimalEObjectImpl.Container implem
 	 */
 	public void removeComponent(String componentName) {
 		getComponents().remove(getComponent(componentName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean containsComponent(String componentName) {
+		boolean result = false;
+		EList<Component> components = getComponents();
+		for (Component c : components) {
+			if (c.getName().equals(componentName)) {
+				result = true;
+				break;
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case VerifiersPackage.COMPONENT_COLLECTION__COMPONENTS:
+				return ((InternalEList<?>)getComponents()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -178,11 +216,12 @@ public class ComponentCollectionImpl extends MinimalEObjectImpl.Container implem
 			case VerifiersPackage.COMPONENT_COLLECTION___GET_COMPONENT__STRING:
 				return getComponent((String)arguments.get(0));
 			case VerifiersPackage.COMPONENT_COLLECTION___ADD_COMPONENT__STRING_OBJECT:
-				addComponent((String)arguments.get(0), arguments.get(1));
-				return null;
+				return addComponent((String)arguments.get(0), arguments.get(1));
 			case VerifiersPackage.COMPONENT_COLLECTION___REMOVE_COMPONENT__STRING:
 				removeComponent((String)arguments.get(0));
 				return null;
+			case VerifiersPackage.COMPONENT_COLLECTION___CONTAINS_COMPONENT__STRING:
+				return containsComponent((String)arguments.get(0));
 		}
 		return super.eInvoke(operationID, arguments);
 	}

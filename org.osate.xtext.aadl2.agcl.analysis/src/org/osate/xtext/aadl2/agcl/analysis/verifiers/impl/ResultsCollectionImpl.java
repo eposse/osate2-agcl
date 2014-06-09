@@ -4,11 +4,13 @@ package org.osate.xtext.aadl2.agcl.analysis.verifiers.impl;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
-
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.ResultEntry;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.ResultsCollection;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.VerificationResult;
@@ -31,7 +33,7 @@ import org.osate.xtext.aadl2.agcl.analysis.verifiers.VerifiersPackage;
  */
 public class ResultsCollectionImpl extends MinimalEObjectImpl.Container implements ResultsCollection {
 	/**
-	 * The cached value of the '{@link #getEntries() <em>Entries</em>}' reference list.
+	 * The cached value of the '{@link #getEntries() <em>Entries</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getEntries()
@@ -66,7 +68,7 @@ public class ResultsCollectionImpl extends MinimalEObjectImpl.Container implemen
 	 */
 	public EList<ResultEntry> getEntries() {
 		if (entries == null) {
-			entries = new EObjectResolvingEList<ResultEntry>(ResultEntry.class, this, VerifiersPackage.RESULTS_COLLECTION__ENTRIES);
+			entries = new EObjectContainmentEList<ResultEntry>(ResultEntry.class, this, VerifiersPackage.RESULTS_COLLECTION__ENTRIES);
 		}
 		return entries;
 	}
@@ -81,6 +83,20 @@ public class ResultsCollectionImpl extends MinimalEObjectImpl.Container implemen
 		entry.setVerificationUnit(verificationUnit);
 		entry.setResult(result);
 		getEntries().add(entry);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case VerifiersPackage.RESULTS_COLLECTION__ENTRIES:
+				return ((InternalEList<?>)getEntries()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
