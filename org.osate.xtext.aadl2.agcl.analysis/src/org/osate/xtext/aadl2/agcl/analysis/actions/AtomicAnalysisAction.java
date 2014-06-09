@@ -4,7 +4,6 @@
 package org.osate.xtext.aadl2.agcl.analysis.actions;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.osate.xtext.aadl2.agcl.analysis.results.AnalysisResults;
 import org.osate.xtext.aadl2.agcl.analysis.visitors.AtomicAnalysisSwitch;
 import org.osate.xtext.aadl2.agcl.analysis.visitors.CommonAGCLAnalysisSwitch;
 import org.osate.xtext.aadl2.agcl.analysis.visitors.ViewpointContext;
@@ -29,11 +28,17 @@ public class AtomicAnalysisAction extends CommonAGCLAction {
 	}
 
 	@Override
-	protected CommonAGCLAnalysisSwitch createConcreteAnalysisSwitch(
-			IProgressMonitor monitor, ViewpointContext viewpointContext,
-			AnalysisResults analysisResults) {
+	protected CommonAGCLAnalysisSwitch createConcreteAnalysisSwitch(IProgressMonitor monitor, ViewpointContext viewpointContext) {
 		// TODO Auto-generated method stub
-		return new AtomicAnalysisSwitch(monitor, viewpointContext, analysisResults);
+		return new AtomicAnalysisSwitch(monitor, viewpointContext);
 	}
 
+//	@Override
+//	protected CommonAGCLAnalysisSwitch createConcreteAnalysisSwitch(
+//			IProgressMonitor monitor, ViewpointContext viewpointContext,
+//			AnalysisResults analysisResults) {
+//		// TODO Auto-generated method stub
+//		return new AtomicAnalysisSwitch(monitor, viewpointContext, analysisResults);
+//	}
+//
 }

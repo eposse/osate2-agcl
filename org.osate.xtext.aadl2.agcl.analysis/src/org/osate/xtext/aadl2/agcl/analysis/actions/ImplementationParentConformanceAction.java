@@ -4,7 +4,6 @@
 package org.osate.xtext.aadl2.agcl.analysis.actions;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.osate.xtext.aadl2.agcl.analysis.results.AnalysisResults;
 import org.osate.xtext.aadl2.agcl.analysis.visitors.CommonAGCLAnalysisSwitch;
 import org.osate.xtext.aadl2.agcl.analysis.visitors.ImplementationParentConformanceSwitch;
 import org.osate.xtext.aadl2.agcl.analysis.visitors.ViewpointContext;
@@ -30,9 +29,15 @@ public class ImplementationParentConformanceAction extends
 
 	@Override
 	protected CommonAGCLAnalysisSwitch createConcreteAnalysisSwitch(
-			IProgressMonitor monitor, ViewpointContext viewpointContext,
-			AnalysisResults analysisResults) {
-		return new ImplementationParentConformanceSwitch(monitor, viewpointContext, analysisResults);
+			IProgressMonitor monitor, ViewpointContext viewpointContext) {
+		return new ImplementationParentConformanceSwitch(monitor, viewpointContext);
 	}
 
+//	@Override
+//	protected CommonAGCLAnalysisSwitch createConcreteAnalysisSwitch(
+//			IProgressMonitor monitor, ViewpointContext viewpointContext,
+//			AnalysisResults analysisResults) {
+//		return new ImplementationParentConformanceSwitch(monitor, viewpointContext, analysisResults);
+//	}
+//
 }

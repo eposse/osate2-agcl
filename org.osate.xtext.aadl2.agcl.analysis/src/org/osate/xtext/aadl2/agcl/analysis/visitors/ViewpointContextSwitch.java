@@ -23,7 +23,7 @@ public class ViewpointContextSwitch extends CommonAGCLAnalysisSwitch {
 	 * @param pm
 	 */
 	public ViewpointContextSwitch(IProgressMonitor pm, ViewpointContext viewpointContext) {
-		super(pm, viewpointContext, null);
+		super(pm, viewpointContext);
 	}
 
 	@Override

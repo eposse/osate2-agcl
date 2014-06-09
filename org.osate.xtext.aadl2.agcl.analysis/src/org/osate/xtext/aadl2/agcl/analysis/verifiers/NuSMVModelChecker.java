@@ -17,6 +17,6 @@ import org.osate.xtext.aadl2.agcl.agcl.PSLSpec;
  */
 public interface NuSMVModelChecker extends ModelChecker {
 
-	public VerificationResult checkSpecValidity(PSLSpec pslSpec, String label);
-	
+	public void checkSpecValidity(PSLSpec pslSpec, String viewpointName, String componentName, String label);
+
 } // NuSMVModelChecker

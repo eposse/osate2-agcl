@@ -4,7 +4,6 @@
 package org.osate.xtext.aadl2.agcl.analysis.visitors;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.osate.xtext.aadl2.agcl.analysis.results.AnalysisResults;
 
 /**
  * This class implements the main algorithm for A/G analysis of composite capsules, i.e. thread group
@@ -48,10 +47,16 @@ import org.osate.xtext.aadl2.agcl.analysis.results.AnalysisResults;
 public class CompositeAnalysisSwitch extends CommonAGCLAnalysisSwitch {
 
 	public CompositeAnalysisSwitch(IProgressMonitor pm,
-			ViewpointContext viewpointContext, AnalysisResults analysisResults) {
-		super(pm, viewpointContext, analysisResults);
+			ViewpointContext viewpointContext) {
+		super(pm, viewpointContext);
 		// TODO Auto-generated constructor stub
 	}
+
+//	public CompositeAnalysisSwitch(IProgressMonitor pm,
+//			ViewpointContext viewpointContext, AnalysisResults analysisResults) {
+//		super(pm, viewpointContext, analysisResults);
+//		// TODO Auto-generated constructor stub
+//	}
 
 	@Override
 	protected void initAGCLSwitch() {

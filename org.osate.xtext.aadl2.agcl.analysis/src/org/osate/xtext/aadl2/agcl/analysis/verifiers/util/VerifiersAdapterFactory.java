@@ -132,6 +132,38 @@ public class VerifiersAdapterFactory extends AdapterFactoryImpl {
 				return createNuSMVSpecificationAdapter();
 			}
 			@Override
+			public Adapter caseUnknown(Unknown object) {
+				return createUnknownAdapter();
+			}
+			@Override
+			public Adapter caseResultsCollection(ResultsCollection object) {
+				return createResultsCollectionAdapter();
+			}
+			@Override
+			public Adapter caseComponent(Component object) {
+				return createComponentAdapter();
+			}
+			@Override
+			public Adapter caseViewpoint(Viewpoint object) {
+				return createViewpointAdapter();
+			}
+			@Override
+			public Adapter caseVerificationUnit(VerificationUnit object) {
+				return createVerificationUnitAdapter();
+			}
+			@Override
+			public Adapter caseResultEntry(ResultEntry object) {
+				return createResultEntryAdapter();
+			}
+			@Override
+			public Adapter caseViewpointCollection(ViewpointCollection object) {
+				return createViewpointCollectionAdapter();
+			}
+			@Override
+			public Adapter caseComponentCollection(ComponentCollection object) {
+				return createComponentCollectionAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -372,6 +404,118 @@ public class VerifiersAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createNuSMVSpecificationAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.Unknown <em>Unknown</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.xtext.aadl2.agcl.analysis.verifiers.Unknown
+	 * @generated
+	 */
+	public Adapter createUnknownAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.ResultsCollection <em>Results Collection</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.xtext.aadl2.agcl.analysis.verifiers.ResultsCollection
+	 * @generated
+	 */
+	public Adapter createResultsCollectionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.Component <em>Component</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.xtext.aadl2.agcl.analysis.verifiers.Component
+	 * @generated
+	 */
+	public Adapter createComponentAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.Viewpoint <em>Viewpoint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.xtext.aadl2.agcl.analysis.verifiers.Viewpoint
+	 * @generated
+	 */
+	public Adapter createViewpointAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.VerificationUnit <em>Verification Unit</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.xtext.aadl2.agcl.analysis.verifiers.VerificationUnit
+	 * @generated
+	 */
+	public Adapter createVerificationUnitAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.ResultEntry <em>Result Entry</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.xtext.aadl2.agcl.analysis.verifiers.ResultEntry
+	 * @generated
+	 */
+	public Adapter createResultEntryAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.ViewpointCollection <em>Viewpoint Collection</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.xtext.aadl2.agcl.analysis.verifiers.ViewpointCollection
+	 * @generated
+	 */
+	public Adapter createViewpointCollectionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.agcl.analysis.verifiers.ComponentCollection <em>Component Collection</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.xtext.aadl2.agcl.analysis.verifiers.ComponentCollection
+	 * @generated
+	 */
+	public Adapter createComponentCollectionAdapter() {
 		return null;
 	}
 

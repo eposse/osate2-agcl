@@ -1,23 +1,28 @@
 package org.osate.xtext.aadl2.agcl.analysis.results;
  
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+
+import java.io.IOException;
+import java.util.Collections;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
-import org.eclipse.core.runtime.CoreException;
+import org.eclipse.emf.common.util.BasicEMap;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.xtext.util.StringInputStream;
 import org.osate.xtext.aadl2.agcl.analysis.AGCLAnalysisPlugin;
 import org.osate.xtext.aadl2.agcl.analysis.config.IPreferenceConstants;
 import org.osate.xtext.aadl2.agcl.analysis.util.AGCLUtil;
+import org.osate.xtext.aadl2.agcl.analysis.verifiers.ModelChecker;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.Negative;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.Positive;
+import org.osate.xtext.aadl2.agcl.analysis.verifiers.ResultEntry;
+import org.osate.xtext.aadl2.agcl.analysis.verifiers.ResultsCollection;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.VerificationResult;
+import org.osate.xtext.aadl2.agcl.analysis.verifiers.VerifiersFactory;
 
 /**
  * Objects of this class collect verification results, which can be queried by viewpoint or by component.
@@ -27,40 +32,46 @@ import org.osate.xtext.aadl2.agcl.analysis.verifiers.VerificationResult;
  */
 public class AnalysisResults {
 
-	// TODO: change allResults to EMap for persistence
-	private Map<String, Map<String, VerificationResult>> allResults;
-	private Set<String> allViewpointNames;
-	private Set<String> allComponentNames;
+	// TODO: change allResults to EEMap for persistence
+	private EMap<String, EMap<String, VerificationResult>> allResults;
+	private EList<String> allViewpointNames;
+	private EList<String> allComponentNames;
 	private IFolder resultsFolder;
 	private Resource resourceContext;
+	private ResultsCollection resultsCollection;
+	private ModelChecker modelChecker;
 	
 	public static final String BYVIEWPOINT = "by viewpoint";
 	public static final String BYCOMPONENT = "by component";
 	
-	public AnalysisResults(Resource resourceContext) {
-		allResults = new HashMap<String, Map<String, VerificationResult>>();
-		allViewpointNames = new HashSet<String>();
-		allComponentNames = new HashSet<String>();
+	public AnalysisResults(Resource resourceContext, ModelChecker modelChecker) {
+		allResults = new BasicEMap<String, EMap<String, VerificationResult>>();
+		allViewpointNames = new UniqueEList<String>();
+		allComponentNames = new UniqueEList<String>();
 		this.resultsFolder = AGCLUtil.openResultsDir(resourceContext);
 		this.resourceContext = resourceContext;
+		resultsCollection = VerifiersFactory.eINSTANCE.createResultsCollection();
+		this.modelChecker = modelChecker;
+		this.modelChecker.setResults(resultsCollection);
 	}
 	
 	public void recordResult(String viewpointName, String componentName, VerificationResult result) {
 		allViewpointNames.add(viewpointName);
 		allComponentNames.add(componentName);
 		if (allResults.containsKey(viewpointName)) {
-			Map<String, VerificationResult> viewpointResults = allResults.get(viewpointName);
+			EMap<String, VerificationResult> viewpointResults = allResults.get(viewpointName);
 			viewpointResults.put(componentName, result);
 		}
 		else {
-			Map<String, VerificationResult> viewpointResults = new HashMap<String,VerificationResult>();
+			EMap<String, VerificationResult> viewpointResults = new BasicEMap<String,VerificationResult>();
 			viewpointResults.put(componentName, result);
 			allResults.put(viewpointName, viewpointResults);
 		}
+		
 	}
 	
 	public VerificationResult getResult(String viewpointName, String componentName) {
-		Map<String, VerificationResult> viewpointResults = allResults.get(viewpointName);
+		EMap<String, VerificationResult> viewpointResults = allResults.get(viewpointName);
 		return viewpointResults.get(componentName);
 	}
 	
@@ -126,8 +137,15 @@ public class AnalysisResults {
 	}
 	
 	public void saveResults() {
+		for (ResultEntry entry : resultsCollection.getEntries()) {
+			String v = entry.getVerificationUnit().getViewpoint().getName();
+			String c = entry.getVerificationUnit().getComponent().getName();
+			VerificationResult r = entry.getResult();
+			recordResult(v, c, r);
+		}
 		String option = AGCLAnalysisPlugin.getDefault().getPreferenceStore().getString(IPreferenceConstants.ANALYSIS_RESULTS_OPTION_PREFERENCE);
 		saveResults(option);
+		saveResultsCollection();
 	}
 
 	public void saveResults(String option) {
@@ -144,6 +162,22 @@ public class AnalysisResults {
 			text = allResultsByComponentToString();
 		}
 		AGCLUtil.saveFile(newResultsFile, text);
+	}
+	
+	public void saveResultsCollection() {
+		Logger.getLogger(getClass()).info("saving resultscollection");
+		URI uri = resourceContext.getURI();
+		String resourceName = uri.lastSegment();
+		String newFileName = resourceName.replace('.', '_') + ".xml";
+		IFile newResultsFile = resultsFolder.getFile("results_" + newFileName);
+		Resource resource = (Resource) newResultsFile;
+		resource.getContents().add(resultsCollection);
+		try {
+			resource.save(Collections.EMPTY_MAP);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

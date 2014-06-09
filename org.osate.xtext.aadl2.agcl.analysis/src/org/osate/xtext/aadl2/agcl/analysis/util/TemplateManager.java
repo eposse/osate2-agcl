@@ -3,15 +3,13 @@
  */
 package org.osate.xtext.aadl2.agcl.analysis.util;
 
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
+
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URL;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
-
-import static java.nio.file.StandardCopyOption.*;
-
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
@@ -118,7 +116,7 @@ public class TemplateManager {
 						templatePaths.put(templateName, targetTemplateFilePath);
 					}
 					catch (FileAlreadyExistsException e) {
-						Logger.getLogger(getClass()).info("target template file already exists; I'm keeping the existing file");
+						Logger.getLogger(getClass()).info("target template file already exists; I'm replacing the existing file with the default");
 					}
 				}
 			} catch (MalformedURLException e) {
@@ -141,12 +139,11 @@ public class TemplateManager {
 			Logger.getLogger(getClass()).debug("  template path: " + templatePath);
 			try {
 				String templateContents = new String(Files.readAllBytes(templatePath));
-				Logger.getLogger(getClass()).debug("  template contents:\n" + templateContents);
 				Template template = new Template(templateContents);
 				Logger.getLogger(getClass()).debug("  template pattern:\n" + template.getPattern());
 				templates.put(templateName, template);
 			} catch (IOException e) {
-				Logger.getLogger(getClass()).info("template could not be read: " + templatePath);
+				Logger.getLogger(getClass()).error("template could not be read: " + templatePath);
 				e.printStackTrace();
 			}
 		}

@@ -30,9 +30,14 @@ public class CompositeAnalysisAction extends CommonAGCLAction {
 
 	@Override
 	protected CommonAGCLAnalysisSwitch createConcreteAnalysisSwitch(
-			IProgressMonitor monitor, ViewpointContext viewpointContext,
-			AnalysisResults analysisResults) {
-		return new CompositeAnalysisSwitch(monitor, viewpointContext, analysisResults);
+			IProgressMonitor monitor, ViewpointContext viewpointContext) {
+		return new CompositeAnalysisSwitch(monitor, viewpointContext);
 	}
+//	@Override
+//	protected CommonAGCLAnalysisSwitch createConcreteAnalysisSwitch(
+//			IProgressMonitor monitor, ViewpointContext viewpointContext,
+//			AnalysisResults analysisResults) {
+//		return new CompositeAnalysisSwitch(monitor, viewpointContext, analysisResults);
+//	}
 
 }

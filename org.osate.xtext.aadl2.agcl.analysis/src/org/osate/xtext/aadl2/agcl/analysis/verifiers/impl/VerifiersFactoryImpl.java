@@ -64,6 +64,14 @@ public class VerifiersFactoryImpl extends EFactoryImpl implements VerifiersFacto
 			case VerifiersPackage.NU_SMV_MODEL: return createNuSMVModel();
 			case VerifiersPackage.NU_SMV_UNIVERSAL_MODEL: return createNuSMVUniversalModel();
 			case VerifiersPackage.NU_SMV_SPECIFICATION: return createNuSMVSpecification();
+			case VerifiersPackage.UNKNOWN: return createUnknown();
+			case VerifiersPackage.RESULTS_COLLECTION: return createResultsCollection();
+			case VerifiersPackage.COMPONENT: return createComponent();
+			case VerifiersPackage.VIEWPOINT: return createViewpoint();
+			case VerifiersPackage.VERIFICATION_UNIT: return createVerificationUnit();
+			case VerifiersPackage.RESULT_ENTRY: return createResultEntry();
+			case VerifiersPackage.VIEWPOINT_COLLECTION: return createViewpointCollection();
+			case VerifiersPackage.COMPONENT_COLLECTION: return createComponentCollection();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -147,6 +155,86 @@ public class VerifiersFactoryImpl extends EFactoryImpl implements VerifiersFacto
 	public NuSMVSpecification createNuSMVSpecification() {
 		NuSMVSpecificationImpl nuSMVSpecification = new NuSMVSpecificationImpl();
 		return nuSMVSpecification;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Unknown createUnknown() {
+		UnknownImpl unknown = new UnknownImpl();
+		return unknown;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ResultsCollection createResultsCollection() {
+		ResultsCollectionImpl resultsCollection = new ResultsCollectionImpl();
+		return resultsCollection;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Component createComponent() {
+		ComponentImpl component = new ComponentImpl();
+		return component;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Viewpoint createViewpoint() {
+		ViewpointImpl viewpoint = new ViewpointImpl();
+		return viewpoint;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public VerificationUnit createVerificationUnit() {
+		VerificationUnitImpl verificationUnit = new VerificationUnitImpl();
+		return verificationUnit;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ResultEntry createResultEntry() {
+		ResultEntryImpl resultEntry = new ResultEntryImpl();
+		return resultEntry;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ViewpointCollection createViewpointCollection() {
+		ViewpointCollectionImpl viewpointCollection = new ViewpointCollectionImpl();
+		return viewpointCollection;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ComponentCollection createComponentCollection() {
+		ComponentCollectionImpl componentCollection = new ComponentCollectionImpl();
+		return componentCollection;
 	}
 
 	/**

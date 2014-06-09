@@ -4,7 +4,6 @@
 package org.osate.xtext.aadl2.agcl.analysis.visitors;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.osate.xtext.aadl2.agcl.analysis.results.AnalysisResults;
 
 /**
  * This class implements the implementation/type conformance analysis algorithm, this is, it checks whether
@@ -18,10 +17,16 @@ public class ImplementationTypeConformanceSwitch extends
 		CommonAGCLAnalysisSwitch {
 
 	public ImplementationTypeConformanceSwitch(IProgressMonitor pm,
-			ViewpointContext viewpointContext, AnalysisResults analysisResults) {
-		super(pm, viewpointContext, analysisResults);
+			ViewpointContext viewpointContext) {
+		super(pm, viewpointContext);
 		// TODO Auto-generated constructor stub
 	}
+
+//	public ImplementationTypeConformanceSwitch(IProgressMonitor pm,
+//			ViewpointContext viewpointContext, AnalysisResults analysisResults) {
+//		super(pm, viewpointContext, analysisResults);
+//		// TODO Auto-generated constructor stub
+//	}
 
 	@Override
 	protected void initAGCLSwitch() {

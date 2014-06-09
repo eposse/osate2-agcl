@@ -49,11 +49,13 @@ public class AtomicAnalysisSwitch extends CommonAGCLAnalysisSwitch {
 	/**
 	 * @param pm				a progress monitor
 	 * @param viewpointContext	a viewpoint context specifying which viewpoints to verify
-	 * @param analysisResults	an object to record the analysis results
 	 */
-	public AtomicAnalysisSwitch(IProgressMonitor pm, ViewpointContext viewpointContext, AnalysisResults analysisResults) {
-		super(pm, viewpointContext, analysisResults);
+	public AtomicAnalysisSwitch(IProgressMonitor pm, ViewpointContext viewpointContext) {
+		super(pm, viewpointContext);
 	}
+//	public AtomicAnalysisSwitch(IProgressMonitor pm, ViewpointContext viewpointContext, AnalysisResults analysisResults) {
+//		super(pm, viewpointContext, analysisResults);
+//	}
 
 	@Override
 	protected void initAGCLSwitch() {
@@ -70,8 +72,9 @@ public class AtomicAnalysisSwitch extends CommonAGCLAnalysisSwitch {
 					String viewpointName = contract.getName();
 					if (viewpointContext.containsViewpointToVerify(viewpointName)) {
 						// We verify only the contracts which belong to a viewpoint marked for verification 
-						VerificationResult result = checkBehaviourSatisfiesContract(behaviour, contract, viewpointName, componentName);
-						analysisResults.recordResult(viewpointName, componentName, result);
+//						VerificationResult result = checkBehaviourSatisfiesContract(behaviour, contract, viewpointName, componentName);
+//						analysisResults.recordResult(viewpointName, componentName, result);
+						checkBehaviourSatisfiesContract(behaviour, contract, viewpointName, componentName);
 					}
 				}
 				//monitor.worked(1);
@@ -94,10 +97,8 @@ public class AtomicAnalysisSwitch extends CommonAGCLAnalysisSwitch {
 	 * 
 	 * @param behaviour 	a temporal-logic specification of the behaviour of a thread implementation
 	 * @param contract		an assume/guarantee contract 
-	 * @return a {@link VerificationResult} which is {@link Positive} if the behaviour satisfies the
-	 * 			contract, and {@link Negative} otherwise.
 	 */
-	public VerificationResult checkBehaviourSatisfiesContract(AGCLBehaviour behaviour, AGCLContract contract, String viewpointName, String componentName) {
+	public void checkBehaviourSatisfiesContract(AGCLBehaviour behaviour, AGCLContract contract, String viewpointName, String componentName) {
 		Logger.getLogger(getClass()).info("checking behaviour w.r.t. a contract");
 		PSLSpec behaviourSpec  = behaviour.getSpec();
 		PSLSpec assumptionSpec = contract.getAssumption().getSpec();
@@ -108,9 +109,7 @@ public class AtomicAnalysisSwitch extends CommonAGCLAnalysisSwitch {
 		PSLSpec combinedSpec = makeCombinedFormula(behaviourSpec, assumptionSpec, guaranteeSpec);
 		Logger.getLogger(getClass()).debug("combined = " + serializer.serialize(combinedSpec));
 		NuSMVModelChecker theChecker = (NuSMVModelChecker) checker;  // TODO: make it independent of NuSMV
-		VerificationResult result = theChecker.checkSpecValidity(combinedSpec, "atomic_" + viewpointName + "_" + componentName);
-		return result;
-		
+		theChecker.checkSpecValidity(combinedSpec, viewpointName, componentName, "atomic");
 	}
 	
 	/**

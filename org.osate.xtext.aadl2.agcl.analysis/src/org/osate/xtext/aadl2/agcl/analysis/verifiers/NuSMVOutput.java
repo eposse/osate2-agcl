@@ -82,5 +82,5 @@ public interface NuSMVOutput extends ModelCheckerOutput {
 	IFile getCounterexampleFile();
 	
 	void setCounterexampleFile(IFile file);
-
+	
 } // NuSMVOutput

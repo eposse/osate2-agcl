@@ -4,8 +4,6 @@
 package org.osate.xtext.aadl2.agcl.analysis.actions; 
 
 import org.apache.log4j.Logger;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.InstanceObject;
@@ -25,7 +23,6 @@ import org.osate.xtext.aadl2.agcl.analysis.visitors.ViewpointContextSwitch;
  *
  */
 public abstract class CommonAGCLAction extends AaxlReadOnlyActionAsJob {
-
 
 	protected CommonAGCLAnalysisSwitch analysisSwitch;
 
@@ -59,9 +56,10 @@ public abstract class CommonAGCLAction extends AaxlReadOnlyActionAsJob {
 			ViewpointContext viewpointContext = new ViewpointContext();
 			ViewpointContextSwitch viewpointContextSwitch = new ViewpointContextSwitch(monitor, viewpointContext);
 			// Create an object to record analysis results.
-			AnalysisResults analysisResults = new AnalysisResults(root.eResource());
+			AnalysisResults analysisResults = new AnalysisResults(root.eResource(), modelChecker);
 			// Create an instance of the analysis visitor
-			analysisSwitch = createConcreteAnalysisSwitch(monitor, viewpointContext, analysisResults); 
+			analysisSwitch = createConcreteAnalysisSwitch(monitor, viewpointContext); 
+//			analysisSwitch = createConcreteAnalysisSwitch(monitor, viewpointContext, analysisResults); 
 			monitor.beginTask(getActionName(),totalElements * 2); // *2 because there are two passes 
 			// Populate the viewpoint-context
 			viewpointContextSwitch.processPreOrderAll(root);
@@ -71,13 +69,6 @@ public abstract class CommonAGCLAction extends AaxlReadOnlyActionAsJob {
 			Logger.getLogger(getClass()).info("Analysis results by component:\n" + analysisResults.allResultsByComponentToString());
 			Logger.getLogger(getClass()).info("Analysis results by viewpoint:\n" + analysisResults.allResultsByViewpointToString());
 			analysisResults.saveResults();
-			try {
-				modelChecker.getInputFolder().refreshLocal(IResource.DEPTH_INFINITE, monitor);
-				modelChecker.getOutputFolder().refreshLocal(IResource.DEPTH_INFINITE, monitor);
-			} catch (CoreException e) {
-				Logger.getLogger(getClass()).error("Unable to refresh project folders");
-				e.printStackTrace();
-			}
 		}
 	}
 	
@@ -85,11 +76,20 @@ public abstract class CommonAGCLAction extends AaxlReadOnlyActionAsJob {
 	 * Factory method that should provide an instance of the actual analysis visitor
 	 * @param monitor
 	 * @param viewpointContext
-	 * @param analysisResults
 	 * @return an instance of an AGCL analysis switch
 	 */
 	protected abstract CommonAGCLAnalysisSwitch createConcreteAnalysisSwitch(IProgressMonitor monitor, 
-			ViewpointContext viewpointContext, 
-			AnalysisResults analysisResults);
+			ViewpointContext viewpointContext);
 
+//	/**
+//	 * Factory method that should provide an instance of the actual analysis visitor
+//	 * @param monitor
+//	 * @param viewpointContext
+//	 * @param analysisResults
+//	 * @return an instance of an AGCL analysis switch
+//	 */
+//	protected abstract CommonAGCLAnalysisSwitch createConcreteAnalysisSwitch(IProgressMonitor monitor, 
+//			ViewpointContext viewpointContext, 
+//			AnalysisResults analysisResults);
+//
 }

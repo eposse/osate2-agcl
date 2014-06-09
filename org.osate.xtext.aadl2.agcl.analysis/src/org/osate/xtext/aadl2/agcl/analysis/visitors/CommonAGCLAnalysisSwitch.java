@@ -16,7 +16,6 @@ import org.osate.xtext.aadl2.agcl.agcl.AGCLAnnexLibrary;
 import org.osate.xtext.aadl2.agcl.agcl.AGCLAnnexSubclause;
 import org.osate.xtext.aadl2.agcl.agcl.util.AgclSwitch;
 import org.osate.xtext.aadl2.agcl.analysis.AGCLAnalysisPlugin;
-import org.osate.xtext.aadl2.agcl.analysis.results.AnalysisResults;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.ModelChecker;
 
 /**
@@ -29,20 +28,23 @@ public abstract class CommonAGCLAnalysisSwitch extends AadlProcessingSwitchWithP
 
 	protected AgclSwitch<Void> agclSwitch;
 	protected final ViewpointContext viewpointContext;
-	protected final AnalysisResults analysisResults;
+//	protected final AnalysisResults analysisResults;
 	protected final ISerializer serializer;
 	protected final ModelChecker checker;
 
-	/**
-	 * @param pm
-	 */
-	public CommonAGCLAnalysisSwitch(IProgressMonitor pm, ViewpointContext viewpointContext, AnalysisResults analysisResults) {
+	public CommonAGCLAnalysisSwitch(IProgressMonitor pm, ViewpointContext viewpointContext) {
 		super(pm);
 		this.viewpointContext = viewpointContext;
-		this.analysisResults = analysisResults;
 		this.serializer = AGCLAnalysisPlugin.getDefault().getSerializer();
 		this.checker = AGCLAnalysisPlugin.getDefault().getActiveModelChecker();
 	}
+//	public CommonAGCLAnalysisSwitch(IProgressMonitor pm, ViewpointContext viewpointContext, AnalysisResults analysisResults) {
+//		super(pm);
+//		this.viewpointContext = viewpointContext;
+//		this.analysisResults = analysisResults;
+//		this.serializer = AGCLAnalysisPlugin.getDefault().getSerializer();
+//		this.checker = AGCLAnalysisPlugin.getDefault().getActiveModelChecker();
+//	}
 
 	@Override
 	protected void initSwitches() {

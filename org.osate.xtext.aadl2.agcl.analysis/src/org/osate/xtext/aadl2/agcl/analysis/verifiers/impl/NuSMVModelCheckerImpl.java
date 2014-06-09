@@ -2,16 +2,23 @@
  */
 package org.osate.xtext.aadl2.agcl.analysis.verifiers.impl;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
@@ -21,7 +28,7 @@ import org.osate.xtext.aadl2.agcl.analysis.AGCLAnalysisPlugin;
 import org.osate.xtext.aadl2.agcl.analysis.config.IPreferenceConstants;
 import org.osate.xtext.aadl2.agcl.analysis.util.AGCLUtil;
 import org.osate.xtext.aadl2.agcl.analysis.util.Template;
-import org.osate.xtext.aadl2.agcl.analysis.verifiers.Model;
+import org.osate.xtext.aadl2.agcl.analysis.verifiers.Component;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.ModelCheckerInput;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.ModelCheckerOutput;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVInput;
@@ -31,9 +38,13 @@ import org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVOutput;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVSpecification;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVUniversalModel;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.Specification;
+import org.osate.xtext.aadl2.agcl.analysis.verifiers.UniversalModel;
+import org.osate.xtext.aadl2.agcl.analysis.verifiers.Unknown;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.VerificationResult;
+import org.osate.xtext.aadl2.agcl.analysis.verifiers.VerificationUnit;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.VerifiersFactory;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.VerifiersPackage;
+import org.osate.xtext.aadl2.agcl.analysis.verifiers.Viewpoint;
 import org.osate.xtext.aadl2.agcl.analysis.visitors.PSL2NuSMVSpecConverterExplicitSwitch;
 
 /**
@@ -50,6 +61,10 @@ public class NuSMVModelCheckerImpl extends ModelCheckerImpl implements NuSMVMode
 	private ISerializer serializer = AGCLAnalysisPlugin.getDefault().getSerializer();
 	private String label;
 	private Map<String,Object> commonPathsTable;
+	private static String regexp = "-- specification ([()\\w\\d\\s\\-\\+\\*\\?\\=\\>\\<\\[\\]\\|\\.\\!\\^&,{}/%:;]+) is ((true|false))";
+	private static Pattern pattern = Pattern.compile(regexp);
+
+	
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -69,38 +84,37 @@ public class NuSMVModelCheckerImpl extends ModelCheckerImpl implements NuSMVMode
 		return VerifiersPackage.Literals.NU_SMV_MODEL_CHECKER;
 	}
 
+	@Override
+	public UniversalModel makeUniversalModelFromSpec(Specification spec) {
+		assert spec instanceof NuSMVSpecification;
+		NuSMVSpecification nusmvSpec = (NuSMVSpecification) spec;
+		NuSMVUniversalModel universalModel = VerifiersFactory.eINSTANCE.createNuSMVUniversalModel();
+		universalModel.setContext(nusmvSpec.getSpec());
+		universalModel.synthesizeModelFromSpec();
+		return universalModel;
+	}
+
 	/**
 	 * <!-- begin-user-doc -->
+	 * Takes a model and a specification and produces a representation suitable to pass to the external
+	 * model-checker, e.g., an object that contains (references to) some input file(s).
+	 * 
+	 * <p>This method must be implemented by subclasses.
+	 * 
+	 * @param verificationUnit		a representation of the verification unit
+	 * @return an object encapsulating the input expected by the external model-checker
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	@Override
-	public ModelCheckerInput prepareInput(Model model, Specification spec) {
+	public ModelCheckerInput prepareInput(VerificationUnit verificationUnit) {
 		Logger.getLogger(getClass()).info("preparing input for NuSMV");
-		assert model instanceof NuSMVModel;
-		assert spec instanceof NuSMVSpecification;
-		NuSMVModel nusmvModel = (NuSMVModel) model;
-		NuSMVSpecification nusmvSpec = (NuSMVSpecification) spec;
+		NuSMVModel nusmvModel = (NuSMVModel) verificationUnit.getModel();
+		NuSMVSpecification nusmvSpec = (NuSMVSpecification) verificationUnit.getSpecification();
 		
 		IFile modelFile  = prepareModelFile(nusmvModel, nusmvSpec);
 		IFile scriptFile = prepareScriptFile(modelFile);
-		NuSMVInput modelCheckerInput = createNuSMVInputInstance(modelFile, scriptFile);
-		return modelCheckerInput;
-	}
-	
-	/**
-	 * Create NuSMV input with references to the file
-	 * @param modelFile		a handle to the input model file
-	 * @param scriptFile	a handle to the session script file
-	 * @return	an instance of the NuSMV input
-	 */
-	private NuSMVInput createNuSMVInputInstance(IFile modelFile,
-			IFile scriptFile) {
-		NuSMVInput modelCheckerInput = VerifiersFactory.eINSTANCE.createNuSMVInput();
-		modelCheckerInput.setModelFileName(modelFile.getName());
-		modelCheckerInput.setModelFile(modelFile);
-		modelCheckerInput.setSessionScriptFile(scriptFile);
-		modelCheckerInput.setSessionScriptFileName(scriptFile.getName());
+		NuSMVInput modelCheckerInput = createNuSMVInputInstance(verificationUnit, modelFile, scriptFile);
 		Logger.getLogger(getClass()).info("input for NuSMV ready");
 		return modelCheckerInput;
 	}
@@ -120,6 +134,7 @@ public class NuSMVModelCheckerImpl extends ModelCheckerImpl implements NuSMVMode
 	 * @return	a handle to the NuSMV source file 
 	 */
 	private IFile prepareModelFile(NuSMVModel nusmvModel, NuSMVSpecification nusmvSpec) {
+		Logger.getLogger(getClass()).debug("preparing NuSMV model file");
 		// Extract NuSMVModel elements
 		String varsText  = nusmvModel.variablesText();
 		String initText  = nusmvModel.initText();
@@ -145,6 +160,7 @@ public class NuSMVModelCheckerImpl extends ModelCheckerImpl implements NuSMVMode
 		String newNuSMVInputModelFileName = makeFileLabel() + ".smv";
 		IFile newNuSMVInputModelFile = inputFolder.getFile(newNuSMVInputModelFileName);
 		AGCLUtil.saveFile(newNuSMVInputModelFile, result);
+		Logger.getLogger(getClass()).debug("prepared NuSMV model file");
 		return newNuSMVInputModelFile;
 	}
 	
@@ -153,6 +169,7 @@ public class NuSMVModelCheckerImpl extends ModelCheckerImpl implements NuSMVMode
 	 * @return	the handle to the corresponding NuSMV session script file
 	 */
 	private IFile prepareScriptFile(IFile inputModelFile) {
+		Logger.getLogger(getClass()).debug("preparing NuSMV session script file");
 		final String makeFileLabel = makeFileLabel();
 		populateCommonPathsTable(inputModelFile, makeFileLabel);
 		Template template = AGCLAnalysisPlugin.getDefault()
@@ -163,6 +180,7 @@ public class NuSMVModelCheckerImpl extends ModelCheckerImpl implements NuSMVMode
 		String newNuSMVScriptFileName = makeFileLabel + "_session_script.nusmvrc"; 
 		IFile newNuSMVScriptFile = inputFolder.getFile(newNuSMVScriptFileName);
 		AGCLUtil.saveFile(newNuSMVScriptFile, result);
+		Logger.getLogger(getClass()).debug("prepared NuSMV session script file");
 		return newNuSMVScriptFile; 
 	}
 	
@@ -191,6 +209,24 @@ public class NuSMVModelCheckerImpl extends ModelCheckerImpl implements NuSMVMode
 		commonPathsTable.put("counterexamples", counterexamplesPath);
 	}
 
+	/**
+	 * Create NuSMV input with references to the file
+	 * @param verificationUnit a verification unit
+	 * @param modelFile		a handle to the input model file
+	 * @param scriptFile	a handle to the session script file
+	 * @return	an instance of the NuSMV input
+	 */
+	private NuSMVInput createNuSMVInputInstance(VerificationUnit verificationUnit, IFile modelFile,
+			IFile scriptFile) {
+		NuSMVInput modelCheckerInput = VerifiersFactory.eINSTANCE.createNuSMVInput();
+		modelCheckerInput.setVerificationUnit(verificationUnit);
+		modelCheckerInput.setModelFileName(modelFile.getName());
+		modelCheckerInput.setModelFile(modelFile);
+		modelCheckerInput.setSessionScriptFile(scriptFile);
+		modelCheckerInput.setSessionScriptFileName(scriptFile.getName());
+		return modelCheckerInput;
+	}
+
 	@Override
 	public ModelCheckerOutput callExternal(ModelCheckerInput input) {
 		Logger.getLogger(getClass()).info("calling external program (NuSMV)");
@@ -200,8 +236,8 @@ public class NuSMVModelCheckerImpl extends ModelCheckerImpl implements NuSMVMode
 		String[] commandArgs = getCommandLineArgs(nusmvInput);
 		ProcessBuilder procBuilder = buildCommand(nusmvPathStr, commandArgs);
 		runCommand(procBuilder);
-		NuSMVOutput modelCheckerOutput = createNuSMVOutputInstance();
-		
+		NuSMVOutput modelCheckerOutput = createNuSMVOutputInstance(nusmvInput);
+		Logger.getLogger(getClass()).info("externeal program executed");
 		return modelCheckerOutput;
 	}
 	
@@ -233,7 +269,7 @@ public class NuSMVModelCheckerImpl extends ModelCheckerImpl implements NuSMVMode
 		Map<String, Object> substitution = new HashMap<String, Object>();
 		substitution.put("script", scriptAbsPathStr);
 		substitution.put("inputmodel", inputmodelAbsPathStr);
-		String concatenatedCommandArgs =  template.substitute(substitution);
+		String concatenatedCommandArgs = template.substitute(substitution);
 		Logger.getLogger(getClass()).debug("concat flags:'" + concatenatedCommandArgs + "'");
 		commandArgs = concatenatedCommandArgs.split(" ");
 		Logger.getLogger(getClass()).debug("command args:" + Arrays.asList(commandArgs));
@@ -290,13 +326,16 @@ public class NuSMVModelCheckerImpl extends ModelCheckerImpl implements NuSMVMode
 			Logger.getLogger(getClass()).error("There was an interruption error when calling NuSMV");
 		}
 	}
-	
+
 	/**
 	 * Create the output object with the appropriate files
-	 * @return an instance of the NuSMV output with the names and file handles for the outut generated by NuSMV
+	 * @param nusmvInput  	the instance of the NuSMV input object from which this output was generated
+	 * @return an instance of the NuSMV output with the names and file handles for the output generated by NuSMV
 	 */
-	private NuSMVOutput createNuSMVOutputInstance() {
+	private NuSMVOutput createNuSMVOutputInstance(NuSMVInput nusmvInput) {
 		NuSMVOutput modelCheckerOutput = VerifiersFactory.eINSTANCE.createNuSMVOutput();
+		modelCheckerOutput.setInput(nusmvInput);
+		nusmvInput.setOutput(modelCheckerOutput);
 		IFile outputFile = getOutputFile();
 		modelCheckerOutput.setOutputFile(outputFile);
 		modelCheckerOutput.setOutputFileName(outputFile.getName());
@@ -330,25 +369,124 @@ public class NuSMVModelCheckerImpl extends ModelCheckerImpl implements NuSMVMode
 
 	@Override
 	public VerificationResult processOutput(ModelCheckerOutput output) {
-		// TODO Auto-generated method stub
-		return null;
+		Logger.getLogger(getClass()).info("processing output generated by NuSMV");
+		assert output instanceof NuSMVOutput;
+		NuSMVOutput nusmvOutput = (NuSMVOutput) output;
+		IFile outputFile = nusmvOutput.getOutputFile();
+		VerificationResult result = parseOutputFile(outputFile);
+		nusmvOutput.setResult(result);
+		return result;
+	}
+	
+	/**
+	 * Reads the output generated by NuSMV and tries to obtain the result. If it unable to do so, the result will be {@link Unknown}
+	 * 
+	 * <p> NuSMV gives its result by writing in standard output, or in the output file, a line with the following form:
+	 * 
+	 * <p> {@code -- specification ... is (true|false)}
+	 * 
+	 * <p> In the case of a negative answer, this line is followed by a counter-example trace.
+	 * 
+	 * <p> This method goes through the file looking for such result. If the input file fed to NuSMV contains several temporal logic
+	 * specifications, it will produce one such result for each spec. However, in our case we always generate a NuSMV input file
+	 * with only one PSL spec, therefore we check for this line only once.
+	 * 
+	 * <p>Note: this implementation reads the output line by line, so it may fail to find the result if the message sating it spans 
+	 * multiple lines. As far as I can tell NuSMV always writes the result in one line, but there is no official documentation about
+	 * the actual format of this output, and hence it might be subject to change in future versions of NuSMV. In that case, this
+	 * method has to be adapted accordingly.
+	 * 
+	 * @param outputFile a handle to the file generated by NuSMV
+	 * 
+	 * @return either {@link Positive}, {@link Negative} (possibly with a {@link Counterexample}), or {@link Unknown} (possibly with a
+	 * 		{@link Unknown#reason})
+	 */
+	private VerificationResult parseOutputFile(IFile outputFile) {
+		VerificationResult result = null;
+		Matcher matcher;
+		String line = "";
+		InputStream inputStream = null;
+		BufferedReader reader = null;
+		boolean foundResult = false;
+		try {
+			// We need to refresh the files because an external tool updated them
+			inputFolder.refreshLocal(IResource.DEPTH_INFINITE, null);
+			outputFolder.refreshLocal(IResource.DEPTH_INFINITE, null);
+			inputStream = outputFile.getContents();
+			reader = new BufferedReader(new InputStreamReader(inputStream));
+			line = reader.readLine();
+			while (line != null) {
+				matcher = pattern.matcher(line);
+				if (matcher.find()) {
+					String r = matcher.group(2);  // In the REGEX for the line, group 0 is the whole line, group 1 is the spec and group 2 is either "true" or "false"
+					if (r.equals("true")) {
+						result = VerifiersFactory.eINSTANCE.createPositive();
+					}
+					else if (r.equals("false")) {
+						result = VerifiersFactory.eINSTANCE.createNegative();
+						// TODO: add ref to counter-example
+					}
+					else {
+						result = VerifiersFactory.eINSTANCE.createUnknown();
+						((Unknown) result).setReason("undecidable??");;  
+					}
+					foundResult = true;
+					break;
+				}
+				line = reader.readLine();
+			}
+		} catch (CoreException e) {
+			Logger.getLogger(getClass()).error("Unable to open NuSMV output file: " + outputFile.getName());
+			e.printStackTrace();
+		} catch (IOException e) {
+			Logger.getLogger(getClass()).error("Error while reading NuSMV output file: " + outputFile.getName());
+			e.printStackTrace();
+		}
+		finally {
+			if (reader != null)
+				try {
+					reader.close();
+				} catch (IOException e) {
+					Logger.getLogger(getClass()).error("Unable to close input stream for " + outputFile.getName());
+					e.printStackTrace();
+				}
+		}
+		if (!foundResult) {
+			result = VerifiersFactory.eINSTANCE.createUnknown();
+			((Unknown) result).setReason("result not found in output file");;
+		}
+		return result;
 	}
 
-	@Override
-	public VerificationResult checkSpecValidity(Specification spec) {
+	public void checkSpecValidity(Specification spec, String viewpointName, String componentName) {
+		// Create a universal model from the specification
 		NuSMVUniversalModel universalModel = VerifiersFactory.eINSTANCE.createNuSMVUniversalModel();
 		universalModel.setContext(spec.getSpec());
 		universalModel.synthesizeModelFromSpec();
 		Logger.getLogger(getClass()).debug("NuSMV univ. model: [" + universalModel.text(null) + "]");
-		return check(universalModel, spec);
+		// Create a verification unit with the universal model, the spec, the viewpoint and component
+		VerificationUnit verificationUnit = VerifiersFactory.eINSTANCE.createVerificationUnit();
+		verificationUnit.setModel(universalModel);
+		verificationUnit.setSpecification(spec);
+		Viewpoint viewpoint = VerifiersFactory.eINSTANCE.createViewpoint();
+		viewpoint.setName(viewpointName);
+		verificationUnit.setViewpoint(viewpoint);
+		Component component = VerifiersFactory.eINSTANCE.createComponent();
+		component.setName(componentName);
+		verificationUnit.setComponent(component);
+		// Perform the actual verification
+		VerificationResult result =  checkVerificationUnit(verificationUnit);
+		// Record the result
+		results.recordResult(verificationUnit, result);
 	}
 
+
 	@Override
-	public VerificationResult checkSpecValidity(PSLSpec pslSpec, String label) {
+	public void checkSpecValidity(PSLSpec pslSpec, String viewpointName, String componentName, String label) {
+		this.label = label + "_" + viewpointName + "_" + componentName;
 		Logger.getLogger(getClass()).debug("checking validity of " + serializer.serialize(pslSpec) + " for " + label);
-		this.label = label;
 		NuSMVSpecification nusmvSpec = nusmvSpecFromPSLSpec(pslSpec);
-		return checkSpecValidity(nusmvSpec);
+		checkSpecValidity(nusmvSpec, viewpointName, componentName);
 	}
 
 	/**

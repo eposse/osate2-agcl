@@ -173,6 +173,55 @@ public class VerifiersSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case VerifiersPackage.UNKNOWN: {
+				Unknown unknown = (Unknown)theEObject;
+				T result = caseUnknown(unknown);
+				if (result == null) result = caseVerificationResult(unknown);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case VerifiersPackage.RESULTS_COLLECTION: {
+				ResultsCollection resultsCollection = (ResultsCollection)theEObject;
+				T result = caseResultsCollection(resultsCollection);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case VerifiersPackage.COMPONENT: {
+				Component component = (Component)theEObject;
+				T result = caseComponent(component);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case VerifiersPackage.VIEWPOINT: {
+				Viewpoint viewpoint = (Viewpoint)theEObject;
+				T result = caseViewpoint(viewpoint);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case VerifiersPackage.VERIFICATION_UNIT: {
+				VerificationUnit verificationUnit = (VerificationUnit)theEObject;
+				T result = caseVerificationUnit(verificationUnit);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case VerifiersPackage.RESULT_ENTRY: {
+				ResultEntry resultEntry = (ResultEntry)theEObject;
+				T result = caseResultEntry(resultEntry);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case VerifiersPackage.VIEWPOINT_COLLECTION: {
+				ViewpointCollection viewpointCollection = (ViewpointCollection)theEObject;
+				T result = caseViewpointCollection(viewpointCollection);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case VerifiersPackage.COMPONENT_COLLECTION: {
+				ComponentCollection componentCollection = (ComponentCollection)theEObject;
+				T result = caseComponentCollection(componentCollection);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -414,6 +463,126 @@ public class VerifiersSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseNuSMVSpecification(NuSMVSpecification object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Unknown</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Unknown</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseUnknown(Unknown object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Results Collection</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Results Collection</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseResultsCollection(ResultsCollection object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Component</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Component</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseComponent(Component object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Viewpoint</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Viewpoint</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseViewpoint(Viewpoint object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Verification Unit</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Verification Unit</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseVerificationUnit(VerificationUnit object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Result Entry</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Result Entry</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseResultEntry(ResultEntry object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Viewpoint Collection</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Viewpoint Collection</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseViewpointCollection(ViewpointCollection object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Component Collection</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Component Collection</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseComponentCollection(ComponentCollection object) {
 		return null;
 	}
 

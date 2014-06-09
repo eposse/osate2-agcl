@@ -94,6 +94,78 @@ public interface VerifiersFactory extends EFactory {
 	NuSMVSpecification createNuSMVSpecification();
 
 	/**
+	 * Returns a new object of class '<em>Unknown</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Unknown</em>'.
+	 * @generated
+	 */
+	Unknown createUnknown();
+
+	/**
+	 * Returns a new object of class '<em>Results Collection</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Results Collection</em>'.
+	 * @generated
+	 */
+	ResultsCollection createResultsCollection();
+
+	/**
+	 * Returns a new object of class '<em>Component</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Component</em>'.
+	 * @generated
+	 */
+	Component createComponent();
+
+	/**
+	 * Returns a new object of class '<em>Viewpoint</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Viewpoint</em>'.
+	 * @generated
+	 */
+	Viewpoint createViewpoint();
+
+	/**
+	 * Returns a new object of class '<em>Verification Unit</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Verification Unit</em>'.
+	 * @generated
+	 */
+	VerificationUnit createVerificationUnit();
+
+	/**
+	 * Returns a new object of class '<em>Result Entry</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Result Entry</em>'.
+	 * @generated
+	 */
+	ResultEntry createResultEntry();
+
+	/**
+	 * Returns a new object of class '<em>Viewpoint Collection</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Viewpoint Collection</em>'.
+	 * @generated
+	 */
+	ViewpointCollection createViewpointCollection();
+
+	/**
+	 * Returns a new object of class '<em>Component Collection</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Component Collection</em>'.
+	 * @generated
+	 */
+	ComponentCollection createComponentCollection();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
