@@ -12,7 +12,7 @@ import org.osate.xtext.aadl2.agcl.analysis.visitors.concrete.ImplementationTypeC
  * 
  * <p>The actual algorithm implementing the analysis is in class {@link ImplementationTypeConformanceSwitch}. 
  * 
- * @author eposse
+ * @author Ernesto Posse
  *
  */
 public class ImplementationTypeConformanceAction extends
