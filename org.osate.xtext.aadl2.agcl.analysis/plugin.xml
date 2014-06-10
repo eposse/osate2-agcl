@@ -38,14 +38,14 @@
          <action
                label="&amp;Check contracts"
                icon="icons/agicon.gif"
-               class="org.osate.xtext.aadl2.agcl.analysis.actions.CheckContractsAction"
+               class="org.osate.xtext.aadl2.agcl.analysis.actions.concrete.CheckContractsAction"
                tooltip="Perform contract analysis"
                menubarPath="menu.analyses/menu.contracts/stuff.grp"
                toolbarPath="agcl.toolbar"
                id="org.osate.xtext.aadl2.agcl.analysis.actions.CheckContractsAction">
          </action>
          <action
-               class="org.osate.xtext.aadl2.agcl.analysis.actions.AtomicAnalysisAction"
+               class="org.osate.xtext.aadl2.agcl.analysis.actions.concrete.AtomicAnalysisAction"
                icon="icons/ag_atomic_analysis_icon.gif"
                id="org.osate.xtext.aadl2.agcl.analysis.atomic_analysis_action"
                label="A/G &amp;atomic analysis"
@@ -55,7 +55,7 @@
                tooltip="Perform A/G atomic analysis">
          </action>
          <action
-               class="org.osate.xtext.aadl2.agcl.analysis.actions.CompositeAnalysisAction"
+               class="org.osate.xtext.aadl2.agcl.analysis.actions.concrete.CompositeAnalysisAction"
                icon="icons/ag_composite_analysis_icon.gif"
                id="org.osate.xtext.aadl2.agcl.analysis.composite_analysis_action"
                label="A/G &amp;composite analysis"
@@ -65,7 +65,7 @@
                tooltip="Perform A/G compositional analysis">
          </action>
          <action
-               class="org.osate.xtext.aadl2.agcl.analysis.actions.ImplementationTypeConformanceAction"
+               class="org.osate.xtext.aadl2.agcl.analysis.actions.concrete.ImplementationTypeConformanceAction"
                icon="icons/ag_impl_type_analysis_icon.gif"
                id="org.osate.xtext.aadl2.agcl.analysis.impl_type_conf_action"
                label="A/G implementation/type conformance analysis"
@@ -75,7 +75,7 @@
                tooltip="Perform implementation/type conformance analysis">
          </action>
          <action
-               class="org.osate.xtext.aadl2.agcl.analysis.actions.ImplementationParentConformanceAction"
+               class="org.osate.xtext.aadl2.agcl.analysis.actions.concrete.ImplementationParentConformanceAction"
                icon="icons/ag_impl_impl_analysis_icon.gif"
                id="org.osate.xtext.aadl2.agcl.analysis.impl_parent_conf_action"
                label="A/G implementation/parent conformance analysis"
@@ -85,7 +85,7 @@
                tooltip="Perform implementation/parent conformance analysis">
          </action>
          <action
-               class="org.osate.xtext.aadl2.agcl.analysis.actions.TypeParentConformanceAction"
+               class="org.osate.xtext.aadl2.agcl.analysis.actions.concrete.TypeParentConformanceAction"
                icon="icons/ag_type_type_analysis_icon.gif"
                id="org.osate.xtext.aadl2.agcl.analysis.type_parent_conf_action"
                label="A/G type/parent conformance analysis"

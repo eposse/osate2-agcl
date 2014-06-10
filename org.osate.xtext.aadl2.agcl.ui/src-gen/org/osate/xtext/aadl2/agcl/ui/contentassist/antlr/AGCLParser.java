@@ -117,7 +117,7 @@ public class AGCLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getPSLTemporalAccess().getSubtermAssignment_2_2(), "rule__PSLTemporal__SubtermAssignment_2_2");
 					put(grammarAccess.getPSLTemporalAccess().getLeftAssignment_3_2(), "rule__PSLTemporal__LeftAssignment_3_2");
 					put(grammarAccess.getPSLTemporalAccess().getRightAssignment_3_4(), "rule__PSLTemporal__RightAssignment_3_4");
-					put(grammarAccess.getPSLNegationAccess().getSubtermAssignment_1(), "rule__PSLNegation__SubtermAssignment_1");
+					put(grammarAccess.getPSLNegationAccess().getSubtermAssignment_2(), "rule__PSLNegation__SubtermAssignment_2");
 					put(grammarAccess.getBooleanConstantAccess().getValAssignment_0(), "rule__BooleanConstant__ValAssignment_0");
 					put(grammarAccess.getBooleanConstantAccess().getValAssignment_1(), "rule__BooleanConstant__ValAssignment_1");
 					put(grammarAccess.getVarAccess().getNameAssignment(), "rule__Var__NameAssignment");

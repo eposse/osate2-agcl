@@ -8,6 +8,8 @@ import java.util.Iterator;
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.BasicEMap;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.EMap;
@@ -206,8 +208,12 @@ public class AnalysisResults {
 		//logResourcesToSave(newResource);
 		try {
 			newResource.save(null);
+			resultsFolder.refreshLocal(IResource.DEPTH_INFINITE, null);
 		} catch (IOException e) {
 			Logger.getLogger(getClass()).error("unable to save resource: " + newFileName);
+			e.printStackTrace();
+		} catch (CoreException e) {
+			Logger.getLogger(getClass()).error("unable to refresh resource folder in the AADL Navigator: " + newFileName);
 			e.printStackTrace();
 		}
 	}

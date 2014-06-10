@@ -566,22 +566,13 @@ public interface AgclPackage extends EPackage
   int PSL_EXPRESSION = 11;
 
   /**
-   * The feature id for the '<em><b>Subterm</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PSL_EXPRESSION__SUBTERM = 0;
-
-  /**
    * The number of structural features of the '<em>PSL Expression</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int PSL_EXPRESSION_FEATURE_COUNT = 1;
+  int PSL_EXPRESSION_FEATURE_COUNT = 0;
 
   /**
    * The meta object id for the '{@link org.osate.xtext.aadl2.agcl.agcl.impl.BooleanConstantImpl <em>Boolean Constant</em>}' class.
@@ -592,15 +583,6 @@ public interface AgclPackage extends EPackage
    * @generated
    */
   int BOOLEAN_CONSTANT = 12;
-
-  /**
-   * The feature id for the '<em><b>Subterm</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int BOOLEAN_CONSTANT__SUBTERM = PSL_EXPRESSION__SUBTERM;
 
   /**
    * The feature id for the '<em><b>Val</b></em>' attribute.
@@ -631,15 +613,6 @@ public interface AgclPackage extends EPackage
   int ATOMIC_PROPOSITION = 13;
 
   /**
-   * The feature id for the '<em><b>Subterm</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ATOMIC_PROPOSITION__SUBTERM = PSL_EXPRESSION__SUBTERM;
-
-  /**
    * The number of structural features of the '<em>Atomic Proposition</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -657,15 +630,6 @@ public interface AgclPackage extends EPackage
    * @generated
    */
   int VAR = 14;
-
-  /**
-   * The feature id for the '<em><b>Subterm</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VAR__SUBTERM = ATOMIC_PROPOSITION__SUBTERM;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -694,15 +658,6 @@ public interface AgclPackage extends EPackage
    * @generated
    */
   int INPUT = 15;
-
-  /**
-   * The feature id for the '<em><b>Subterm</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int INPUT__SUBTERM = ATOMIC_PROPOSITION__SUBTERM;
 
   /**
    * The feature id for the '<em><b>Link</b></em>' attribute.
@@ -740,15 +695,6 @@ public interface AgclPackage extends EPackage
    * @generated
    */
   int OUTPUT = 16;
-
-  /**
-   * The feature id for the '<em><b>Subterm</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int OUTPUT__SUBTERM = ATOMIC_PROPOSITION__SUBTERM;
 
   /**
    * The feature id for the '<em><b>Link</b></em>' attribute.
@@ -807,15 +753,6 @@ public interface AgclPackage extends EPackage
   int PSL_IMPLICATION = 18;
 
   /**
-   * The feature id for the '<em><b>Subterm</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PSL_IMPLICATION__SUBTERM = PSL_EXPRESSION__SUBTERM;
-
-  /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -851,15 +788,6 @@ public interface AgclPackage extends EPackage
    * @generated
    */
   int PSL_BICONDITIONAL = 19;
-
-  /**
-   * The feature id for the '<em><b>Subterm</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PSL_BICONDITIONAL__SUBTERM = PSL_EXPRESSION__SUBTERM;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -899,15 +827,6 @@ public interface AgclPackage extends EPackage
   int PSL_DISJUNCTION = 20;
 
   /**
-   * The feature id for the '<em><b>Subterm</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PSL_DISJUNCTION__SUBTERM = PSL_EXPRESSION__SUBTERM;
-
-  /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -943,15 +862,6 @@ public interface AgclPackage extends EPackage
    * @generated
    */
   int PSL_CONJUNCTION = 21;
-
-  /**
-   * The feature id for the '<em><b>Subterm</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PSL_CONJUNCTION__SUBTERM = PSL_EXPRESSION__SUBTERM;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -997,7 +907,7 @@ public interface AgclPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PSL_NEXT__SUBTERM = PSL_EXPRESSION__SUBTERM;
+  int PSL_NEXT__SUBTERM = PSL_EXPRESSION_FEATURE_COUNT + 0;
 
   /**
    * The number of structural features of the '<em>PSL Next</em>' class.
@@ -1006,7 +916,7 @@ public interface AgclPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PSL_NEXT_FEATURE_COUNT = PSL_EXPRESSION_FEATURE_COUNT + 0;
+  int PSL_NEXT_FEATURE_COUNT = PSL_EXPRESSION_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link org.osate.xtext.aadl2.agcl.agcl.impl.PSLEventuallyImpl <em>PSL Eventually</em>}' class.
@@ -1025,7 +935,7 @@ public interface AgclPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PSL_EVENTUALLY__SUBTERM = PSL_EXPRESSION__SUBTERM;
+  int PSL_EVENTUALLY__SUBTERM = PSL_EXPRESSION_FEATURE_COUNT + 0;
 
   /**
    * The number of structural features of the '<em>PSL Eventually</em>' class.
@@ -1034,7 +944,7 @@ public interface AgclPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PSL_EVENTUALLY_FEATURE_COUNT = PSL_EXPRESSION_FEATURE_COUNT + 0;
+  int PSL_EVENTUALLY_FEATURE_COUNT = PSL_EXPRESSION_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link org.osate.xtext.aadl2.agcl.agcl.impl.PSLAlwaysImpl <em>PSL Always</em>}' class.
@@ -1053,7 +963,7 @@ public interface AgclPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PSL_ALWAYS__SUBTERM = PSL_EXPRESSION__SUBTERM;
+  int PSL_ALWAYS__SUBTERM = PSL_EXPRESSION_FEATURE_COUNT + 0;
 
   /**
    * The number of structural features of the '<em>PSL Always</em>' class.
@@ -1062,7 +972,7 @@ public interface AgclPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PSL_ALWAYS_FEATURE_COUNT = PSL_EXPRESSION_FEATURE_COUNT + 0;
+  int PSL_ALWAYS_FEATURE_COUNT = PSL_EXPRESSION_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link org.osate.xtext.aadl2.agcl.agcl.impl.PSLUntilImpl <em>PSL Until</em>}' class.
@@ -1073,15 +983,6 @@ public interface AgclPackage extends EPackage
    * @generated
    */
   int PSL_UNTIL = 25;
-
-  /**
-   * The feature id for the '<em><b>Subterm</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PSL_UNTIL__SUBTERM = PSL_EXPRESSION__SUBTERM;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -1109,6 +1010,34 @@ public interface AgclPackage extends EPackage
    * @ordered
    */
   int PSL_UNTIL_FEATURE_COUNT = PSL_EXPRESSION_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link org.osate.xtext.aadl2.agcl.agcl.impl.PSLNegationImpl <em>PSL Negation</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.xtext.aadl2.agcl.agcl.impl.PSLNegationImpl
+   * @see org.osate.xtext.aadl2.agcl.agcl.impl.AgclPackageImpl#getPSLNegation()
+   * @generated
+   */
+  int PSL_NEGATION = 26;
+
+  /**
+   * The feature id for the '<em><b>Subterm</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PSL_NEGATION__SUBTERM = PSL_EXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>PSL Negation</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PSL_NEGATION_FEATURE_COUNT = PSL_EXPRESSION_FEATURE_COUNT + 1;
 
 
   /**
@@ -1463,17 +1392,6 @@ public interface AgclPackage extends EPackage
   EClass getPSLExpression();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.agcl.agcl.PSLExpression#getSubterm <em>Subterm</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Subterm</em>'.
-   * @see org.osate.xtext.aadl2.agcl.agcl.PSLExpression#getSubterm()
-   * @see #getPSLExpression()
-   * @generated
-   */
-  EReference getPSLExpression_Subterm();
-
-  /**
    * Returns the meta object for class '{@link org.osate.xtext.aadl2.agcl.agcl.BooleanConstant <em>Boolean Constant</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1738,6 +1656,17 @@ public interface AgclPackage extends EPackage
   EClass getPSLNext();
 
   /**
+   * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.agcl.agcl.PSLNext#getSubterm <em>Subterm</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Subterm</em>'.
+   * @see org.osate.xtext.aadl2.agcl.agcl.PSLNext#getSubterm()
+   * @see #getPSLNext()
+   * @generated
+   */
+  EReference getPSLNext_Subterm();
+
+  /**
    * Returns the meta object for class '{@link org.osate.xtext.aadl2.agcl.agcl.PSLEventually <em>PSL Eventually</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1748,6 +1677,17 @@ public interface AgclPackage extends EPackage
   EClass getPSLEventually();
 
   /**
+   * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.agcl.agcl.PSLEventually#getSubterm <em>Subterm</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Subterm</em>'.
+   * @see org.osate.xtext.aadl2.agcl.agcl.PSLEventually#getSubterm()
+   * @see #getPSLEventually()
+   * @generated
+   */
+  EReference getPSLEventually_Subterm();
+
+  /**
    * Returns the meta object for class '{@link org.osate.xtext.aadl2.agcl.agcl.PSLAlways <em>PSL Always</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1756,6 +1696,17 @@ public interface AgclPackage extends EPackage
    * @generated
    */
   EClass getPSLAlways();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.agcl.agcl.PSLAlways#getSubterm <em>Subterm</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Subterm</em>'.
+   * @see org.osate.xtext.aadl2.agcl.agcl.PSLAlways#getSubterm()
+   * @see #getPSLAlways()
+   * @generated
+   */
+  EReference getPSLAlways_Subterm();
 
   /**
    * Returns the meta object for class '{@link org.osate.xtext.aadl2.agcl.agcl.PSLUntil <em>PSL Until</em>}'.
@@ -1788,6 +1739,27 @@ public interface AgclPackage extends EPackage
    * @generated
    */
   EReference getPSLUntil_Right();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.xtext.aadl2.agcl.agcl.PSLNegation <em>PSL Negation</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>PSL Negation</em>'.
+   * @see org.osate.xtext.aadl2.agcl.agcl.PSLNegation
+   * @generated
+   */
+  EClass getPSLNegation();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.agcl.agcl.PSLNegation#getSubterm <em>Subterm</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Subterm</em>'.
+   * @see org.osate.xtext.aadl2.agcl.agcl.PSLNegation#getSubterm()
+   * @see #getPSLNegation()
+   * @generated
+   */
+  EReference getPSLNegation_Subterm();
 
   /**
    * Returns the factory that creates the instances of the model.
@@ -2101,14 +2073,6 @@ public interface AgclPackage extends EPackage
     EClass PSL_EXPRESSION = eINSTANCE.getPSLExpression();
 
     /**
-     * The meta object literal for the '<em><b>Subterm</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference PSL_EXPRESSION__SUBTERM = eINSTANCE.getPSLExpression_Subterm();
-
-    /**
      * The meta object literal for the '{@link org.osate.xtext.aadl2.agcl.agcl.impl.BooleanConstantImpl <em>Boolean Constant</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2331,6 +2295,14 @@ public interface AgclPackage extends EPackage
     EClass PSL_NEXT = eINSTANCE.getPSLNext();
 
     /**
+     * The meta object literal for the '<em><b>Subterm</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference PSL_NEXT__SUBTERM = eINSTANCE.getPSLNext_Subterm();
+
+    /**
      * The meta object literal for the '{@link org.osate.xtext.aadl2.agcl.agcl.impl.PSLEventuallyImpl <em>PSL Eventually</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2341,6 +2313,14 @@ public interface AgclPackage extends EPackage
     EClass PSL_EVENTUALLY = eINSTANCE.getPSLEventually();
 
     /**
+     * The meta object literal for the '<em><b>Subterm</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference PSL_EVENTUALLY__SUBTERM = eINSTANCE.getPSLEventually_Subterm();
+
+    /**
      * The meta object literal for the '{@link org.osate.xtext.aadl2.agcl.agcl.impl.PSLAlwaysImpl <em>PSL Always</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2349,6 +2329,14 @@ public interface AgclPackage extends EPackage
      * @generated
      */
     EClass PSL_ALWAYS = eINSTANCE.getPSLAlways();
+
+    /**
+     * The meta object literal for the '<em><b>Subterm</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference PSL_ALWAYS__SUBTERM = eINSTANCE.getPSLAlways_Subterm();
 
     /**
      * The meta object literal for the '{@link org.osate.xtext.aadl2.agcl.agcl.impl.PSLUntilImpl <em>PSL Until</em>}' class.
@@ -2375,6 +2363,24 @@ public interface AgclPackage extends EPackage
      * @generated
      */
     EReference PSL_UNTIL__RIGHT = eINSTANCE.getPSLUntil_Right();
+
+    /**
+     * The meta object literal for the '{@link org.osate.xtext.aadl2.agcl.agcl.impl.PSLNegationImpl <em>PSL Negation</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.xtext.aadl2.agcl.agcl.impl.PSLNegationImpl
+     * @see org.osate.xtext.aadl2.agcl.agcl.impl.AgclPackageImpl#getPSLNegation()
+     * @generated
+     */
+    EClass PSL_NEGATION = eINSTANCE.getPSLNegation();
+
+    /**
+     * The meta object literal for the '<em><b>Subterm</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference PSL_NEGATION__SUBTERM = eINSTANCE.getPSLNegation_Subterm();
 
   }
 

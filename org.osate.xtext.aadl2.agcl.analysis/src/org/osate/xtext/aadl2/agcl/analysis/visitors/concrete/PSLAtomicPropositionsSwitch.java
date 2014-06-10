@@ -1,13 +1,14 @@
 /**
  * 
  */
-package org.osate.xtext.aadl2.agcl.analysis.visitors;
+package org.osate.xtext.aadl2.agcl.analysis.visitors.concrete;
 
 import java.util.Set;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.osate.xtext.aadl2.agcl.agcl.AtomicProp;
+import org.osate.xtext.aadl2.agcl.agcl.AtomicProposition;
 import org.osate.xtext.aadl2.agcl.analysis.util.SetFactory;
+import org.osate.xtext.aadl2.agcl.analysis.visitors.AgclProcessingSwitch;
 
 /**
  * This switch obtains the set of atomic propositions in a PSL expression.
@@ -15,13 +16,13 @@ import org.osate.xtext.aadl2.agcl.analysis.util.SetFactory;
  * @author Ernesto Posse
  *
  */
-public class PSLAtomicPropositionsSwitch extends AgclProcessingSwitch<Set<AtomicProp>> {
+public class PSLAtomicPropositionsSwitch extends AgclProcessingSwitch<Set<AtomicProposition>> {
 	
 	public class AtomicPropStructEqWrap {
 		
-		private AtomicProp wrapped;
+		private AtomicProposition wrapped;
 		
-		public AtomicPropStructEqWrap(AtomicProp ap) {
+		public AtomicPropStructEqWrap(AtomicProposition ap) {
 			wrapped = ap;
 		}
 		
@@ -50,8 +51,9 @@ public class PSLAtomicPropositionsSwitch extends AgclProcessingSwitch<Set<Atomic
 		partialResults = SetFactory.getNewSet();
 	}
 
-	public Set<AtomicProp> caseAtomicProp(AtomicProp obj) {
-		Set<AtomicProp> result = SetFactory.getNewSet();
+	@Override
+	public Set<AtomicProposition> caseAtomicProposition(AtomicProposition obj) {
+		Set<AtomicProposition> result = SetFactory.getNewSet();
 		AtomicPropStructEqWrap wrappedAP = new AtomicPropStructEqWrap(obj);
 		if (!partialResults.contains(wrappedAP)) {
 			partialResults.add(wrappedAP);

@@ -7,10 +7,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.xtext.serializer.ISerializer;
-import org.osate.xtext.aadl2.agcl.agcl.AtomicProp;
+import org.osate.xtext.aadl2.agcl.agcl.AtomicProposition;
 import org.osate.xtext.aadl2.agcl.agcl.PSLSpec;
 import org.osate.xtext.aadl2.agcl.analysis.AGCLAnalysisPlugin;
 import org.osate.xtext.aadl2.agcl.analysis.config.IPreferenceConstants;
@@ -83,8 +84,8 @@ public class NuSMVUniversalModelImpl extends NuSMVModelImpl implements NuSMVUniv
 		List<String> variables = new LinkedList<String>();
 		assert getContext() instanceof PSLSpec;
 		PSLSpec spec = (PSLSpec) getContext();
-		Set<AtomicProp> aps = AGCLSyntaxUtil.getAtomicPropositions(spec.getExpr());
-		for (AtomicProp ap : aps) {
+		Set<AtomicProposition> aps = AGCLSyntaxUtil.getAtomicPropositions(spec.getExpr());
+		for (AtomicProposition ap : aps) {
 			variables.add(serializer.serialize(ap));
 		}
 		setModel(variables);

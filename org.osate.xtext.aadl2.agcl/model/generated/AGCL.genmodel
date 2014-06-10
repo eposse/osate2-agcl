@@ -50,9 +50,7 @@
     <genClasses ecoreClass="AGCL.ecore#//PSLSpec">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference AGCL.ecore#//PSLSpec/expr"/>
     </genClasses>
-    <genClasses ecoreClass="AGCL.ecore#//PSLExpression">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference AGCL.ecore#//PSLExpression/subterm"/>
-    </genClasses>
+    <genClasses ecoreClass="AGCL.ecore#//PSLExpression"/>
     <genClasses ecoreClass="AGCL.ecore#//BooleanConstant">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute AGCL.ecore#//BooleanConstant/val"/>
     </genClasses>
@@ -85,12 +83,21 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference AGCL.ecore#//PSLConjunction/left"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference AGCL.ecore#//PSLConjunction/right"/>
     </genClasses>
-    <genClasses ecoreClass="AGCL.ecore#//PSLNext"/>
-    <genClasses ecoreClass="AGCL.ecore#//PSLEventually"/>
-    <genClasses ecoreClass="AGCL.ecore#//PSLAlways"/>
+    <genClasses ecoreClass="AGCL.ecore#//PSLNext">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference AGCL.ecore#//PSLNext/subterm"/>
+    </genClasses>
+    <genClasses ecoreClass="AGCL.ecore#//PSLEventually">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference AGCL.ecore#//PSLEventually/subterm"/>
+    </genClasses>
+    <genClasses ecoreClass="AGCL.ecore#//PSLAlways">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference AGCL.ecore#//PSLAlways/subterm"/>
+    </genClasses>
     <genClasses ecoreClass="AGCL.ecore#//PSLUntil">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference AGCL.ecore#//PSLUntil/left"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference AGCL.ecore#//PSLUntil/right"/>
+    </genClasses>
+    <genClasses ecoreClass="AGCL.ecore#//PSLNegation">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference AGCL.ecore#//PSLNegation/subterm"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

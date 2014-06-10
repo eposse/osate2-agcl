@@ -90,6 +90,7 @@ public class AgclFactoryImpl extends EFactoryImpl implements AgclFactory
       case AgclPackage.PSL_EVENTUALLY: return createPSLEventually();
       case AgclPackage.PSL_ALWAYS: return createPSLAlways();
       case AgclPackage.PSL_UNTIL: return createPSLUntil();
+      case AgclPackage.PSL_NEGATION: return createPSLNegation();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -379,6 +380,17 @@ public class AgclFactoryImpl extends EFactoryImpl implements AgclFactory
   {
     PSLUntilImpl pslUntil = new PSLUntilImpl();
     return pslUntil;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PSLNegation createPSLNegation()
+  {
+    PSLNegationImpl pslNegation = new PSLNegationImpl();
+    return pslNegation;
   }
 
   /**

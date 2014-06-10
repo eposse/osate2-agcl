@@ -30,7 +30,7 @@ import org.osate.xtext.aadl2.agcl.analysis.config.IPreferenceConstants;
  *
  */
 public class AGCLUtil {
-	
+
 	public static int countClassifiers(Element root, Class<?>[] classifiersOfInterest) {
 		int totalElements = 0;
 		for (Class<?> classifier : classifiersOfInterest) {
@@ -142,8 +142,10 @@ public class AGCLUtil {
 		try {
 			if (!file.exists()) {
 				file.create(source, true, null);
-			} 
-			file.setContents(source, true, true, null);
+			}
+			else {
+				file.setContents(source, true, true, null);
+			}
 		}
 		catch (CoreException e) {
 			Logger.getLogger(AGCLUtil.class).error("unable to save file '" + file.getName() + "'");

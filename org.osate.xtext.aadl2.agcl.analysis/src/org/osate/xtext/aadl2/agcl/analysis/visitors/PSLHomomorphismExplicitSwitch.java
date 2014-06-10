@@ -6,15 +6,20 @@ package org.osate.xtext.aadl2.agcl.analysis.visitors;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.xtext.aadl2.agcl.agcl.AgclFactory;
+import org.osate.xtext.aadl2.agcl.agcl.BooleanConstant;
 import org.osate.xtext.aadl2.agcl.agcl.Input;
 import org.osate.xtext.aadl2.agcl.agcl.Output;
-import org.osate.xtext.aadl2.agcl.agcl.PSLAtom;
-import org.osate.xtext.aadl2.agcl.agcl.PSLBooleanExpression;
+import org.osate.xtext.aadl2.agcl.agcl.PSLAlways;
+import org.osate.xtext.aadl2.agcl.agcl.PSLBiconditional;
 import org.osate.xtext.aadl2.agcl.agcl.PSLConjunction;
 import org.osate.xtext.aadl2.agcl.agcl.PSLDisjunction;
+import org.osate.xtext.aadl2.agcl.agcl.PSLEventually;
 import org.osate.xtext.aadl2.agcl.agcl.PSLExpression;
+import org.osate.xtext.aadl2.agcl.agcl.PSLImplication;
 import org.osate.xtext.aadl2.agcl.agcl.PSLNegation;
+import org.osate.xtext.aadl2.agcl.agcl.PSLNext;
 import org.osate.xtext.aadl2.agcl.agcl.PSLSpec;
+import org.osate.xtext.aadl2.agcl.agcl.PSLUntil;
 import org.osate.xtext.aadl2.agcl.agcl.Var;
 
 /**
@@ -28,6 +33,12 @@ public class PSLHomomorphismExplicitSwitch extends AgclProcessingSwitch<EObject>
 
 	public EObject defaultCase(EObject obj) {
 		return EcoreUtil.copy(obj);
+	}
+	
+	public EObject caseBooleanConstant(BooleanConstant obj) {
+		BooleanConstant newConst = AgclFactory.eINSTANCE.createBooleanConstant();
+		newConst.setVal(obj.getVal());
+		return newConst;
 	}
 
 	public EObject caseVar(Var ap) {
@@ -52,49 +63,88 @@ public class PSLHomomorphismExplicitSwitch extends AgclProcessingSwitch<EObject>
 	
 	public EObject casePSLNegation(PSLNegation obj) {
 		PSLNegation newObj = AgclFactory.eINSTANCE.createPSLNegation();
-		PSLBooleanExpression subTerm = obj.getNegated(); 
-		PSLBooleanExpression newSubTerm = (PSLBooleanExpression) doSwitch(subTerm); 
-		newObj.setNegated(newSubTerm);
+		PSLExpression subTerm = obj.getSubterm();
+		PSLExpression newSubTerm = (PSLExpression) doSwitch(subTerm); 
+		newObj.setSubterm(newSubTerm);
+		return newObj;
+	}
+	
+	public EObject casePSLNext(PSLNext obj) {
+		PSLNext newObj = AgclFactory.eINSTANCE.createPSLNext();
+		PSLExpression subTerm = obj.getSubterm();
+		PSLExpression newSubTerm = (PSLExpression) doSwitch(subTerm); 
+		newObj.setSubterm(newSubTerm);
+		return newObj;
+	}
+	
+	public EObject casePSLEventually(PSLEventually obj) {
+		PSLEventually newObj = AgclFactory.eINSTANCE.createPSLEventually();
+		PSLExpression subTerm = obj.getSubterm();
+		PSLExpression newSubTerm = (PSLExpression) doSwitch(subTerm); 
+		newObj.setSubterm(newSubTerm);
+		return newObj;
+	}
+	
+	public EObject casePSLAlways(PSLAlways obj) {
+		PSLAlways newObj = AgclFactory.eINSTANCE.createPSLAlways();
+		PSLExpression subTerm = obj.getSubterm();
+		PSLExpression newSubTerm = (PSLExpression) doSwitch(subTerm); 
+		newObj.setSubterm(newSubTerm);
+		return newObj;
+	}
+	
+	public EObject casePSLUntil(PSLUntil obj) {
+		PSLUntil newObj = AgclFactory.eINSTANCE.createPSLUntil();
+		PSLExpression left = obj.getLeft();
+		PSLExpression right = obj.getRight();
+		PSLExpression newLeft = (PSLExpression) doSwitch(left);
+		PSLExpression newRight = (PSLExpression) doSwitch(right);
+		newObj.setLeft(newLeft);
+		newObj.setRight(newRight);
 		return newObj;
 	}
 	
 	public EObject casePSLConjunction(PSLConjunction obj) {
 		PSLConjunction newObj = AgclFactory.eINSTANCE.createPSLConjunction();
-		for (PSLAtom subTerm : obj.getFactors()) {
-			PSLAtom newAtom = (PSLAtom) doSwitch(subTerm);
-			newObj.getFactors().add(newAtom);			
-		}
+		PSLExpression left = obj.getLeft();
+		PSLExpression right = obj.getRight();
+		PSLExpression newLeft = (PSLExpression) doSwitch(left);
+		PSLExpression newRight = (PSLExpression) doSwitch(right);
+		newObj.setLeft(newLeft);
+		newObj.setRight(newRight);
 		return newObj;
 	}
 
 	public EObject casePSLDisjunction(PSLDisjunction obj) {
 		PSLDisjunction newObj = AgclFactory.eINSTANCE.createPSLDisjunction();
-		for (PSLConjunction subTerm : obj.getTerms()) {
-			PSLConjunction newPSLConjunction = (PSLConjunction) doSwitch(subTerm);
-			newObj.getTerms().add(newPSLConjunction);			
-		}
+		PSLExpression left = obj.getLeft();
+		PSLExpression right = obj.getRight();
+		PSLExpression newLeft = (PSLExpression) doSwitch(left);
+		PSLExpression newRight = (PSLExpression) doSwitch(right);
+		newObj.setLeft(newLeft);
+		newObj.setRight(newRight);
 		return newObj;
 	}
 	
-	public EObject casePSLExpression(PSLExpression obj) {
-		PSLExpression newObj = AgclFactory.eINSTANCE.createPSLExpression();
-		PSLBooleanExpression condition = obj.getCondition();
-		PSLBooleanExpression newCondition = (PSLBooleanExpression) doSwitch(condition); 
-		newObj.setCondition(newCondition);
-		newObj.setImplication(false);
-		newObj.setBiconditional(false);
-		if (obj.isImplication()) {
-			newObj.setImplication(true);
-			PSLBooleanExpression conclusion = obj.getConclusion();
-			PSLBooleanExpression newConclusion = (PSLBooleanExpression) doSwitch(conclusion);
-			newObj.setConclusion(newConclusion);
-		}
-		else if (obj.isBiconditional()) {
-			newObj.setBiconditional(true);
-			PSLBooleanExpression other = obj.getOther();
-			PSLBooleanExpression newOther = (PSLBooleanExpression) doSwitch(other);
-			newObj.setOther(newOther);
-		}
+	public EObject casePSLImplication(PSLImplication obj) {
+		PSLImplication newObj = AgclFactory.eINSTANCE.createPSLImplication();
+		PSLExpression left = obj.getLeft();
+		PSLExpression right = obj.getRight();
+		PSLExpression newLeft = (PSLExpression) doSwitch(left);
+		PSLExpression newRight = (PSLExpression) doSwitch(right);
+		newObj.setLeft(newLeft);
+		newObj.setRight(newRight);
+		return newObj;
+	}
+
+	public EObject casePSLBiconditional(PSLBiconditional obj) {
+		PSLBiconditional newObj = AgclFactory.eINSTANCE.createPSLBiconditional();
+		PSLExpression left = obj.getLeft();
+		PSLExpression right = obj.getRight();
+		PSLExpression newLeft = (PSLExpression) doSwitch(left);
+		PSLExpression newRight = (PSLExpression) doSwitch(right);
+		newObj.setLeft(newLeft);
+		newObj.setRight(newRight);
 		return newObj;
 	}
 	

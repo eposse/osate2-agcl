@@ -3916,9 +3916,11 @@ rule__PSLNegation__Group__0__Impl
     }
 :
 (
-{ before(grammarAccess.getPSLNegationAccess().getNOTTerminalRuleCall_0()); }
-	RULE_NOT
-{ after(grammarAccess.getPSLNegationAccess().getNOTTerminalRuleCall_0()); }
+{ before(grammarAccess.getPSLNegationAccess().getPSLNegationAction_0()); }
+(
+
+)
+{ after(grammarAccess.getPSLNegationAccess().getPSLNegationAction_0()); }
 )
 
 ;
@@ -3933,6 +3935,7 @@ rule__PSLNegation__Group__1
     }
 :
 	rule__PSLNegation__Group__1__Impl
+	rule__PSLNegation__Group__2
 ;
 finally {
 	restoreStackSize(stackSize);
@@ -3944,15 +3947,45 @@ rule__PSLNegation__Group__1__Impl
     }
 :
 (
-{ before(grammarAccess.getPSLNegationAccess().getSubtermAssignment_1()); }
-(rule__PSLNegation__SubtermAssignment_1)
-{ after(grammarAccess.getPSLNegationAccess().getSubtermAssignment_1()); }
+{ before(grammarAccess.getPSLNegationAccess().getNOTTerminalRuleCall_1()); }
+	RULE_NOT
+{ after(grammarAccess.getPSLNegationAccess().getNOTTerminalRuleCall_1()); }
 )
 
 ;
 finally {
 	restoreStackSize(stackSize);
 }
+
+
+rule__PSLNegation__Group__2
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__PSLNegation__Group__2__Impl
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__PSLNegation__Group__2__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getPSLNegationAccess().getSubtermAssignment_2()); }
+(rule__PSLNegation__SubtermAssignment_2)
+{ after(grammarAccess.getPSLNegationAccess().getSubtermAssignment_2()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
 
 
 
@@ -4814,14 +4847,14 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__PSLNegation__SubtermAssignment_1
+rule__PSLNegation__SubtermAssignment_2
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getPSLNegationAccess().getSubtermPSLLogicFactorParserRuleCall_1_0()); }
-	rulePSLLogicFactor{ after(grammarAccess.getPSLNegationAccess().getSubtermPSLLogicFactorParserRuleCall_1_0()); }
+{ before(grammarAccess.getPSLNegationAccess().getSubtermPSLLogicFactorParserRuleCall_2_0()); }
+	rulePSLLogicFactor{ after(grammarAccess.getPSLNegationAccess().getSubtermPSLLogicFactorParserRuleCall_2_0()); }
 )
 
 ;
@@ -4937,9 +4970,9 @@ finally {
 
 RULE_SL_COMMENT : '--' ~(('\n'|'\r'))* ('\r'? '\n')?;
 
-RULE_TRUE : ('T'|'true'|'1');
+RULE_TRUE : ('TRUE'|'1');
 
-RULE_FALSE : ('F'|'false'|'0');
+RULE_FALSE : ('FALSE'|'0');
 
 RULE_AND : ('&&'|'&'|'and');
 

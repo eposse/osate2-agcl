@@ -1,4 +1,4 @@
-package org.osate.xtext.aadl2.agcl.analysis.visitors;
+package org.osate.xtext.aadl2.agcl.analysis.visitors.concrete;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -7,18 +7,16 @@ import org.osate.xtext.aadl2.agcl.agcl.AGCLAnnexSubclause;
 import org.osate.xtext.aadl2.agcl.agcl.AGCLBehaviour;
 import org.osate.xtext.aadl2.agcl.agcl.AGCLContract;
 import org.osate.xtext.aadl2.agcl.agcl.AgclFactory;
-import org.osate.xtext.aadl2.agcl.agcl.PSLBooleanExpression;
 import org.osate.xtext.aadl2.agcl.agcl.PSLConjunction;
-import org.osate.xtext.aadl2.agcl.agcl.PSLDisjunction;
 import org.osate.xtext.aadl2.agcl.agcl.PSLExpression;
+import org.osate.xtext.aadl2.agcl.agcl.PSLImplication;
 import org.osate.xtext.aadl2.agcl.agcl.PSLSpec;
 import org.osate.xtext.aadl2.agcl.agcl.util.AgclSwitch;
-import org.osate.xtext.aadl2.agcl.analysis.results.AnalysisResults;
 import org.osate.xtext.aadl2.agcl.analysis.util.AGCLSyntaxUtil;
-import org.osate.xtext.aadl2.agcl.analysis.verifiers.Negative;
+import org.osate.xtext.aadl2.agcl.analysis.util.AGCLUtil;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVModelChecker;
-import org.osate.xtext.aadl2.agcl.analysis.verifiers.Positive;
-import org.osate.xtext.aadl2.agcl.analysis.verifiers.VerificationResult;
+import org.osate.xtext.aadl2.agcl.analysis.visitors.CommonAGCLAnalysisSwitch;
+import org.osate.xtext.aadl2.agcl.analysis.visitors.ViewpointContext;
 
 /**
  * This class implements the main algorithm for A/G analysis of atomic capsules, i.e. thread 
@@ -119,11 +117,11 @@ public class AtomicAnalysisSwitch extends CommonAGCLAnalysisSwitch {
 		PSLSpec behaviourSpec  = behaviour.getSpec();
 		PSLSpec assumptionSpec = contract.getAssumption().getSpec();
 		PSLSpec guaranteeSpec  = contract.getGuarantee().getSpec();
-		Logger.getLogger(getClass()).info("behaviour  = " + serializer.serialize(behaviourSpec));
-		Logger.getLogger(getClass()).info("assumption = " + serializer.serialize(assumptionSpec));
-		Logger.getLogger(getClass()).info("guarantee  = " + serializer.serialize(guaranteeSpec));
+		Logger.getLogger(getClass()).info("behaviour  = '" + serializer.serialize(behaviourSpec) + "' ast = " + AGCLSyntaxUtil.astStr(behaviourSpec));
+		Logger.getLogger(getClass()).info("assumption = '" + serializer.serialize(assumptionSpec) + "' ast = " + AGCLSyntaxUtil.astStr(assumptionSpec));
+		Logger.getLogger(getClass()).info("guarantee  = '" + serializer.serialize(guaranteeSpec) + "' ast = " + AGCLSyntaxUtil.astStr(guaranteeSpec));
 		PSLSpec combinedSpec = makeCombinedFormula(behaviourSpec, assumptionSpec, guaranteeSpec);
-		Logger.getLogger(getClass()).debug("combined = " + serializer.serialize(combinedSpec));
+		Logger.getLogger(getClass()).debug("combined = '" + serializer.serialize(combinedSpec) + "' ast = " + AGCLSyntaxUtil.astStr(combinedSpec));
 		NuSMVModelChecker theChecker = (NuSMVModelChecker) checker;  // TODO: make it independent of NuSMV
 		theChecker.checkSpecValidity(combinedSpec, viewpointName, componentName, "atomic");
 	}
@@ -135,27 +133,16 @@ public class AtomicAnalysisSwitch extends CommonAGCLAnalysisSwitch {
 	 * @return a combined PSL spec of the form B && A -> G
 	 */
 	private PSLSpec makeCombinedFormula(PSLSpec behaviourSpec, PSLSpec assumptionSpec, PSLSpec guaranteeSpec) {
-		PSLSpec newSpec = AgclFactory.eINSTANCE.createPSLSpec();
-		PSLExpression newExpr = AgclFactory.eINSTANCE.createPSLExpression();
 		PSLExpression behaviourExpr   = behaviourSpec.getExpr();
 		PSLExpression assumptionrExpr = assumptionSpec.getExpr();
 		PSLExpression guaranteeExpr   = guaranteeSpec.getExpr();
-		PSLBooleanExpression behaviourBoolExpr   = AGCLSyntaxUtil.getBooleanExpressionFromExpression(behaviourExpr);
-		PSLBooleanExpression assumptionrBoolExpr = AGCLSyntaxUtil.getBooleanExpressionFromExpression(assumptionrExpr);
-		PSLBooleanExpression guaranteeBoolExpr   = AGCLSyntaxUtil.getBooleanExpressionFromExpression(guaranteeExpr);
-		// Build "B & A -> G"
-		// newCond = B & A
-		PSLDisjunction newCond = AgclFactory.eINSTANCE.createPSLDisjunction();
-		PSLConjunction newCondLeft = AgclFactory.eINSTANCE.createPSLConjunction();
-		newCondLeft.getFactors().add(behaviourBoolExpr);
-		newCondLeft.getFactors().add(assumptionrBoolExpr);
-		// newCondLeft = 'B & A'
-		newCond.getTerms().add(newCondLeft);
-		// newCond = 'B & A'
-		newExpr.setCondition(newCond);
-		newExpr.setConclusion(guaranteeBoolExpr);
-		newExpr.setImplication(true);
-		// newExpr = 'B & A -> G'
+		PSLSpec newSpec = AgclFactory.eINSTANCE.createPSLSpec();
+		PSLImplication newExpr = AgclFactory.eINSTANCE.createPSLImplication();
+		PSLConjunction newPremise = AgclFactory.eINSTANCE.createPSLConjunction();
+		newPremise.setLeft(behaviourExpr);
+		newPremise.setRight(assumptionrExpr);
+		newExpr.setLeft(newPremise);
+		newExpr.setRight(guaranteeExpr);
 		newSpec.setExpr(newExpr);
 		return newSpec;
 	}

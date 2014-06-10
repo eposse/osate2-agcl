@@ -60,10 +60,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="expr" eType="#//PSLExpression"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PSLExpression">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="subterm" eType="#//PSLExpression"
-        containment="true"/>
-  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PSLExpression"/>
   <eClassifiers xsi:type="ecore:EClass" name="BooleanConstant" eSuperTypes="#//PSLExpression">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="val" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
@@ -104,13 +101,26 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="right" eType="#//PSLExpression"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PSLNext" eSuperTypes="#//PSLExpression"/>
-  <eClassifiers xsi:type="ecore:EClass" name="PSLEventually" eSuperTypes="#//PSLExpression"/>
-  <eClassifiers xsi:type="ecore:EClass" name="PSLAlways" eSuperTypes="#//PSLExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PSLNext" eSuperTypes="#//PSLExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subterm" eType="#//PSLExpression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PSLEventually" eSuperTypes="#//PSLExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subterm" eType="#//PSLExpression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PSLAlways" eSuperTypes="#//PSLExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subterm" eType="#//PSLExpression"
+        containment="true"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PSLUntil" eSuperTypes="#//PSLExpression">
     <eStructuralFeatures xsi:type="ecore:EReference" name="left" eType="#//PSLExpression"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="right" eType="#//PSLExpression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PSLNegation" eSuperTypes="#//PSLExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subterm" eType="#//PSLExpression"
         containment="true"/>
   </eClassifiers>
 </ecore:EPackage>

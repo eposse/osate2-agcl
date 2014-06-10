@@ -15,6 +15,7 @@ import org.osate.xtext.aadl2.agcl.agcl.PSLSpec;
 import org.osate.xtext.aadl2.agcl.analysis.AGCLAnalysisPlugin;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVSpecification;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.VerifiersPackage;
+import org.osate.xtext.aadl2.agcl.analysis.visitors.PSLSerializerExplicit;
 
 /**
  * <!-- begin-user-doc -->
@@ -34,6 +35,7 @@ import org.osate.xtext.aadl2.agcl.analysis.verifiers.VerifiersPackage;
 public class NuSMVSpecificationImpl extends MinimalEObjectImpl.Container implements NuSMVSpecification {
 	
 	private ISerializer serializer = AGCLAnalysisPlugin.getDefault().getSerializer();
+	private PSLSerializerExplicit altSerializer = AGCLAnalysisPlugin.getDefault().getAltSerializer();
 	
 	/**
 	 * The default value of the '{@link #getSpec() <em>Spec</em>}' attribute.
@@ -186,7 +188,11 @@ public class NuSMVSpecificationImpl extends MinimalEObjectImpl.Container impleme
 		assert specObj instanceof PSLSpec;
 		PSLSpec spec = (PSLSpec) specObj;
 		PSLExpression expr = spec.getExpr();
-		return serializer.serialize(expr);
+//		We replace the Xtext serializer with our custom serializer because NuSMV's grammar has weird precedence
+//		for some operators (-> binds tighter than & and |), so we need to put parenthesis around them, with our 
+//		custom serializer
+//		return serializer.serialize(expr);
+		return altSerializer.serialize(expr);
 	}
 
 	/**

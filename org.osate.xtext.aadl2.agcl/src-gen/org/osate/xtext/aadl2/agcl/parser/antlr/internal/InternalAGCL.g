@@ -1337,23 +1337,29 @@ rulePSLNegation returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-(this_NOT_0=RULE_NOT
+((
+    {
+        $current = forceCreateModelElement(
+            grammarAccess.getPSLNegationAccess().getPSLNegationAction_0(),
+            $current);
+    }
+)this_NOT_1=RULE_NOT
     { 
-    newLeafNode(this_NOT_0, grammarAccess.getPSLNegationAccess().getNOTTerminalRuleCall_0()); 
+    newLeafNode(this_NOT_1, grammarAccess.getPSLNegationAccess().getNOTTerminalRuleCall_1()); 
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getPSLNegationAccess().getSubtermPSLLogicFactorParserRuleCall_1_0()); 
+	        newCompositeNode(grammarAccess.getPSLNegationAccess().getSubtermPSLLogicFactorParserRuleCall_2_0()); 
 	    }
-		lv_subterm_1_0=rulePSLLogicFactor		{
+		lv_subterm_2_0=rulePSLLogicFactor		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getPSLNegationRule());
 	        }
        		set(
        			$current, 
        			"subterm",
-        		lv_subterm_1_0, 
+        		lv_subterm_2_0, 
         		"PSLLogicFactor");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -1710,9 +1716,9 @@ this_ID_0=RULE_ID
 
 RULE_SL_COMMENT : '--' ~(('\n'|'\r'))* ('\r'? '\n')?;
 
-RULE_TRUE : ('T'|'true'|'1');
+RULE_TRUE : ('TRUE'|'1');
 
-RULE_FALSE : ('F'|'false'|'0');
+RULE_FALSE : ('FALSE'|'0');
 
 RULE_AND : ('&&'|'&'|'and');
 

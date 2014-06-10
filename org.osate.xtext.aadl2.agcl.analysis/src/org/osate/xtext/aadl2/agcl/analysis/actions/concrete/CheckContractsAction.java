@@ -1,4 +1,4 @@
-package org.osate.xtext.aadl2.agcl.analysis.actions;
+package org.osate.xtext.aadl2.agcl.analysis.actions.concrete;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.Classifier;

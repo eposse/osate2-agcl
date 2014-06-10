@@ -547,15 +547,13 @@ public class AGCLGrammarAccess extends AbstractGrammarElementFinder {
 		////PSLSpecification returns verifiers::Specification:
 		////    PSLSpec
 		////;
-		//PSLSpec: //    'psl'? property = PSLProperty
+		//PSLSpec:
 		//	"psl"? expr=PSLProperty;
 		public ParserRule getRule() { return rule; }
 
-		////    'psl'? property = PSLProperty
 		//"psl"? expr=PSLProperty
 		public Group getGroup() { return cGroup; }
 
-		////    'psl'? property = PSLProperty
 		//"psl"?
 		public Keyword getPslKeyword_0() { return cPslKeyword_0; }
 
@@ -853,25 +851,29 @@ public class AGCLGrammarAccess extends AbstractGrammarElementFinder {
 	public class PSLNegationElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PSLNegation");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cNOTTerminalRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
-		private final Assignment cSubtermAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cSubtermPSLLogicFactorParserRuleCall_1_0 = (RuleCall)cSubtermAssignment_1.eContents().get(0);
+		private final Action cPSLNegationAction_0 = (Action)cGroup.eContents().get(0);
+		private final RuleCall cNOTTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		private final Assignment cSubtermAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cSubtermPSLLogicFactorParserRuleCall_2_0 = (RuleCall)cSubtermAssignment_2.eContents().get(0);
 		
 		//PSLNegation returns PSLExpression:
-		//	NOT subterm=PSLLogicFactor;
+		//	{PSLNegation} NOT subterm=PSLLogicFactor;
 		public ParserRule getRule() { return rule; }
 
-		//NOT subterm=PSLLogicFactor
+		//{PSLNegation} NOT subterm=PSLLogicFactor
 		public Group getGroup() { return cGroup; }
 
+		//{PSLNegation}
+		public Action getPSLNegationAction_0() { return cPSLNegationAction_0; }
+
 		//NOT
-		public RuleCall getNOTTerminalRuleCall_0() { return cNOTTerminalRuleCall_0; }
+		public RuleCall getNOTTerminalRuleCall_1() { return cNOTTerminalRuleCall_1; }
 
 		//subterm=PSLLogicFactor
-		public Assignment getSubtermAssignment_1() { return cSubtermAssignment_1; }
+		public Assignment getSubtermAssignment_2() { return cSubtermAssignment_2; }
 
 		//PSLLogicFactor
-		public RuleCall getSubtermPSLLogicFactorParserRuleCall_1_0() { return cSubtermPSLLogicFactorParserRuleCall_1_0; }
+		public RuleCall getSubtermPSLLogicFactorParserRuleCall_2_0() { return cSubtermPSLLogicFactorParserRuleCall_2_0; }
 	}
 
 	public class PSLPrimaryElements extends AbstractParserRuleElementFinder {
@@ -1341,7 +1343,7 @@ public class AGCLGrammarAccess extends AbstractGrammarElementFinder {
 	////PSLSpecification returns verifiers::Specification:
 	////    PSLSpec
 	////;
-	//PSLSpec: //    'psl'? property = PSLProperty
+	//PSLSpec:
 	//	"psl"? expr=PSLProperty;
 	public PSLSpecElements getPSLSpecAccess() {
 		return (pPSLSpec != null) ? pPSLSpec : (pPSLSpec = new PSLSpecElements());
@@ -1404,7 +1406,7 @@ public class AGCLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//PSLNegation returns PSLExpression:
-	//	NOT subterm=PSLLogicFactor;
+	//	{PSLNegation} NOT subterm=PSLLogicFactor;
 	public PSLNegationElements getPSLNegationAccess() {
 		return (pPSLNegation != null) ? pPSLNegation : (pPSLNegation = new PSLNegationElements());
 	}
@@ -1552,13 +1554,13 @@ public class AGCLGrammarAccess extends AbstractGrammarElementFinder {
 	} 
 
 	//terminal TRUE:
-	//	"T" | "true" | "1";
+	//	"TRUE" | "1";
 	public TerminalRule getTRUERule() {
 		return (tTRUE != null) ? tTRUE : (tTRUE = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "TRUE"));
 	} 
 
 	//terminal FALSE:
-	//	"F" | "false" | "0";
+	//	"FALSE" | "0";
 	public TerminalRule getFALSERule() {
 		return (tFALSE != null) ? tFALSE : (tFALSE = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "FALSE"));
 	} 

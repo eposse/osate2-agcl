@@ -46,7 +46,7 @@ import org.osate.xtext.aadl2.agcl.analysis.verifiers.VerificationUnit;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.VerifiersFactory;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.VerifiersPackage;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.Viewpoint;
-import org.osate.xtext.aadl2.agcl.analysis.visitors.PSL2NuSMVSpecConverterExplicitSwitch;
+import org.osate.xtext.aadl2.agcl.analysis.visitors.concrete.PSL2NuSMVSpecConverterExplicitSwitch;
 
 /**
  * <!-- begin-user-doc -->
@@ -304,6 +304,11 @@ public class NuSMVModelCheckerImpl extends ModelCheckerImpl implements NuSMVMode
 	
 	/**
 	 * Call the external process that runs NuSMV
+	 * 
+	 * <p> Note: this will block the current thread until the external program ends.
+	 * 
+	 * TODO: check if the progress monitor says the task should be canceled ({@code monitor.isCanceled()}) 
+	 * and if so, force the process to stop. 
 	 * @param procBuilder the process builder for NuSMV
 	 */
 	private void runCommand(ProcessBuilder procBuilder) {

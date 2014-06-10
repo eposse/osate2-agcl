@@ -283,6 +283,14 @@ public class AgclSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case AgclPackage.PSL_NEGATION:
+      {
+        PSLNegation pslNegation = (PSLNegation)theEObject;
+        T result = casePSLNegation(pslNegation);
+        if (result == null) result = casePSLExpression(pslNegation);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       default: return defaultCase(theEObject);
     }
   }
@@ -699,6 +707,22 @@ public class AgclSwitch<T> extends Switch<T>
    * @generated
    */
   public T casePSLUntil(PSLUntil object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>PSL Negation</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>PSL Negation</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casePSLNegation(PSLNegation object)
   {
     return null;
   }

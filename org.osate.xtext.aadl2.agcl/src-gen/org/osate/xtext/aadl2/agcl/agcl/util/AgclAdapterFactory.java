@@ -211,6 +211,11 @@ public class AgclAdapterFactory extends AdapterFactoryImpl
         return createPSLUntilAdapter();
       }
       @Override
+      public Adapter casePSLNegation(PSLNegation object)
+      {
+        return createPSLNegationAdapter();
+      }
+      @Override
       public Adapter caseElement(Element object)
       {
         return createElementAdapter();
@@ -643,6 +648,21 @@ public class AgclAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createPSLUntilAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.agcl.agcl.PSLNegation <em>PSL Negation</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.xtext.aadl2.agcl.agcl.PSLNegation
+   * @generated
+   */
+  public Adapter createPSLNegationAdapter()
   {
     return null;
   }

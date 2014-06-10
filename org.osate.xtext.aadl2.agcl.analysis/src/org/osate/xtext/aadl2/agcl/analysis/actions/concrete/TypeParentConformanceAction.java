@@ -1,12 +1,13 @@
 /**
  * 
  */
-package org.osate.xtext.aadl2.agcl.analysis.actions;
+package org.osate.xtext.aadl2.agcl.analysis.actions.concrete;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.osate.xtext.aadl2.agcl.analysis.actions.CommonAGCLAction;
 import org.osate.xtext.aadl2.agcl.analysis.visitors.CommonAGCLAnalysisSwitch;
-import org.osate.xtext.aadl2.agcl.analysis.visitors.TypeParentConformanceSwitch;
 import org.osate.xtext.aadl2.agcl.analysis.visitors.ViewpointContext;
+import org.osate.xtext.aadl2.agcl.analysis.visitors.concrete.TypeParentConformanceSwitch;
 
 /**
  * This class provides the action that performs an type/parent contract conformance analysis.

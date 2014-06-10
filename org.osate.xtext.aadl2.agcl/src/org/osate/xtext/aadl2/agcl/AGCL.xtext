@@ -45,30 +45,6 @@ AGCLAnnexSubclause returns AGCLAnnexSubclause:
     ( contracts += AGCLContract (contracts += AGCLContract)* )?
 ;
 
-
-//AGCLAnnexSubclause returns AGCLAnnexSubclause:
-//    AGCLTypeSubclause | AGCLImplSubclause
-//;
-
-//AGCLAnnexSubclause returns AGCLAnnexSubclause:
-//    {AGCLAnnexSubclause}
-//    ( declarations += AGCLPropertyDecl (declarations += AGCLPropertyDecl)* )?
-//    ( contracts += AGCLContract (contracts += AGCLContract)* )?
-//;
-
-//AGCLTypeSubclause returns AGCLTypeSubclause:
-//    {AGCLTypeSubclause}
-//    ( declarations += AGCLPropertyDecl (declarations += AGCLPropertyDecl)* )?
-//    ( contracts += AGCLContract (contracts += AGCLContract)* )?
-//;
-//
-//AGCLImplSubclause returns AGCLImplSubclause:
-//    {AGCLImplSubclause}
-//    ( declarations += AGCLPropertyDecl (declarations += AGCLPropertyDecl)* )?
-//    ( behaviour = AGCLBehaviour )?
-//    ( contracts += AGCLContract (contracts += AGCLContract)* )?
-//;
-
 AGCLContract returns AGCLContract:
     'contract' name = ID
         ( declarations += AGCLPropertyDecl (declarations += AGCLPropertyDecl)* )?
@@ -102,7 +78,6 @@ AGCLBehaviour returns AGCLBehaviour:
 //;
 
 PSLSpec returns PSLSpec:
-//    'psl'? property = PSLProperty
 	'psl'? expr = PSLProperty
 ;
 
@@ -135,7 +110,7 @@ PSLTemporal returns PSLExpression:
 ;
 
 PSLNegation returns PSLExpression:
-	NOT subterm = PSLLogicFactor
+	{PSLNegation} NOT subterm = PSLLogicFactor
 ;
 
 PSLPrimary returns PSLExpression:
@@ -166,83 +141,15 @@ Output:
 ;
 
 
-//
-//PSLNaryExpr returns PSLExpression:
-//	PSLBooleanExpression
-//;
-//
-//PSLNegation returns PSLExpression:
-//    NOT negated = PSLBooleanExpression
-//;
-//
-//PSLBooleanExpression returns PSLExpression:
-//    PSLDisjunction
-//;
-//
-//PSLDisjunction returns PSLExpression:
-//    terms += PSLConjunction (OR terms += PSLConjunction)*
-//;
-//
-//PSLConjunction returns PSLExpression:
-//    factors += PSLPrimary (AND factors += PSLPrimary)*
-//;
-//
-//
-//PSLPrimary returns PSLExpression: 
-//	  BooleanConstant
-////	| IntConstant 
-//	| AtomicProp
-//	| PSLUnaryExpr
-//	| PSLProperty
-//	| '(' PSLExpression ')'
-//;
-//
-//PSLUnaryExpr returns PSLExpression:
-//	PSLNegation
-//;
-//
-//
-////PSLProperty returns PSLExpression:
-////	  PSLFLProperty
-////;
-//
-//
-//
-//PSLFLProperty returns PSLExpression:
-//	  NEXT subterm = PSLExpression
-//	| EVENTUALLY subterm = PSLExpression
-//	| ALWAYS subterm = PSLExpression
-//	| '[' left = PSLExpression UNTIL right = PSLExpression ']'  	
-////	| PSLSequenceExpression (tight ?= '!')?
-////	| PropertyName ( '(' args += ActualParameter ( "," args += ActualParameter)* ')' )?
-//;
-//
-////PSLExpression returns PSLExpression:
-////	condition = PSLBooleanExpression (implication ?= IMPL conclusion = PSLBooleanExpression | biconditional ?= IFF other = PSLBooleanExpression)? 
-////;
-//
-
-
-
-//PSLSequenceExpression:
-//	'seq'
-//;
-
 Parameter returns Parameter:
     ID;
     
-   
-//PropertyName returns PropertyName:
-//	ID;
-
-//EString returns ecore::EString:
-//    STRING | ID;
 
 terminal SL_COMMENT:
     '--' !('\n' | '\r')* ('\r'? '\n')?;
 
-terminal TRUE: 'T' | 'true' | '1';
-terminal FALSE: 'F' | 'false' | '0';
+terminal TRUE: 'TRUE' | '1';
+terminal FALSE: 'FALSE' | '0';
 terminal AND: '&&' | '&' | 'and';
 terminal OR: '||' | '|' | 'or';
 terminal NOT: '!' | 'not';

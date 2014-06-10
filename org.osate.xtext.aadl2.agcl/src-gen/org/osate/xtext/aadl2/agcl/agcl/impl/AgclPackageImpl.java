@@ -34,6 +34,7 @@ import org.osate.xtext.aadl2.agcl.agcl.PSLDisjunction;
 import org.osate.xtext.aadl2.agcl.agcl.PSLEventually;
 import org.osate.xtext.aadl2.agcl.agcl.PSLExpression;
 import org.osate.xtext.aadl2.agcl.agcl.PSLImplication;
+import org.osate.xtext.aadl2.agcl.agcl.PSLNegation;
 import org.osate.xtext.aadl2.agcl.agcl.PSLNext;
 import org.osate.xtext.aadl2.agcl.agcl.PSLSpec;
 import org.osate.xtext.aadl2.agcl.agcl.PSLUntil;
@@ -229,6 +230,13 @@ public class AgclPackageImpl extends EPackageImpl implements AgclPackage
    * @generated
    */
   private EClass pslUntilEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass pslNegationEClass = null;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -631,16 +639,6 @@ public class AgclPackageImpl extends EPackageImpl implements AgclPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getPSLExpression_Subterm()
-  {
-    return (EReference)pslExpressionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EClass getBooleanConstant()
   {
     return booleanConstantEClass;
@@ -891,6 +889,16 @@ public class AgclPackageImpl extends EPackageImpl implements AgclPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EReference getPSLNext_Subterm()
+  {
+    return (EReference)pslNextEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getPSLEventually()
   {
     return pslEventuallyEClass;
@@ -901,9 +909,29 @@ public class AgclPackageImpl extends EPackageImpl implements AgclPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EReference getPSLEventually_Subterm()
+  {
+    return (EReference)pslEventuallyEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getPSLAlways()
   {
     return pslAlwaysEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getPSLAlways_Subterm()
+  {
+    return (EReference)pslAlwaysEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -934,6 +962,26 @@ public class AgclPackageImpl extends EPackageImpl implements AgclPackage
   public EReference getPSLUntil_Right()
   {
     return (EReference)pslUntilEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getPSLNegation()
+  {
+    return pslNegationEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getPSLNegation_Subterm()
+  {
+    return (EReference)pslNegationEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -1010,7 +1058,6 @@ public class AgclPackageImpl extends EPackageImpl implements AgclPackage
     createEReference(pslSpecEClass, PSL_SPEC__EXPR);
 
     pslExpressionEClass = createEClass(PSL_EXPRESSION);
-    createEReference(pslExpressionEClass, PSL_EXPRESSION__SUBTERM);
 
     booleanConstantEClass = createEClass(BOOLEAN_CONSTANT);
     createEAttribute(booleanConstantEClass, BOOLEAN_CONSTANT__VAL);
@@ -1047,14 +1094,20 @@ public class AgclPackageImpl extends EPackageImpl implements AgclPackage
     createEReference(pslConjunctionEClass, PSL_CONJUNCTION__RIGHT);
 
     pslNextEClass = createEClass(PSL_NEXT);
+    createEReference(pslNextEClass, PSL_NEXT__SUBTERM);
 
     pslEventuallyEClass = createEClass(PSL_EVENTUALLY);
+    createEReference(pslEventuallyEClass, PSL_EVENTUALLY__SUBTERM);
 
     pslAlwaysEClass = createEClass(PSL_ALWAYS);
+    createEReference(pslAlwaysEClass, PSL_ALWAYS__SUBTERM);
 
     pslUntilEClass = createEClass(PSL_UNTIL);
     createEReference(pslUntilEClass, PSL_UNTIL__LEFT);
     createEReference(pslUntilEClass, PSL_UNTIL__RIGHT);
+
+    pslNegationEClass = createEClass(PSL_NEGATION);
+    createEReference(pslNegationEClass, PSL_NEGATION__SUBTERM);
   }
 
   /**
@@ -1104,6 +1157,7 @@ public class AgclPackageImpl extends EPackageImpl implements AgclPackage
     pslEventuallyEClass.getESuperTypes().add(this.getPSLExpression());
     pslAlwaysEClass.getESuperTypes().add(this.getPSLExpression());
     pslUntilEClass.getESuperTypes().add(this.getPSLExpression());
+    pslNegationEClass.getESuperTypes().add(this.getPSLExpression());
 
     // Initialize classes and features; add operations and parameters
     initEClass(agclGrammarRootEClass, AGCLGrammarRoot.class, "AGCLGrammarRoot", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1150,7 +1204,6 @@ public class AgclPackageImpl extends EPackageImpl implements AgclPackage
     initEReference(getPSLSpec_Expr(), this.getPSLExpression(), null, "expr", null, 0, 1, PSLSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(pslExpressionEClass, PSLExpression.class, "PSLExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getPSLExpression_Subterm(), this.getPSLExpression(), null, "subterm", null, 0, 1, PSLExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(booleanConstantEClass, BooleanConstant.class, "BooleanConstant", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getBooleanConstant_Val(), ecorePackage.getEString(), "val", null, 0, 1, BooleanConstant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1187,14 +1240,20 @@ public class AgclPackageImpl extends EPackageImpl implements AgclPackage
     initEReference(getPSLConjunction_Right(), this.getPSLExpression(), null, "right", null, 0, 1, PSLConjunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(pslNextEClass, PSLNext.class, "PSLNext", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getPSLNext_Subterm(), this.getPSLExpression(), null, "subterm", null, 0, 1, PSLNext.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(pslEventuallyEClass, PSLEventually.class, "PSLEventually", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getPSLEventually_Subterm(), this.getPSLExpression(), null, "subterm", null, 0, 1, PSLEventually.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(pslAlwaysEClass, PSLAlways.class, "PSLAlways", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getPSLAlways_Subterm(), this.getPSLExpression(), null, "subterm", null, 0, 1, PSLAlways.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(pslUntilEClass, PSLUntil.class, "PSLUntil", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getPSLUntil_Left(), this.getPSLExpression(), null, "left", null, 0, 1, PSLUntil.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getPSLUntil_Right(), this.getPSLExpression(), null, "right", null, 0, 1, PSLUntil.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(pslNegationEClass, PSLNegation.class, "PSLNegation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getPSLNegation_Subterm(), this.getPSLExpression(), null, "subterm", null, 0, 1, PSLNegation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Create resource
     createResource(eNS_URI);

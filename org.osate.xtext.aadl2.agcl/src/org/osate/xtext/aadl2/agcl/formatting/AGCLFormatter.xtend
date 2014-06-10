@@ -5,6 +5,8 @@ package org.osate.xtext.aadl2.agcl.formatting
 
 import org.eclipse.xtext.formatting.impl.AbstractDeclarativeFormatter
 import org.eclipse.xtext.formatting.impl.FormattingConfig
+//import org.osate.xtext.aadl2.agcl.services.AGCLGrammarAccess
+
 // import com.google.inject.Inject;
 // import org.osate.xtext.aadl2.agcl.services.AGCLGrammarAccess
 
@@ -21,6 +23,8 @@ class AGCLFormatter extends AbstractDeclarativeFormatter {
 //	@Inject extension AGCLGrammarAccess
 	
 	override protected void configureFormatting(FormattingConfig c) {
+//		val g = getGrammarAccess() as AGCLGrammarAccess;
+//		g.PSLPropertyAccess.PSLDisjunctionParserRuleCall_0
 // It's usually a good idea to activate the following three statements.
 // They will add and preserve newlines around comments
 //		c.setLinewrap(0, 1, 2).before(SL_COMMENTRule)

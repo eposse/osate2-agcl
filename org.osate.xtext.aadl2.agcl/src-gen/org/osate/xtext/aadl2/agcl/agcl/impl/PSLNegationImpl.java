@@ -11,23 +11,23 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.osate.xtext.aadl2.agcl.agcl.AgclPackage;
-import org.osate.xtext.aadl2.agcl.agcl.PSLAlways;
 import org.osate.xtext.aadl2.agcl.agcl.PSLExpression;
+import org.osate.xtext.aadl2.agcl.agcl.PSLNegation;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>PSL Always</b></em>'.
+ * An implementation of the model object '<em><b>PSL Negation</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.xtext.aadl2.agcl.agcl.impl.PSLAlwaysImpl#getSubterm <em>Subterm</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.agcl.agcl.impl.PSLNegationImpl#getSubterm <em>Subterm</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class PSLAlwaysImpl extends PSLExpressionImpl implements PSLAlways
+public class PSLNegationImpl extends PSLExpressionImpl implements PSLNegation
 {
   /**
    * The cached value of the '{@link #getSubterm() <em>Subterm</em>}' containment reference.
@@ -44,7 +44,7 @@ public class PSLAlwaysImpl extends PSLExpressionImpl implements PSLAlways
    * <!-- end-user-doc -->
    * @generated
    */
-  protected PSLAlwaysImpl()
+  protected PSLNegationImpl()
   {
     super();
   }
@@ -57,7 +57,7 @@ public class PSLAlwaysImpl extends PSLExpressionImpl implements PSLAlways
   @Override
   protected EClass eStaticClass()
   {
-    return AgclPackage.Literals.PSL_ALWAYS;
+    return AgclPackage.Literals.PSL_NEGATION;
   }
 
   /**
@@ -81,7 +81,7 @@ public class PSLAlwaysImpl extends PSLExpressionImpl implements PSLAlways
     subterm = newSubterm;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AgclPackage.PSL_ALWAYS__SUBTERM, oldSubterm, newSubterm);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AgclPackage.PSL_NEGATION__SUBTERM, oldSubterm, newSubterm);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -98,14 +98,14 @@ public class PSLAlwaysImpl extends PSLExpressionImpl implements PSLAlways
     {
       NotificationChain msgs = null;
       if (subterm != null)
-        msgs = ((InternalEObject)subterm).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AgclPackage.PSL_ALWAYS__SUBTERM, null, msgs);
+        msgs = ((InternalEObject)subterm).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AgclPackage.PSL_NEGATION__SUBTERM, null, msgs);
       if (newSubterm != null)
-        msgs = ((InternalEObject)newSubterm).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AgclPackage.PSL_ALWAYS__SUBTERM, null, msgs);
+        msgs = ((InternalEObject)newSubterm).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AgclPackage.PSL_NEGATION__SUBTERM, null, msgs);
       msgs = basicSetSubterm(newSubterm, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AgclPackage.PSL_ALWAYS__SUBTERM, newSubterm, newSubterm));
+      eNotify(new ENotificationImpl(this, Notification.SET, AgclPackage.PSL_NEGATION__SUBTERM, newSubterm, newSubterm));
   }
 
   /**
@@ -118,7 +118,7 @@ public class PSLAlwaysImpl extends PSLExpressionImpl implements PSLAlways
   {
     switch (featureID)
     {
-      case AgclPackage.PSL_ALWAYS__SUBTERM:
+      case AgclPackage.PSL_NEGATION__SUBTERM:
         return basicSetSubterm(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -134,7 +134,7 @@ public class PSLAlwaysImpl extends PSLExpressionImpl implements PSLAlways
   {
     switch (featureID)
     {
-      case AgclPackage.PSL_ALWAYS__SUBTERM:
+      case AgclPackage.PSL_NEGATION__SUBTERM:
         return getSubterm();
     }
     return super.eGet(featureID, resolve, coreType);
@@ -150,7 +150,7 @@ public class PSLAlwaysImpl extends PSLExpressionImpl implements PSLAlways
   {
     switch (featureID)
     {
-      case AgclPackage.PSL_ALWAYS__SUBTERM:
+      case AgclPackage.PSL_NEGATION__SUBTERM:
         setSubterm((PSLExpression)newValue);
         return;
     }
@@ -167,7 +167,7 @@ public class PSLAlwaysImpl extends PSLExpressionImpl implements PSLAlways
   {
     switch (featureID)
     {
-      case AgclPackage.PSL_ALWAYS__SUBTERM:
+      case AgclPackage.PSL_NEGATION__SUBTERM:
         setSubterm((PSLExpression)null);
         return;
     }
@@ -184,10 +184,10 @@ public class PSLAlwaysImpl extends PSLExpressionImpl implements PSLAlways
   {
     switch (featureID)
     {
-      case AgclPackage.PSL_ALWAYS__SUBTERM:
+      case AgclPackage.PSL_NEGATION__SUBTERM:
         return subterm != null;
     }
     return super.eIsSet(featureID);
   }
 
-} //PSLAlwaysImpl
+} //PSLNegationImpl

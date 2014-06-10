@@ -257,6 +257,15 @@ public interface AgclFactory extends EFactory
   PSLUntil createPSLUntil();
 
   /**
+   * Returns a new object of class '<em>PSL Negation</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>PSL Negation</em>'.
+   * @generated
+   */
+  PSLNegation createPSLNegation();
+
+  /**
    * Returns the package supported by this factory.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

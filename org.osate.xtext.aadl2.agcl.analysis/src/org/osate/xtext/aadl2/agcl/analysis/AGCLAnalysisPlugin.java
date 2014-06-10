@@ -1,18 +1,13 @@
 package org.osate.xtext.aadl2.agcl.analysis;
 
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.file.FileAlreadyExistsException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
-import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -23,9 +18,9 @@ import org.eclipse.xtext.serializer.impl.Serializer;
 import org.osate.xtext.aadl2.agcl.AGCLStandaloneSetup;
 import org.osate.xtext.aadl2.agcl.analysis.config.IPreferenceConstants;
 import org.osate.xtext.aadl2.agcl.analysis.util.PathUtil;
-import org.osate.xtext.aadl2.agcl.analysis.util.Template;
 import org.osate.xtext.aadl2.agcl.analysis.util.TemplateManager;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.ModelChecker;
+import org.osate.xtext.aadl2.agcl.analysis.visitors.PSLSerializerExplicit;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
@@ -50,12 +45,13 @@ public class AGCLAnalysisPlugin extends AbstractUIPlugin {
 	private IPath bundleLoc = null;
 	private IPath stateLoc;
 	private Injector injector = new AGCLStandaloneSetup().createInjectorAndDoEMFRegistration();
-    private ISerializer serializer = injector.getInstance(Serializer.class);   
+    private ISerializer serializer = injector.getInstance(Serializer.class);  
+	private PSLSerializerExplicit altSerializer = new PSLSerializerExplicit();
     private TemplateManager templateManager;
     
 	private ModelChecker activeModelChecker;
 	private Map<String,ModelChecker> modelCheckerRegistry;
-
+	
 	/**
 	 * The constructor
 	 */
@@ -249,4 +245,19 @@ public class AGCLAnalysisPlugin extends AbstractUIPlugin {
 	public void setTemplateManager(TemplateManager templateManager) {
 		this.templateManager = templateManager;
 	}
+
+	/**
+	 * @return the altSerializer
+	 */
+	public PSLSerializerExplicit getAltSerializer() {
+		return altSerializer;
+	}
+
+	/**
+	 * @param altSerializer the altSerializer to set
+	 */
+	public void setAltSerializer(PSLSerializerExplicit altSerializer) {
+		this.altSerializer = altSerializer;
+	}
+	
 }
