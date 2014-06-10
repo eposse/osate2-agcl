@@ -547,15 +547,15 @@ public class AGCLGrammarAccess extends AbstractGrammarElementFinder {
 		////PSLSpecification returns verifiers::Specification:
 		////    PSLSpec
 		////;
-		//PSLSpec: //    'psl'? property = PSLFLProperty
+		//PSLSpec: //    'psl'? property = PSLProperty
 		//	"psl"? expr=PSLExpression;
 		public ParserRule getRule() { return rule; }
 
-		////    'psl'? property = PSLFLProperty
+		////    'psl'? property = PSLProperty
 		//"psl"? expr=PSLExpression
 		public Group getGroup() { return cGroup; }
 
-		////    'psl'? property = PSLFLProperty
+		////    'psl'? property = PSLProperty
 		//"psl"?
 		public Keyword getPslKeyword_0() { return cPslKeyword_0; }
 
@@ -568,80 +568,233 @@ public class AGCLGrammarAccess extends AbstractGrammarElementFinder {
 
 	public class PSLExpressionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PSLExpression");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cConditionAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cConditionPSLBooleanExpressionParserRuleCall_0_0 = (RuleCall)cConditionAssignment_0.eContents().get(0);
-		private final Alternatives cAlternatives_1 = (Alternatives)cGroup.eContents().get(1);
-		private final Group cGroup_1_0 = (Group)cAlternatives_1.eContents().get(0);
-		private final Assignment cImplicationAssignment_1_0_0 = (Assignment)cGroup_1_0.eContents().get(0);
-		private final RuleCall cImplicationIMPLTerminalRuleCall_1_0_0_0 = (RuleCall)cImplicationAssignment_1_0_0.eContents().get(0);
-		private final Assignment cConclusionAssignment_1_0_1 = (Assignment)cGroup_1_0.eContents().get(1);
-		private final RuleCall cConclusionPSLBooleanExpressionParserRuleCall_1_0_1_0 = (RuleCall)cConclusionAssignment_1_0_1.eContents().get(0);
-		private final Group cGroup_1_1 = (Group)cAlternatives_1.eContents().get(1);
-		private final Assignment cBiconditionalAssignment_1_1_0 = (Assignment)cGroup_1_1.eContents().get(0);
-		private final RuleCall cBiconditionalIFFTerminalRuleCall_1_1_0_0 = (RuleCall)cBiconditionalAssignment_1_1_0.eContents().get(0);
-		private final Assignment cOtherAssignment_1_1_1 = (Assignment)cGroup_1_1.eContents().get(1);
-		private final RuleCall cOtherPSLBooleanExpressionParserRuleCall_1_1_1_0 = (RuleCall)cOtherAssignment_1_1_1.eContents().get(0);
+		private final RuleCall cPSLNaryExprParserRuleCall = (RuleCall)rule.eContents().get(1);
 		
-		////PSLFLProperty returns PSLFLProperty:
-		////	PSLBooleanExpression
-		////	| PSLSequenceExpression (tight ?= '!')?
-		////	| PropertyName ( '(' args += ActualParameter ( "," args += ActualParameter)* ')' )?
-		////;
-		//PSLExpression:
-		//	condition=PSLBooleanExpression (implication?=IMPL conclusion=PSLBooleanExpression | biconditional?=IFF
-		//	other=PSLBooleanExpression)?;
+		//// We don't really include PSLPrimary in the top-level rule because it would lead to a non-LL(*) grammar with
+		//// the rule conflicting with PSLNary, more specifically with PSLConjunction. But we don't loose anything because
+		//// PSLPrimary expressions are then parsed by PSLNary
+		////	| PSLProperty
+		//PSLExpression: //	  PSLPrimary		
+		////	  PSLUnaryExpr
+		//	PSLNaryExpr;
 		public ParserRule getRule() { return rule; }
 
-		//condition=PSLBooleanExpression (implication?=IMPL conclusion=PSLBooleanExpression | biconditional?=IFF
-		//other=PSLBooleanExpression)?
+		////	  PSLPrimary		
+		////	  PSLUnaryExpr
+		//PSLNaryExpr
+		public RuleCall getPSLNaryExprParserRuleCall() { return cPSLNaryExprParserRuleCall; }
+	}
+
+	public class PSLPrimaryElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PSLPrimary");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cBooleanConstantParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cAtomicPropParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cPSLUnaryExprParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final RuleCall cPSLPropertyParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
+		private final Group cGroup_4 = (Group)cAlternatives.eContents().get(4);
+		private final Keyword cLeftParenthesisKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final RuleCall cPSLExpressionParserRuleCall_4_1 = (RuleCall)cGroup_4.eContents().get(1);
+		private final Keyword cRightParenthesisKeyword_4_2 = (Keyword)cGroup_4.eContents().get(2);
+		
+		//PSLPrimary returns PSLExpression:
+		//	BooleanConstant //	| IntConstant 
+		//	| AtomicProp | PSLUnaryExpr | PSLProperty | "(" PSLExpression ")";
+		public ParserRule getRule() { return rule; }
+
+		//BooleanConstant //	| IntConstant 
+		//| AtomicProp | PSLUnaryExpr | PSLProperty | "(" PSLExpression ")"
+		public Alternatives getAlternatives() { return cAlternatives; }
+
+		//BooleanConstant
+		public RuleCall getBooleanConstantParserRuleCall_0() { return cBooleanConstantParserRuleCall_0; }
+
+		//AtomicProp
+		public RuleCall getAtomicPropParserRuleCall_1() { return cAtomicPropParserRuleCall_1; }
+
+		//PSLUnaryExpr
+		public RuleCall getPSLUnaryExprParserRuleCall_2() { return cPSLUnaryExprParserRuleCall_2; }
+
+		//PSLProperty
+		public RuleCall getPSLPropertyParserRuleCall_3() { return cPSLPropertyParserRuleCall_3; }
+
+		//"(" PSLExpression ")"
+		public Group getGroup_4() { return cGroup_4; }
+
+		//"("
+		public Keyword getLeftParenthesisKeyword_4_0() { return cLeftParenthesisKeyword_4_0; }
+
+		//PSLExpression
+		public RuleCall getPSLExpressionParserRuleCall_4_1() { return cPSLExpressionParserRuleCall_4_1; }
+
+		//")"
+		public Keyword getRightParenthesisKeyword_4_2() { return cRightParenthesisKeyword_4_2; }
+	}
+
+	public class PSLUnaryExprElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PSLUnaryExpr");
+		private final RuleCall cPSLNegationParserRuleCall = (RuleCall)rule.eContents().get(1);
+		
+		//PSLUnaryExpr returns PSLExpression:
+		//	PSLNegation;
+		public ParserRule getRule() { return rule; }
+
+		//PSLNegation
+		public RuleCall getPSLNegationParserRuleCall() { return cPSLNegationParserRuleCall; }
+	}
+
+	public class PSLNaryExprElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PSLNaryExpr");
+		private final RuleCall cPSLBooleanExpressionParserRuleCall = (RuleCall)rule.eContents().get(1);
+		
+		//PSLNaryExpr returns PSLExpression:
+		//	PSLBooleanExpression;
+		public ParserRule getRule() { return rule; }
+
+		//PSLBooleanExpression
+		public RuleCall getPSLBooleanExpressionParserRuleCall() { return cPSLBooleanExpressionParserRuleCall; }
+	}
+
+	public class PSLPropertyElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PSLProperty");
+		private final RuleCall cPSLFLPropertyParserRuleCall = (RuleCall)rule.eContents().get(1);
+		
+		//PSLProperty returns PSLExpression:
+		//	PSLFLProperty;
+		public ParserRule getRule() { return rule; }
+
+		//PSLFLProperty
+		public RuleCall getPSLFLPropertyParserRuleCall() { return cPSLFLPropertyParserRuleCall; }
+	}
+
+	public class PSLFLPropertyElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PSLFLProperty");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
+		private final RuleCall cNEXTTerminalRuleCall_0_0 = (RuleCall)cGroup_0.eContents().get(0);
+		private final Assignment cSubtermAssignment_0_1 = (Assignment)cGroup_0.eContents().get(1);
+		private final RuleCall cSubtermPSLExpressionParserRuleCall_0_1_0 = (RuleCall)cSubtermAssignment_0_1.eContents().get(0);
+		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
+		private final RuleCall cEVENTUALLYTerminalRuleCall_1_0 = (RuleCall)cGroup_1.eContents().get(0);
+		private final Assignment cSubtermAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final RuleCall cSubtermPSLExpressionParserRuleCall_1_1_0 = (RuleCall)cSubtermAssignment_1_1.eContents().get(0);
+		private final Group cGroup_2 = (Group)cAlternatives.eContents().get(2);
+		private final RuleCall cALWAYSTerminalRuleCall_2_0 = (RuleCall)cGroup_2.eContents().get(0);
+		private final Assignment cSubtermAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
+		private final RuleCall cSubtermPSLExpressionParserRuleCall_2_1_0 = (RuleCall)cSubtermAssignment_2_1.eContents().get(0);
+		private final Group cGroup_3 = (Group)cAlternatives.eContents().get(3);
+		private final Keyword cLeftSquareBracketKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
+		private final Assignment cLeftAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
+		private final RuleCall cLeftPSLExpressionParserRuleCall_3_1_0 = (RuleCall)cLeftAssignment_3_1.eContents().get(0);
+		private final RuleCall cUNTILTerminalRuleCall_3_2 = (RuleCall)cGroup_3.eContents().get(2);
+		private final Assignment cRightAssignment_3_3 = (Assignment)cGroup_3.eContents().get(3);
+		private final RuleCall cRightPSLExpressionParserRuleCall_3_3_0 = (RuleCall)cRightAssignment_3_3.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_3_4 = (Keyword)cGroup_3.eContents().get(4);
+		
+		////	| PSLSequenceExpression (tight ?= '!')?
+		////	| PropertyName ( '(' args += ActualParameter ( "," args += ActualParameter)* ')' )?
+		//PSLFLProperty returns PSLExpression:
+		//	NEXT subterm=PSLExpression | EVENTUALLY subterm=PSLExpression | ALWAYS subterm=PSLExpression | "[" left=PSLExpression
+		//	UNTIL right=PSLExpression "]";
+		public ParserRule getRule() { return rule; }
+
+		//NEXT subterm=PSLExpression | EVENTUALLY subterm=PSLExpression | ALWAYS subterm=PSLExpression | "[" left=PSLExpression
+		//UNTIL right=PSLExpression "]"
+		public Alternatives getAlternatives() { return cAlternatives; }
+
+		//NEXT subterm=PSLExpression
+		public Group getGroup_0() { return cGroup_0; }
+
+		//NEXT
+		public RuleCall getNEXTTerminalRuleCall_0_0() { return cNEXTTerminalRuleCall_0_0; }
+
+		//subterm=PSLExpression
+		public Assignment getSubtermAssignment_0_1() { return cSubtermAssignment_0_1; }
+
+		//PSLExpression
+		public RuleCall getSubtermPSLExpressionParserRuleCall_0_1_0() { return cSubtermPSLExpressionParserRuleCall_0_1_0; }
+
+		//EVENTUALLY subterm=PSLExpression
+		public Group getGroup_1() { return cGroup_1; }
+
+		//EVENTUALLY
+		public RuleCall getEVENTUALLYTerminalRuleCall_1_0() { return cEVENTUALLYTerminalRuleCall_1_0; }
+
+		//subterm=PSLExpression
+		public Assignment getSubtermAssignment_1_1() { return cSubtermAssignment_1_1; }
+
+		//PSLExpression
+		public RuleCall getSubtermPSLExpressionParserRuleCall_1_1_0() { return cSubtermPSLExpressionParserRuleCall_1_1_0; }
+
+		//ALWAYS subterm=PSLExpression
+		public Group getGroup_2() { return cGroup_2; }
+
+		//ALWAYS
+		public RuleCall getALWAYSTerminalRuleCall_2_0() { return cALWAYSTerminalRuleCall_2_0; }
+
+		//subterm=PSLExpression
+		public Assignment getSubtermAssignment_2_1() { return cSubtermAssignment_2_1; }
+
+		//PSLExpression
+		public RuleCall getSubtermPSLExpressionParserRuleCall_2_1_0() { return cSubtermPSLExpressionParserRuleCall_2_1_0; }
+
+		//"[" left=PSLExpression UNTIL right=PSLExpression "]"
+		public Group getGroup_3() { return cGroup_3; }
+
+		//"["
+		public Keyword getLeftSquareBracketKeyword_3_0() { return cLeftSquareBracketKeyword_3_0; }
+
+		//left=PSLExpression
+		public Assignment getLeftAssignment_3_1() { return cLeftAssignment_3_1; }
+
+		//PSLExpression
+		public RuleCall getLeftPSLExpressionParserRuleCall_3_1_0() { return cLeftPSLExpressionParserRuleCall_3_1_0; }
+
+		//UNTIL
+		public RuleCall getUNTILTerminalRuleCall_3_2() { return cUNTILTerminalRuleCall_3_2; }
+
+		//right=PSLExpression
+		public Assignment getRightAssignment_3_3() { return cRightAssignment_3_3; }
+
+		//PSLExpression
+		public RuleCall getRightPSLExpressionParserRuleCall_3_3_0() { return cRightPSLExpressionParserRuleCall_3_3_0; }
+
+		//"]"
+		public Keyword getRightSquareBracketKeyword_3_4() { return cRightSquareBracketKeyword_3_4; }
+	}
+
+	public class PSLNegationElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PSLNegation");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final RuleCall cNOTTerminalRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
+		private final Assignment cNegatedAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cNegatedPSLBooleanExpressionParserRuleCall_1_0 = (RuleCall)cNegatedAssignment_1.eContents().get(0);
+		
+		////PSLExpression returns PSLExpression:
+		////	condition = PSLBooleanExpression (implication ?= IMPL conclusion = PSLBooleanExpression | biconditional ?= IFF other = PSLBooleanExpression)? 
+		////;
+		//PSLNegation returns PSLExpression:
+		//	NOT negated=PSLBooleanExpression;
+		public ParserRule getRule() { return rule; }
+
+		//NOT negated=PSLBooleanExpression
 		public Group getGroup() { return cGroup; }
 
-		//condition=PSLBooleanExpression
-		public Assignment getConditionAssignment_0() { return cConditionAssignment_0; }
+		//NOT
+		public RuleCall getNOTTerminalRuleCall_0() { return cNOTTerminalRuleCall_0; }
+
+		//negated=PSLBooleanExpression
+		public Assignment getNegatedAssignment_1() { return cNegatedAssignment_1; }
 
 		//PSLBooleanExpression
-		public RuleCall getConditionPSLBooleanExpressionParserRuleCall_0_0() { return cConditionPSLBooleanExpressionParserRuleCall_0_0; }
-
-		//(implication?=IMPL conclusion=PSLBooleanExpression | biconditional?=IFF other=PSLBooleanExpression)?
-		public Alternatives getAlternatives_1() { return cAlternatives_1; }
-
-		//implication?=IMPL conclusion=PSLBooleanExpression
-		public Group getGroup_1_0() { return cGroup_1_0; }
-
-		//implication?=IMPL
-		public Assignment getImplicationAssignment_1_0_0() { return cImplicationAssignment_1_0_0; }
-
-		//IMPL
-		public RuleCall getImplicationIMPLTerminalRuleCall_1_0_0_0() { return cImplicationIMPLTerminalRuleCall_1_0_0_0; }
-
-		//conclusion=PSLBooleanExpression
-		public Assignment getConclusionAssignment_1_0_1() { return cConclusionAssignment_1_0_1; }
-
-		//PSLBooleanExpression
-		public RuleCall getConclusionPSLBooleanExpressionParserRuleCall_1_0_1_0() { return cConclusionPSLBooleanExpressionParserRuleCall_1_0_1_0; }
-
-		//biconditional?=IFF other=PSLBooleanExpression
-		public Group getGroup_1_1() { return cGroup_1_1; }
-
-		//biconditional?=IFF
-		public Assignment getBiconditionalAssignment_1_1_0() { return cBiconditionalAssignment_1_1_0; }
-
-		//IFF
-		public RuleCall getBiconditionalIFFTerminalRuleCall_1_1_0_0() { return cBiconditionalIFFTerminalRuleCall_1_1_0_0; }
-
-		//other=PSLBooleanExpression
-		public Assignment getOtherAssignment_1_1_1() { return cOtherAssignment_1_1_1; }
-
-		//PSLBooleanExpression
-		public RuleCall getOtherPSLBooleanExpressionParserRuleCall_1_1_1_0() { return cOtherPSLBooleanExpressionParserRuleCall_1_1_1_0; }
+		public RuleCall getNegatedPSLBooleanExpressionParserRuleCall_1_0() { return cNegatedPSLBooleanExpressionParserRuleCall_1_0; }
 	}
 
 	public class PSLBooleanExpressionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PSLBooleanExpression");
 		private final RuleCall cPSLDisjunctionParserRuleCall = (RuleCall)rule.eContents().get(1);
 		
-		//PSLBooleanExpression:
+		//PSLBooleanExpression returns PSLExpression:
 		//	PSLDisjunction;
 		public ParserRule getRule() { return rule; }
 
@@ -649,34 +802,98 @@ public class AGCLGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getPSLDisjunctionParserRuleCall() { return cPSLDisjunctionParserRuleCall; }
 	}
 
+	public class PSLDisjunctionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PSLDisjunction");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cTermsAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cTermsPSLConjunctionParserRuleCall_0_0 = (RuleCall)cTermsAssignment_0.eContents().get(0);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final RuleCall cORTerminalRuleCall_1_0 = (RuleCall)cGroup_1.eContents().get(0);
+		private final Assignment cTermsAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final RuleCall cTermsPSLConjunctionParserRuleCall_1_1_0 = (RuleCall)cTermsAssignment_1_1.eContents().get(0);
+		
+		//PSLDisjunction returns PSLExpression:
+		//	terms+=PSLConjunction (OR terms+=PSLConjunction)*;
+		public ParserRule getRule() { return rule; }
+
+		//terms+=PSLConjunction (OR terms+=PSLConjunction)*
+		public Group getGroup() { return cGroup; }
+
+		//terms+=PSLConjunction
+		public Assignment getTermsAssignment_0() { return cTermsAssignment_0; }
+
+		//PSLConjunction
+		public RuleCall getTermsPSLConjunctionParserRuleCall_0_0() { return cTermsPSLConjunctionParserRuleCall_0_0; }
+
+		//(OR terms+=PSLConjunction)*
+		public Group getGroup_1() { return cGroup_1; }
+
+		//OR
+		public RuleCall getORTerminalRuleCall_1_0() { return cORTerminalRuleCall_1_0; }
+
+		//terms+=PSLConjunction
+		public Assignment getTermsAssignment_1_1() { return cTermsAssignment_1_1; }
+
+		//PSLConjunction
+		public RuleCall getTermsPSLConjunctionParserRuleCall_1_1_0() { return cTermsPSLConjunctionParserRuleCall_1_1_0; }
+	}
+
+	public class PSLConjunctionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PSLConjunction");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cFactorsAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cFactorsPSLPrimaryParserRuleCall_0_0 = (RuleCall)cFactorsAssignment_0.eContents().get(0);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final RuleCall cANDTerminalRuleCall_1_0 = (RuleCall)cGroup_1.eContents().get(0);
+		private final Assignment cFactorsAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final RuleCall cFactorsPSLPrimaryParserRuleCall_1_1_0 = (RuleCall)cFactorsAssignment_1_1.eContents().get(0);
+		
+		//PSLConjunction returns PSLExpression:
+		//	factors+=PSLPrimary (AND factors+=PSLPrimary)*;
+		public ParserRule getRule() { return rule; }
+
+		//factors+=PSLPrimary (AND factors+=PSLPrimary)*
+		public Group getGroup() { return cGroup; }
+
+		//factors+=PSLPrimary
+		public Assignment getFactorsAssignment_0() { return cFactorsAssignment_0; }
+
+		//PSLPrimary
+		public RuleCall getFactorsPSLPrimaryParserRuleCall_0_0() { return cFactorsPSLPrimaryParserRuleCall_0_0; }
+
+		//(AND factors+=PSLPrimary)*
+		public Group getGroup_1() { return cGroup_1; }
+
+		//AND
+		public RuleCall getANDTerminalRuleCall_1_0() { return cANDTerminalRuleCall_1_0; }
+
+		//factors+=PSLPrimary
+		public Assignment getFactorsAssignment_1_1() { return cFactorsAssignment_1_1; }
+
+		//PSLPrimary
+		public RuleCall getFactorsPSLPrimaryParserRuleCall_1_1_0() { return cFactorsPSLPrimaryParserRuleCall_1_1_0; }
+	}
+
 	public class BooleanConstantElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "BooleanConstant");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
-		private final Action cBooleanConstantAction_0_0 = (Action)cGroup_0.eContents().get(0);
-		private final Assignment cValAssignment_0_1 = (Assignment)cGroup_0.eContents().get(1);
-		private final RuleCall cValTRUETerminalRuleCall_0_1_0 = (RuleCall)cValAssignment_0_1.eContents().get(0);
+		private final Assignment cValAssignment_0 = (Assignment)cAlternatives.eContents().get(0);
+		private final RuleCall cValTRUETerminalRuleCall_0_0 = (RuleCall)cValAssignment_0.eContents().get(0);
 		private final Assignment cValAssignment_1 = (Assignment)cAlternatives.eContents().get(1);
 		private final RuleCall cValFALSETerminalRuleCall_1_0 = (RuleCall)cValAssignment_1.eContents().get(0);
 		
 		//BooleanConstant:
-		//	{BooleanConstant} val=TRUE | val=FALSE;
+		//	val=TRUE | val=FALSE;
 		public ParserRule getRule() { return rule; }
 
-		//{BooleanConstant} val=TRUE | val=FALSE
+		//val=TRUE | val=FALSE
 		public Alternatives getAlternatives() { return cAlternatives; }
 
-		//{BooleanConstant} val=TRUE
-		public Group getGroup_0() { return cGroup_0; }
-
-		//{BooleanConstant}
-		public Action getBooleanConstantAction_0_0() { return cBooleanConstantAction_0_0; }
-
 		//val=TRUE
-		public Assignment getValAssignment_0_1() { return cValAssignment_0_1; }
+		public Assignment getValAssignment_0() { return cValAssignment_0; }
 
 		//TRUE
-		public RuleCall getValTRUETerminalRuleCall_0_1_0() { return cValTRUETerminalRuleCall_0_1_0; }
+		public RuleCall getValTRUETerminalRuleCall_0_0() { return cValTRUETerminalRuleCall_0_0; }
 
 		//val=FALSE
 		public Assignment getValAssignment_1() { return cValAssignment_1; }
@@ -692,6 +909,9 @@ public class AGCLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cInputParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		private final RuleCall cOutputParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		
+		////IntConstant:
+		////	val = INT
+		////;
 		//AtomicProp:
 		//	Var | Input | Output;
 		public ParserRule getRule() { return rule; }
@@ -805,171 +1025,14 @@ public class AGCLGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getEventIDTerminalRuleCall_2_1_0() { return cEventIDTerminalRuleCall_2_1_0; }
 	}
 
-	public class PSLDisjunctionElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PSLDisjunction");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cTermsAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cTermsPSLConjunctionParserRuleCall_0_0 = (RuleCall)cTermsAssignment_0.eContents().get(0);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final RuleCall cORTerminalRuleCall_1_0 = (RuleCall)cGroup_1.eContents().get(0);
-		private final Assignment cTermsAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final RuleCall cTermsPSLConjunctionParserRuleCall_1_1_0 = (RuleCall)cTermsAssignment_1_1.eContents().get(0);
-		
-		//PSLDisjunction:
-		//	terms+=PSLConjunction (OR terms+=PSLConjunction)*;
-		public ParserRule getRule() { return rule; }
-
-		//terms+=PSLConjunction (OR terms+=PSLConjunction)*
-		public Group getGroup() { return cGroup; }
-
-		//terms+=PSLConjunction
-		public Assignment getTermsAssignment_0() { return cTermsAssignment_0; }
-
-		//PSLConjunction
-		public RuleCall getTermsPSLConjunctionParserRuleCall_0_0() { return cTermsPSLConjunctionParserRuleCall_0_0; }
-
-		//(OR terms+=PSLConjunction)*
-		public Group getGroup_1() { return cGroup_1; }
-
-		//OR
-		public RuleCall getORTerminalRuleCall_1_0() { return cORTerminalRuleCall_1_0; }
-
-		//terms+=PSLConjunction
-		public Assignment getTermsAssignment_1_1() { return cTermsAssignment_1_1; }
-
-		//PSLConjunction
-		public RuleCall getTermsPSLConjunctionParserRuleCall_1_1_0() { return cTermsPSLConjunctionParserRuleCall_1_1_0; }
-	}
-
-	public class PSLConjunctionElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PSLConjunction");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cFactorsAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cFactorsPSLAtomParserRuleCall_0_0 = (RuleCall)cFactorsAssignment_0.eContents().get(0);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final RuleCall cANDTerminalRuleCall_1_0 = (RuleCall)cGroup_1.eContents().get(0);
-		private final Assignment cFactorsAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final RuleCall cFactorsPSLAtomParserRuleCall_1_1_0 = (RuleCall)cFactorsAssignment_1_1.eContents().get(0);
-		
-		//PSLConjunction:
-		//	factors+=PSLAtom (AND factors+=PSLAtom)*;
-		public ParserRule getRule() { return rule; }
-
-		//factors+=PSLAtom (AND factors+=PSLAtom)*
-		public Group getGroup() { return cGroup; }
-
-		//factors+=PSLAtom
-		public Assignment getFactorsAssignment_0() { return cFactorsAssignment_0; }
-
-		//PSLAtom
-		public RuleCall getFactorsPSLAtomParserRuleCall_0_0() { return cFactorsPSLAtomParserRuleCall_0_0; }
-
-		//(AND factors+=PSLAtom)*
-		public Group getGroup_1() { return cGroup_1; }
-
-		//AND
-		public RuleCall getANDTerminalRuleCall_1_0() { return cANDTerminalRuleCall_1_0; }
-
-		//factors+=PSLAtom
-		public Assignment getFactorsAssignment_1_1() { return cFactorsAssignment_1_1; }
-
-		//PSLAtom
-		public RuleCall getFactorsPSLAtomParserRuleCall_1_1_0() { return cFactorsPSLAtomParserRuleCall_1_1_0; }
-	}
-
-	public class PSLAtomElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PSLAtom");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final RuleCall cBooleanConstantParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cAtomicPropParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		private final RuleCall cPSLNegationParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
-		private final Group cGroup_3 = (Group)cAlternatives.eContents().get(3);
-		private final Keyword cLeftParenthesisKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
-		private final RuleCall cPSLBooleanExpressionParserRuleCall_3_1 = (RuleCall)cGroup_3.eContents().get(1);
-		private final Keyword cRightParenthesisKeyword_3_2 = (Keyword)cGroup_3.eContents().get(2);
-		
-		//PSLAtom:
-		//	BooleanConstant | AtomicProp | PSLNegation | "(" PSLBooleanExpression ")";
-		public ParserRule getRule() { return rule; }
-
-		//BooleanConstant | AtomicProp | PSLNegation | "(" PSLBooleanExpression ")"
-		public Alternatives getAlternatives() { return cAlternatives; }
-
-		//BooleanConstant
-		public RuleCall getBooleanConstantParserRuleCall_0() { return cBooleanConstantParserRuleCall_0; }
-
-		//AtomicProp
-		public RuleCall getAtomicPropParserRuleCall_1() { return cAtomicPropParserRuleCall_1; }
-
-		//PSLNegation
-		public RuleCall getPSLNegationParserRuleCall_2() { return cPSLNegationParserRuleCall_2; }
-
-		//"(" PSLBooleanExpression ")"
-		public Group getGroup_3() { return cGroup_3; }
-
-		//"("
-		public Keyword getLeftParenthesisKeyword_3_0() { return cLeftParenthesisKeyword_3_0; }
-
-		//PSLBooleanExpression
-		public RuleCall getPSLBooleanExpressionParserRuleCall_3_1() { return cPSLBooleanExpressionParserRuleCall_3_1; }
-
-		//")"
-		public Keyword getRightParenthesisKeyword_3_2() { return cRightParenthesisKeyword_3_2; }
-	}
-
-	public class PSLNegationElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PSLNegation");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cNOTTerminalRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
-		private final Assignment cNegatedAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cNegatedPSLBooleanExpressionParserRuleCall_1_0 = (RuleCall)cNegatedAssignment_1.eContents().get(0);
-		
-		//PSLNegation:
-		//	NOT negated=PSLBooleanExpression;
-		public ParserRule getRule() { return rule; }
-
-		//NOT negated=PSLBooleanExpression
-		public Group getGroup() { return cGroup; }
-
-		//NOT
-		public RuleCall getNOTTerminalRuleCall_0() { return cNOTTerminalRuleCall_0; }
-
-		//negated=PSLBooleanExpression
-		public Assignment getNegatedAssignment_1() { return cNegatedAssignment_1; }
-
-		//PSLBooleanExpression
-		public RuleCall getNegatedPSLBooleanExpressionParserRuleCall_1_0() { return cNegatedPSLBooleanExpressionParserRuleCall_1_0; }
-	}
-
-	public class PSLSequenceExpressionElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PSLSequenceExpression");
-		private final Keyword cSeqKeyword = (Keyword)rule.eContents().get(1);
-		
-		//PSLSequenceExpression:
-		//	"seq";
-		public ParserRule getRule() { return rule; }
-
-		//"seq"
-		public Keyword getSeqKeyword() { return cSeqKeyword; }
-	}
-
 	public class ParameterElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Parameter");
 		private final RuleCall cIDTerminalRuleCall = (RuleCall)rule.eContents().get(1);
 		
+		////PSLSequenceExpression:
+		////	'seq'
+		////;
 		//Parameter:
-		//	ID;
-		public ParserRule getRule() { return rule; }
-
-		//ID
-		public RuleCall getIDTerminalRuleCall() { return cIDTerminalRuleCall; }
-	}
-
-	public class PropertyNameElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PropertyName");
-		private final RuleCall cIDTerminalRuleCall = (RuleCall)rule.eContents().get(1);
-		
-		//PropertyName:
 		//	ID;
 		public ParserRule getRule() { return rule; }
 
@@ -992,19 +1055,21 @@ public class AGCLGrammarAccess extends AbstractGrammarElementFinder {
 	private AGCLBehaviourElements pAGCLBehaviour;
 	private PSLSpecElements pPSLSpec;
 	private PSLExpressionElements pPSLExpression;
+	private PSLPrimaryElements pPSLPrimary;
+	private PSLUnaryExprElements pPSLUnaryExpr;
+	private PSLNaryExprElements pPSLNaryExpr;
+	private PSLPropertyElements pPSLProperty;
+	private PSLFLPropertyElements pPSLFLProperty;
+	private PSLNegationElements pPSLNegation;
 	private PSLBooleanExpressionElements pPSLBooleanExpression;
+	private PSLDisjunctionElements pPSLDisjunction;
+	private PSLConjunctionElements pPSLConjunction;
 	private BooleanConstantElements pBooleanConstant;
 	private AtomicPropElements pAtomicProp;
 	private VarElements pVar;
 	private InputElements pInput;
 	private OutputElements pOutput;
-	private PSLDisjunctionElements pPSLDisjunction;
-	private PSLConjunctionElements pPSLConjunction;
-	private PSLAtomElements pPSLAtom;
-	private PSLNegationElements pPSLNegation;
-	private PSLSequenceExpressionElements pPSLSequenceExpression;
 	private ParameterElements pParameter;
-	private PropertyNameElements pPropertyName;
 	private TerminalRule tSL_COMMENT;
 	private TerminalRule tTRUE;
 	private TerminalRule tFALSE;
@@ -1013,6 +1078,10 @@ public class AGCLGrammarAccess extends AbstractGrammarElementFinder {
 	private TerminalRule tNOT;
 	private TerminalRule tIMPL;
 	private TerminalRule tIFF;
+	private TerminalRule tNEXT;
+	private TerminalRule tEVENTUALLY;
+	private TerminalRule tALWAYS;
+	private TerminalRule tUNTIL;
 	
 	private final Grammar grammar;
 
@@ -1203,7 +1272,7 @@ public class AGCLGrammarAccess extends AbstractGrammarElementFinder {
 	////PSLSpecification returns verifiers::Specification:
 	////    PSLSpec
 	////;
-	//PSLSpec: //    'psl'? property = PSLFLProperty
+	//PSLSpec: //    'psl'? property = PSLProperty
 	//	"psl"? expr=PSLExpression;
 	public PSLSpecElements getPSLSpecAccess() {
 		return (pPSLSpec != null) ? pPSLSpec : (pPSLSpec = new PSLSpecElements());
@@ -1213,14 +1282,13 @@ public class AGCLGrammarAccess extends AbstractGrammarElementFinder {
 		return getPSLSpecAccess().getRule();
 	}
 
-	////PSLFLProperty returns PSLFLProperty:
-	////	PSLBooleanExpression
-	////	| PSLSequenceExpression (tight ?= '!')?
-	////	| PropertyName ( '(' args += ActualParameter ( "," args += ActualParameter)* ')' )?
-	////;
-	//PSLExpression:
-	//	condition=PSLBooleanExpression (implication?=IMPL conclusion=PSLBooleanExpression | biconditional?=IFF
-	//	other=PSLBooleanExpression)?;
+	//// We don't really include PSLPrimary in the top-level rule because it would lead to a non-LL(*) grammar with
+	//// the rule conflicting with PSLNary, more specifically with PSLConjunction. But we don't loose anything because
+	//// PSLPrimary expressions are then parsed by PSLNary
+	////	| PSLProperty
+	//PSLExpression: //	  PSLPrimary		
+	////	  PSLUnaryExpr
+	//	PSLNaryExpr;
 	public PSLExpressionElements getPSLExpressionAccess() {
 		return (pPSLExpression != null) ? pPSLExpression : (pPSLExpression = new PSLExpressionElements());
 	}
@@ -1229,7 +1297,74 @@ public class AGCLGrammarAccess extends AbstractGrammarElementFinder {
 		return getPSLExpressionAccess().getRule();
 	}
 
-	//PSLBooleanExpression:
+	//PSLPrimary returns PSLExpression:
+	//	BooleanConstant //	| IntConstant 
+	//	| AtomicProp | PSLUnaryExpr | PSLProperty | "(" PSLExpression ")";
+	public PSLPrimaryElements getPSLPrimaryAccess() {
+		return (pPSLPrimary != null) ? pPSLPrimary : (pPSLPrimary = new PSLPrimaryElements());
+	}
+	
+	public ParserRule getPSLPrimaryRule() {
+		return getPSLPrimaryAccess().getRule();
+	}
+
+	//PSLUnaryExpr returns PSLExpression:
+	//	PSLNegation;
+	public PSLUnaryExprElements getPSLUnaryExprAccess() {
+		return (pPSLUnaryExpr != null) ? pPSLUnaryExpr : (pPSLUnaryExpr = new PSLUnaryExprElements());
+	}
+	
+	public ParserRule getPSLUnaryExprRule() {
+		return getPSLUnaryExprAccess().getRule();
+	}
+
+	//PSLNaryExpr returns PSLExpression:
+	//	PSLBooleanExpression;
+	public PSLNaryExprElements getPSLNaryExprAccess() {
+		return (pPSLNaryExpr != null) ? pPSLNaryExpr : (pPSLNaryExpr = new PSLNaryExprElements());
+	}
+	
+	public ParserRule getPSLNaryExprRule() {
+		return getPSLNaryExprAccess().getRule();
+	}
+
+	//PSLProperty returns PSLExpression:
+	//	PSLFLProperty;
+	public PSLPropertyElements getPSLPropertyAccess() {
+		return (pPSLProperty != null) ? pPSLProperty : (pPSLProperty = new PSLPropertyElements());
+	}
+	
+	public ParserRule getPSLPropertyRule() {
+		return getPSLPropertyAccess().getRule();
+	}
+
+	////	| PSLSequenceExpression (tight ?= '!')?
+	////	| PropertyName ( '(' args += ActualParameter ( "," args += ActualParameter)* ')' )?
+	//PSLFLProperty returns PSLExpression:
+	//	NEXT subterm=PSLExpression | EVENTUALLY subterm=PSLExpression | ALWAYS subterm=PSLExpression | "[" left=PSLExpression
+	//	UNTIL right=PSLExpression "]";
+	public PSLFLPropertyElements getPSLFLPropertyAccess() {
+		return (pPSLFLProperty != null) ? pPSLFLProperty : (pPSLFLProperty = new PSLFLPropertyElements());
+	}
+	
+	public ParserRule getPSLFLPropertyRule() {
+		return getPSLFLPropertyAccess().getRule();
+	}
+
+	////PSLExpression returns PSLExpression:
+	////	condition = PSLBooleanExpression (implication ?= IMPL conclusion = PSLBooleanExpression | biconditional ?= IFF other = PSLBooleanExpression)? 
+	////;
+	//PSLNegation returns PSLExpression:
+	//	NOT negated=PSLBooleanExpression;
+	public PSLNegationElements getPSLNegationAccess() {
+		return (pPSLNegation != null) ? pPSLNegation : (pPSLNegation = new PSLNegationElements());
+	}
+	
+	public ParserRule getPSLNegationRule() {
+		return getPSLNegationAccess().getRule();
+	}
+
+	//PSLBooleanExpression returns PSLExpression:
 	//	PSLDisjunction;
 	public PSLBooleanExpressionElements getPSLBooleanExpressionAccess() {
 		return (pPSLBooleanExpression != null) ? pPSLBooleanExpression : (pPSLBooleanExpression = new PSLBooleanExpressionElements());
@@ -1239,8 +1374,28 @@ public class AGCLGrammarAccess extends AbstractGrammarElementFinder {
 		return getPSLBooleanExpressionAccess().getRule();
 	}
 
+	//PSLDisjunction returns PSLExpression:
+	//	terms+=PSLConjunction (OR terms+=PSLConjunction)*;
+	public PSLDisjunctionElements getPSLDisjunctionAccess() {
+		return (pPSLDisjunction != null) ? pPSLDisjunction : (pPSLDisjunction = new PSLDisjunctionElements());
+	}
+	
+	public ParserRule getPSLDisjunctionRule() {
+		return getPSLDisjunctionAccess().getRule();
+	}
+
+	//PSLConjunction returns PSLExpression:
+	//	factors+=PSLPrimary (AND factors+=PSLPrimary)*;
+	public PSLConjunctionElements getPSLConjunctionAccess() {
+		return (pPSLConjunction != null) ? pPSLConjunction : (pPSLConjunction = new PSLConjunctionElements());
+	}
+	
+	public ParserRule getPSLConjunctionRule() {
+		return getPSLConjunctionAccess().getRule();
+	}
+
 	//BooleanConstant:
-	//	{BooleanConstant} val=TRUE | val=FALSE;
+	//	val=TRUE | val=FALSE;
 	public BooleanConstantElements getBooleanConstantAccess() {
 		return (pBooleanConstant != null) ? pBooleanConstant : (pBooleanConstant = new BooleanConstantElements());
 	}
@@ -1249,6 +1404,9 @@ public class AGCLGrammarAccess extends AbstractGrammarElementFinder {
 		return getBooleanConstantAccess().getRule();
 	}
 
+	////IntConstant:
+	////	val = INT
+	////;
 	//AtomicProp:
 	//	Var | Input | Output;
 	public AtomicPropElements getAtomicPropAccess() {
@@ -1289,56 +1447,9 @@ public class AGCLGrammarAccess extends AbstractGrammarElementFinder {
 		return getOutputAccess().getRule();
 	}
 
-	//PSLDisjunction:
-	//	terms+=PSLConjunction (OR terms+=PSLConjunction)*;
-	public PSLDisjunctionElements getPSLDisjunctionAccess() {
-		return (pPSLDisjunction != null) ? pPSLDisjunction : (pPSLDisjunction = new PSLDisjunctionElements());
-	}
-	
-	public ParserRule getPSLDisjunctionRule() {
-		return getPSLDisjunctionAccess().getRule();
-	}
-
-	//PSLConjunction:
-	//	factors+=PSLAtom (AND factors+=PSLAtom)*;
-	public PSLConjunctionElements getPSLConjunctionAccess() {
-		return (pPSLConjunction != null) ? pPSLConjunction : (pPSLConjunction = new PSLConjunctionElements());
-	}
-	
-	public ParserRule getPSLConjunctionRule() {
-		return getPSLConjunctionAccess().getRule();
-	}
-
-	//PSLAtom:
-	//	BooleanConstant | AtomicProp | PSLNegation | "(" PSLBooleanExpression ")";
-	public PSLAtomElements getPSLAtomAccess() {
-		return (pPSLAtom != null) ? pPSLAtom : (pPSLAtom = new PSLAtomElements());
-	}
-	
-	public ParserRule getPSLAtomRule() {
-		return getPSLAtomAccess().getRule();
-	}
-
-	//PSLNegation:
-	//	NOT negated=PSLBooleanExpression;
-	public PSLNegationElements getPSLNegationAccess() {
-		return (pPSLNegation != null) ? pPSLNegation : (pPSLNegation = new PSLNegationElements());
-	}
-	
-	public ParserRule getPSLNegationRule() {
-		return getPSLNegationAccess().getRule();
-	}
-
-	//PSLSequenceExpression:
-	//	"seq";
-	public PSLSequenceExpressionElements getPSLSequenceExpressionAccess() {
-		return (pPSLSequenceExpression != null) ? pPSLSequenceExpression : (pPSLSequenceExpression = new PSLSequenceExpressionElements());
-	}
-	
-	public ParserRule getPSLSequenceExpressionRule() {
-		return getPSLSequenceExpressionAccess().getRule();
-	}
-
+	////PSLSequenceExpression:
+	////	'seq'
+	////;
 	//Parameter:
 	//	ID;
 	public ParameterElements getParameterAccess() {
@@ -1349,16 +1460,8 @@ public class AGCLGrammarAccess extends AbstractGrammarElementFinder {
 		return getParameterAccess().getRule();
 	}
 
-	//PropertyName:
-	//	ID;
-	public PropertyNameElements getPropertyNameAccess() {
-		return (pPropertyName != null) ? pPropertyName : (pPropertyName = new PropertyNameElements());
-	}
-	
-	public ParserRule getPropertyNameRule() {
-		return getPropertyNameAccess().getRule();
-	}
-
+	////PropertyName returns PropertyName:
+	////	ID;
 	////EString returns ecore::EString:
 	////    STRING | ID;
 	//terminal SL_COMMENT:
@@ -1407,6 +1510,30 @@ public class AGCLGrammarAccess extends AbstractGrammarElementFinder {
 	//	"<->";
 	public TerminalRule getIFFRule() {
 		return (tIFF != null) ? tIFF : (tIFF = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "IFF"));
+	} 
+
+	//terminal NEXT:
+	//	"X" | "next";
+	public TerminalRule getNEXTRule() {
+		return (tNEXT != null) ? tNEXT : (tNEXT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "NEXT"));
+	} 
+
+	//terminal EVENTUALLY:
+	//	"F" | "eventually";
+	public TerminalRule getEVENTUALLYRule() {
+		return (tEVENTUALLY != null) ? tEVENTUALLY : (tEVENTUALLY = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "EVENTUALLY"));
+	} 
+
+	//terminal ALWAYS:
+	//	"G" | "always";
+	public TerminalRule getALWAYSRule() {
+		return (tALWAYS != null) ? tALWAYS : (tALWAYS = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "ALWAYS"));
+	} 
+
+	//terminal UNTIL:
+	//	"U" | "until";
+	public TerminalRule getUNTILRule() {
+		return (tUNTIL != null) ? tUNTIL : (tUNTIL = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "UNTIL"));
 	} 
 
 	//terminal ID:

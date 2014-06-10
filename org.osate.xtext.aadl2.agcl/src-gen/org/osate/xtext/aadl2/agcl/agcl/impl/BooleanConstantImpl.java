@@ -24,7 +24,7 @@ import org.osate.xtext.aadl2.agcl.agcl.BooleanConstant;
  *
  * @generated
  */
-public class BooleanConstantImpl extends PSLAtomImpl implements BooleanConstant
+public class BooleanConstantImpl extends PSLExpressionImpl implements BooleanConstant
 {
   /**
    * The default value of the '{@link #getVal() <em>Val</em>}' attribute.

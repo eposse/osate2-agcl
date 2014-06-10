@@ -76,18 +76,12 @@ public class AgclFactoryImpl extends EFactoryImpl implements AgclFactory
       case AgclPackage.AGCL_BEHAVIOUR: return createAGCLBehaviour();
       case AgclPackage.PSL_SPEC: return createPSLSpec();
       case AgclPackage.PSL_EXPRESSION: return createPSLExpression();
-      case AgclPackage.PSL_BOOLEAN_EXPRESSION: return createPSLBooleanExpression();
       case AgclPackage.BOOLEAN_CONSTANT: return createBooleanConstant();
       case AgclPackage.ATOMIC_PROP: return createAtomicProp();
       case AgclPackage.VAR: return createVar();
       case AgclPackage.INPUT: return createInput();
       case AgclPackage.OUTPUT: return createOutput();
-      case AgclPackage.PSL_DISJUNCTION: return createPSLDisjunction();
-      case AgclPackage.PSL_CONJUNCTION: return createPSLConjunction();
-      case AgclPackage.PSL_ATOM: return createPSLAtom();
-      case AgclPackage.PSL_NEGATION: return createPSLNegation();
       case AgclPackage.PARAMETER: return createParameter();
-      case AgclPackage.PROPERTY_NAME: return createPropertyName();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -230,17 +224,6 @@ public class AgclFactoryImpl extends EFactoryImpl implements AgclFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public PSLBooleanExpression createPSLBooleanExpression()
-  {
-    PSLBooleanExpressionImpl pslBooleanExpression = new PSLBooleanExpressionImpl();
-    return pslBooleanExpression;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public BooleanConstant createBooleanConstant()
   {
     BooleanConstantImpl booleanConstant = new BooleanConstantImpl();
@@ -296,65 +279,10 @@ public class AgclFactoryImpl extends EFactoryImpl implements AgclFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public PSLDisjunction createPSLDisjunction()
-  {
-    PSLDisjunctionImpl pslDisjunction = new PSLDisjunctionImpl();
-    return pslDisjunction;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public PSLConjunction createPSLConjunction()
-  {
-    PSLConjunctionImpl pslConjunction = new PSLConjunctionImpl();
-    return pslConjunction;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public PSLAtom createPSLAtom()
-  {
-    PSLAtomImpl pslAtom = new PSLAtomImpl();
-    return pslAtom;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public PSLNegation createPSLNegation()
-  {
-    PSLNegationImpl pslNegation = new PSLNegationImpl();
-    return pslNegation;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public Parameter createParameter()
   {
     ParameterImpl parameter = new ParameterImpl();
     return parameter;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public PropertyName createPropertyName()
-  {
-    PropertyNameImpl propertyName = new PropertyNameImpl();
-    return propertyName;
   }
 
   /**

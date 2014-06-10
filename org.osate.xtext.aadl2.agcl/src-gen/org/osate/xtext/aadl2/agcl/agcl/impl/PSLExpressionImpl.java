@@ -2,8 +2,12 @@
  */
 package org.osate.xtext.aadl2.agcl.agcl.impl;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -11,8 +15,10 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
+
 import org.osate.xtext.aadl2.agcl.agcl.AgclPackage;
-import org.osate.xtext.aadl2.agcl.agcl.PSLBooleanExpression;
 import org.osate.xtext.aadl2.agcl.agcl.PSLExpression;
 
 /**
@@ -22,11 +28,12 @@ import org.osate.xtext.aadl2.agcl.agcl.PSLExpression;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.xtext.aadl2.agcl.agcl.impl.PSLExpressionImpl#getCondition <em>Condition</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.agcl.agcl.impl.PSLExpressionImpl#isImplication <em>Implication</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.agcl.agcl.impl.PSLExpressionImpl#getConclusion <em>Conclusion</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.agcl.agcl.impl.PSLExpressionImpl#isBiconditional <em>Biconditional</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.agcl.agcl.impl.PSLExpressionImpl#getOther <em>Other</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.agcl.agcl.impl.PSLExpressionImpl#getSubterm <em>Subterm</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.agcl.agcl.impl.PSLExpressionImpl#getLeft <em>Left</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.agcl.agcl.impl.PSLExpressionImpl#getRight <em>Right</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.agcl.agcl.impl.PSLExpressionImpl#getNegated <em>Negated</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.agcl.agcl.impl.PSLExpressionImpl#getTerms <em>Terms</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.agcl.agcl.impl.PSLExpressionImpl#getFactors <em>Factors</em>}</li>
  * </ul>
  * </p>
  *
@@ -35,74 +42,64 @@ import org.osate.xtext.aadl2.agcl.agcl.PSLExpression;
 public class PSLExpressionImpl extends MinimalEObjectImpl.Container implements PSLExpression
 {
   /**
-   * The cached value of the '{@link #getCondition() <em>Condition</em>}' containment reference.
+   * The cached value of the '{@link #getSubterm() <em>Subterm</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getCondition()
+   * @see #getSubterm()
    * @generated
    * @ordered
    */
-  protected PSLBooleanExpression condition;
+  protected PSLExpression subterm;
 
   /**
-   * The default value of the '{@link #isImplication() <em>Implication</em>}' attribute.
+   * The cached value of the '{@link #getLeft() <em>Left</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #isImplication()
+   * @see #getLeft()
    * @generated
    * @ordered
    */
-  protected static final boolean IMPLICATION_EDEFAULT = false;
+  protected PSLExpression left;
 
   /**
-   * The cached value of the '{@link #isImplication() <em>Implication</em>}' attribute.
+   * The cached value of the '{@link #getRight() <em>Right</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #isImplication()
+   * @see #getRight()
    * @generated
    * @ordered
    */
-  protected boolean implication = IMPLICATION_EDEFAULT;
+  protected PSLExpression right;
 
   /**
-   * The cached value of the '{@link #getConclusion() <em>Conclusion</em>}' containment reference.
+   * The cached value of the '{@link #getNegated() <em>Negated</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getConclusion()
+   * @see #getNegated()
    * @generated
    * @ordered
    */
-  protected PSLBooleanExpression conclusion;
+  protected PSLExpression negated;
 
   /**
-   * The default value of the '{@link #isBiconditional() <em>Biconditional</em>}' attribute.
+   * The cached value of the '{@link #getTerms() <em>Terms</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #isBiconditional()
+   * @see #getTerms()
    * @generated
    * @ordered
    */
-  protected static final boolean BICONDITIONAL_EDEFAULT = false;
+  protected EList<PSLExpression> terms;
 
   /**
-   * The cached value of the '{@link #isBiconditional() <em>Biconditional</em>}' attribute.
+   * The cached value of the '{@link #getFactors() <em>Factors</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #isBiconditional()
+   * @see #getFactors()
    * @generated
    * @ordered
    */
-  protected boolean biconditional = BICONDITIONAL_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getOther() <em>Other</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getOther()
-   * @generated
-   * @ordered
-   */
-  protected PSLBooleanExpression other;
+  protected EList<PSLExpression> factors;
 
   /**
    * <!-- begin-user-doc -->
@@ -130,9 +127,9 @@ public class PSLExpressionImpl extends MinimalEObjectImpl.Container implements P
    * <!-- end-user-doc -->
    * @generated
    */
-  public PSLBooleanExpression getCondition()
+  public PSLExpression getSubterm()
   {
-    return condition;
+    return subterm;
   }
 
   /**
@@ -140,13 +137,13 @@ public class PSLExpressionImpl extends MinimalEObjectImpl.Container implements P
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetCondition(PSLBooleanExpression newCondition, NotificationChain msgs)
+  public NotificationChain basicSetSubterm(PSLExpression newSubterm, NotificationChain msgs)
   {
-    PSLBooleanExpression oldCondition = condition;
-    condition = newCondition;
+    PSLExpression oldSubterm = subterm;
+    subterm = newSubterm;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AgclPackage.PSL_EXPRESSION__CONDITION, oldCondition, newCondition);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AgclPackage.PSL_EXPRESSION__SUBTERM, oldSubterm, newSubterm);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -157,20 +154,20 @@ public class PSLExpressionImpl extends MinimalEObjectImpl.Container implements P
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setCondition(PSLBooleanExpression newCondition)
+  public void setSubterm(PSLExpression newSubterm)
   {
-    if (newCondition != condition)
+    if (newSubterm != subterm)
     {
       NotificationChain msgs = null;
-      if (condition != null)
-        msgs = ((InternalEObject)condition).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AgclPackage.PSL_EXPRESSION__CONDITION, null, msgs);
-      if (newCondition != null)
-        msgs = ((InternalEObject)newCondition).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AgclPackage.PSL_EXPRESSION__CONDITION, null, msgs);
-      msgs = basicSetCondition(newCondition, msgs);
+      if (subterm != null)
+        msgs = ((InternalEObject)subterm).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AgclPackage.PSL_EXPRESSION__SUBTERM, null, msgs);
+      if (newSubterm != null)
+        msgs = ((InternalEObject)newSubterm).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AgclPackage.PSL_EXPRESSION__SUBTERM, null, msgs);
+      msgs = basicSetSubterm(newSubterm, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AgclPackage.PSL_EXPRESSION__CONDITION, newCondition, newCondition));
+      eNotify(new ENotificationImpl(this, Notification.SET, AgclPackage.PSL_EXPRESSION__SUBTERM, newSubterm, newSubterm));
   }
 
   /**
@@ -178,9 +175,9 @@ public class PSLExpressionImpl extends MinimalEObjectImpl.Container implements P
    * <!-- end-user-doc -->
    * @generated
    */
-  public boolean isImplication()
+  public PSLExpression getLeft()
   {
-    return implication;
+    return left;
   }
 
   /**
@@ -188,36 +185,13 @@ public class PSLExpressionImpl extends MinimalEObjectImpl.Container implements P
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setImplication(boolean newImplication)
+  public NotificationChain basicSetLeft(PSLExpression newLeft, NotificationChain msgs)
   {
-    boolean oldImplication = implication;
-    implication = newImplication;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AgclPackage.PSL_EXPRESSION__IMPLICATION, oldImplication, implication));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public PSLBooleanExpression getConclusion()
-  {
-    return conclusion;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetConclusion(PSLBooleanExpression newConclusion, NotificationChain msgs)
-  {
-    PSLBooleanExpression oldConclusion = conclusion;
-    conclusion = newConclusion;
+    PSLExpression oldLeft = left;
+    left = newLeft;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AgclPackage.PSL_EXPRESSION__CONCLUSION, oldConclusion, newConclusion);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AgclPackage.PSL_EXPRESSION__LEFT, oldLeft, newLeft);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -228,20 +202,20 @@ public class PSLExpressionImpl extends MinimalEObjectImpl.Container implements P
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setConclusion(PSLBooleanExpression newConclusion)
+  public void setLeft(PSLExpression newLeft)
   {
-    if (newConclusion != conclusion)
+    if (newLeft != left)
     {
       NotificationChain msgs = null;
-      if (conclusion != null)
-        msgs = ((InternalEObject)conclusion).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AgclPackage.PSL_EXPRESSION__CONCLUSION, null, msgs);
-      if (newConclusion != null)
-        msgs = ((InternalEObject)newConclusion).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AgclPackage.PSL_EXPRESSION__CONCLUSION, null, msgs);
-      msgs = basicSetConclusion(newConclusion, msgs);
+      if (left != null)
+        msgs = ((InternalEObject)left).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AgclPackage.PSL_EXPRESSION__LEFT, null, msgs);
+      if (newLeft != null)
+        msgs = ((InternalEObject)newLeft).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AgclPackage.PSL_EXPRESSION__LEFT, null, msgs);
+      msgs = basicSetLeft(newLeft, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AgclPackage.PSL_EXPRESSION__CONCLUSION, newConclusion, newConclusion));
+      eNotify(new ENotificationImpl(this, Notification.SET, AgclPackage.PSL_EXPRESSION__LEFT, newLeft, newLeft));
   }
 
   /**
@@ -249,9 +223,9 @@ public class PSLExpressionImpl extends MinimalEObjectImpl.Container implements P
    * <!-- end-user-doc -->
    * @generated
    */
-  public boolean isBiconditional()
+  public PSLExpression getRight()
   {
-    return biconditional;
+    return right;
   }
 
   /**
@@ -259,36 +233,13 @@ public class PSLExpressionImpl extends MinimalEObjectImpl.Container implements P
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setBiconditional(boolean newBiconditional)
+  public NotificationChain basicSetRight(PSLExpression newRight, NotificationChain msgs)
   {
-    boolean oldBiconditional = biconditional;
-    biconditional = newBiconditional;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AgclPackage.PSL_EXPRESSION__BICONDITIONAL, oldBiconditional, biconditional));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public PSLBooleanExpression getOther()
-  {
-    return other;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetOther(PSLBooleanExpression newOther, NotificationChain msgs)
-  {
-    PSLBooleanExpression oldOther = other;
-    other = newOther;
+    PSLExpression oldRight = right;
+    right = newRight;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AgclPackage.PSL_EXPRESSION__OTHER, oldOther, newOther);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AgclPackage.PSL_EXPRESSION__RIGHT, oldRight, newRight);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -299,20 +250,96 @@ public class PSLExpressionImpl extends MinimalEObjectImpl.Container implements P
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setOther(PSLBooleanExpression newOther)
+  public void setRight(PSLExpression newRight)
   {
-    if (newOther != other)
+    if (newRight != right)
     {
       NotificationChain msgs = null;
-      if (other != null)
-        msgs = ((InternalEObject)other).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AgclPackage.PSL_EXPRESSION__OTHER, null, msgs);
-      if (newOther != null)
-        msgs = ((InternalEObject)newOther).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AgclPackage.PSL_EXPRESSION__OTHER, null, msgs);
-      msgs = basicSetOther(newOther, msgs);
+      if (right != null)
+        msgs = ((InternalEObject)right).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AgclPackage.PSL_EXPRESSION__RIGHT, null, msgs);
+      if (newRight != null)
+        msgs = ((InternalEObject)newRight).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AgclPackage.PSL_EXPRESSION__RIGHT, null, msgs);
+      msgs = basicSetRight(newRight, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AgclPackage.PSL_EXPRESSION__OTHER, newOther, newOther));
+      eNotify(new ENotificationImpl(this, Notification.SET, AgclPackage.PSL_EXPRESSION__RIGHT, newRight, newRight));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PSLExpression getNegated()
+  {
+    return negated;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetNegated(PSLExpression newNegated, NotificationChain msgs)
+  {
+    PSLExpression oldNegated = negated;
+    negated = newNegated;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AgclPackage.PSL_EXPRESSION__NEGATED, oldNegated, newNegated);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setNegated(PSLExpression newNegated)
+  {
+    if (newNegated != negated)
+    {
+      NotificationChain msgs = null;
+      if (negated != null)
+        msgs = ((InternalEObject)negated).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AgclPackage.PSL_EXPRESSION__NEGATED, null, msgs);
+      if (newNegated != null)
+        msgs = ((InternalEObject)newNegated).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AgclPackage.PSL_EXPRESSION__NEGATED, null, msgs);
+      msgs = basicSetNegated(newNegated, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AgclPackage.PSL_EXPRESSION__NEGATED, newNegated, newNegated));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<PSLExpression> getTerms()
+  {
+    if (terms == null)
+    {
+      terms = new EObjectContainmentEList<PSLExpression>(PSLExpression.class, this, AgclPackage.PSL_EXPRESSION__TERMS);
+    }
+    return terms;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<PSLExpression> getFactors()
+  {
+    if (factors == null)
+    {
+      factors = new EObjectContainmentEList<PSLExpression>(PSLExpression.class, this, AgclPackage.PSL_EXPRESSION__FACTORS);
+    }
+    return factors;
   }
 
   /**
@@ -325,12 +352,18 @@ public class PSLExpressionImpl extends MinimalEObjectImpl.Container implements P
   {
     switch (featureID)
     {
-      case AgclPackage.PSL_EXPRESSION__CONDITION:
-        return basicSetCondition(null, msgs);
-      case AgclPackage.PSL_EXPRESSION__CONCLUSION:
-        return basicSetConclusion(null, msgs);
-      case AgclPackage.PSL_EXPRESSION__OTHER:
-        return basicSetOther(null, msgs);
+      case AgclPackage.PSL_EXPRESSION__SUBTERM:
+        return basicSetSubterm(null, msgs);
+      case AgclPackage.PSL_EXPRESSION__LEFT:
+        return basicSetLeft(null, msgs);
+      case AgclPackage.PSL_EXPRESSION__RIGHT:
+        return basicSetRight(null, msgs);
+      case AgclPackage.PSL_EXPRESSION__NEGATED:
+        return basicSetNegated(null, msgs);
+      case AgclPackage.PSL_EXPRESSION__TERMS:
+        return ((InternalEList<?>)getTerms()).basicRemove(otherEnd, msgs);
+      case AgclPackage.PSL_EXPRESSION__FACTORS:
+        return ((InternalEList<?>)getFactors()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -345,16 +378,18 @@ public class PSLExpressionImpl extends MinimalEObjectImpl.Container implements P
   {
     switch (featureID)
     {
-      case AgclPackage.PSL_EXPRESSION__CONDITION:
-        return getCondition();
-      case AgclPackage.PSL_EXPRESSION__IMPLICATION:
-        return isImplication();
-      case AgclPackage.PSL_EXPRESSION__CONCLUSION:
-        return getConclusion();
-      case AgclPackage.PSL_EXPRESSION__BICONDITIONAL:
-        return isBiconditional();
-      case AgclPackage.PSL_EXPRESSION__OTHER:
-        return getOther();
+      case AgclPackage.PSL_EXPRESSION__SUBTERM:
+        return getSubterm();
+      case AgclPackage.PSL_EXPRESSION__LEFT:
+        return getLeft();
+      case AgclPackage.PSL_EXPRESSION__RIGHT:
+        return getRight();
+      case AgclPackage.PSL_EXPRESSION__NEGATED:
+        return getNegated();
+      case AgclPackage.PSL_EXPRESSION__TERMS:
+        return getTerms();
+      case AgclPackage.PSL_EXPRESSION__FACTORS:
+        return getFactors();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -364,25 +399,31 @@ public class PSLExpressionImpl extends MinimalEObjectImpl.Container implements P
    * <!-- end-user-doc -->
    * @generated
    */
+  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
     switch (featureID)
     {
-      case AgclPackage.PSL_EXPRESSION__CONDITION:
-        setCondition((PSLBooleanExpression)newValue);
+      case AgclPackage.PSL_EXPRESSION__SUBTERM:
+        setSubterm((PSLExpression)newValue);
         return;
-      case AgclPackage.PSL_EXPRESSION__IMPLICATION:
-        setImplication((Boolean)newValue);
+      case AgclPackage.PSL_EXPRESSION__LEFT:
+        setLeft((PSLExpression)newValue);
         return;
-      case AgclPackage.PSL_EXPRESSION__CONCLUSION:
-        setConclusion((PSLBooleanExpression)newValue);
+      case AgclPackage.PSL_EXPRESSION__RIGHT:
+        setRight((PSLExpression)newValue);
         return;
-      case AgclPackage.PSL_EXPRESSION__BICONDITIONAL:
-        setBiconditional((Boolean)newValue);
+      case AgclPackage.PSL_EXPRESSION__NEGATED:
+        setNegated((PSLExpression)newValue);
         return;
-      case AgclPackage.PSL_EXPRESSION__OTHER:
-        setOther((PSLBooleanExpression)newValue);
+      case AgclPackage.PSL_EXPRESSION__TERMS:
+        getTerms().clear();
+        getTerms().addAll((Collection<? extends PSLExpression>)newValue);
+        return;
+      case AgclPackage.PSL_EXPRESSION__FACTORS:
+        getFactors().clear();
+        getFactors().addAll((Collection<? extends PSLExpression>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -398,20 +439,23 @@ public class PSLExpressionImpl extends MinimalEObjectImpl.Container implements P
   {
     switch (featureID)
     {
-      case AgclPackage.PSL_EXPRESSION__CONDITION:
-        setCondition((PSLBooleanExpression)null);
+      case AgclPackage.PSL_EXPRESSION__SUBTERM:
+        setSubterm((PSLExpression)null);
         return;
-      case AgclPackage.PSL_EXPRESSION__IMPLICATION:
-        setImplication(IMPLICATION_EDEFAULT);
+      case AgclPackage.PSL_EXPRESSION__LEFT:
+        setLeft((PSLExpression)null);
         return;
-      case AgclPackage.PSL_EXPRESSION__CONCLUSION:
-        setConclusion((PSLBooleanExpression)null);
+      case AgclPackage.PSL_EXPRESSION__RIGHT:
+        setRight((PSLExpression)null);
         return;
-      case AgclPackage.PSL_EXPRESSION__BICONDITIONAL:
-        setBiconditional(BICONDITIONAL_EDEFAULT);
+      case AgclPackage.PSL_EXPRESSION__NEGATED:
+        setNegated((PSLExpression)null);
         return;
-      case AgclPackage.PSL_EXPRESSION__OTHER:
-        setOther((PSLBooleanExpression)null);
+      case AgclPackage.PSL_EXPRESSION__TERMS:
+        getTerms().clear();
+        return;
+      case AgclPackage.PSL_EXPRESSION__FACTORS:
+        getFactors().clear();
         return;
     }
     super.eUnset(featureID);
@@ -427,37 +471,20 @@ public class PSLExpressionImpl extends MinimalEObjectImpl.Container implements P
   {
     switch (featureID)
     {
-      case AgclPackage.PSL_EXPRESSION__CONDITION:
-        return condition != null;
-      case AgclPackage.PSL_EXPRESSION__IMPLICATION:
-        return implication != IMPLICATION_EDEFAULT;
-      case AgclPackage.PSL_EXPRESSION__CONCLUSION:
-        return conclusion != null;
-      case AgclPackage.PSL_EXPRESSION__BICONDITIONAL:
-        return biconditional != BICONDITIONAL_EDEFAULT;
-      case AgclPackage.PSL_EXPRESSION__OTHER:
-        return other != null;
+      case AgclPackage.PSL_EXPRESSION__SUBTERM:
+        return subterm != null;
+      case AgclPackage.PSL_EXPRESSION__LEFT:
+        return left != null;
+      case AgclPackage.PSL_EXPRESSION__RIGHT:
+        return right != null;
+      case AgclPackage.PSL_EXPRESSION__NEGATED:
+        return negated != null;
+      case AgclPackage.PSL_EXPRESSION__TERMS:
+        return terms != null && !terms.isEmpty();
+      case AgclPackage.PSL_EXPRESSION__FACTORS:
+        return factors != null && !factors.isEmpty();
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (implication: ");
-    result.append(implication);
-    result.append(", biconditional: ");
-    result.append(biconditional);
-    result.append(')');
-    return result.toString();
   }
 
 } //PSLExpressionImpl

@@ -30,19 +30,32 @@ public class AGCLSyntacticSequencer extends AbstractSyntacticSequencer {
 	
 	@Override
 	protected String getUnassignedRuleCallToken(EObject semanticObject, RuleCall ruleCall, INode node) {
-		if(ruleCall.getRule() == grammarAccess.getANDRule())
+		if(ruleCall.getRule() == grammarAccess.getALWAYSRule())
+			return getALWAYSToken(semanticObject, ruleCall, node);
+		else if(ruleCall.getRule() == grammarAccess.getANDRule())
 			return getANDToken(semanticObject, ruleCall, node);
+		else if(ruleCall.getRule() == grammarAccess.getEVENTUALLYRule())
+			return getEVENTUALLYToken(semanticObject, ruleCall, node);
 		else if(ruleCall.getRule() == grammarAccess.getIDRule())
 			return getIDToken(semanticObject, ruleCall, node);
-		else if(ruleCall.getRule() == grammarAccess.getIFFRule())
-			return getIFFToken(semanticObject, ruleCall, node);
-		else if(ruleCall.getRule() == grammarAccess.getIMPLRule())
-			return getIMPLToken(semanticObject, ruleCall, node);
+		else if(ruleCall.getRule() == grammarAccess.getNEXTRule())
+			return getNEXTToken(semanticObject, ruleCall, node);
 		else if(ruleCall.getRule() == grammarAccess.getNOTRule())
 			return getNOTToken(semanticObject, ruleCall, node);
 		else if(ruleCall.getRule() == grammarAccess.getORRule())
 			return getORToken(semanticObject, ruleCall, node);
+		else if(ruleCall.getRule() == grammarAccess.getUNTILRule())
+			return getUNTILToken(semanticObject, ruleCall, node);
 		return "";
+	}
+	
+	/**
+	 * terminal ALWAYS: 'G' | 'always';
+	 */
+	protected String getALWAYSToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		if (node != null)
+			return getTokenText(node);
+		return "G";
 	}
 	
 	/**
@@ -55,6 +68,15 @@ public class AGCLSyntacticSequencer extends AbstractSyntacticSequencer {
 	}
 	
 	/**
+	 * terminal EVENTUALLY: 'F' | 'eventually';
+	 */
+	protected String getEVENTUALLYToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		if (node != null)
+			return getTokenText(node);
+		return "F";
+	}
+	
+	/**
 	 * terminal ID  		: '^'?('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;
 	 */
 	protected String getIDToken(EObject semanticObject, RuleCall ruleCall, INode node) {
@@ -64,21 +86,12 @@ public class AGCLSyntacticSequencer extends AbstractSyntacticSequencer {
 	}
 	
 	/**
-	 * terminal IFF: '<->';
+	 * terminal NEXT: 'X' | 'next';
 	 */
-	protected String getIFFToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+	protected String getNEXTToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (node != null)
 			return getTokenText(node);
-		return "<->";
-	}
-	
-	/**
-	 * terminal IMPL: '->';
-	 */
-	protected String getIMPLToken(EObject semanticObject, RuleCall ruleCall, INode node) {
-		if (node != null)
-			return getTokenText(node);
-		return "->";
+		return "X";
 	}
 	
 	/**
@@ -99,6 +112,15 @@ public class AGCLSyntacticSequencer extends AbstractSyntacticSequencer {
 		return "||";
 	}
 	
+	/**
+	 * terminal UNTIL: 'U' | 'until';
+	 */
+	protected String getUNTILToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		if (node != null)
+			return getTokenText(node);
+		return "U";
+	}
+	
 	@Override
 	protected void emitUnassignedTokens(EObject semanticObject, ISynTransition transition, INode fromNode, INode toNode) {
 		if (transition.getAmbiguousSyntaxes().isEmpty()) return;
@@ -115,7 +137,7 @@ public class AGCLSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	/**
 	 * Syntax:
-	 *     'behavior' | 'behaviour'
+	 *     'behaviour' | 'behavior'
 	 */
 	protected void emit_AGCLBehaviour_BehaviorKeyword_0_1_or_BehaviourKeyword_0_0(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);

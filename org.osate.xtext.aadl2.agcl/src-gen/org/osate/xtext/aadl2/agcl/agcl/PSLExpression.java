@@ -2,6 +2,8 @@
  */
 package org.osate.xtext.aadl2.agcl.agcl;
 
+import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -12,11 +14,12 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.xtext.aadl2.agcl.agcl.PSLExpression#getCondition <em>Condition</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.agcl.agcl.PSLExpression#isImplication <em>Implication</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.agcl.agcl.PSLExpression#getConclusion <em>Conclusion</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.agcl.agcl.PSLExpression#isBiconditional <em>Biconditional</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.agcl.agcl.PSLExpression#getOther <em>Other</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.agcl.agcl.PSLExpression#getSubterm <em>Subterm</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.agcl.agcl.PSLExpression#getLeft <em>Left</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.agcl.agcl.PSLExpression#getRight <em>Right</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.agcl.agcl.PSLExpression#getNegated <em>Negated</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.agcl.agcl.PSLExpression#getTerms <em>Terms</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.agcl.agcl.PSLExpression#getFactors <em>Factors</em>}</li>
  * </ul>
  * </p>
  *
@@ -27,133 +30,139 @@ import org.eclipse.emf.ecore.EObject;
 public interface PSLExpression extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Condition</b></em>' containment reference.
+   * Returns the value of the '<em><b>Subterm</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Condition</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Subterm</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Condition</em>' containment reference.
-   * @see #setCondition(PSLBooleanExpression)
-   * @see org.osate.xtext.aadl2.agcl.agcl.AgclPackage#getPSLExpression_Condition()
+   * @return the value of the '<em>Subterm</em>' containment reference.
+   * @see #setSubterm(PSLExpression)
+   * @see org.osate.xtext.aadl2.agcl.agcl.AgclPackage#getPSLExpression_Subterm()
    * @model containment="true"
    * @generated
    */
-  PSLBooleanExpression getCondition();
+  PSLExpression getSubterm();
 
   /**
-   * Sets the value of the '{@link org.osate.xtext.aadl2.agcl.agcl.PSLExpression#getCondition <em>Condition</em>}' containment reference.
+   * Sets the value of the '{@link org.osate.xtext.aadl2.agcl.agcl.PSLExpression#getSubterm <em>Subterm</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Condition</em>' containment reference.
-   * @see #getCondition()
+   * @param value the new value of the '<em>Subterm</em>' containment reference.
+   * @see #getSubterm()
    * @generated
    */
-  void setCondition(PSLBooleanExpression value);
+  void setSubterm(PSLExpression value);
 
   /**
-   * Returns the value of the '<em><b>Implication</b></em>' attribute.
+   * Returns the value of the '<em><b>Left</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Implication</em>' attribute isn't clear,
+   * If the meaning of the '<em>Left</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Implication</em>' attribute.
-   * @see #setImplication(boolean)
-   * @see org.osate.xtext.aadl2.agcl.agcl.AgclPackage#getPSLExpression_Implication()
-   * @model
-   * @generated
-   */
-  boolean isImplication();
-
-  /**
-   * Sets the value of the '{@link org.osate.xtext.aadl2.agcl.agcl.PSLExpression#isImplication <em>Implication</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Implication</em>' attribute.
-   * @see #isImplication()
-   * @generated
-   */
-  void setImplication(boolean value);
-
-  /**
-   * Returns the value of the '<em><b>Conclusion</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Conclusion</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Conclusion</em>' containment reference.
-   * @see #setConclusion(PSLBooleanExpression)
-   * @see org.osate.xtext.aadl2.agcl.agcl.AgclPackage#getPSLExpression_Conclusion()
+   * @return the value of the '<em>Left</em>' containment reference.
+   * @see #setLeft(PSLExpression)
+   * @see org.osate.xtext.aadl2.agcl.agcl.AgclPackage#getPSLExpression_Left()
    * @model containment="true"
    * @generated
    */
-  PSLBooleanExpression getConclusion();
+  PSLExpression getLeft();
 
   /**
-   * Sets the value of the '{@link org.osate.xtext.aadl2.agcl.agcl.PSLExpression#getConclusion <em>Conclusion</em>}' containment reference.
+   * Sets the value of the '{@link org.osate.xtext.aadl2.agcl.agcl.PSLExpression#getLeft <em>Left</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Conclusion</em>' containment reference.
-   * @see #getConclusion()
+   * @param value the new value of the '<em>Left</em>' containment reference.
+   * @see #getLeft()
    * @generated
    */
-  void setConclusion(PSLBooleanExpression value);
+  void setLeft(PSLExpression value);
 
   /**
-   * Returns the value of the '<em><b>Biconditional</b></em>' attribute.
+   * Returns the value of the '<em><b>Right</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Biconditional</em>' attribute isn't clear,
+   * If the meaning of the '<em>Right</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Biconditional</em>' attribute.
-   * @see #setBiconditional(boolean)
-   * @see org.osate.xtext.aadl2.agcl.agcl.AgclPackage#getPSLExpression_Biconditional()
-   * @model
-   * @generated
-   */
-  boolean isBiconditional();
-
-  /**
-   * Sets the value of the '{@link org.osate.xtext.aadl2.agcl.agcl.PSLExpression#isBiconditional <em>Biconditional</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Biconditional</em>' attribute.
-   * @see #isBiconditional()
-   * @generated
-   */
-  void setBiconditional(boolean value);
-
-  /**
-   * Returns the value of the '<em><b>Other</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Other</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Other</em>' containment reference.
-   * @see #setOther(PSLBooleanExpression)
-   * @see org.osate.xtext.aadl2.agcl.agcl.AgclPackage#getPSLExpression_Other()
+   * @return the value of the '<em>Right</em>' containment reference.
+   * @see #setRight(PSLExpression)
+   * @see org.osate.xtext.aadl2.agcl.agcl.AgclPackage#getPSLExpression_Right()
    * @model containment="true"
    * @generated
    */
-  PSLBooleanExpression getOther();
+  PSLExpression getRight();
 
   /**
-   * Sets the value of the '{@link org.osate.xtext.aadl2.agcl.agcl.PSLExpression#getOther <em>Other</em>}' containment reference.
+   * Sets the value of the '{@link org.osate.xtext.aadl2.agcl.agcl.PSLExpression#getRight <em>Right</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Other</em>' containment reference.
-   * @see #getOther()
+   * @param value the new value of the '<em>Right</em>' containment reference.
+   * @see #getRight()
    * @generated
    */
-  void setOther(PSLBooleanExpression value);
+  void setRight(PSLExpression value);
+
+  /**
+   * Returns the value of the '<em><b>Negated</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Negated</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Negated</em>' containment reference.
+   * @see #setNegated(PSLExpression)
+   * @see org.osate.xtext.aadl2.agcl.agcl.AgclPackage#getPSLExpression_Negated()
+   * @model containment="true"
+   * @generated
+   */
+  PSLExpression getNegated();
+
+  /**
+   * Sets the value of the '{@link org.osate.xtext.aadl2.agcl.agcl.PSLExpression#getNegated <em>Negated</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Negated</em>' containment reference.
+   * @see #getNegated()
+   * @generated
+   */
+  void setNegated(PSLExpression value);
+
+  /**
+   * Returns the value of the '<em><b>Terms</b></em>' containment reference list.
+   * The list contents are of type {@link org.osate.xtext.aadl2.agcl.agcl.PSLExpression}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Terms</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Terms</em>' containment reference list.
+   * @see org.osate.xtext.aadl2.agcl.agcl.AgclPackage#getPSLExpression_Terms()
+   * @model containment="true"
+   * @generated
+   */
+  EList<PSLExpression> getTerms();
+
+  /**
+   * Returns the value of the '<em><b>Factors</b></em>' containment reference list.
+   * The list contents are of type {@link org.osate.xtext.aadl2.agcl.agcl.PSLExpression}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Factors</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Factors</em>' containment reference list.
+   * @see org.osate.xtext.aadl2.agcl.agcl.AgclPackage#getPSLExpression_Factors()
+   * @model containment="true"
+   * @generated
+   */
+  EList<PSLExpression> getFactors();
 
 } // PSLExpression

@@ -131,15 +131,6 @@ public interface AgclFactory extends EFactory
   PSLExpression createPSLExpression();
 
   /**
-   * Returns a new object of class '<em>PSL Boolean Expression</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>PSL Boolean Expression</em>'.
-   * @generated
-   */
-  PSLBooleanExpression createPSLBooleanExpression();
-
-  /**
    * Returns a new object of class '<em>Boolean Constant</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -185,42 +176,6 @@ public interface AgclFactory extends EFactory
   Output createOutput();
 
   /**
-   * Returns a new object of class '<em>PSL Disjunction</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>PSL Disjunction</em>'.
-   * @generated
-   */
-  PSLDisjunction createPSLDisjunction();
-
-  /**
-   * Returns a new object of class '<em>PSL Conjunction</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>PSL Conjunction</em>'.
-   * @generated
-   */
-  PSLConjunction createPSLConjunction();
-
-  /**
-   * Returns a new object of class '<em>PSL Atom</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>PSL Atom</em>'.
-   * @generated
-   */
-  PSLAtom createPSLAtom();
-
-  /**
-   * Returns a new object of class '<em>PSL Negation</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>PSL Negation</em>'.
-   * @generated
-   */
-  PSLNegation createPSLNegation();
-
-  /**
    * Returns a new object of class '<em>Parameter</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -228,15 +183,6 @@ public interface AgclFactory extends EFactory
    * @generated
    */
   Parameter createParameter();
-
-  /**
-   * Returns a new object of class '<em>Property Name</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Property Name</em>'.
-   * @generated
-   */
-  PropertyName createPropertyName();
 
   /**
    * Returns the package supported by this factory.

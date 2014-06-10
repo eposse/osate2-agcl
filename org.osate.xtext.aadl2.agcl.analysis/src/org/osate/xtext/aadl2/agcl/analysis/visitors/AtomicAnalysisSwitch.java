@@ -41,6 +41,13 @@ import org.osate.xtext.aadl2.agcl.analysis.verifiers.VerificationResult;
  * formulas into LTL formulas, but since PSL is strictly more expressive than LTL, some PSL formulas may not
  * be checked or may give incorrect results.
  * 
+ * <p>This analysis, and in particular the {@link #checkBehaviourSatisfiesContract(AGCLBehaviour, AGCLContract, String, String)}
+ * implements Algorithm 4 of 
+ * 
+ * <p> Ernesto Posse, <em>Contract-based compositional analysis for reactive systems in RTEdge, an
+ * AADL-based language</em>, Technical Report 2013-607, School of Computing, Queen's University. Sept. 2013.
+ * <a href="http://sites.cs.queensu.ca/tr/">http://sites.cs.queensu.ca/tr/</a>
+ * 
  * @author Ernesto Posse
  *
  */
@@ -94,6 +101,15 @@ public class AtomicAnalysisSwitch extends CommonAGCLAnalysisSwitch {
 	 * <p>is a *valid* formula in the temporal-logic, i.e., that it holds for all models. Validity
 	 * checking is performed by model-checking the formula for a <em>universal model</em>, a model that
 	 * contains all possible behaviours. 
+	 * 
+	 * <p>This method implements, roughly (*), Algorithm 4 of 
+	 * 
+	 * <p> Ernesto Posse, <em>Contract-based compositional analysis for reactive systems in RTEdge, an
+	 * AADL-based language</em>, Technical Report 2013-607, School of Computing, Queen's University. Sept. 2013.
+	 * <a href="http://sites.cs.queensu.ca/tr/">http://sites.cs.queensu.ca/tr/</a>
+	 * 
+	 * <p>(*) In the Tech. Report the input to the algorithm is an implementation of the component, which then
+	 * is translated into a behaviour specification in PSL. Here we already get that behaviour as input.
 	 * 
 	 * @param behaviour 	a temporal-logic specification of the behaviour of a thread implementation
 	 * @param contract		an assume/guarantee contract 

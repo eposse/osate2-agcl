@@ -51,13 +51,13 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference AGCL.ecore#//PSLSpec/expr"/>
     </genClasses>
     <genClasses ecoreClass="AGCL.ecore#//PSLExpression">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference AGCL.ecore#//PSLExpression/condition"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute AGCL.ecore#//PSLExpression/implication"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference AGCL.ecore#//PSLExpression/conclusion"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute AGCL.ecore#//PSLExpression/biconditional"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference AGCL.ecore#//PSLExpression/other"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference AGCL.ecore#//PSLExpression/subterm"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference AGCL.ecore#//PSLExpression/left"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference AGCL.ecore#//PSLExpression/right"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference AGCL.ecore#//PSLExpression/negated"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference AGCL.ecore#//PSLExpression/terms"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference AGCL.ecore#//PSLExpression/factors"/>
     </genClasses>
-    <genClasses ecoreClass="AGCL.ecore#//PSLBooleanExpression"/>
     <genClasses ecoreClass="AGCL.ecore#//BooleanConstant">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute AGCL.ecore#//BooleanConstant/val"/>
     </genClasses>
@@ -73,17 +73,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute AGCL.ecore#//Output/link"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute AGCL.ecore#//Output/event"/>
     </genClasses>
-    <genClasses ecoreClass="AGCL.ecore#//PSLDisjunction">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference AGCL.ecore#//PSLDisjunction/terms"/>
-    </genClasses>
-    <genClasses ecoreClass="AGCL.ecore#//PSLConjunction">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference AGCL.ecore#//PSLConjunction/factors"/>
-    </genClasses>
-    <genClasses ecoreClass="AGCL.ecore#//PSLAtom"/>
-    <genClasses ecoreClass="AGCL.ecore#//PSLNegation">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference AGCL.ecore#//PSLNegation/negated"/>
-    </genClasses>
     <genClasses ecoreClass="AGCL.ecore#//Parameter"/>
-    <genClasses ecoreClass="AGCL.ecore#//PropertyName"/>
   </genPackages>
 </genmodel:GenModel>

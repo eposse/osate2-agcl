@@ -73,6 +73,7 @@ public class ViewpointCollectionImpl extends MinimalEObjectImpl.Container implem
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * @return the {@link Viewpoint} of the given name if present, or {@code null} otherwise.
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */

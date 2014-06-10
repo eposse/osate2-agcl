@@ -19,7 +19,7 @@ package org.osate.xtext.aadl2.agcl.agcl;
  * @model
  * @generated
  */
-public interface BooleanConstant extends PSLAtom
+public interface BooleanConstant extends PSLExpression
 {
   /**
    * Returns the value of the '<em><b>Val</b></em>' attribute.

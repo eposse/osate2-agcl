@@ -13,6 +13,6 @@ package org.osate.xtext.aadl2.agcl.agcl;
  * @model
  * @generated
  */
-public interface AtomicProp extends PSLAtom
+public interface AtomicProp extends PSLExpression
 {
 } // AtomicProp

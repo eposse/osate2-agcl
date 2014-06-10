@@ -16,7 +16,7 @@ import org.osate.xtext.aadl2.agcl.agcl.AtomicProp;
  *
  * @generated
  */
-public class AtomicPropImpl extends PSLAtomImpl implements AtomicProp
+public class AtomicPropImpl extends PSLExpressionImpl implements AtomicProp
 {
   /**
    * <!-- begin-user-doc -->

@@ -102,28 +102,80 @@ AGCLBehaviour returns AGCLBehaviour:
 //;
 
 PSLSpec returns PSLSpec:
-//    'psl'? property = PSLFLProperty
+//    'psl'? property = PSLProperty
 	'psl'? expr = PSLExpression
 ;
 
-//PSLFLProperty returns PSLFLProperty:
-//	PSLBooleanExpression
-//	| PSLSequenceExpression (tight ?= '!')?
-//	| PropertyName ( '(' args += ActualParameter ( "," args += ActualParameter)* ')' )?
-//;
-
+// We don't really include PSLPrimary in the top-level rule because it would lead to a non-LL(*) grammar with
+// the rule conflicting with PSLNary, more specifically with PSLConjunction. But we don't loose anything because
+// PSLPrimary expressions are then parsed by PSLNary
 PSLExpression returns PSLExpression:
-	condition = PSLBooleanExpression (implication ?= IMPL conclusion = PSLBooleanExpression | biconditional ?= IFF other = PSLBooleanExpression)? 
+//	  PSLPrimary		
+//	  PSLUnaryExpr
+	  PSLNaryExpr
+//	| PSLProperty
 ;
 
-PSLBooleanExpression returns PSLBooleanExpression:
+PSLPrimary returns PSLExpression: 
+	  BooleanConstant
+//	| IntConstant 
+	| AtomicProp
+	| PSLUnaryExpr
+	| PSLProperty
+	| '(' PSLExpression ')'
+;
+
+PSLUnaryExpr returns PSLExpression:
+	PSLNegation
+;
+
+PSLNaryExpr returns PSLExpression:
+	PSLBooleanExpression
+;
+
+PSLProperty returns PSLExpression:
+	  PSLFLProperty
+;
+
+
+
+PSLFLProperty returns PSLExpression:
+	  NEXT subterm = PSLExpression
+	| EVENTUALLY subterm = PSLExpression
+	| ALWAYS subterm = PSLExpression
+	| '[' left = PSLExpression UNTIL right = PSLExpression ']'  	
+//	| PSLSequenceExpression (tight ?= '!')?
+//	| PropertyName ( '(' args += ActualParameter ( "," args += ActualParameter)* ')' )?
+;
+
+//PSLExpression returns PSLExpression:
+//	condition = PSLBooleanExpression (implication ?= IMPL conclusion = PSLBooleanExpression | biconditional ?= IFF other = PSLBooleanExpression)? 
+//;
+
+PSLNegation returns PSLExpression:
+    NOT negated = PSLBooleanExpression
+;
+
+PSLBooleanExpression returns PSLExpression:
     PSLDisjunction
 ;
 
-BooleanConstant returns BooleanConstant:
-    {BooleanConstant}
+PSLDisjunction returns PSLExpression:
+    terms += PSLConjunction (OR terms += PSLConjunction)*
+;
+
+PSLConjunction returns PSLExpression:
+    factors += PSLPrimary (AND factors += PSLPrimary)*
+;
+
+
+BooleanConstant:
 	val = TRUE | val = FALSE
 ;
+
+//IntConstant:
+//	val = INT
+//;
 
 AtomicProp:
       Var
@@ -143,35 +195,17 @@ Output:
     'out' link = ID (':' event = ID)? 
 ;
 
-PSLDisjunction:
-    terms += PSLConjunction (OR terms += PSLConjunction)*
-;
 
-PSLConjunction:
-    factors += PSLAtom (AND factors += PSLAtom)*
-;
-
-PSLAtom:
-      BooleanConstant
-    | AtomicProp
-    | PSLNegation
-    | '(' PSLBooleanExpression ')'
-;
-
-PSLNegation:
-    NOT negated = PSLBooleanExpression
-;
-
-PSLSequenceExpression:
-	'seq'
-;
+//PSLSequenceExpression:
+//	'seq'
+//;
 
 Parameter returns Parameter:
     ID;
     
    
-PropertyName returns PropertyName:
-	ID;
+//PropertyName returns PropertyName:
+//	ID;
 
 //EString returns ecore::EString:
 //    STRING | ID;
@@ -186,4 +220,9 @@ terminal OR: '||' | '|' | 'or';
 terminal NOT: '!' | 'not';
 terminal IMPL: '->';
 terminal IFF: '<->';
+terminal NEXT: 'X' | 'next';
+terminal EVENTUALLY: 'F' | 'eventually';
+terminal ALWAYS: 'G' | 'always';
+terminal UNTIL: 'U' | 'until';
+
  

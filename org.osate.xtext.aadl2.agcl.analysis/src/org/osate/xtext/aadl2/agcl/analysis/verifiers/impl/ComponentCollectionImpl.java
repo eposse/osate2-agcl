@@ -4,6 +4,7 @@ package org.osate.xtext.aadl2.agcl.analysis.verifiers.impl;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
+
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
@@ -73,6 +74,7 @@ public class ComponentCollectionImpl extends MinimalEObjectImpl.Container implem
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * @return the {@link Component} of the given name if present, or {@code null} otherwise.
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -90,8 +92,10 @@ public class ComponentCollectionImpl extends MinimalEObjectImpl.Container implem
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * Adds a new component if it is not already in the collection.
+	 * 
+	 * @return the existing {@link Component} if it was already in the collection, or the newly created instance if it was not.
 	 * <!-- end-user-doc -->
-	 * @return 
 	 * @generated NOT
 	 */
 	public Component addComponent(String componentName, Object object) {
@@ -107,6 +111,7 @@ public class ComponentCollectionImpl extends MinimalEObjectImpl.Container implem
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * Removes the component of the given name if present in the collection.
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -116,6 +121,7 @@ public class ComponentCollectionImpl extends MinimalEObjectImpl.Container implem
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * @return {@code true} iff the collection contains a component with the given name
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */

@@ -27,10 +27,7 @@ import org.osate.xtext.aadl2.agcl.agcl.AgclPackage;
 import org.osate.xtext.aadl2.agcl.agcl.BooleanConstant;
 import org.osate.xtext.aadl2.agcl.agcl.Input;
 import org.osate.xtext.aadl2.agcl.agcl.Output;
-import org.osate.xtext.aadl2.agcl.agcl.PSLConjunction;
-import org.osate.xtext.aadl2.agcl.agcl.PSLDisjunction;
 import org.osate.xtext.aadl2.agcl.agcl.PSLExpression;
-import org.osate.xtext.aadl2.agcl.agcl.PSLNegation;
 import org.osate.xtext.aadl2.agcl.agcl.PSLSpec;
 import org.osate.xtext.aadl2.agcl.agcl.Var;
 import org.osate.xtext.aadl2.agcl.services.AGCLGrammarAccess;
@@ -107,7 +104,7 @@ public class AGCLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				else break;
 			case AgclPackage.BOOLEAN_CONSTANT:
 				if(context == grammarAccess.getBooleanConstantRule() ||
-				   context == grammarAccess.getPSLAtomRule()) {
+				   context == grammarAccess.getPSLPrimaryRule()) {
 					sequence_BooleanConstant(context, (BooleanConstant) semanticObject); 
 					return; 
 				}
@@ -115,7 +112,7 @@ public class AGCLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 			case AgclPackage.INPUT:
 				if(context == grammarAccess.getAtomicPropRule() ||
 				   context == grammarAccess.getInputRule() ||
-				   context == grammarAccess.getPSLAtomRule()) {
+				   context == grammarAccess.getPSLPrimaryRule()) {
 					sequence_Input(context, (Input) semanticObject); 
 					return; 
 				}
@@ -123,35 +120,35 @@ public class AGCLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 			case AgclPackage.OUTPUT:
 				if(context == grammarAccess.getAtomicPropRule() ||
 				   context == grammarAccess.getOutputRule() ||
-				   context == grammarAccess.getPSLAtomRule()) {
+				   context == grammarAccess.getPSLPrimaryRule()) {
 					sequence_Output(context, (Output) semanticObject); 
 					return; 
 				}
 				else break;
-			case AgclPackage.PSL_CONJUNCTION:
-				if(context == grammarAccess.getPSLConjunctionRule()) {
-					sequence_PSLConjunction(context, (PSLConjunction) semanticObject); 
-					return; 
-				}
-				else break;
-			case AgclPackage.PSL_DISJUNCTION:
-				if(context == grammarAccess.getPSLAtomRule() ||
-				   context == grammarAccess.getPSLBooleanExpressionRule() ||
-				   context == grammarAccess.getPSLDisjunctionRule()) {
-					sequence_PSLDisjunction(context, (PSLDisjunction) semanticObject); 
-					return; 
-				}
-				else break;
 			case AgclPackage.PSL_EXPRESSION:
-				if(context == grammarAccess.getPSLExpressionRule()) {
-					sequence_PSLExpression(context, (PSLExpression) semanticObject); 
+				if(context == grammarAccess.getPSLConjunctionRule()) {
+					sequence_PSLConjunction(context, (PSLExpression) semanticObject); 
 					return; 
 				}
-				else break;
-			case AgclPackage.PSL_NEGATION:
-				if(context == grammarAccess.getPSLAtomRule() ||
-				   context == grammarAccess.getPSLNegationRule()) {
-					sequence_PSLNegation(context, (PSLNegation) semanticObject); 
+				else if(context == grammarAccess.getPSLBooleanExpressionRule() ||
+				   context == grammarAccess.getPSLDisjunctionRule() ||
+				   context == grammarAccess.getPSLExpressionRule() ||
+				   context == grammarAccess.getPSLNaryExprRule()) {
+					sequence_PSLDisjunction(context, (PSLExpression) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getPSLPrimaryRule()) {
+					sequence_PSLDisjunction_PSLFLProperty_PSLNegation_PSLPrimary(context, (PSLExpression) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getPSLFLPropertyRule() ||
+				   context == grammarAccess.getPSLPropertyRule()) {
+					sequence_PSLFLProperty(context, (PSLExpression) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getPSLNegationRule() ||
+				   context == grammarAccess.getPSLUnaryExprRule()) {
+					sequence_PSLNegation(context, (PSLExpression) semanticObject); 
 					return; 
 				}
 				else break;
@@ -163,7 +160,7 @@ public class AGCLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				else break;
 			case AgclPackage.VAR:
 				if(context == grammarAccess.getAtomicPropRule() ||
-				   context == grammarAccess.getPSLAtomRule() ||
+				   context == grammarAccess.getPSLPrimaryRule() ||
 				   context == grammarAccess.getVarRule()) {
 					sequence_Var(context, (Var) semanticObject); 
 					return; 
@@ -300,17 +297,10 @@ public class AGCLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     val=TRUE
+	 *     (val=TRUE | val=FALSE)
 	 */
 	protected void sequence_BooleanConstant(EObject context, BooleanConstant semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, AgclPackage.Literals.BOOLEAN_CONSTANT__VAL) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AgclPackage.Literals.BOOLEAN_CONSTANT__VAL));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getBooleanConstantAccess().getValTRUETerminalRuleCall_0_1_0(), semanticObject.getVal());
-		feeder.finish();
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
@@ -334,9 +324,9 @@ public class AGCLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (factors+=PSLAtom factors+=PSLAtom*)
+	 *     (factors+=PSLPrimary factors+=PSLPrimary*)
 	 */
-	protected void sequence_PSLConjunction(EObject context, PSLConjunction semanticObject) {
+	protected void sequence_PSLConjunction(EObject context, PSLExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -345,16 +335,32 @@ public class AGCLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 * Constraint:
 	 *     (terms+=PSLConjunction terms+=PSLConjunction*)
 	 */
-	protected void sequence_PSLDisjunction(EObject context, PSLDisjunction semanticObject) {
+	protected void sequence_PSLDisjunction(EObject context, PSLExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
-	 *     (condition=PSLBooleanExpression ((implication?=IMPL conclusion=PSLBooleanExpression) | (biconditional?=IFF other=PSLBooleanExpression))?)
+	 *     (
+	 *         negated=PSLBooleanExpression | 
+	 *         subterm=PSLExpression | 
+	 *         subterm=PSLExpression | 
+	 *         subterm=PSLExpression | 
+	 *         (left=PSLExpression right=PSLExpression) | 
+	 *         (terms+=PSLConjunction terms+=PSLConjunction*)
+	 *     )
 	 */
-	protected void sequence_PSLExpression(EObject context, PSLExpression semanticObject) {
+	protected void sequence_PSLDisjunction_PSLFLProperty_PSLNegation_PSLPrimary(EObject context, PSLExpression semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (subterm=PSLExpression | subterm=PSLExpression | subterm=PSLExpression | (left=PSLExpression right=PSLExpression))
+	 */
+	protected void sequence_PSLFLProperty(EObject context, PSLExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -363,15 +369,8 @@ public class AGCLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 * Constraint:
 	 *     negated=PSLBooleanExpression
 	 */
-	protected void sequence_PSLNegation(EObject context, PSLNegation semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, AgclPackage.Literals.PSL_NEGATION__NEGATED) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AgclPackage.Literals.PSL_NEGATION__NEGATED));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getPSLNegationAccess().getNegatedPSLBooleanExpressionParserRuleCall_1_0(), semanticObject.getNegated());
-		feeder.finish();
+	protected void sequence_PSLNegation(EObject context, PSLExpression semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
@@ -396,13 +395,6 @@ public class AGCLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     name=ID
 	 */
 	protected void sequence_Var(EObject context, Var semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, AgclPackage.Literals.VAR__NAME) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AgclPackage.Literals.VAR__NAME));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getVarAccess().getNameIDTerminalRuleCall_0(), semanticObject.getName());
-		feeder.finish();
+		genericSequencer.createSequence(context, semanticObject);
 	}
 }

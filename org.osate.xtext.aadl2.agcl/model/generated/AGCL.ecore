@@ -61,20 +61,23 @@
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PSLExpression">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="#//PSLBooleanExpression"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subterm" eType="#//PSLExpression"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="implication" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="conclusion" eType="#//PSLBooleanExpression"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="left" eType="#//PSLExpression"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="biconditional" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="other" eType="#//PSLBooleanExpression"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="right" eType="#//PSLExpression"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="negated" eType="#//PSLExpression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="terms" upperBound="-1"
+        eType="#//PSLExpression" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="factors" upperBound="-1"
+        eType="#//PSLExpression" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PSLBooleanExpression" eSuperTypes="#//PSLAtom"/>
-  <eClassifiers xsi:type="ecore:EClass" name="BooleanConstant" eSuperTypes="#//PSLAtom">
+  <eClassifiers xsi:type="ecore:EClass" name="BooleanConstant" eSuperTypes="#//PSLExpression">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="val" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AtomicProp" eSuperTypes="#//PSLAtom"/>
+  <eClassifiers xsi:type="ecore:EClass" name="AtomicProp" eSuperTypes="#//PSLExpression"/>
   <eClassifiers xsi:type="ecore:EClass" name="Var" eSuperTypes="#//AtomicProp">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
@@ -86,19 +89,5 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="link" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="event" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PSLDisjunction" eSuperTypes="#//PSLBooleanExpression">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="terms" upperBound="-1"
-        eType="#//PSLConjunction" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PSLConjunction">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="factors" upperBound="-1"
-        eType="#//PSLAtom" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PSLAtom"/>
-  <eClassifiers xsi:type="ecore:EClass" name="PSLNegation" eSuperTypes="#//PSLAtom">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="negated" eType="#//PSLBooleanExpression"
-        containment="true"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Parameter"/>
-  <eClassifiers xsi:type="ecore:EClass" name="PropertyName"/>
 </ecore:EPackage>
