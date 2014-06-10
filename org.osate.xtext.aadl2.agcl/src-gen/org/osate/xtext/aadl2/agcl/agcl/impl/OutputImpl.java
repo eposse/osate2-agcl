@@ -25,7 +25,7 @@ import org.osate.xtext.aadl2.agcl.agcl.Output;
  *
  * @generated
  */
-public class OutputImpl extends AtomicPropImpl implements Output
+public class OutputImpl extends AtomicPropositionImpl implements Output
 {
   /**
    * The default value of the '{@link #getLink() <em>Link</em>}' attribute.

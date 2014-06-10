@@ -77,11 +77,19 @@ public class AgclFactoryImpl extends EFactoryImpl implements AgclFactory
       case AgclPackage.PSL_SPEC: return createPSLSpec();
       case AgclPackage.PSL_EXPRESSION: return createPSLExpression();
       case AgclPackage.BOOLEAN_CONSTANT: return createBooleanConstant();
-      case AgclPackage.ATOMIC_PROP: return createAtomicProp();
+      case AgclPackage.ATOMIC_PROPOSITION: return createAtomicProposition();
       case AgclPackage.VAR: return createVar();
       case AgclPackage.INPUT: return createInput();
       case AgclPackage.OUTPUT: return createOutput();
       case AgclPackage.PARAMETER: return createParameter();
+      case AgclPackage.PSL_IMPLICATION: return createPSLImplication();
+      case AgclPackage.PSL_BICONDITIONAL: return createPSLBiconditional();
+      case AgclPackage.PSL_DISJUNCTION: return createPSLDisjunction();
+      case AgclPackage.PSL_CONJUNCTION: return createPSLConjunction();
+      case AgclPackage.PSL_NEXT: return createPSLNext();
+      case AgclPackage.PSL_EVENTUALLY: return createPSLEventually();
+      case AgclPackage.PSL_ALWAYS: return createPSLAlways();
+      case AgclPackage.PSL_UNTIL: return createPSLUntil();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -235,10 +243,10 @@ public class AgclFactoryImpl extends EFactoryImpl implements AgclFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public AtomicProp createAtomicProp()
+  public AtomicProposition createAtomicProposition()
   {
-    AtomicPropImpl atomicProp = new AtomicPropImpl();
-    return atomicProp;
+    AtomicPropositionImpl atomicProposition = new AtomicPropositionImpl();
+    return atomicProposition;
   }
 
   /**
@@ -283,6 +291,94 @@ public class AgclFactoryImpl extends EFactoryImpl implements AgclFactory
   {
     ParameterImpl parameter = new ParameterImpl();
     return parameter;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PSLImplication createPSLImplication()
+  {
+    PSLImplicationImpl pslImplication = new PSLImplicationImpl();
+    return pslImplication;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PSLBiconditional createPSLBiconditional()
+  {
+    PSLBiconditionalImpl pslBiconditional = new PSLBiconditionalImpl();
+    return pslBiconditional;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PSLDisjunction createPSLDisjunction()
+  {
+    PSLDisjunctionImpl pslDisjunction = new PSLDisjunctionImpl();
+    return pslDisjunction;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PSLConjunction createPSLConjunction()
+  {
+    PSLConjunctionImpl pslConjunction = new PSLConjunctionImpl();
+    return pslConjunction;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PSLNext createPSLNext()
+  {
+    PSLNextImpl pslNext = new PSLNextImpl();
+    return pslNext;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PSLEventually createPSLEventually()
+  {
+    PSLEventuallyImpl pslEventually = new PSLEventuallyImpl();
+    return pslEventually;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PSLAlways createPSLAlways()
+  {
+    PSLAlwaysImpl pslAlways = new PSLAlwaysImpl();
+    return pslAlways;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PSLUntil createPSLUntil()
+  {
+    PSLUntilImpl pslUntil = new PSLUntilImpl();
+    return pslUntil;
   }
 
   /**

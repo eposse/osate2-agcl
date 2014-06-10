@@ -103,81 +103,51 @@ AGCLBehaviour returns AGCLBehaviour:
 
 PSLSpec returns PSLSpec:
 //    'psl'? property = PSLProperty
-	'psl'? expr = PSLExpression
+	'psl'? expr = PSLProperty
 ;
 
-// We don't really include PSLPrimary in the top-level rule because it would lead to a non-LL(*) grammar with
-// the rule conflicting with PSLNary, more specifically with PSLConjunction. But we don't loose anything because
-// PSLPrimary expressions are then parsed by PSLNary
-PSLExpression returns PSLExpression:
-//	  PSLPrimary		
-//	  PSLUnaryExpr
-	  PSLNaryExpr
-//	| PSLProperty
-;
-
-PSLPrimary returns PSLExpression: 
-	  BooleanConstant
-//	| IntConstant 
-	| AtomicProp
-	| PSLUnaryExpr
-	| PSLProperty
-	| '(' PSLExpression ')'
-;
-
-PSLUnaryExpr returns PSLExpression:
-	PSLNegation
-;
-
-PSLNaryExpr returns PSLExpression:
-	PSLBooleanExpression
-;
 
 PSLProperty returns PSLExpression:
-	  PSLFLProperty
-;
-
-
-
-PSLFLProperty returns PSLExpression:
-	  NEXT subterm = PSLExpression
-	| EVENTUALLY subterm = PSLExpression
-	| ALWAYS subterm = PSLExpression
-	| '[' left = PSLExpression UNTIL right = PSLExpression ']'  	
-//	| PSLSequenceExpression (tight ?= '!')?
-//	| PropertyName ( '(' args += ActualParameter ( "," args += ActualParameter)* ')' )?
-;
-
-//PSLExpression returns PSLExpression:
-//	condition = PSLBooleanExpression (implication ?= IMPL conclusion = PSLBooleanExpression | biconditional ?= IFF other = PSLBooleanExpression)? 
-//;
-
-PSLNegation returns PSLExpression:
-    NOT negated = PSLBooleanExpression
-;
-
-PSLBooleanExpression returns PSLExpression:
-    PSLDisjunction
+	PSLDisjunction (({PSLImplication.left = current} IMPL right = PSLProperty)
+				   |({PSLBiconditional.left = current} IFF right = PSLProperty))?
 ;
 
 PSLDisjunction returns PSLExpression:
-    terms += PSLConjunction (OR terms += PSLConjunction)*
+	PSLConjunction ({PSLDisjunction.left = current} OR right = PSLConjunction)*
 ;
 
 PSLConjunction returns PSLExpression:
-    factors += PSLPrimary (AND factors += PSLPrimary)*
+	PSLLogicFactor ({PSLConjunction.left = current} AND right = PSLLogicFactor)*
 ;
 
+PSLLogicFactor returns PSLExpression:
+	  PSLPrimary
+	| PSLNegation
+	| PSLTemporal
+	| '(' PSLProperty ')'
+;
+
+PSLTemporal returns PSLExpression:
+	  {PSLNext} NEXT subterm = PSLLogicFactor
+	| {PSLEventually} EVENTUALLY subterm = PSLLogicFactor
+	| {PSLAlways} ALWAYS subterm = PSLLogicFactor
+	| {PSLUntil} '[' left = PSLLogicFactor UNTIL right = PSLLogicFactor ']'
+;
+
+PSLNegation returns PSLExpression:
+	NOT subterm = PSLLogicFactor
+;
+
+PSLPrimary returns PSLExpression:
+	  BooleanConstant
+	| AtomicProposition
+;
 
 BooleanConstant:
 	val = TRUE | val = FALSE
 ;
 
-//IntConstant:
-//	val = INT
-//;
-
-AtomicProp:
+AtomicProposition:
       Var
     | Input
     | Output
@@ -194,6 +164,64 @@ Input:
 Output:
     'out' link = ID (':' event = ID)? 
 ;
+
+
+//
+//PSLNaryExpr returns PSLExpression:
+//	PSLBooleanExpression
+//;
+//
+//PSLNegation returns PSLExpression:
+//    NOT negated = PSLBooleanExpression
+//;
+//
+//PSLBooleanExpression returns PSLExpression:
+//    PSLDisjunction
+//;
+//
+//PSLDisjunction returns PSLExpression:
+//    terms += PSLConjunction (OR terms += PSLConjunction)*
+//;
+//
+//PSLConjunction returns PSLExpression:
+//    factors += PSLPrimary (AND factors += PSLPrimary)*
+//;
+//
+//
+//PSLPrimary returns PSLExpression: 
+//	  BooleanConstant
+////	| IntConstant 
+//	| AtomicProp
+//	| PSLUnaryExpr
+//	| PSLProperty
+//	| '(' PSLExpression ')'
+//;
+//
+//PSLUnaryExpr returns PSLExpression:
+//	PSLNegation
+//;
+//
+//
+////PSLProperty returns PSLExpression:
+////	  PSLFLProperty
+////;
+//
+//
+//
+//PSLFLProperty returns PSLExpression:
+//	  NEXT subterm = PSLExpression
+//	| EVENTUALLY subterm = PSLExpression
+//	| ALWAYS subterm = PSLExpression
+//	| '[' left = PSLExpression UNTIL right = PSLExpression ']'  	
+////	| PSLSequenceExpression (tight ?= '!')?
+////	| PropertyName ( '(' args += ActualParameter ( "," args += ActualParameter)* ')' )?
+//;
+//
+////PSLExpression returns PSLExpression:
+////	condition = PSLBooleanExpression (implication ?= IMPL conclusion = PSLBooleanExpression | biconditional ?= IFF other = PSLBooleanExpression)? 
+////;
+//
+
 
 
 //PSLSequenceExpression:

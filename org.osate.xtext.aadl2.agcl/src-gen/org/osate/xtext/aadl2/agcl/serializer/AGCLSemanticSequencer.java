@@ -27,8 +27,16 @@ import org.osate.xtext.aadl2.agcl.agcl.AgclPackage;
 import org.osate.xtext.aadl2.agcl.agcl.BooleanConstant;
 import org.osate.xtext.aadl2.agcl.agcl.Input;
 import org.osate.xtext.aadl2.agcl.agcl.Output;
+import org.osate.xtext.aadl2.agcl.agcl.PSLAlways;
+import org.osate.xtext.aadl2.agcl.agcl.PSLBiconditional;
+import org.osate.xtext.aadl2.agcl.agcl.PSLConjunction;
+import org.osate.xtext.aadl2.agcl.agcl.PSLDisjunction;
+import org.osate.xtext.aadl2.agcl.agcl.PSLEventually;
 import org.osate.xtext.aadl2.agcl.agcl.PSLExpression;
+import org.osate.xtext.aadl2.agcl.agcl.PSLImplication;
+import org.osate.xtext.aadl2.agcl.agcl.PSLNext;
 import org.osate.xtext.aadl2.agcl.agcl.PSLSpec;
+import org.osate.xtext.aadl2.agcl.agcl.PSLUntil;
 import org.osate.xtext.aadl2.agcl.agcl.Var;
 import org.osate.xtext.aadl2.agcl.services.AGCLGrammarAccess;
 
@@ -104,51 +112,156 @@ public class AGCLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				else break;
 			case AgclPackage.BOOLEAN_CONSTANT:
 				if(context == grammarAccess.getBooleanConstantRule() ||
-				   context == grammarAccess.getPSLPrimaryRule()) {
+				   context == grammarAccess.getPSLConjunctionRule() ||
+				   context == grammarAccess.getPSLConjunctionAccess().getPSLConjunctionLeftAction_1_0() ||
+				   context == grammarAccess.getPSLDisjunctionRule() ||
+				   context == grammarAccess.getPSLDisjunctionAccess().getPSLDisjunctionLeftAction_1_0() ||
+				   context == grammarAccess.getPSLLogicFactorRule() ||
+				   context == grammarAccess.getPSLPrimaryRule() ||
+				   context == grammarAccess.getPSLPropertyRule() ||
+				   context == grammarAccess.getPSLPropertyAccess().getPSLBiconditionalLeftAction_1_1_0() ||
+				   context == grammarAccess.getPSLPropertyAccess().getPSLImplicationLeftAction_1_0_0()) {
 					sequence_BooleanConstant(context, (BooleanConstant) semanticObject); 
 					return; 
 				}
 				else break;
 			case AgclPackage.INPUT:
-				if(context == grammarAccess.getAtomicPropRule() ||
+				if(context == grammarAccess.getAtomicPropositionRule() ||
 				   context == grammarAccess.getInputRule() ||
-				   context == grammarAccess.getPSLPrimaryRule()) {
+				   context == grammarAccess.getPSLConjunctionRule() ||
+				   context == grammarAccess.getPSLConjunctionAccess().getPSLConjunctionLeftAction_1_0() ||
+				   context == grammarAccess.getPSLDisjunctionRule() ||
+				   context == grammarAccess.getPSLDisjunctionAccess().getPSLDisjunctionLeftAction_1_0() ||
+				   context == grammarAccess.getPSLLogicFactorRule() ||
+				   context == grammarAccess.getPSLPrimaryRule() ||
+				   context == grammarAccess.getPSLPropertyRule() ||
+				   context == grammarAccess.getPSLPropertyAccess().getPSLBiconditionalLeftAction_1_1_0() ||
+				   context == grammarAccess.getPSLPropertyAccess().getPSLImplicationLeftAction_1_0_0()) {
 					sequence_Input(context, (Input) semanticObject); 
 					return; 
 				}
 				else break;
 			case AgclPackage.OUTPUT:
-				if(context == grammarAccess.getAtomicPropRule() ||
+				if(context == grammarAccess.getAtomicPropositionRule() ||
 				   context == grammarAccess.getOutputRule() ||
-				   context == grammarAccess.getPSLPrimaryRule()) {
+				   context == grammarAccess.getPSLConjunctionRule() ||
+				   context == grammarAccess.getPSLConjunctionAccess().getPSLConjunctionLeftAction_1_0() ||
+				   context == grammarAccess.getPSLDisjunctionRule() ||
+				   context == grammarAccess.getPSLDisjunctionAccess().getPSLDisjunctionLeftAction_1_0() ||
+				   context == grammarAccess.getPSLLogicFactorRule() ||
+				   context == grammarAccess.getPSLPrimaryRule() ||
+				   context == grammarAccess.getPSLPropertyRule() ||
+				   context == grammarAccess.getPSLPropertyAccess().getPSLBiconditionalLeftAction_1_1_0() ||
+				   context == grammarAccess.getPSLPropertyAccess().getPSLImplicationLeftAction_1_0_0()) {
 					sequence_Output(context, (Output) semanticObject); 
 					return; 
 				}
 				else break;
-			case AgclPackage.PSL_EXPRESSION:
-				if(context == grammarAccess.getPSLConjunctionRule()) {
-					sequence_PSLConjunction(context, (PSLExpression) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getPSLBooleanExpressionRule() ||
+			case AgclPackage.PSL_ALWAYS:
+				if(context == grammarAccess.getPSLConjunctionRule() ||
+				   context == grammarAccess.getPSLConjunctionAccess().getPSLConjunctionLeftAction_1_0() ||
 				   context == grammarAccess.getPSLDisjunctionRule() ||
-				   context == grammarAccess.getPSLExpressionRule() ||
-				   context == grammarAccess.getPSLNaryExprRule()) {
-					sequence_PSLDisjunction(context, (PSLExpression) semanticObject); 
+				   context == grammarAccess.getPSLDisjunctionAccess().getPSLDisjunctionLeftAction_1_0() ||
+				   context == grammarAccess.getPSLLogicFactorRule() ||
+				   context == grammarAccess.getPSLPropertyRule() ||
+				   context == grammarAccess.getPSLPropertyAccess().getPSLBiconditionalLeftAction_1_1_0() ||
+				   context == grammarAccess.getPSLPropertyAccess().getPSLImplicationLeftAction_1_0_0() ||
+				   context == grammarAccess.getPSLTemporalRule()) {
+					sequence_PSLTemporal(context, (PSLAlways) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getPSLPrimaryRule()) {
-					sequence_PSLDisjunction_PSLFLProperty_PSLNegation_PSLPrimary(context, (PSLExpression) semanticObject); 
+				else break;
+			case AgclPackage.PSL_BICONDITIONAL:
+				if(context == grammarAccess.getPSLConjunctionRule() ||
+				   context == grammarAccess.getPSLConjunctionAccess().getPSLConjunctionLeftAction_1_0() ||
+				   context == grammarAccess.getPSLDisjunctionRule() ||
+				   context == grammarAccess.getPSLDisjunctionAccess().getPSLDisjunctionLeftAction_1_0() ||
+				   context == grammarAccess.getPSLLogicFactorRule() ||
+				   context == grammarAccess.getPSLPropertyRule() ||
+				   context == grammarAccess.getPSLPropertyAccess().getPSLBiconditionalLeftAction_1_1_0() ||
+				   context == grammarAccess.getPSLPropertyAccess().getPSLImplicationLeftAction_1_0_0()) {
+					sequence_PSLProperty(context, (PSLBiconditional) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getPSLFLPropertyRule() ||
-				   context == grammarAccess.getPSLPropertyRule()) {
-					sequence_PSLFLProperty(context, (PSLExpression) semanticObject); 
+				else break;
+			case AgclPackage.PSL_CONJUNCTION:
+				if(context == grammarAccess.getPSLConjunctionRule() ||
+				   context == grammarAccess.getPSLConjunctionAccess().getPSLConjunctionLeftAction_1_0() ||
+				   context == grammarAccess.getPSLDisjunctionRule() ||
+				   context == grammarAccess.getPSLDisjunctionAccess().getPSLDisjunctionLeftAction_1_0() ||
+				   context == grammarAccess.getPSLLogicFactorRule() ||
+				   context == grammarAccess.getPSLPropertyRule() ||
+				   context == grammarAccess.getPSLPropertyAccess().getPSLBiconditionalLeftAction_1_1_0() ||
+				   context == grammarAccess.getPSLPropertyAccess().getPSLImplicationLeftAction_1_0_0()) {
+					sequence_PSLConjunction(context, (PSLConjunction) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getPSLNegationRule() ||
-				   context == grammarAccess.getPSLUnaryExprRule()) {
+				else break;
+			case AgclPackage.PSL_DISJUNCTION:
+				if(context == grammarAccess.getPSLConjunctionRule() ||
+				   context == grammarAccess.getPSLConjunctionAccess().getPSLConjunctionLeftAction_1_0() ||
+				   context == grammarAccess.getPSLDisjunctionRule() ||
+				   context == grammarAccess.getPSLDisjunctionAccess().getPSLDisjunctionLeftAction_1_0() ||
+				   context == grammarAccess.getPSLLogicFactorRule() ||
+				   context == grammarAccess.getPSLPropertyRule() ||
+				   context == grammarAccess.getPSLPropertyAccess().getPSLBiconditionalLeftAction_1_1_0() ||
+				   context == grammarAccess.getPSLPropertyAccess().getPSLImplicationLeftAction_1_0_0()) {
+					sequence_PSLDisjunction(context, (PSLDisjunction) semanticObject); 
+					return; 
+				}
+				else break;
+			case AgclPackage.PSL_EVENTUALLY:
+				if(context == grammarAccess.getPSLConjunctionRule() ||
+				   context == grammarAccess.getPSLConjunctionAccess().getPSLConjunctionLeftAction_1_0() ||
+				   context == grammarAccess.getPSLDisjunctionRule() ||
+				   context == grammarAccess.getPSLDisjunctionAccess().getPSLDisjunctionLeftAction_1_0() ||
+				   context == grammarAccess.getPSLLogicFactorRule() ||
+				   context == grammarAccess.getPSLPropertyRule() ||
+				   context == grammarAccess.getPSLPropertyAccess().getPSLBiconditionalLeftAction_1_1_0() ||
+				   context == grammarAccess.getPSLPropertyAccess().getPSLImplicationLeftAction_1_0_0() ||
+				   context == grammarAccess.getPSLTemporalRule()) {
+					sequence_PSLTemporal(context, (PSLEventually) semanticObject); 
+					return; 
+				}
+				else break;
+			case AgclPackage.PSL_EXPRESSION:
+				if(context == grammarAccess.getPSLConjunctionRule() ||
+				   context == grammarAccess.getPSLConjunctionAccess().getPSLConjunctionLeftAction_1_0() ||
+				   context == grammarAccess.getPSLDisjunctionRule() ||
+				   context == grammarAccess.getPSLDisjunctionAccess().getPSLDisjunctionLeftAction_1_0() ||
+				   context == grammarAccess.getPSLLogicFactorRule() ||
+				   context == grammarAccess.getPSLNegationRule() ||
+				   context == grammarAccess.getPSLPropertyRule() ||
+				   context == grammarAccess.getPSLPropertyAccess().getPSLBiconditionalLeftAction_1_1_0() ||
+				   context == grammarAccess.getPSLPropertyAccess().getPSLImplicationLeftAction_1_0_0()) {
 					sequence_PSLNegation(context, (PSLExpression) semanticObject); 
+					return; 
+				}
+				else break;
+			case AgclPackage.PSL_IMPLICATION:
+				if(context == grammarAccess.getPSLConjunctionRule() ||
+				   context == grammarAccess.getPSLConjunctionAccess().getPSLConjunctionLeftAction_1_0() ||
+				   context == grammarAccess.getPSLDisjunctionRule() ||
+				   context == grammarAccess.getPSLDisjunctionAccess().getPSLDisjunctionLeftAction_1_0() ||
+				   context == grammarAccess.getPSLLogicFactorRule() ||
+				   context == grammarAccess.getPSLPropertyRule() ||
+				   context == grammarAccess.getPSLPropertyAccess().getPSLBiconditionalLeftAction_1_1_0() ||
+				   context == grammarAccess.getPSLPropertyAccess().getPSLImplicationLeftAction_1_0_0()) {
+					sequence_PSLProperty(context, (PSLImplication) semanticObject); 
+					return; 
+				}
+				else break;
+			case AgclPackage.PSL_NEXT:
+				if(context == grammarAccess.getPSLConjunctionRule() ||
+				   context == grammarAccess.getPSLConjunctionAccess().getPSLConjunctionLeftAction_1_0() ||
+				   context == grammarAccess.getPSLDisjunctionRule() ||
+				   context == grammarAccess.getPSLDisjunctionAccess().getPSLDisjunctionLeftAction_1_0() ||
+				   context == grammarAccess.getPSLLogicFactorRule() ||
+				   context == grammarAccess.getPSLPropertyRule() ||
+				   context == grammarAccess.getPSLPropertyAccess().getPSLBiconditionalLeftAction_1_1_0() ||
+				   context == grammarAccess.getPSLPropertyAccess().getPSLImplicationLeftAction_1_0_0() ||
+				   context == grammarAccess.getPSLTemporalRule()) {
+					sequence_PSLTemporal(context, (PSLNext) semanticObject); 
 					return; 
 				}
 				else break;
@@ -158,9 +271,31 @@ public class AGCLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					return; 
 				}
 				else break;
+			case AgclPackage.PSL_UNTIL:
+				if(context == grammarAccess.getPSLConjunctionRule() ||
+				   context == grammarAccess.getPSLConjunctionAccess().getPSLConjunctionLeftAction_1_0() ||
+				   context == grammarAccess.getPSLDisjunctionRule() ||
+				   context == grammarAccess.getPSLDisjunctionAccess().getPSLDisjunctionLeftAction_1_0() ||
+				   context == grammarAccess.getPSLLogicFactorRule() ||
+				   context == grammarAccess.getPSLPropertyRule() ||
+				   context == grammarAccess.getPSLPropertyAccess().getPSLBiconditionalLeftAction_1_1_0() ||
+				   context == grammarAccess.getPSLPropertyAccess().getPSLImplicationLeftAction_1_0_0() ||
+				   context == grammarAccess.getPSLTemporalRule()) {
+					sequence_PSLTemporal(context, (PSLUntil) semanticObject); 
+					return; 
+				}
+				else break;
 			case AgclPackage.VAR:
-				if(context == grammarAccess.getAtomicPropRule() ||
+				if(context == grammarAccess.getAtomicPropositionRule() ||
+				   context == grammarAccess.getPSLConjunctionRule() ||
+				   context == grammarAccess.getPSLConjunctionAccess().getPSLConjunctionLeftAction_1_0() ||
+				   context == grammarAccess.getPSLDisjunctionRule() ||
+				   context == grammarAccess.getPSLDisjunctionAccess().getPSLDisjunctionLeftAction_1_0() ||
+				   context == grammarAccess.getPSLLogicFactorRule() ||
 				   context == grammarAccess.getPSLPrimaryRule() ||
+				   context == grammarAccess.getPSLPropertyRule() ||
+				   context == grammarAccess.getPSLPropertyAccess().getPSLBiconditionalLeftAction_1_1_0() ||
+				   context == grammarAccess.getPSLPropertyAccess().getPSLImplicationLeftAction_1_0_0() ||
 				   context == grammarAccess.getVarRule()) {
 					sequence_Var(context, (Var) semanticObject); 
 					return; 
@@ -324,59 +459,59 @@ public class AGCLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (factors+=PSLPrimary factors+=PSLPrimary*)
+	 *     (left=PSLConjunction_PSLConjunction_1_0 right=PSLLogicFactor)
 	 */
-	protected void sequence_PSLConjunction(EObject context, PSLExpression semanticObject) {
+	protected void sequence_PSLConjunction(EObject context, PSLConjunction semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
-	 *     (terms+=PSLConjunction terms+=PSLConjunction*)
+	 *     (left=PSLDisjunction_PSLDisjunction_1_0 right=PSLConjunction)
 	 */
-	protected void sequence_PSLDisjunction(EObject context, PSLExpression semanticObject) {
+	protected void sequence_PSLDisjunction(EObject context, PSLDisjunction semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
-	 *     (
-	 *         negated=PSLBooleanExpression | 
-	 *         subterm=PSLExpression | 
-	 *         subterm=PSLExpression | 
-	 *         subterm=PSLExpression | 
-	 *         (left=PSLExpression right=PSLExpression) | 
-	 *         (terms+=PSLConjunction terms+=PSLConjunction*)
-	 *     )
-	 */
-	protected void sequence_PSLDisjunction_PSLFLProperty_PSLNegation_PSLPrimary(EObject context, PSLExpression semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (subterm=PSLExpression | subterm=PSLExpression | subterm=PSLExpression | (left=PSLExpression right=PSLExpression))
-	 */
-	protected void sequence_PSLFLProperty(EObject context, PSLExpression semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     negated=PSLBooleanExpression
+	 *     subterm=PSLLogicFactor
 	 */
 	protected void sequence_PSLNegation(EObject context, PSLExpression semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, AgclPackage.Literals.PSL_EXPRESSION__SUBTERM) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AgclPackage.Literals.PSL_EXPRESSION__SUBTERM));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getPSLNegationAccess().getSubtermPSLLogicFactorParserRuleCall_1_0(), semanticObject.getSubterm());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (left=PSLProperty_PSLBiconditional_1_1_0 right=PSLProperty)
+	 */
+	protected void sequence_PSLProperty(EObject context, PSLBiconditional semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
-	 *     expr=PSLExpression
+	 *     (left=PSLProperty_PSLImplication_1_0_0 right=PSLProperty)
+	 */
+	protected void sequence_PSLProperty(EObject context, PSLImplication semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     expr=PSLProperty
 	 */
 	protected void sequence_PSLSpec(EObject context, PSLSpec semanticObject) {
 		if(errorAcceptor != null) {
@@ -385,8 +520,65 @@ public class AGCLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getPSLSpecAccess().getExprPSLExpressionParserRuleCall_1_0(), semanticObject.getExpr());
+		feeder.accept(grammarAccess.getPSLSpecAccess().getExprPSLPropertyParserRuleCall_1_0(), semanticObject.getExpr());
 		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     subterm=PSLLogicFactor
+	 */
+	protected void sequence_PSLTemporal(EObject context, PSLAlways semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, AgclPackage.Literals.PSL_EXPRESSION__SUBTERM) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AgclPackage.Literals.PSL_EXPRESSION__SUBTERM));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getPSLTemporalAccess().getSubtermPSLLogicFactorParserRuleCall_2_2_0(), semanticObject.getSubterm());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     subterm=PSLLogicFactor
+	 */
+	protected void sequence_PSLTemporal(EObject context, PSLEventually semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, AgclPackage.Literals.PSL_EXPRESSION__SUBTERM) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AgclPackage.Literals.PSL_EXPRESSION__SUBTERM));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getPSLTemporalAccess().getSubtermPSLLogicFactorParserRuleCall_1_2_0(), semanticObject.getSubterm());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     subterm=PSLLogicFactor
+	 */
+	protected void sequence_PSLTemporal(EObject context, PSLNext semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, AgclPackage.Literals.PSL_EXPRESSION__SUBTERM) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AgclPackage.Literals.PSL_EXPRESSION__SUBTERM));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getPSLTemporalAccess().getSubtermPSLLogicFactorParserRuleCall_0_2_0(), semanticObject.getSubterm());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (left=PSLLogicFactor right=PSLLogicFactor)
+	 */
+	protected void sequence_PSLTemporal(EObject context, PSLUntil semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	

@@ -20,7 +20,7 @@ package org.osate.xtext.aadl2.agcl.agcl;
  * @model
  * @generated
  */
-public interface Output extends AtomicProp
+public interface Output extends AtomicProposition
 {
   /**
    * Returns the value of the '<em><b>Link</b></em>' attribute.

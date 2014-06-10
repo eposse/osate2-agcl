@@ -5,25 +5,25 @@ package org.osate.xtext.aadl2.agcl.agcl.impl;
 import org.eclipse.emf.ecore.EClass;
 
 import org.osate.xtext.aadl2.agcl.agcl.AgclPackage;
-import org.osate.xtext.aadl2.agcl.agcl.AtomicProp;
+import org.osate.xtext.aadl2.agcl.agcl.PSLNext;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Atomic Prop</b></em>'.
+ * An implementation of the model object '<em><b>PSL Next</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
-public class AtomicPropImpl extends PSLExpressionImpl implements AtomicProp
+public class PSLNextImpl extends PSLExpressionImpl implements PSLNext
 {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected AtomicPropImpl()
+  protected PSLNextImpl()
   {
     super();
   }
@@ -36,7 +36,7 @@ public class AtomicPropImpl extends PSLExpressionImpl implements AtomicProp
   @Override
   protected EClass eStaticClass()
   {
-    return AgclPackage.Literals.ATOMIC_PROP;
+    return AgclPackage.Literals.PSL_NEXT;
   }
 
-} //AtomicPropImpl
+} //PSLNextImpl

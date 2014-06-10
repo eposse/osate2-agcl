@@ -140,13 +140,13 @@ public interface AgclFactory extends EFactory
   BooleanConstant createBooleanConstant();
 
   /**
-   * Returns a new object of class '<em>Atomic Prop</em>'.
+   * Returns a new object of class '<em>Atomic Proposition</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Atomic Prop</em>'.
+   * @return a new object of class '<em>Atomic Proposition</em>'.
    * @generated
    */
-  AtomicProp createAtomicProp();
+  AtomicProposition createAtomicProposition();
 
   /**
    * Returns a new object of class '<em>Var</em>'.
@@ -183,6 +183,78 @@ public interface AgclFactory extends EFactory
    * @generated
    */
   Parameter createParameter();
+
+  /**
+   * Returns a new object of class '<em>PSL Implication</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>PSL Implication</em>'.
+   * @generated
+   */
+  PSLImplication createPSLImplication();
+
+  /**
+   * Returns a new object of class '<em>PSL Biconditional</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>PSL Biconditional</em>'.
+   * @generated
+   */
+  PSLBiconditional createPSLBiconditional();
+
+  /**
+   * Returns a new object of class '<em>PSL Disjunction</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>PSL Disjunction</em>'.
+   * @generated
+   */
+  PSLDisjunction createPSLDisjunction();
+
+  /**
+   * Returns a new object of class '<em>PSL Conjunction</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>PSL Conjunction</em>'.
+   * @generated
+   */
+  PSLConjunction createPSLConjunction();
+
+  /**
+   * Returns a new object of class '<em>PSL Next</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>PSL Next</em>'.
+   * @generated
+   */
+  PSLNext createPSLNext();
+
+  /**
+   * Returns a new object of class '<em>PSL Eventually</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>PSL Eventually</em>'.
+   * @generated
+   */
+  PSLEventually createPSLEventually();
+
+  /**
+   * Returns a new object of class '<em>PSL Always</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>PSL Always</em>'.
+   * @generated
+   */
+  PSLAlways createPSLAlways();
+
+  /**
+   * Returns a new object of class '<em>PSL Until</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>PSL Until</em>'.
+   * @generated
+   */
+  PSLUntil createPSLUntil();
 
   /**
    * Returns the package supported by this factory.

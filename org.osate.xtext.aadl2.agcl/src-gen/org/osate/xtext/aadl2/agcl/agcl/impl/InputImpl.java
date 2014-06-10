@@ -25,7 +25,7 @@ import org.osate.xtext.aadl2.agcl.agcl.Input;
  *
  * @generated
  */
-public class InputImpl extends AtomicPropImpl implements Input
+public class InputImpl extends AtomicPropositionImpl implements Input
 {
   /**
    * The default value of the '{@link #getLink() <em>Link</em>}' attribute.

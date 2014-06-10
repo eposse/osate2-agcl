@@ -24,7 +24,7 @@ import org.osate.xtext.aadl2.agcl.agcl.Var;
  *
  * @generated
  */
-public class VarImpl extends AtomicPropImpl implements Var
+public class VarImpl extends AtomicPropositionImpl implements Var
 {
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.

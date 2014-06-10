@@ -23,12 +23,20 @@ import org.osate.xtext.aadl2.agcl.agcl.AGCLPropertyDecl;
 import org.osate.xtext.aadl2.agcl.agcl.AGCLViewpoint;
 import org.osate.xtext.aadl2.agcl.agcl.AgclFactory;
 import org.osate.xtext.aadl2.agcl.agcl.AgclPackage;
-import org.osate.xtext.aadl2.agcl.agcl.AtomicProp;
+import org.osate.xtext.aadl2.agcl.agcl.AtomicProposition;
 import org.osate.xtext.aadl2.agcl.agcl.BooleanConstant;
 import org.osate.xtext.aadl2.agcl.agcl.Input;
 import org.osate.xtext.aadl2.agcl.agcl.Output;
+import org.osate.xtext.aadl2.agcl.agcl.PSLAlways;
+import org.osate.xtext.aadl2.agcl.agcl.PSLBiconditional;
+import org.osate.xtext.aadl2.agcl.agcl.PSLConjunction;
+import org.osate.xtext.aadl2.agcl.agcl.PSLDisjunction;
+import org.osate.xtext.aadl2.agcl.agcl.PSLEventually;
 import org.osate.xtext.aadl2.agcl.agcl.PSLExpression;
+import org.osate.xtext.aadl2.agcl.agcl.PSLImplication;
+import org.osate.xtext.aadl2.agcl.agcl.PSLNext;
 import org.osate.xtext.aadl2.agcl.agcl.PSLSpec;
+import org.osate.xtext.aadl2.agcl.agcl.PSLUntil;
 import org.osate.xtext.aadl2.agcl.agcl.Parameter;
 import org.osate.xtext.aadl2.agcl.agcl.Var;
 
@@ -136,7 +144,7 @@ public class AgclPackageImpl extends EPackageImpl implements AgclPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass atomicPropEClass = null;
+  private EClass atomicPropositionEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -165,6 +173,62 @@ public class AgclPackageImpl extends EPackageImpl implements AgclPackage
    * @generated
    */
   private EClass parameterEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass pslImplicationEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass pslBiconditionalEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass pslDisjunctionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass pslConjunctionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass pslNextEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass pslEventuallyEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass pslAlwaysEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass pslUntilEClass = null;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -577,56 +641,6 @@ public class AgclPackageImpl extends EPackageImpl implements AgclPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getPSLExpression_Left()
-  {
-    return (EReference)pslExpressionEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getPSLExpression_Right()
-  {
-    return (EReference)pslExpressionEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getPSLExpression_Negated()
-  {
-    return (EReference)pslExpressionEClass.getEStructuralFeatures().get(3);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getPSLExpression_Terms()
-  {
-    return (EReference)pslExpressionEClass.getEStructuralFeatures().get(4);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getPSLExpression_Factors()
-  {
-    return (EReference)pslExpressionEClass.getEStructuralFeatures().get(5);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EClass getBooleanConstant()
   {
     return booleanConstantEClass;
@@ -647,9 +661,9 @@ public class AgclPackageImpl extends EPackageImpl implements AgclPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getAtomicProp()
+  public EClass getAtomicProposition()
   {
-    return atomicPropEClass;
+    return atomicPropositionEClass;
   }
 
   /**
@@ -747,6 +761,186 @@ public class AgclPackageImpl extends EPackageImpl implements AgclPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getPSLImplication()
+  {
+    return pslImplicationEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getPSLImplication_Left()
+  {
+    return (EReference)pslImplicationEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getPSLImplication_Right()
+  {
+    return (EReference)pslImplicationEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getPSLBiconditional()
+  {
+    return pslBiconditionalEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getPSLBiconditional_Left()
+  {
+    return (EReference)pslBiconditionalEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getPSLBiconditional_Right()
+  {
+    return (EReference)pslBiconditionalEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getPSLDisjunction()
+  {
+    return pslDisjunctionEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getPSLDisjunction_Left()
+  {
+    return (EReference)pslDisjunctionEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getPSLDisjunction_Right()
+  {
+    return (EReference)pslDisjunctionEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getPSLConjunction()
+  {
+    return pslConjunctionEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getPSLConjunction_Left()
+  {
+    return (EReference)pslConjunctionEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getPSLConjunction_Right()
+  {
+    return (EReference)pslConjunctionEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getPSLNext()
+  {
+    return pslNextEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getPSLEventually()
+  {
+    return pslEventuallyEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getPSLAlways()
+  {
+    return pslAlwaysEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getPSLUntil()
+  {
+    return pslUntilEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getPSLUntil_Left()
+  {
+    return (EReference)pslUntilEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getPSLUntil_Right()
+  {
+    return (EReference)pslUntilEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public AgclFactory getAgclFactory()
   {
     return (AgclFactory)getEFactoryInstance();
@@ -817,16 +1011,11 @@ public class AgclPackageImpl extends EPackageImpl implements AgclPackage
 
     pslExpressionEClass = createEClass(PSL_EXPRESSION);
     createEReference(pslExpressionEClass, PSL_EXPRESSION__SUBTERM);
-    createEReference(pslExpressionEClass, PSL_EXPRESSION__LEFT);
-    createEReference(pslExpressionEClass, PSL_EXPRESSION__RIGHT);
-    createEReference(pslExpressionEClass, PSL_EXPRESSION__NEGATED);
-    createEReference(pslExpressionEClass, PSL_EXPRESSION__TERMS);
-    createEReference(pslExpressionEClass, PSL_EXPRESSION__FACTORS);
 
     booleanConstantEClass = createEClass(BOOLEAN_CONSTANT);
     createEAttribute(booleanConstantEClass, BOOLEAN_CONSTANT__VAL);
 
-    atomicPropEClass = createEClass(ATOMIC_PROP);
+    atomicPropositionEClass = createEClass(ATOMIC_PROPOSITION);
 
     varEClass = createEClass(VAR);
     createEAttribute(varEClass, VAR__NAME);
@@ -840,6 +1029,32 @@ public class AgclPackageImpl extends EPackageImpl implements AgclPackage
     createEAttribute(outputEClass, OUTPUT__EVENT);
 
     parameterEClass = createEClass(PARAMETER);
+
+    pslImplicationEClass = createEClass(PSL_IMPLICATION);
+    createEReference(pslImplicationEClass, PSL_IMPLICATION__LEFT);
+    createEReference(pslImplicationEClass, PSL_IMPLICATION__RIGHT);
+
+    pslBiconditionalEClass = createEClass(PSL_BICONDITIONAL);
+    createEReference(pslBiconditionalEClass, PSL_BICONDITIONAL__LEFT);
+    createEReference(pslBiconditionalEClass, PSL_BICONDITIONAL__RIGHT);
+
+    pslDisjunctionEClass = createEClass(PSL_DISJUNCTION);
+    createEReference(pslDisjunctionEClass, PSL_DISJUNCTION__LEFT);
+    createEReference(pslDisjunctionEClass, PSL_DISJUNCTION__RIGHT);
+
+    pslConjunctionEClass = createEClass(PSL_CONJUNCTION);
+    createEReference(pslConjunctionEClass, PSL_CONJUNCTION__LEFT);
+    createEReference(pslConjunctionEClass, PSL_CONJUNCTION__RIGHT);
+
+    pslNextEClass = createEClass(PSL_NEXT);
+
+    pslEventuallyEClass = createEClass(PSL_EVENTUALLY);
+
+    pslAlwaysEClass = createEClass(PSL_ALWAYS);
+
+    pslUntilEClass = createEClass(PSL_UNTIL);
+    createEReference(pslUntilEClass, PSL_UNTIL__LEFT);
+    createEReference(pslUntilEClass, PSL_UNTIL__RIGHT);
   }
 
   /**
@@ -877,10 +1092,18 @@ public class AgclPackageImpl extends EPackageImpl implements AgclPackage
     agclAnnexLibraryEClass.getESuperTypes().add(theAadl2Package.getAnnexLibrary());
     agclAnnexSubclauseEClass.getESuperTypes().add(theAadl2Package.getAnnexSubclause());
     booleanConstantEClass.getESuperTypes().add(this.getPSLExpression());
-    atomicPropEClass.getESuperTypes().add(this.getPSLExpression());
-    varEClass.getESuperTypes().add(this.getAtomicProp());
-    inputEClass.getESuperTypes().add(this.getAtomicProp());
-    outputEClass.getESuperTypes().add(this.getAtomicProp());
+    atomicPropositionEClass.getESuperTypes().add(this.getPSLExpression());
+    varEClass.getESuperTypes().add(this.getAtomicProposition());
+    inputEClass.getESuperTypes().add(this.getAtomicProposition());
+    outputEClass.getESuperTypes().add(this.getAtomicProposition());
+    pslImplicationEClass.getESuperTypes().add(this.getPSLExpression());
+    pslBiconditionalEClass.getESuperTypes().add(this.getPSLExpression());
+    pslDisjunctionEClass.getESuperTypes().add(this.getPSLExpression());
+    pslConjunctionEClass.getESuperTypes().add(this.getPSLExpression());
+    pslNextEClass.getESuperTypes().add(this.getPSLExpression());
+    pslEventuallyEClass.getESuperTypes().add(this.getPSLExpression());
+    pslAlwaysEClass.getESuperTypes().add(this.getPSLExpression());
+    pslUntilEClass.getESuperTypes().add(this.getPSLExpression());
 
     // Initialize classes and features; add operations and parameters
     initEClass(agclGrammarRootEClass, AGCLGrammarRoot.class, "AGCLGrammarRoot", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -928,16 +1151,11 @@ public class AgclPackageImpl extends EPackageImpl implements AgclPackage
 
     initEClass(pslExpressionEClass, PSLExpression.class, "PSLExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getPSLExpression_Subterm(), this.getPSLExpression(), null, "subterm", null, 0, 1, PSLExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getPSLExpression_Left(), this.getPSLExpression(), null, "left", null, 0, 1, PSLExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getPSLExpression_Right(), this.getPSLExpression(), null, "right", null, 0, 1, PSLExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getPSLExpression_Negated(), this.getPSLExpression(), null, "negated", null, 0, 1, PSLExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getPSLExpression_Terms(), this.getPSLExpression(), null, "terms", null, 0, -1, PSLExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getPSLExpression_Factors(), this.getPSLExpression(), null, "factors", null, 0, -1, PSLExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(booleanConstantEClass, BooleanConstant.class, "BooleanConstant", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getBooleanConstant_Val(), ecorePackage.getEString(), "val", null, 0, 1, BooleanConstant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(atomicPropEClass, AtomicProp.class, "AtomicProp", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEClass(atomicPropositionEClass, AtomicProposition.class, "AtomicProposition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(varEClass, Var.class, "Var", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getVar_Name(), ecorePackage.getEString(), "name", null, 0, 1, Var.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -951,6 +1169,32 @@ public class AgclPackageImpl extends EPackageImpl implements AgclPackage
     initEAttribute(getOutput_Event(), ecorePackage.getEString(), "event", null, 0, 1, Output.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(parameterEClass, Parameter.class, "Parameter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(pslImplicationEClass, PSLImplication.class, "PSLImplication", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getPSLImplication_Left(), this.getPSLExpression(), null, "left", null, 0, 1, PSLImplication.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getPSLImplication_Right(), this.getPSLExpression(), null, "right", null, 0, 1, PSLImplication.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(pslBiconditionalEClass, PSLBiconditional.class, "PSLBiconditional", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getPSLBiconditional_Left(), this.getPSLExpression(), null, "left", null, 0, 1, PSLBiconditional.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getPSLBiconditional_Right(), this.getPSLExpression(), null, "right", null, 0, 1, PSLBiconditional.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(pslDisjunctionEClass, PSLDisjunction.class, "PSLDisjunction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getPSLDisjunction_Left(), this.getPSLExpression(), null, "left", null, 0, 1, PSLDisjunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getPSLDisjunction_Right(), this.getPSLExpression(), null, "right", null, 0, 1, PSLDisjunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(pslConjunctionEClass, PSLConjunction.class, "PSLConjunction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getPSLConjunction_Left(), this.getPSLExpression(), null, "left", null, 0, 1, PSLConjunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getPSLConjunction_Right(), this.getPSLExpression(), null, "right", null, 0, 1, PSLConjunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(pslNextEClass, PSLNext.class, "PSLNext", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(pslEventuallyEClass, PSLEventually.class, "PSLEventually", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(pslAlwaysEClass, PSLAlways.class, "PSLAlways", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(pslUntilEClass, PSLUntil.class, "PSLUntil", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getPSLUntil_Left(), this.getPSLExpression(), null, "left", null, 0, 1, PSLUntil.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getPSLUntil_Right(), this.getPSLExpression(), null, "right", null, 0, 1, PSLUntil.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Create resource
     createResource(eNS_URI);

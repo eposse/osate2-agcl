@@ -19,7 +19,7 @@ package org.osate.xtext.aadl2.agcl.agcl;
  * @model
  * @generated
  */
-public interface Var extends AtomicProp
+public interface Var extends AtomicProposition
 {
   /**
    * Returns the value of the '<em><b>Name</b></em>' attribute.

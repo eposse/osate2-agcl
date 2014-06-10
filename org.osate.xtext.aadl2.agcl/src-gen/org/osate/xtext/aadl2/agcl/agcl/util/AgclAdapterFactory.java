@@ -146,9 +146,9 @@ public class AgclAdapterFactory extends AdapterFactoryImpl
         return createBooleanConstantAdapter();
       }
       @Override
-      public Adapter caseAtomicProp(AtomicProp object)
+      public Adapter caseAtomicProposition(AtomicProposition object)
       {
-        return createAtomicPropAdapter();
+        return createAtomicPropositionAdapter();
       }
       @Override
       public Adapter caseVar(Var object)
@@ -169,6 +169,46 @@ public class AgclAdapterFactory extends AdapterFactoryImpl
       public Adapter caseParameter(Parameter object)
       {
         return createParameterAdapter();
+      }
+      @Override
+      public Adapter casePSLImplication(PSLImplication object)
+      {
+        return createPSLImplicationAdapter();
+      }
+      @Override
+      public Adapter casePSLBiconditional(PSLBiconditional object)
+      {
+        return createPSLBiconditionalAdapter();
+      }
+      @Override
+      public Adapter casePSLDisjunction(PSLDisjunction object)
+      {
+        return createPSLDisjunctionAdapter();
+      }
+      @Override
+      public Adapter casePSLConjunction(PSLConjunction object)
+      {
+        return createPSLConjunctionAdapter();
+      }
+      @Override
+      public Adapter casePSLNext(PSLNext object)
+      {
+        return createPSLNextAdapter();
+      }
+      @Override
+      public Adapter casePSLEventually(PSLEventually object)
+      {
+        return createPSLEventuallyAdapter();
+      }
+      @Override
+      public Adapter casePSLAlways(PSLAlways object)
+      {
+        return createPSLAlwaysAdapter();
+      }
+      @Override
+      public Adapter casePSLUntil(PSLUntil object)
+      {
+        return createPSLUntilAdapter();
       }
       @Override
       public Adapter caseElement(Element object)
@@ -413,16 +453,16 @@ public class AgclAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.agcl.agcl.AtomicProp <em>Atomic Prop</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.agcl.agcl.AtomicProposition <em>Atomic Proposition</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.xtext.aadl2.agcl.agcl.AtomicProp
+   * @see org.osate.xtext.aadl2.agcl.agcl.AtomicProposition
    * @generated
    */
-  public Adapter createAtomicPropAdapter()
+  public Adapter createAtomicPropositionAdapter()
   {
     return null;
   }
@@ -483,6 +523,126 @@ public class AgclAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createParameterAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.agcl.agcl.PSLImplication <em>PSL Implication</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.xtext.aadl2.agcl.agcl.PSLImplication
+   * @generated
+   */
+  public Adapter createPSLImplicationAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.agcl.agcl.PSLBiconditional <em>PSL Biconditional</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.xtext.aadl2.agcl.agcl.PSLBiconditional
+   * @generated
+   */
+  public Adapter createPSLBiconditionalAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.agcl.agcl.PSLDisjunction <em>PSL Disjunction</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.xtext.aadl2.agcl.agcl.PSLDisjunction
+   * @generated
+   */
+  public Adapter createPSLDisjunctionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.agcl.agcl.PSLConjunction <em>PSL Conjunction</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.xtext.aadl2.agcl.agcl.PSLConjunction
+   * @generated
+   */
+  public Adapter createPSLConjunctionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.agcl.agcl.PSLNext <em>PSL Next</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.xtext.aadl2.agcl.agcl.PSLNext
+   * @generated
+   */
+  public Adapter createPSLNextAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.agcl.agcl.PSLEventually <em>PSL Eventually</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.xtext.aadl2.agcl.agcl.PSLEventually
+   * @generated
+   */
+  public Adapter createPSLEventuallyAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.agcl.agcl.PSLAlways <em>PSL Always</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.xtext.aadl2.agcl.agcl.PSLAlways
+   * @generated
+   */
+  public Adapter createPSLAlwaysAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.agcl.agcl.PSLUntil <em>PSL Until</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.xtext.aadl2.agcl.agcl.PSLUntil
+   * @generated
+   */
+  public Adapter createPSLUntilAdapter()
   {
     return null;
   }

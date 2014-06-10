@@ -24,7 +24,8 @@ public class AGCLLabelProvider extends DefaultEObjectLabelProvider {
   
   public String text(final AnnexSubclause ele) {
     String _name = ele.getName();
-    return ("annex subclause " + _name);
+    String _plus = ("annex subclause " + _name);
+    return _plus;
   }
   
   public String image(final AnnexSubclause ele) {
@@ -33,7 +34,8 @@ public class AGCLLabelProvider extends DefaultEObjectLabelProvider {
   
   public String text(final AGCLAnnexSubclause ele) {
     String _name = ele.getName();
-    return ("annex subclause " + _name);
+    String _plus = ("annex subclause " + _name);
+    return _plus;
   }
   
   public String image(final AGCLAnnexSubclause ele) {
@@ -42,7 +44,8 @@ public class AGCLLabelProvider extends DefaultEObjectLabelProvider {
   
   public String text(final ThreadType ele) {
     String _name = ele.getName();
-    return ("thread type " + _name);
+    String _plus = ("thread type " + _name);
+    return _plus;
   }
   
   public String image(final ThreadType ele) {
