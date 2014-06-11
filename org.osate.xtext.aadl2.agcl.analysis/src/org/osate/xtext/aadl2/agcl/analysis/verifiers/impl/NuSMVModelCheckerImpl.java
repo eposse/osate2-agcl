@@ -20,6 +20,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
@@ -66,7 +67,8 @@ public class NuSMVModelCheckerImpl extends ModelCheckerImpl implements NuSMVMode
 	private Map<String,Object> commonPathsTable;
 	private static String regexp = "-- specification ([()\\w\\d\\s\\-\\+\\*\\?\\=\\>\\<\\[\\]\\|\\.\\!\\^&,{}/%:;]+) is ((true|false))";
 	private static Pattern pattern = Pattern.compile(regexp);
-
+	private IProgressMonitor progressMonitor;
+	private long progressMonitorPollingPeriod = 1000L; // In miliseconds
 	
 	/**
 	 * <!-- begin-user-doc -->
@@ -307,32 +309,103 @@ public class NuSMVModelCheckerImpl extends ModelCheckerImpl implements NuSMVMode
 	 * 
 	 * <p> Note: this will block the current thread until the external program ends.
 	 * 
-	 * TODO: check if the progress monitor says the task should be canceled ({@code monitor.isCanceled()}) 
-	 * and if so, force the process to stop. 
+	 * <p> It checks if the progress monitor says the task should be canceled ({@code monitor.isCanceled()}) 
+	 * and if so, forces the process to stop.
+	 *  
 	 * @param procBuilder the process builder for NuSMV
 	 */
 	private void runCommand(ProcessBuilder procBuilder) {
+		CommandRunner runner = new CommandRunner(procBuilder);
+		runner.start();
 		try {
-			Process proc = procBuilder.start();
-			Logger.getLogger(getClass()).debug("process started: " + proc);
-			int exitCode = proc.waitFor();
-			Logger.getLogger(getClass()).debug("process finished: " + proc.exitValue());
-			// TODO: check other exit codes
-			switch (exitCode) {
-			case 0:
-				Logger.getLogger(getClass()).info("NuSMV finished normally");
-				break;
-			case 255:
-				Logger.getLogger(getClass()).error("NuSMV finished with error code 255");
-				break;
-			default:
-				Logger.getLogger(getClass()).error("NuSMV finished with error code " + exitCode);
+			synchronized (runner) {
+				while (!runner.isFinished() && !progressMonitor.isCanceled()) {
+					// I'm using the runner object as a monitor here
+					// The timeout is necessary because progress monitors don't have callbacks for the cancel button
+					// so it has to be polled periodically.
+					runner.wait(progressMonitorPollingPeriod);	
+				}
 			}
-		} catch (IOException e) {
-			Logger.getLogger(getClass()).error("There was an I/O error when calling NuSMV");
+			if (progressMonitor.isCanceled()) {
+				runner.cancel();
+			}
+			runner.join(); 
 		} catch (InterruptedException e) {
-			Logger.getLogger(getClass()).error("There was an interruption error when calling NuSMV");
+			e.printStackTrace();
 		}
+	}
+	
+	private class CommandRunner extends Thread {
+		
+		private boolean finished;
+		private boolean interrupted;
+		private ProcessBuilder procBuilder;
+		private Process externalProcess;
+		
+		public CommandRunner(ProcessBuilder procBuilder) {
+			this.procBuilder = procBuilder;
+			this.finished = false;
+			this.interrupted = false;
+		}
+
+		public synchronized boolean isFinished() {
+			return finished;
+		}
+
+		/**
+		 * Notify other threads that this one has finished. It should be invoked only by the terminating thread.
+		 */
+		private synchronized void finished() {
+			this.finished = true;
+			notifyAll();
+			Logger.getLogger(getClass()).debug("command runner finished");
+		}
+
+		/**
+		 * Tell the thread to stop. It kills the subprocess.
+		 */
+		public void cancel() {
+			Logger.getLogger(getClass()).debug("command runner cancelled: destroying the external process");
+			externalProcess.destroy();
+			interrupted = true;
+//			interrupt(); // Is this necessary? I don't think so: by destroying the process, the thread should wake up from the waitFor and end normally.
+		}
+
+		@Override
+		public void run() {
+			try {
+				externalProcess = procBuilder.start();
+				Logger.getLogger(getClass()).debug("process started: " + externalProcess);
+				int exitCode = externalProcess.waitFor();
+				if (interrupted) {
+					Logger.getLogger(getClass()).debug("external process interrupted");
+				}
+				// TODO: check other exit codes
+				switch (exitCode) {
+				case 0:
+					Logger.getLogger(getClass()).info("NuSMV finished normally");
+					break;
+				case -1: 
+					Logger.getLogger(getClass()).error("NuSMV finished with error code -1 (syntax error)");
+					break;
+				case 255:
+					Logger.getLogger(getClass()).error("NuSMV finished with error code 255 (other error)");
+					break;
+				default:
+					Logger.getLogger(getClass()).error("NuSMV finished with error code " + exitCode);
+				}
+				Logger.getLogger(getClass()).debug("process finished: " + externalProcess.exitValue());
+			} catch (IOException e) {
+				Logger.getLogger(getClass()).error("There was an I/O error when calling NuSMV");
+				e.printStackTrace();
+			} catch (InterruptedException e) {
+				Logger.getLogger(getClass()).info("NuSMV process interrupted");
+			}
+			finally {
+				finished();
+			}
+		}
+
 	}
 
 	/**
@@ -514,6 +587,20 @@ public class NuSMVModelCheckerImpl extends ModelCheckerImpl implements NuSMVMode
 		result.setLogic("PSL");
 		Logger.getLogger(getClass()).debug("transformed nusmv spec:                " + serializer.serialize(transformed) );
 		return result;
+	}
+
+	/**
+	 * @return the progressMonitor
+	 */
+	public IProgressMonitor getProgressMonitor() {
+		return progressMonitor;
+	}
+
+	/**
+	 * @param progressMonitor the progressMonitor to set
+	 */
+	public void setProgressMonitor(IProgressMonitor progressMonitor) {
+		this.progressMonitor = progressMonitor;
 	}
 
 } //NuSMVModelCheckerImpl
