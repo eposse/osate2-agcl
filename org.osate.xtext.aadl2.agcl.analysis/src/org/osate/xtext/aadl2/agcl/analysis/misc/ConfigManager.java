@@ -36,6 +36,7 @@ import org.osgi.framework.Bundle;
  * @author Ernesto Posse
  *
  */
+@Deprecated
 public class ConfigManager {
 	
 	private String configDir = "config";

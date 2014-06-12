@@ -3,6 +3,7 @@ package org.osate.xtext.aadl2.agcl.analysis.misc
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress
 import org.eclipse.core.runtime.IProgressMonitor
 
+@Deprecated
 class AADLSwitchWithProgressDelegator<T> extends AadlProcessingSwitchWithProgress {
     
     private org.osate.xtext.aadl2.agcl.analysis.misc.AADLSwitchWithProgressDelegate<T> aadlSwitchDelegate

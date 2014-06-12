@@ -12,6 +12,7 @@ import org.osate.xtext.aadl2.agcl.agcl.util.AgclSwitch;
  * @author eposse
  *
  */
+@Deprecated
 public class PSLSerializer extends AgclSwitch<String> {
 	
 	private String inputKwd = "in ";

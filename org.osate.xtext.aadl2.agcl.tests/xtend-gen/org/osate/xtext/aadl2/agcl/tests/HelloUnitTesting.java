@@ -26,7 +26,7 @@ public class HelloUnitTesting {
   public void parseSimpleAGCLLibrary() {
     try {
       InputOutput.<String>println("AGCLAnnexLibrary");
-      final String libText = "\r\n            library \r\n                viewpoint v1*;\r\n                viewpoint v2\r\n        ";
+      final String libText = "\n            library \n                viewpoint v1*;\n                viewpoint v2\n        ";
       final AGCLGrammarRoot libAST = this.parser.parse(libText);
       AGCLAnnexLibrary _lib = libAST.getLib();
       final EList<AGCLViewpoint> viewpoints = _lib.getViewpoints();

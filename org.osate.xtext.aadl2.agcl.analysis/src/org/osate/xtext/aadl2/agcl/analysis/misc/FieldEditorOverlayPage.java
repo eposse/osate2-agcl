@@ -43,6 +43,7 @@ import org.eclipse.ui.IWorkbenchPropertyPage;
  * @author eposse
  *
  */
+@Deprecated
 public abstract class FieldEditorOverlayPage 
 	extends FieldEditorPreferencePage 
 	implements IWorkbenchPropertyPage {

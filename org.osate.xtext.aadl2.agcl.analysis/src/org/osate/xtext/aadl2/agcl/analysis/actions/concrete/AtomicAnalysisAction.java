@@ -10,12 +10,12 @@ import org.osate.xtext.aadl2.agcl.analysis.visitors.ViewpointContext;
 import org.osate.xtext.aadl2.agcl.analysis.visitors.concrete.AtomicAnalysisSwitch;
 
 /**
- * This class provides the action that performs an atomic analysis, i.e. A/G analysis on thread 
- * implementations. 
+ * This class provides the action that performs an atomic analysis (A/G analysis on thread 
+ * implementations). 
  * 
  * <p>The actual algorithm implementing the analysis is in class {@link AtomicAnalysisSwitch}. 
  * 
- * @author eposse
+ * @author Ernesto Posse
  *
  */
 public class AtomicAnalysisAction extends CommonAGCLAction {
@@ -30,16 +30,7 @@ public class AtomicAnalysisAction extends CommonAGCLAction {
 
 	@Override
 	protected CommonAGCLAnalysisSwitch createConcreteAnalysisSwitch(IProgressMonitor monitor, ViewpointContext viewpointContext) {
-		// TODO Auto-generated method stub
 		return new AtomicAnalysisSwitch(monitor, viewpointContext);
 	}
 
-//	@Override
-//	protected CommonAGCLAnalysisSwitch createConcreteAnalysisSwitch(
-//			IProgressMonitor monitor, ViewpointContext viewpointContext,
-//			AnalysisResults analysisResults) {
-//		// TODO Auto-generated method stub
-//		return new AtomicAnalysisSwitch(monitor, viewpointContext, analysisResults);
-//	}
-//
 }

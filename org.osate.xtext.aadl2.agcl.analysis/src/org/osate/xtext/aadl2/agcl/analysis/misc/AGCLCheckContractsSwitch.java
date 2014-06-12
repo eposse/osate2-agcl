@@ -21,6 +21,7 @@ import org.osate.xtext.aadl2.agcl.agcl.AGCLAnnexSubclause;
 import org.osate.xtext.aadl2.agcl.agcl.AGCLContract;
 import org.osate.xtext.aadl2.agcl.agcl.util.AgclSwitch;
 
+@Deprecated
 public class AGCLCheckContractsSwitch extends AadlProcessingSwitchWithProgress {
 	
 	protected AgclSwitch agclSwitch;

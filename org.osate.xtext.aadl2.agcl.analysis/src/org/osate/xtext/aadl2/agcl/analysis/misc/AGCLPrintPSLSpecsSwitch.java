@@ -25,6 +25,7 @@ import com.google.inject.Injector;
  * @author eposse
  *
  */
+@Deprecated
 public class AGCLPrintPSLSpecsSwitch extends AadlProcessingSwitchWithProgress {
 
 	private AgclSwitch<String> agclSwitch;

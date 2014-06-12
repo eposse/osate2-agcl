@@ -16,6 +16,7 @@ import org.osate.xtext.aadl2.agcl.agcl.AGCLAnnexLibrary;
 import org.osate.xtext.aadl2.agcl.agcl.AGCLAnnexSubclause;
 import org.osate.xtext.aadl2.agcl.agcl.util.AgclSwitch;
 import org.osate.xtext.aadl2.agcl.analysis.AGCLAnalysisPlugin;
+import org.osate.xtext.aadl2.agcl.analysis.algorithms.AnalysisAlgorithmBase;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.ModelChecker;
 
 /**
@@ -28,23 +29,19 @@ public abstract class CommonAGCLAnalysisSwitch extends AadlProcessingSwitchWithP
 
 	protected AgclSwitch<Void> agclSwitch;
 	protected final ViewpointContext viewpointContext;
-//	protected final AnalysisResults analysisResults;
 	protected final ISerializer serializer;
 	protected final ModelChecker checker;
+	protected final AnalysisAlgorithmBase algorithm;
 
-	public CommonAGCLAnalysisSwitch(IProgressMonitor pm, ViewpointContext viewpointContext) {
+	public CommonAGCLAnalysisSwitch(IProgressMonitor pm, 
+			ViewpointContext viewpointContext, 
+			AnalysisAlgorithmBase algorithm) {
 		super(pm);
 		this.viewpointContext = viewpointContext;
 		this.serializer = AGCLAnalysisPlugin.getDefault().getSerializer();
 		this.checker = AGCLAnalysisPlugin.getDefault().getActiveModelChecker();
+		this.algorithm = algorithm;
 	}
-//	public CommonAGCLAnalysisSwitch(IProgressMonitor pm, ViewpointContext viewpointContext, AnalysisResults analysisResults) {
-//		super(pm);
-//		this.viewpointContext = viewpointContext;
-//		this.analysisResults = analysisResults;
-//		this.serializer = AGCLAnalysisPlugin.getDefault().getSerializer();
-//		this.checker = AGCLAnalysisPlugin.getDefault().getActiveModelChecker();
-//	}
 
 	@Override
 	protected void initSwitches() {
@@ -52,6 +49,7 @@ public abstract class CommonAGCLAnalysisSwitch extends AadlProcessingSwitchWithP
 		aadl2Switch = new Aadl2Switch<String>() {
 			public String caseAnnexSubclause(AnnexSubclause obj) {
 				monitor.subTask("AnnexSubclause " + obj.getName());
+				if (monitor.isCanceled()) return null;
 				Logger.getLogger(getClass()).debug("visiting: " + obj);
 				if (obj instanceof DefaultAnnexSubclause) 
 					return "";
@@ -67,6 +65,7 @@ public abstract class CommonAGCLAnalysisSwitch extends AadlProcessingSwitchWithP
 			}
 			public String caseAnnexLibrary(AnnexLibrary obj) {
 				monitor.subTask("AnnexLibrary" + obj.getName());
+				if (monitor.isCanceled()) return null;
 				Logger.getLogger(getClass()).debug("visiting: " + obj);
 				if (obj instanceof DefaultAnnexLibrary)
 					return "";

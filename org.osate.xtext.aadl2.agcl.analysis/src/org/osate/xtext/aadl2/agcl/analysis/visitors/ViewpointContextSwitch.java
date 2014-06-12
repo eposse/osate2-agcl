@@ -23,21 +23,26 @@ public class ViewpointContextSwitch extends CommonAGCLAnalysisSwitch {
 	 * @param pm
 	 */
 	public ViewpointContextSwitch(IProgressMonitor pm, ViewpointContext viewpointContext) {
-		super(pm, viewpointContext);
+		super(pm, viewpointContext, null);
 	}
 
 	@Override
 	protected void initAGCLSwitch() {
 		agclSwitch = new AgclSwitch<Void>() {
 			public Void caseAGCLAnnexLibrary(AGCLAnnexLibrary obj) {
-				//monitor.subTask("AGCLAnnexLibrary" + obj.getName());
+				monitor.subTask("AGCLAnnexLibrary" + obj.getName());
+				if (monitor.isCanceled()) return null;
+				
 				// We collect all declared viewpoints in this package
 				for (AGCLViewpoint v : obj.getViewpoints()) {
+					if (monitor.isCanceled()) return null;
 					Logger.getLogger(getClass()).info("declared viewpoint: " + v.getName());
 					viewpointContext.addDeclaredViewpoint(v.getName());
 				}
+				
 				// We collect the names of all viewpoints to verify, but only those which are declared
 				for (AGCLEnforce e : obj.getEnforceclauses()) {
+					if (monitor.isCanceled()) return null;
 					String viewpointName = e.getName();
 					if (viewpointContext.containsDeclaredViewpoint(viewpointName)) {
 						viewpointContext.addViewpointToVerify(viewpointName);
@@ -47,7 +52,8 @@ public class ViewpointContextSwitch extends CommonAGCLAnalysisSwitch {
 						Logger.getLogger(getClass()).warn("ignoring undeclared viewpoint: " + viewpointName);
 					}
 				}
-			    //monitor.worked(1);
+			    monitor.worked(1);
+			    monitor.done();
 				return null;
 			}
 		};

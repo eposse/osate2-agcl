@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.EObject;
  * @author Ernesto Posse
  *
  */
+@Deprecated
 public interface EFunction<T,R> extends Function<T, R> {
 	
 	public R apply(EObject context, T arg);

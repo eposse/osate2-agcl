@@ -37,6 +37,7 @@ import org.osate.xtext.aadl2.agcl.analysis.util.PathUtil;
  * @author Ernesto Posse 
  *
  */
+@Deprecated
 public class Settings {
 	
 	protected String projectDir = "";

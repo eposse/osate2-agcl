@@ -36,6 +36,7 @@ import org.osate.xtext.aadl2.agcl.analysis.util.AGCLUtil;
  * @author Ernesto Posse
  *
  */
+@Deprecated
 public class AgclTransform<T> extends AgclSwitch<T> {
 	
 	protected EFunction<EMap<EStructuralFeature,T>,T> function;

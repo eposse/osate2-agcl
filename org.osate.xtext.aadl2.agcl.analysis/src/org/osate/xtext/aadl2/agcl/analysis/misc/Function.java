@@ -9,6 +9,7 @@ package org.osate.xtext.aadl2.agcl.analysis.misc;
  * @author Ernesto Posse
  *
  */
+@Deprecated
 public interface Function<T, R> {
 	public R apply(T x);
 }

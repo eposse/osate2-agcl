@@ -3,6 +3,8 @@
  */
 package org.osate.xtext.aadl2.agcl.analysis.util;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
 
@@ -11,12 +13,19 @@ import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.resource.SaveOptions;
 import org.eclipse.xtext.serializer.ISerializer;
+import org.osate.aadl2.AnnexSubclause;
+import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ThreadImplementation;
+import org.osate.aadl2.ThreadType;
+import org.osate.xtext.aadl2.agcl.agcl.AGCLAnnexSubclause;
+import org.osate.xtext.aadl2.agcl.agcl.AGCLContract;
 import org.osate.xtext.aadl2.agcl.agcl.AtomicProposition;
 import org.osate.xtext.aadl2.agcl.agcl.PSLExpression;
 import org.osate.xtext.aadl2.agcl.agcl.PSLSpec;
 import org.osate.xtext.aadl2.agcl.analysis.AGCLAnalysisPlugin;
 import org.osate.xtext.aadl2.agcl.analysis.visitors.PSLASTPrinter;
 import org.osate.xtext.aadl2.agcl.analysis.visitors.PSLDeepCopyerExplicitSwitch;
+import org.osate.xtext.aadl2.agcl.analysis.visitors.ViewpointContext;
 import org.osate.xtext.aadl2.agcl.analysis.visitors.concrete.PSLAtomicPropositionsSwitch;
 
 /**
@@ -30,6 +39,8 @@ public class AGCLSyntaxUtil {
 	public static final SaveOptions serializerOptions = SaveOptions.newBuilder().format().noValidation().getOptions();
 	public static ISerializer serializer = AGCLAnalysisPlugin.getDefault().getSerializer();
 	
+	private static PSLASTPrinter pslAstPrinter = new PSLASTPrinter();
+
 	/**
 	 * @param expr  a PSL expression
 	 * @return a deep copy of the expression
@@ -111,6 +122,83 @@ public class AGCLSyntaxUtil {
 		};
 		return combinedResult;
 	}
+	
+	/**
+	 * @param classifier		an AADL classifier (usually a {@link ThreadType} or {@link ThreadImplementation}). 
+	 * @param viewpointContext	a viewpoint context
+	 * @return the (ordered) list of all contracts in all AGCL annexes owned by the classifier,
+	 * 		and that are marked to be verified according to the given viewpoint context.
+	 */
+	public static List<AGCLContract> getViewpointContracts(Classifier classifier, 
+			ViewpointContext viewpointContext) {
+		assert classifier != null;
+		List<AGCLContract> result = new LinkedList<AGCLContract>();
+		for (AnnexSubclause subclause : classifier.getOwnedAnnexSubclauses()) {
+			if (subclause instanceof AGCLAnnexSubclause) {
+				result.addAll(getViewpointContracts((AGCLAnnexSubclause)subclause, viewpointContext));
+			}
+		}
+		return result;
+	}
+	
+	/**
+	 * @param classifier		an AADL classifier (usually a {@link ThreadType} or {@link ThreadImplementation}). 
+	 * @param viewpointName		a viewpoint (contract) name
+	 * @param viewpointContext	a viewpoint context
+	 * @return the (ordered) list of all contracts with the given name in all AGCL annexes owned by the classifier,
+	 * 		and that are marked to be verified according to the given viewpoint context.
+	 */
+	public static List<AGCLContract> getViewpointContracts(Classifier classifier, String viewpointName,
+			ViewpointContext viewpointContext) {
+		assert classifier != null;
+		List<AGCLContract> result = new LinkedList<AGCLContract>();
+		for (AnnexSubclause subclause : classifier.getOwnedAnnexSubclauses()) {
+			if (subclause instanceof AGCLAnnexSubclause) {
+				result.addAll(getViewpointContracts((AGCLAnnexSubclause)subclause, viewpointName, viewpointContext));
+			}
+		}
+		return result;
+	}
+	
+	/**
+	 * @param annexSubclause	an AGCL annex sub-clause
+	 * @param viewpointName		a viewpoint (contract) name
+	 * @param viewpointContext	a viewpoint context
+	 * @return the (ordered) list of all contracts with the given name in the sub-clause that are marked to be
+	 * 		verified according to the given viewpoint context.
+	 */
+	public static List<AGCLContract> getViewpointContracts(AGCLAnnexSubclause annexSubclause, 
+			String viewpointName, ViewpointContext viewpointContext) {
+		assert annexSubclause != null;
+		List<AGCLContract> result = new LinkedList<AGCLContract>();
+		for (AGCLContract contract : annexSubclause.getContracts()) {
+			if (contract.getName().equals(viewpointName)) {
+				if (viewpointContext.containsViewpointToVerify(viewpointName)) {
+					result.add(contract);
+				}
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * @param annexSubclause	an AGCL annex sub-clause
+	 * @param viewpointContext	a viewpoint context
+	 * @return the (ordered) list of all contracts in the sub-clause which belong to the viewpoint to verify 
+	 * 		according to the given viewpoint context .
+	 */
+	public static List<AGCLContract> getViewpointContracts(AGCLAnnexSubclause annexSubclause, 
+			ViewpointContext viewpointContext) {
+		assert annexSubclause != null;
+		List<AGCLContract> result = new LinkedList<AGCLContract>();
+		for (AGCLContract contract : annexSubclause.getContracts()) {
+			String viewpointName = contract.getName();
+			if (viewpointContext.containsViewpointToVerify(viewpointName)) {
+				result.add(contract);
+			}
+		}
+		return result;
+	}
 
 	public static String astStr(PSLExpression expr) {
 		return pslAstPrinter.doSwitch(expr);
@@ -119,6 +207,4 @@ public class AGCLSyntaxUtil {
 	public static String astStr(PSLSpec spec) {
 		return pslAstPrinter.doSwitch(spec);
 	}
-
-	private static PSLASTPrinter pslAstPrinter = new PSLASTPrinter();
 }

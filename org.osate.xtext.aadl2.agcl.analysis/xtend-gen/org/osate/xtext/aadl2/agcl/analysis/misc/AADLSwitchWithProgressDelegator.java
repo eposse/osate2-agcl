@@ -5,6 +5,7 @@ import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgr
 import org.osate.xtext.aadl2.agcl.analysis.misc.AADLSwitchWithProgressDelegate;
 import org.osate.xtext.aadl2.agcl.analysis.misc.AnnexSwitchWithProgressDelegate;
 
+@Deprecated
 @SuppressWarnings("all")
 public class AADLSwitchWithProgressDelegator<T extends Object> extends AadlProcessingSwitchWithProgress {
   private AADLSwitchWithProgressDelegate<T> aadlSwitchDelegate;

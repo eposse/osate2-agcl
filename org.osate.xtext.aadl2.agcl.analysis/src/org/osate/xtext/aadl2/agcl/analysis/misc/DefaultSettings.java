@@ -7,6 +7,7 @@ package org.osate.xtext.aadl2.agcl.analysis.misc;
  * @author Ernesto Posses
  *
  */
+@Deprecated
 public class DefaultSettings extends Settings {
 	protected String projectDir = "";
 	protected String analysisResultsDir = "analysis.results";

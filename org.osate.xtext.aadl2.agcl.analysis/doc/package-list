@@ -1,0 +1,14 @@
+org.osate.xtext.aadl2.agcl.analysis
+org.osate.xtext.aadl2.agcl.analysis.actions
+org.osate.xtext.aadl2.agcl.analysis.actions.concrete
+org.osate.xtext.aadl2.agcl.analysis.algorithms
+org.osate.xtext.aadl2.agcl.analysis.algorithms.concrete
+org.osate.xtext.aadl2.agcl.analysis.config
+org.osate.xtext.aadl2.agcl.analysis.misc
+org.osate.xtext.aadl2.agcl.analysis.results
+org.osate.xtext.aadl2.agcl.analysis.util
+org.osate.xtext.aadl2.agcl.analysis.verifiers
+org.osate.xtext.aadl2.agcl.analysis.verifiers.impl
+org.osate.xtext.aadl2.agcl.analysis.verifiers.util
+org.osate.xtext.aadl2.agcl.analysis.visitors
+org.osate.xtext.aadl2.agcl.analysis.visitors.concrete

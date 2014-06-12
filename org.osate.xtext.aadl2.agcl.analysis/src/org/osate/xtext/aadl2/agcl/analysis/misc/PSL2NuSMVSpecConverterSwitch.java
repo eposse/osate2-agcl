@@ -18,6 +18,7 @@ import org.osate.xtext.aadl2.agcl.analysis.AGCLAnalysisPlugin;
  * @author Ernesto Posse
  *
  */
+@Deprecated
 public class PSL2NuSMVSpecConverterSwitch extends AgclTransform<EObject> {
 	
 	private ISerializer serializer = AGCLAnalysisPlugin.getDefault().getSerializer();

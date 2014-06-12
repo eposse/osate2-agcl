@@ -23,6 +23,7 @@ import org.eclipse.jface.preference.PreferenceStore;
  * @author Ernesto Posse
  *
  */
+@Deprecated
 public class PropertyStore extends PreferenceStore {
 
 	private IResource resource;

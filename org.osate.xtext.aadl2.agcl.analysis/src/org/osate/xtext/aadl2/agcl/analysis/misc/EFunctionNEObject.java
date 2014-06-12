@@ -12,6 +12,7 @@ import org.eclipse.emf.ecore.util.FeatureMap;
  * @author eposse
  *
  */
+@Deprecated
 public interface EFunctionNEObject extends EFunction<EMap<EStructuralFeature,EObject>, EObject> {
 
 	public EObject apply(EMap<EStructuralFeature,EObject> args);

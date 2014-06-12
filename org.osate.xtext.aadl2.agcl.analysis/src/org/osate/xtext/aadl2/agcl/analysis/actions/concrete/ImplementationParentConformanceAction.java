@@ -14,7 +14,7 @@ import org.osate.xtext.aadl2.agcl.analysis.visitors.concrete.ImplementationParen
  * 
  * <p>The actual algorithm implementing the analysis is in class {@link ImplementationParentConformanceSwitch}. 
  * 
- * @author eposse
+ * @author Ernesto Posse
  *
  */
 public class ImplementationParentConformanceAction extends
@@ -34,11 +34,4 @@ public class ImplementationParentConformanceAction extends
 		return new ImplementationParentConformanceSwitch(monitor, viewpointContext);
 	}
 
-//	@Override
-//	protected CommonAGCLAnalysisSwitch createConcreteAnalysisSwitch(
-//			IProgressMonitor monitor, ViewpointContext viewpointContext,
-//			AnalysisResults analysisResults) {
-//		return new ImplementationParentConformanceSwitch(monitor, viewpointContext, analysisResults);
-//	}
-//
 }
