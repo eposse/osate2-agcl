@@ -79,9 +79,9 @@ public class AtomicAnalysis extends AnalysisAlgorithmBase {
 	 */
 	public void checkBehaviourSatisfiesContract(AGCLBehaviour behaviour, AGCLContract contract, String viewpointName, String componentName) {
 		Logger.getLogger(getClass()).info("checking behaviour w.r.t. a contract");
-		PSLSpec behaviourSpec  = behaviour.getSpec();
-		PSLSpec assumptionSpec = contract.getAssumption().getSpec();
-		PSLSpec guaranteeSpec  = contract.getGuarantee().getSpec();
+		PSLSpec behaviourSpec  = AGCLSyntaxUtil.deepCopy(behaviour.getSpec());
+		PSLSpec assumptionSpec = AGCLSyntaxUtil.deepCopy(contract.getAssumption().getSpec());
+		PSLSpec guaranteeSpec  = AGCLSyntaxUtil.deepCopy(contract.getGuarantee().getSpec());
 		Logger.getLogger(getClass()).info("behaviour  = '" + serializer.serialize(behaviourSpec) + "' ast = " + AGCLSyntaxUtil.astStr(behaviourSpec));
 		Logger.getLogger(getClass()).info("assumption = '" + serializer.serialize(assumptionSpec) + "' ast = " + AGCLSyntaxUtil.astStr(assumptionSpec));
 		Logger.getLogger(getClass()).info("guarantee  = '" + serializer.serialize(guaranteeSpec) + "' ast = " + AGCLSyntaxUtil.astStr(guaranteeSpec));

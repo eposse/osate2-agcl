@@ -3,6 +3,8 @@
  */
 package org.osate.xtext.aadl2.agcl.analysis.visitors.concrete;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.Classifier;
@@ -48,14 +50,18 @@ public class ImplementationTypeConformanceSwitch extends CommonAGCLAnalysisSwitc
 					}
 					else {
 						// Go through all relevant contracts in this annex sub-clause...
-						for (AGCLContract contract : AGCLSyntaxUtil.getViewpointContracts(obj, viewpointContext)) {
+						List<AGCLContract> relevantContracts = AGCLSyntaxUtil.getViewpointContracts(obj, viewpointContext);
+						Logger.getLogger(getClass()).debug("relevant contracts: " + relevantContracts);
+						for (AGCLContract contract : relevantContracts) {
 							if (monitor.isCanceled()) return null;
 							String viewpointName = contract.getName();
 							// Go through all contracts of this component's type in the same viewpoint 
-							for (AGCLContract parentContract : AGCLSyntaxUtil.getViewpointContracts(threadType, viewpointName, viewpointContext)) {
+							List<AGCLContract> relevantTypeContracts = AGCLSyntaxUtil.getViewpointContracts(threadType, viewpointName, viewpointContext);
+							Logger.getLogger(getClass()).debug("relevant type contracts: " + relevantTypeContracts);
+							for (AGCLContract typeContract : relevantTypeContracts) {
 								if (monitor.isCanceled()) return null;
 								// We verify only the contracts which belong to a viewpoint marked for verification 
-								((ImplementationTypeConformanceAnalysis)algorithm).checkThisContractSatisfiesParentContract(contract, parentContract, viewpointName, componentName);
+								((ImplementationTypeConformanceAnalysis)algorithm).checkThisContractSatisfiesParentContract(contract, typeContract, viewpointName, componentName);
 							}
 						}
 					}

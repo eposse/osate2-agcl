@@ -592,6 +592,7 @@ public class NuSMVModelCheckerImpl extends ModelCheckerImpl implements NuSMVMode
 	/**
 	 * @return the progressMonitor
 	 */
+	@Override
 	public IProgressMonitor getProgressMonitor() {
 		return progressMonitor;
 	}
@@ -599,6 +600,7 @@ public class NuSMVModelCheckerImpl extends ModelCheckerImpl implements NuSMVMode
 	/**
 	 * @param progressMonitor the progressMonitor to set
 	 */
+	@Override
 	public void setProgressMonitor(IProgressMonitor progressMonitor) {
 		this.progressMonitor = progressMonitor;
 	}

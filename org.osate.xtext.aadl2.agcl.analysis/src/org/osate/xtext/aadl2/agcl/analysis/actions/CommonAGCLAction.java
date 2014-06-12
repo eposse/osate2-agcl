@@ -57,6 +57,7 @@ public abstract class CommonAGCLAction extends AaxlReadOnlyActionAsJob {
 			// determine the location of generated folders and files.
 			Logger.getLogger(getClass()).debug("plugin: " + AGCLAnalysisPlugin.getDefault());
 			ModelChecker modelChecker = AGCLAnalysisPlugin.getDefault().getActiveModelChecker();
+			modelChecker.setProgressMonitor(monitor);
 			Logger.getLogger(getClass()).debug("active model checker: " + modelChecker);
 			Logger.getLogger(getClass()).debug("root element under scrutiny: " + root);
 			assert modelChecker != null;

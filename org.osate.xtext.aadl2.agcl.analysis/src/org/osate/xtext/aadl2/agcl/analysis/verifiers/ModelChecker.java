@@ -3,6 +3,7 @@
 package org.osate.xtext.aadl2.agcl.analysis.verifiers;
 
 import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -299,5 +300,9 @@ public interface ModelChecker extends EObject {
 	void setInputFolder(IFolder inputFolder);
 	
 	void setOutputFolder(IFolder outputFolder);
+
+	IProgressMonitor getProgressMonitor();
+
+	void setProgressMonitor(IProgressMonitor progressMonitor);
 
 } // ModelChecker
