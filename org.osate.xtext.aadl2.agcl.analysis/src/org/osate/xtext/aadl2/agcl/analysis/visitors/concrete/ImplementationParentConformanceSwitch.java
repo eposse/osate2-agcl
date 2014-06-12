@@ -3,8 +3,21 @@
  */
 package org.osate.xtext.aadl2.agcl.analysis.visitors.concrete;
 
+import java.util.List;
+
+import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.ThreadImplementation;
+import org.osate.aadl2.ThreadType;
+import org.osate.xtext.aadl2.agcl.agcl.AGCLAnnexSubclause;
+import org.osate.xtext.aadl2.agcl.agcl.AGCLContract;
+import org.osate.xtext.aadl2.agcl.agcl.util.AgclSwitch;
 import org.osate.xtext.aadl2.agcl.analysis.algorithms.concrete.ImplementationParentConformanceAnalysis;
+import org.osate.xtext.aadl2.agcl.analysis.algorithms.concrete.TypeParentConformanceAnalysis;
+import org.osate.xtext.aadl2.agcl.analysis.util.AGCLSyntaxUtil;
 import org.osate.xtext.aadl2.agcl.analysis.visitors.CommonAGCLAnalysisSwitch;
 import org.osate.xtext.aadl2.agcl.analysis.visitors.ViewpointContext;
 
@@ -25,8 +38,43 @@ public class ImplementationParentConformanceSwitch extends CommonAGCLAnalysisSwi
 
 	@Override
 	protected void initAGCLSwitch() {
-		// TODO Auto-generated method stub
-		
+		agclSwitch = new AgclSwitch<Void>() {
+			public Void caseAGCLAnnexSubclause(AGCLAnnexSubclause obj) {
+				Classifier component = obj.getContainingClassifier();
+				String componentName = component.getName();
+				Logger.getLogger(getClass()).info("Performing implementation/parent implementation conformance analysis on '" + componentName + "'");
+				monitor.subTask("Performing implementation/parent implementation conformance analysis on '" + componentName + "'");
+				if (monitor.isCanceled()) return null;
+
+				if (component instanceof ThreadImplementation) {
+					ThreadImplementation threadImpl = ((ThreadImplementation) component);
+					Logger.getLogger(getClass()).debug("thread type: " + ((threadImpl == null) ? "null" : threadImpl.getFullName()));
+					
+					ComponentImplementation parentThreadImpl = threadImpl.getExtended();
+					Logger.getLogger(getClass()).debug("parent thread type: " + ((parentThreadImpl == null) ? "null" : parentThreadImpl.getFullName()));
+					
+					if (parentThreadImpl instanceof ThreadImplementation) {
+						// Go through all relevant contracts in this annex sub-clause...
+						List<AGCLContract> relevantContracts = AGCLSyntaxUtil.getViewpointContracts(obj, viewpointContext);
+						Logger.getLogger(getClass()).debug("relevant contracts: " + relevantContracts);
+						for (AGCLContract contract : relevantContracts) {
+							if (monitor.isCanceled()) return null;
+							String viewpointName = contract.getName();
+							// Go through all contracts of this component's parent in the same viewpoint 
+							List<AGCLContract> relevantParentImplContracts = AGCLSyntaxUtil.getViewpointContracts(parentThreadImpl, viewpointName, viewpointContext);
+							Logger.getLogger(getClass()).debug("relevant implementation parent contracts: " + relevantParentImplContracts);
+							for (AGCLContract typeContract : relevantParentImplContracts) {
+								if (monitor.isCanceled()) return null;
+								// We verify only the contracts which belong to a viewpoint marked for verification 
+								((ImplementationParentConformanceAnalysis)algorithm).checkThisContractSatisfiesParentContract(contract, typeContract, viewpointName, componentName);
+							}
+						}
+					}
+				}
+				monitor.worked(1);
+				return null;
+			}
+		};
 	}
 
 

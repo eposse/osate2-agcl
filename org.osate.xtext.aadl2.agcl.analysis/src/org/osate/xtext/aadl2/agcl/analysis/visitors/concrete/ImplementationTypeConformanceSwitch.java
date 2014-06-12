@@ -37,11 +37,12 @@ public class ImplementationTypeConformanceSwitch extends CommonAGCLAnalysisSwitc
 	protected void initAGCLSwitch() {
 		agclSwitch = new AgclSwitch<Void>() {
 			public Void caseAGCLAnnexSubclause(AGCLAnnexSubclause obj) {
-				monitor.subTask("AGCLAnnexSubclause" + obj.getName());
-				if (monitor.isCanceled()) return null;
 				Classifier component = obj.getContainingClassifier();
 				String componentName = component.getName();
-				Logger.getLogger(getClass()).info("processing AGCL annex subclause for '" + componentName + "'");
+				Logger.getLogger(getClass()).info("Performing implementation/type conformance analysis on '" + componentName + "'");
+				monitor.subTask("Performing implementation/type conformance analysis on '" + componentName + "'");
+				if (monitor.isCanceled()) return null;
+
 				if (component instanceof ThreadImplementation) {
 					ThreadType threadType = ((ThreadImplementation) component).getType();
 					Logger.getLogger(getClass()).debug("thread type: " + ((threadType == null) ? "null" : threadType.getFullName()));

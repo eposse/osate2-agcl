@@ -34,20 +34,25 @@ public class AtomicAnalysisSwitch extends CommonAGCLAnalysisSwitch {
 	protected void initAGCLSwitch() {
 		agclSwitch = new AgclSwitch<Void>() {
 			public Void caseAGCLAnnexSubclause(AGCLAnnexSubclause obj) {
-				monitor.subTask("AGCLAnnexSubclause" + obj.getName());
-				if (monitor.isCanceled()) return null;
 				Classifier component = obj.getContainingClassifier();
 				String componentName = component.getName();
-				Logger.getLogger(getClass()).info("processing AGCL annex subclause for '" + componentName + "'");
+				Logger.getLogger(getClass()).info("Performing atomic analysis on '" + componentName + "'");
+				monitor.subTask("Performing atomic analysis on '" + componentName + "'");
+				if (monitor.isCanceled()) return null;
 				
 				// Get the component's behaviour specified in this annex sub-clause
 				AGCLBehaviour behaviour = obj.getBehaviour();
 				
-				// Go through all relevant contracts in this annex  sub-clause...
-				for (AGCLContract contract : AGCLSyntaxUtil.getViewpointContracts(obj, viewpointContext)) {
-					if (monitor.isCanceled()) return null;
-					String viewpointName = contract.getName();
-					((AtomicAnalysis)algorithm).checkBehaviourSatisfiesContract(behaviour, contract, viewpointName, componentName);
+				if (behaviour == null) {
+					Logger.getLogger(getClass()).info("component '" + componentName + "' does not have a behaviour spec; I'm ignoring it");
+				}
+				else {
+					// Go through all relevant contracts in this annex  sub-clause...
+					for (AGCLContract contract : AGCLSyntaxUtil.getViewpointContracts(obj, viewpointContext)) {
+						if (monitor.isCanceled()) return null;
+						String viewpointName = contract.getName();
+						((AtomicAnalysis)algorithm).checkBehaviourSatisfiesContract(behaviour, contract, viewpointName, componentName);
+					}
 				}
 				monitor.worked(1);
 				monitor.done();
