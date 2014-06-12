@@ -3,10 +3,16 @@
  */
 package org.osate.xtext.aadl2.agcl.analysis.algorithms.concrete;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.osate.xtext.aadl2.agcl.agcl.AGCLAssumption;
 import org.osate.xtext.aadl2.agcl.agcl.AGCLContract;
+import org.osate.xtext.aadl2.agcl.agcl.AGCLGuarantee;
+import org.osate.xtext.aadl2.agcl.agcl.AgclFactory;
+import org.osate.xtext.aadl2.agcl.agcl.PSLSpec;
 import org.osate.xtext.aadl2.agcl.analysis.algorithms.AnalysisAlgorithmBase;
+import org.osate.xtext.aadl2.agcl.analysis.util.AGCLSyntaxUtil;
 import org.osate.xtext.aadl2.agcl.analysis.visitors.ViewpointContext;
 
 /**
@@ -58,7 +64,55 @@ public class CompositeAnalysis extends AnalysisAlgorithmBase {
 	}
 
 	public AGCLContract makeContractComposition(List<AGCLContract> contracts) {
-		return null;
+		// Gather all assumptions and guarantees
+		List<PSLSpec> assumptionSpecs = new ArrayList<PSLSpec>();
+		List<PSLSpec> guaranteeSpecs = new ArrayList<PSLSpec>();
+		for (AGCLContract contract : contracts) {
+			AGCLAssumption assumption = contract.getAssumption();
+			AGCLGuarantee guarantee = contract.getGuarantee();
+			PSLSpec assumptionSpec = AGCLSyntaxUtil.deepCopy(assumption.getSpec());
+			PSLSpec guaranteeSpec = AGCLSyntaxUtil.deepCopy(guarantee.getSpec());
+			assumptionSpecs.add(assumptionSpec);
+			guaranteeSpecs.add(guaranteeSpec);
+		}
+		
+		// Build new guarantee
+		PSLSpec guaranteeConjunction = makeNaryConjunction(guaranteeSpecs);
+		PSLSpec compositeGuaranteeSpec = guaranteeConjunction;
+		
+		// Build new assumption
+		List<PSLSpec> assumptionImplications = new ArrayList<PSLSpec>();
+		for (int i = 0; i < assumptionSpecs.size(); i++) {
+			PSLSpec assumptionSpec = AGCLSyntaxUtil.deepCopy(assumptionSpecs.get(i));
+			
+			// Get the guarantees of all other components
+			List<PSLSpec> otherComponentsGuaranteeSpecs = new ArrayList<PSLSpec>();
+			int j = 0;
+			for (PSLSpec guarantee : guaranteeSpecs) {
+				if (j != i) {
+					PSLSpec otherGuarantee = AGCLSyntaxUtil.deepCopy(guarantee);
+					otherComponentsGuaranteeSpecs.add(otherGuarantee);
+				}
+				j++;
+			}
+			PSLSpec otherGuaranteesConjunction = makeNaryConjunction(otherComponentsGuaranteeSpecs);
+			
+			// The conjunction of the guarantees of all other components must imply this assumption
+			PSLSpec assumptionImplication = makeImplication(otherGuaranteesConjunction, assumptionSpec);
+			assumptionImplications.add(assumptionImplication);
+		}
+		PSLSpec compositeAssumptionSpec = makeNaryConjunction(assumptionImplications);
+		
+		AGCLAssumption newAssumption = AgclFactory.eINSTANCE.createAGCLAssumption();
+		newAssumption.setSpec(compositeAssumptionSpec);
+		AGCLGuarantee newGuarantee = AgclFactory.eINSTANCE.createAGCLGuarantee();
+		newGuarantee.setSpec(compositeGuaranteeSpec);
+		
+		AGCLContract newContract = AgclFactory.eINSTANCE.createAGCLContract();
+		newContract.setAssumption(newAssumption);
+		newContract.setGuarantee(newGuarantee);
+		
+		return newContract;
 	}
 	
 	public void checkSubcontractsSatisfyCompositeContainerContract(

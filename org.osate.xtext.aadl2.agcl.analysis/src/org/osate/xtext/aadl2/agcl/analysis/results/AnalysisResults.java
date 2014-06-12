@@ -134,7 +134,7 @@ public class AnalysisResults {
 			for (Viewpoint viewpoint: viewpointCollection.getViewpoints()) {
 				VerificationResult result = getResult(viewpoint, component);
 				String resultStr = resultToString(result);
-				String row = String.format(rowFormat, viewpoint.getName(), component.getName(), resultStr);
+				String row = String.format(rowFormat, component.getName(), viewpoint.getName(), resultStr);
 				table += row;
 			}
 		}

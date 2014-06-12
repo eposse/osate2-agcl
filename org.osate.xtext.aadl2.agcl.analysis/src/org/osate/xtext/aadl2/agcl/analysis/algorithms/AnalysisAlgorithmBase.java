@@ -1,11 +1,15 @@
 package org.osate.xtext.aadl2.agcl.analysis.algorithms;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.eclipse.xtext.serializer.ISerializer;
 import org.osate.xtext.aadl2.agcl.agcl.AGCLAssumption;
 import org.osate.xtext.aadl2.agcl.agcl.AGCLContract;
 import org.osate.xtext.aadl2.agcl.agcl.AGCLGuarantee;
 import org.osate.xtext.aadl2.agcl.agcl.AgclFactory;
+import org.osate.xtext.aadl2.agcl.agcl.BooleanConstant;
 import org.osate.xtext.aadl2.agcl.agcl.PSLConjunction;
 import org.osate.xtext.aadl2.agcl.agcl.PSLExpression;
 import org.osate.xtext.aadl2.agcl.agcl.PSLImplication;
@@ -82,7 +86,7 @@ public abstract class AnalysisAlgorithmBase {
 	 * @param spec2	a PSL spec S2
 	 * @return a combined PSL spec of the form S1 -> S2
 	 */
-	private PSLSpec makeImplication(PSLSpec spec1, PSLSpec spec2) {
+	protected PSLSpec makeImplication(PSLSpec spec1, PSLSpec spec2) {
 		PSLExpression expr1 = spec1.getExpr();
 		PSLExpression expr2 = spec2.getExpr();
 		PSLSpec newSpec = AgclFactory.eINSTANCE.createPSLSpec();
@@ -98,7 +102,7 @@ public abstract class AnalysisAlgorithmBase {
 	 * @param spec2	a PSL spec S2
 	 * @return a combined PSL spec of the form S1 & S2
 	 */
-	private PSLSpec makeConjunction(PSLSpec spec1, PSLSpec spec2) {
+	protected PSLSpec makeConjunction(PSLSpec spec1, PSLSpec spec2) {
 		PSLExpression expr1 = spec1.getExpr();
 		PSLExpression expr2 = spec2.getExpr();
 		PSLSpec newSpec = AgclFactory.eINSTANCE.createPSLSpec();
@@ -107,6 +111,42 @@ public abstract class AnalysisAlgorithmBase {
 		newExpr.setRight(expr2);
 		newSpec.setExpr(newExpr);
 		return newSpec;
+	}
+	
+	/**
+	 * @param specs	a list of PSL specs S1, S2, ..., Sn
+	 * @return a combined PSL spec of the form ( ...((S1 & S2) & ... ) & Sn
+	 */
+	protected PSLSpec makeNaryConjunction(List<PSLSpec> specs) {
+		PSLSpec newSpec = AgclFactory.eINSTANCE.createPSLSpec();
+		List<PSLExpression> expressions = new ArrayList<PSLExpression>();
+		for (PSLSpec spec : specs) {
+			expressions.add(spec.getExpr());
+		}
+		PSLExpression newExpr = makeNaryExprConjunction(expressions);
+		newSpec.setExpr(newExpr);
+		return newSpec;
+	}
+
+	protected PSLExpression makeNaryExprConjunction(List<PSLExpression> expressions) {
+		if (expressions.isEmpty()) {
+			BooleanConstant newConstant = AgclFactory.eINSTANCE.createBooleanConstant();
+			newConstant.setVal("TRUE");
+			return newConstant;
+		}
+		else if (expressions.size() == 1) {
+			return expressions.get(0);   // should I deep copy?
+		}
+		else {
+			PSLExpression newExpr = expressions.get(0);
+			for (PSLExpression subexpression : expressions.subList(1, expressions.size())) {
+				PSLConjunction newConjunction = AgclFactory.eINSTANCE.createPSLConjunction();
+				newConjunction.setLeft(newExpr);
+				newConjunction.setRight(subexpression);
+				newExpr = newConjunction;
+			}
+			return newExpr;
+		}
 	}
 	
 }
