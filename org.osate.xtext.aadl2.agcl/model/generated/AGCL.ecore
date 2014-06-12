@@ -7,7 +7,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="subclause" eType="#//AGCLAnnexSubclause"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AGCLAnnexLibrary" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//AnnexLibrary">
+  <eClassifiers xsi:type="ecore:EClass" name="AGCLAnnexLibrary" eSuperTypes="../../../org.osate.aadl2/model/aadl2.ecore#//AnnexLibrary">
     <eStructuralFeatures xsi:type="ecore:EReference" name="viewpoints" upperBound="-1"
         eType="#//AGCLViewpoint" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="enforceclauses" upperBound="-1"
@@ -19,7 +19,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="AGCLEnforce">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AGCLAnnexSubclause" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//AnnexSubclause">
+  <eClassifiers xsi:type="ecore:EClass" name="AGCLAnnexSubclause" eSuperTypes="../../../org.osate.aadl2/model/aadl2.ecore#//AnnexSubclause">
     <eStructuralFeatures xsi:type="ecore:EReference" name="declarations" upperBound="-1"
         eType="#//AGCLPropertyDecl" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="behaviour" eType="#//AGCLBehaviour"
