@@ -290,26 +290,6 @@ public class AGCLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cEnameIDTerminalRuleCall_6_0 = (RuleCall)cEnameAssignment_6.eContents().get(0);
 		private final Keyword cSemicolonKeyword_7 = (Keyword)cGroup.eContents().get(7);
 		
-		////AGCLAnnexSubclause returns AGCLAnnexSubclause:
-		////    AGCLTypeSubclause | AGCLImplSubclause
-		////;
-		////AGCLAnnexSubclause returns AGCLAnnexSubclause:
-		////    {AGCLAnnexSubclause}
-		////    ( declarations += AGCLPropertyDecl (declarations += AGCLPropertyDecl)* )?
-		////    ( contracts += AGCLContract (contracts += AGCLContract)* )?
-		////;
-		////AGCLTypeSubclause returns AGCLTypeSubclause:
-		////    {AGCLTypeSubclause}
-		////    ( declarations += AGCLPropertyDecl (declarations += AGCLPropertyDecl)* )?
-		////    ( contracts += AGCLContract (contracts += AGCLContract)* )?
-		////;
-		////
-		////AGCLImplSubclause returns AGCLImplSubclause:
-		////    {AGCLImplSubclause}
-		////    ( declarations += AGCLPropertyDecl (declarations += AGCLPropertyDecl)* )?
-		////    ( behaviour = AGCLBehaviour )?
-		////    ( contracts += AGCLContract (contracts += AGCLContract)* )?
-		////;
 		//AGCLContract:
 		//	"contract" name=ID (declarations+=AGCLPropertyDecl declarations+=AGCLPropertyDecl*)? assumption=AGCLAssumption
 		//	guarantee=AGCLGuarantee "end" ename=ID ";";
@@ -1048,64 +1028,6 @@ public class AGCLGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Parameter");
 		private final RuleCall cIDTerminalRuleCall = (RuleCall)rule.eContents().get(1);
 		
-		////
-		////PSLNaryExpr returns PSLExpression:
-		////	PSLBooleanExpression
-		////;
-		////
-		////PSLNegation returns PSLExpression:
-		////    NOT negated = PSLBooleanExpression
-		////;
-		////
-		////PSLBooleanExpression returns PSLExpression:
-		////    PSLDisjunction
-		////;
-		////
-		////PSLDisjunction returns PSLExpression:
-		////    terms += PSLConjunction (OR terms += PSLConjunction)*
-		////;
-		////
-		////PSLConjunction returns PSLExpression:
-		////    factors += PSLPrimary (AND factors += PSLPrimary)*
-		////;
-		////
-		////
-		////PSLPrimary returns PSLExpression: 
-		////	  BooleanConstant
-		//////	| IntConstant 
-		////	| AtomicProp
-		////	| PSLUnaryExpr
-		////	| PSLProperty
-		////	| '(' PSLExpression ')'
-		////;
-		////
-		////PSLUnaryExpr returns PSLExpression:
-		////	PSLNegation
-		////;
-		////
-		////
-		//////PSLProperty returns PSLExpression:
-		//////	  PSLFLProperty
-		//////;
-		////
-		////
-		////
-		////PSLFLProperty returns PSLExpression:
-		////	  NEXT subterm = PSLExpression
-		////	| EVENTUALLY subterm = PSLExpression
-		////	| ALWAYS subterm = PSLExpression
-		////	| '[' left = PSLExpression UNTIL right = PSLExpression ']'  	
-		//////	| PSLSequenceExpression (tight ?= '!')?
-		//////	| PropertyName ( '(' args += ActualParameter ( "," args += ActualParameter)* ')' )?
-		////;
-		////
-		//////PSLExpression returns PSLExpression:
-		//////	condition = PSLBooleanExpression (implication ?= IMPL conclusion = PSLBooleanExpression | biconditional ?= IFF other = PSLBooleanExpression)? 
-		//////;
-		////
-		////PSLSequenceExpression:
-		////	'seq'
-		////;
 		//Parameter:
 		//	ID;
 		public ParserRule getRule() { return rule; }
@@ -1268,26 +1190,6 @@ public class AGCLGrammarAccess extends AbstractGrammarElementFinder {
 		return getAGCLAnnexSubclauseAccess().getRule();
 	}
 
-	////AGCLAnnexSubclause returns AGCLAnnexSubclause:
-	////    AGCLTypeSubclause | AGCLImplSubclause
-	////;
-	////AGCLAnnexSubclause returns AGCLAnnexSubclause:
-	////    {AGCLAnnexSubclause}
-	////    ( declarations += AGCLPropertyDecl (declarations += AGCLPropertyDecl)* )?
-	////    ( contracts += AGCLContract (contracts += AGCLContract)* )?
-	////;
-	////AGCLTypeSubclause returns AGCLTypeSubclause:
-	////    {AGCLTypeSubclause}
-	////    ( declarations += AGCLPropertyDecl (declarations += AGCLPropertyDecl)* )?
-	////    ( contracts += AGCLContract (contracts += AGCLContract)* )?
-	////;
-	////
-	////AGCLImplSubclause returns AGCLImplSubclause:
-	////    {AGCLImplSubclause}
-	////    ( declarations += AGCLPropertyDecl (declarations += AGCLPropertyDecl)* )?
-	////    ( behaviour = AGCLBehaviour )?
-	////    ( contracts += AGCLContract (contracts += AGCLContract)* )?
-	////;
 	//AGCLContract:
 	//	"contract" name=ID (declarations+=AGCLPropertyDecl declarations+=AGCLPropertyDecl*)? assumption=AGCLAssumption
 	//	guarantee=AGCLGuarantee "end" ename=ID ";";
@@ -1475,64 +1377,6 @@ public class AGCLGrammarAccess extends AbstractGrammarElementFinder {
 		return getOutputAccess().getRule();
 	}
 
-	////
-	////PSLNaryExpr returns PSLExpression:
-	////	PSLBooleanExpression
-	////;
-	////
-	////PSLNegation returns PSLExpression:
-	////    NOT negated = PSLBooleanExpression
-	////;
-	////
-	////PSLBooleanExpression returns PSLExpression:
-	////    PSLDisjunction
-	////;
-	////
-	////PSLDisjunction returns PSLExpression:
-	////    terms += PSLConjunction (OR terms += PSLConjunction)*
-	////;
-	////
-	////PSLConjunction returns PSLExpression:
-	////    factors += PSLPrimary (AND factors += PSLPrimary)*
-	////;
-	////
-	////
-	////PSLPrimary returns PSLExpression: 
-	////	  BooleanConstant
-	//////	| IntConstant 
-	////	| AtomicProp
-	////	| PSLUnaryExpr
-	////	| PSLProperty
-	////	| '(' PSLExpression ')'
-	////;
-	////
-	////PSLUnaryExpr returns PSLExpression:
-	////	PSLNegation
-	////;
-	////
-	////
-	//////PSLProperty returns PSLExpression:
-	//////	  PSLFLProperty
-	//////;
-	////
-	////
-	////
-	////PSLFLProperty returns PSLExpression:
-	////	  NEXT subterm = PSLExpression
-	////	| EVENTUALLY subterm = PSLExpression
-	////	| ALWAYS subterm = PSLExpression
-	////	| '[' left = PSLExpression UNTIL right = PSLExpression ']'  	
-	//////	| PSLSequenceExpression (tight ?= '!')?
-	//////	| PropertyName ( '(' args += ActualParameter ( "," args += ActualParameter)* ')' )?
-	////;
-	////
-	//////PSLExpression returns PSLExpression:
-	//////	condition = PSLBooleanExpression (implication ?= IMPL conclusion = PSLBooleanExpression | biconditional ?= IFF other = PSLBooleanExpression)? 
-	//////;
-	////
-	////PSLSequenceExpression:
-	////	'seq'
-	////;
 	//Parameter:
 	//	ID;
 	public ParameterElements getParameterAccess() {
@@ -1543,10 +1387,6 @@ public class AGCLGrammarAccess extends AbstractGrammarElementFinder {
 		return getParameterAccess().getRule();
 	}
 
-	////PropertyName returns PropertyName:
-	////	ID;
-	////EString returns ecore::EString:
-	////    STRING | ID;
 	//terminal SL_COMMENT:
 	//	"--" !("\n" | "\r")* ("\r"? "\n")?;
 	public TerminalRule getSL_COMMENTRule() {

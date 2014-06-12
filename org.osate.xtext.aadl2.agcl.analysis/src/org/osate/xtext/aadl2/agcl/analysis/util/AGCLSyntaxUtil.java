@@ -15,8 +15,10 @@ import org.eclipse.xtext.resource.SaveOptions;
 import org.eclipse.xtext.serializer.ISerializer;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.ThreadImplementation;
 import org.osate.aadl2.ThreadType;
+import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 import org.osate.xtext.aadl2.agcl.agcl.AGCLAnnexSubclause;
 import org.osate.xtext.aadl2.agcl.agcl.AGCLContract;
 import org.osate.xtext.aadl2.agcl.agcl.AtomicProposition;
@@ -49,6 +51,16 @@ public class AGCLSyntaxUtil {
 		PSLDeepCopyerExplicitSwitch copier = new PSLDeepCopyerExplicitSwitch();
 		return (PSLExpression) copier.doSwitch(expr);
 	}
+
+	/**
+	 * @param expr  a PSL spec
+	 * @return a deep copy of the spec
+	 */
+	public static PSLSpec deepCopy(PSLSpec spec) {
+		PSLDeepCopyerExplicitSwitch copier = new PSLDeepCopyerExplicitSwitch();
+		return (PSLSpec) copier.doSwitch(spec);
+	}
+
 	
 //	/**
 //	 * In PSL syntax, a 'PSL Expression' may have the form 
@@ -134,8 +146,11 @@ public class AGCLSyntaxUtil {
 		assert classifier != null;
 		List<AGCLContract> result = new LinkedList<AGCLContract>();
 		for (AnnexSubclause subclause : classifier.getOwnedAnnexSubclauses()) {
-			if (subclause instanceof AGCLAnnexSubclause) {
-				result.addAll(getViewpointContracts((AGCLAnnexSubclause)subclause, viewpointContext));
+			if (subclause instanceof DefaultAnnexSubclause) {
+				AnnexSubclause realSubclause = ((DefaultAnnexSubclause) subclause).getParsedAnnexSubclause();
+				if (realSubclause instanceof AGCLAnnexSubclause) {
+					result.addAll(getViewpointContracts((AGCLAnnexSubclause)realSubclause, viewpointContext));
+				}
 			}
 		}
 		return result;
@@ -153,8 +168,11 @@ public class AGCLSyntaxUtil {
 		assert classifier != null;
 		List<AGCLContract> result = new LinkedList<AGCLContract>();
 		for (AnnexSubclause subclause : classifier.getOwnedAnnexSubclauses()) {
-			if (subclause instanceof AGCLAnnexSubclause) {
-				result.addAll(getViewpointContracts((AGCLAnnexSubclause)subclause, viewpointName, viewpointContext));
+			if (subclause instanceof DefaultAnnexSubclause) {
+				AnnexSubclause realSubclause = ((DefaultAnnexSubclause) subclause).getParsedAnnexSubclause();
+				if (realSubclause instanceof AGCLAnnexSubclause) {
+					result.addAll(getViewpointContracts((AGCLAnnexSubclause)realSubclause, viewpointName, viewpointContext));
+				}
 			}
 		}
 		return result;
@@ -199,7 +217,7 @@ public class AGCLSyntaxUtil {
 		}
 		return result;
 	}
-
+	
 	public static String astStr(PSLExpression expr) {
 		return pslAstPrinter.doSwitch(expr);
 	}

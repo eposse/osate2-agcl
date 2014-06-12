@@ -19,7 +19,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.resources,
  org.eclipse.jface,
  org.eclipse.emf.common,
- org.eclipse.swt
+ org.eclipse.swt,
+ org.osate.xtext.aadl2.properties
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.osate.xtext.aadl2.agcl.analysis,
  org.osate.xtext.aadl2.agcl.analysis.verifiers,

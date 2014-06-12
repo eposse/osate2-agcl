@@ -6,6 +6,7 @@ import org.osate.xtext.aadl2.agcl.agcl.AGCLAssumption;
 import org.osate.xtext.aadl2.agcl.agcl.AGCLContract;
 import org.osate.xtext.aadl2.agcl.agcl.AGCLGuarantee;
 import org.osate.xtext.aadl2.agcl.agcl.AgclFactory;
+import org.osate.xtext.aadl2.agcl.agcl.PSLConjunction;
 import org.osate.xtext.aadl2.agcl.agcl.PSLExpression;
 import org.osate.xtext.aadl2.agcl.agcl.PSLImplication;
 import org.osate.xtext.aadl2.agcl.agcl.PSLSpec;
@@ -60,21 +61,20 @@ public abstract class AnalysisAlgorithmBase {
 		AGCLAssumption assumption2 = contract2.getAssumption();
 		AGCLGuarantee guarantee1 = contract1.getGuarantee();
 		AGCLGuarantee guarantee2 = contract2.getGuarantee();
-		PSLSpec assumption1spec = assumption1.getSpec();
-		PSLSpec assumption2spec = assumption2.getSpec();
-		PSLSpec guarantee1spec = guarantee1.getSpec();
-		PSLSpec guarantee2spec = guarantee2.getSpec();
+		PSLSpec assumption1spec = AGCLSyntaxUtil.deepCopy(assumption1.getSpec());
+		PSLSpec assumption2spec = AGCLSyntaxUtil.deepCopy(assumption2.getSpec());
+		PSLSpec guarantee1spec = AGCLSyntaxUtil.deepCopy(guarantee1.getSpec());
+		PSLSpec guarantee2spec = AGCLSyntaxUtil.deepCopy(guarantee2.getSpec());
 		Logger.getLogger(getClass()).debug("assumption1 = '" + serializer.serialize(assumption1spec) + " ast = " + AGCLSyntaxUtil.astStr(assumption1spec));
 		Logger.getLogger(getClass()).debug("assumption2 = '" + serializer.serialize(assumption2spec) + " ast = " + AGCLSyntaxUtil.astStr(assumption2spec));
 		Logger.getLogger(getClass()).debug("guarantee1 = '" + serializer.serialize(guarantee1spec) + " ast = " + AGCLSyntaxUtil.astStr(guarantee1spec));
 		Logger.getLogger(getClass()).debug("guarantee2 = '" + serializer.serialize(guarantee2spec) + " ast = " + AGCLSyntaxUtil.astStr(guarantee2spec));
-		PSLSpec assumptionsImplication = makeCombinedFormula(assumption2spec, assumption1spec);
-		PSLSpec guaranteesImplication = makeCombinedFormula(guarantee1spec, guarantee2spec);
+		PSLSpec assumptionsImplication = makeImplication(assumption2spec, assumption1spec);
+		PSLSpec guaranteesImplication = makeImplication(guarantee1spec, guarantee2spec);
+		PSLSpec combined = makeConjunction(assumptionsImplication, guaranteesImplication);
 		NuSMVModelChecker theChecker = (NuSMVModelChecker) checker;  // TODO: make it independent of NuSMV
-		Logger.getLogger(getClass()).debug("checking '" + serializer.serialize(assumptionsImplication) + "'");
-		theChecker.checkSpecValidity(assumptionsImplication, viewpointName, componentName, "refinement_assumptions");
-		Logger.getLogger(getClass()).debug("checking '" + serializer.serialize(guaranteesImplication) + "'");
-		theChecker.checkSpecValidity(guaranteesImplication, viewpointName, componentName, "refinement_guarantees");
+		Logger.getLogger(getClass()).debug("checking '" + serializer.serialize(combined) + "'");
+		theChecker.checkSpecValidity(combined, viewpointName, componentName, "refinement");
 	}
 
 	/**
@@ -82,7 +82,7 @@ public abstract class AnalysisAlgorithmBase {
 	 * @param spec2	a PSL spec S2
 	 * @return a combined PSL spec of the form S1 -> S2
 	 */
-	private PSLSpec makeCombinedFormula(PSLSpec spec1, PSLSpec spec2) {
+	private PSLSpec makeImplication(PSLSpec spec1, PSLSpec spec2) {
 		PSLExpression expr1 = spec1.getExpr();
 		PSLExpression expr2 = spec2.getExpr();
 		PSLSpec newSpec = AgclFactory.eINSTANCE.createPSLSpec();
@@ -92,5 +92,21 @@ public abstract class AnalysisAlgorithmBase {
 		newSpec.setExpr(newExpr);
 		return newSpec;
 	}
-
+	
+	/**
+	 * @param spec1	a PSL spec S1 
+	 * @param spec2	a PSL spec S2
+	 * @return a combined PSL spec of the form S1 & S2
+	 */
+	private PSLSpec makeConjunction(PSLSpec spec1, PSLSpec spec2) {
+		PSLExpression expr1 = spec1.getExpr();
+		PSLExpression expr2 = spec2.getExpr();
+		PSLSpec newSpec = AgclFactory.eINSTANCE.createPSLSpec();
+		PSLConjunction newExpr = AgclFactory.eINSTANCE.createPSLConjunction();
+		newExpr.setLeft(expr1);
+		newExpr.setRight(expr2);
+		newSpec.setExpr(newExpr);
+		return newSpec;
+	}
+	
 }
