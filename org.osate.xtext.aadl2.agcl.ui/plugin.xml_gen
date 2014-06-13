@@ -250,7 +250,9 @@
    <extension
          point="org.eclipse.xtext.builder.participant">
       <participant
-            class="org.osate.xtext.aadl2.agcl.ui.AGCLExecutableExtensionFactory:org.eclipse.xtext.builder.IXtextBuilderParticipant">
+            class="org.osate.xtext.aadl2.agcl.ui.AGCLExecutableExtensionFactory:org.eclipse.xtext.builder.IXtextBuilderParticipant"
+            fileExtensions="agcl"
+            >
       </participant>
    </extension>
    <extension

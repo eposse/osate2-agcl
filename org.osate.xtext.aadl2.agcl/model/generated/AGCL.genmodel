@@ -4,7 +4,7 @@
     editorDirectory="/org.osate.xtext.aadl2.agcl.editor/src" modelPluginID="org.osate.xtext.aadl2.agcl"
     forceOverwrite="true" modelName="AGCL" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
     complianceLevel="5.0" copyrightFields="false" editPluginID="org.osate.xtext.aadl2.agcl.edit"
-    editorPluginID="org.osate.xtext.aadl2.agcl.editor" runtimeVersion="2.9" usedGenPackages="../../../org.osate.aadl2/model/aadl2-nouml.genmodel#//aadl2">
+    editorPluginID="org.osate.xtext.aadl2.agcl.editor" runtimeVersion="2.9" usedGenPackages="../../prereqs/models/aadl2-nouml.genmodel#//aadl2">
   <genPackages prefix="Agcl" basePackage="org.osate.xtext.aadl2.agcl" resource="XML"
       disposableProviderFactory="true" fileExtensions="agcl" ecorePackage="AGCL.ecore#/">
     <genClasses ecoreClass="AGCL.ecore#//AGCLGrammarRoot">

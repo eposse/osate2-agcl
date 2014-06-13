@@ -167,7 +167,7 @@ public class AGCLSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	/**
 	 * Syntax:
-	 *     'behavior' | 'behaviour'
+	 *     'behaviour' | 'behavior'
 	 */
 	protected void emit_AGCLBehaviour_BehaviorKeyword_0_1_or_BehaviourKeyword_0_0(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
