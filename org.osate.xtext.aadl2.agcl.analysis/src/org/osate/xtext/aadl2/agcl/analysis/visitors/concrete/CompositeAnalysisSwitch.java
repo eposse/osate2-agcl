@@ -70,11 +70,9 @@ public class CompositeAnalysisSwitch extends CommonAGCLAnalysisSwitch {
 							subcontracts.addAll(AGCLSyntaxUtil.getViewpointContracts(subcomponentClassifier, viewpointName, viewpointContext));
 						}
 						((CompositeAnalysis)algorithm).checkSubcontractsSatisfyCompositeContainerContract(subcontracts, contract, viewpointName, componentName);
-						
 					}
 				}
 				monitor.worked(1);
-				monitor.done();
 				return null;
 			}
 		};
