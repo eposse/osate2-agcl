@@ -135,14 +135,14 @@ public abstract class AnalysisAlgorithmBase {
 			return newConstant;
 		}
 		else if (expressions.size() == 1) {
-			return expressions.get(0);   // should I deep copy?
+			return AGCLSyntaxUtil.deepCopy(expressions.get(0));   // should I deep copy?
 		}
 		else {
-			PSLExpression newExpr = expressions.get(0);
+			PSLExpression newExpr = AGCLSyntaxUtil.deepCopy(expressions.get(0));
 			for (PSLExpression subexpression : expressions.subList(1, expressions.size())) {
 				PSLConjunction newConjunction = AgclFactory.eINSTANCE.createPSLConjunction();
 				newConjunction.setLeft(newExpr);
-				newConjunction.setRight(subexpression);
+				newConjunction.setRight(AGCLSyntaxUtil.deepCopy(subexpression));
 				newExpr = newConjunction;
 			}
 			return newExpr;
