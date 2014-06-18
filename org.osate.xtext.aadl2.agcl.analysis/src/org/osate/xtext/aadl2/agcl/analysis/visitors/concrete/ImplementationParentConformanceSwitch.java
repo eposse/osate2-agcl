@@ -8,6 +8,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.ThreadImplementation;
@@ -40,8 +41,13 @@ public class ImplementationParentConformanceSwitch extends CommonAGCLAnalysisSwi
 	protected void initAGCLSwitch() {
 		agclSwitch = new AgclSwitch<Void>() {
 			public Void caseAGCLAnnexSubclause(AGCLAnnexSubclause obj) {
-				Classifier component = obj.getContainingClassifier();
-				String componentName = component.getName();
+				Classifier classifier = obj.getContainingClassifier();
+				String componentName = classifier.getName();
+				if (!(classifier instanceof ComponentClassifier)) {
+					Logger.getLogger(getClass()).info("classifier '" + componentName + "' is not a component classifier; ignoring");
+					return null;
+				}
+				ComponentClassifier component = (ComponentClassifier) classifier;
 				Logger.getLogger(getClass()).info("Performing implementation/parent implementation conformance analysis on '" + componentName + "'");
 				monitor.subTask("Performing implementation/parent implementation conformance analysis on '" + componentName + "'");
 				if (monitor.isCanceled()) return null;

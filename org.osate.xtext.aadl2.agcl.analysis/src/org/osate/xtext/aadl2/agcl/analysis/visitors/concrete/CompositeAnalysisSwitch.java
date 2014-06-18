@@ -43,8 +43,13 @@ public class CompositeAnalysisSwitch extends CommonAGCLAnalysisSwitch {
 	protected void initAGCLSwitch() {
 		agclSwitch = new AgclSwitch<Void>() {
 			public Void caseAGCLAnnexSubclause(AGCLAnnexSubclause obj) {
-				Classifier component = obj.getContainingClassifier();
-				String componentName = component.getName();
+				Classifier classifier = obj.getContainingClassifier();
+				String componentName = classifier.getName();
+				if (!(classifier instanceof ComponentClassifier)) {
+					Logger.getLogger(getClass()).info("classifier '" + componentName + "' is not a component classifier; ignoring");
+					return null;
+				}
+				ComponentClassifier component = (ComponentClassifier) classifier;
 				Logger.getLogger(getClass()).info("Performing composite analysis on '" + componentName + "'");
 				monitor.subTask("Performing composite analysis on '" + componentName + "'");
 				if (monitor.isCanceled()) return null;
@@ -62,14 +67,16 @@ public class CompositeAnalysisSwitch extends CommonAGCLAnalysisSwitch {
 
 						// Collect relevant contracts of the subcomponents 
 						List<AGCLContract> subcontracts = new ArrayList<AGCLContract>();
+						List<ComponentClassifier> subcomponentClassifiers = new ArrayList<ComponentClassifier>();
 						for (Subcomponent subcomponent : subcomponents) {
 							if (monitor.isCanceled()) return null;
 							if (subcomponent == null) continue;
 							ComponentClassifier subcomponentClassifier = subcomponent.getClassifier();
+							subcomponentClassifiers.add(subcomponentClassifier);
 							Logger.getLogger(getClass()).debug("subcomponent '" + subcomponent.getFullName() + "' with classifier '" + ((subcomponentClassifier == null) ? "null" : subcomponentClassifier.getFullName()));
 							subcontracts.addAll(AGCLSyntaxUtil.getViewpointContracts(subcomponentClassifier, viewpointName, viewpointContext));
 						}
-						((CompositeAnalysis)algorithm).checkSubcontractsSatisfyCompositeContainerContract(subcontracts, contract, viewpointName, componentName);
+						((CompositeAnalysis)algorithm).checkSubcontractsSatisfyCompositeContainerContract(subcomponentClassifiers, composite, subcontracts, contract, viewpointName, componentName);
 					}
 				}
 				monitor.worked(1);

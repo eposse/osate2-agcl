@@ -4,6 +4,8 @@
 package org.osate.xtext.aadl2.agcl.analysis.algorithms.concrete;
 
 import org.apache.log4j.Logger;
+import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentClassifier;
 import org.osate.xtext.aadl2.agcl.agcl.AGCLBehaviour;
 import org.osate.xtext.aadl2.agcl.agcl.AGCLContract;
 import org.osate.xtext.aadl2.agcl.agcl.AgclFactory;
@@ -73,7 +75,6 @@ public class AtomicAnalysis extends AnalysisAlgorithmBase {
 	 * 
 	 * <p>(*) In the Tech. Report the input to the algorithm is an implementation of the component, which then
 	 * is translated into a behaviour specification in PSL. Here we already get that behaviour as input.
-	 * 
 	 * @param behaviour 	a temporal-logic specification of the behaviour of a thread implementation
 	 * @param contract		an assume/guarantee contract 
 	 */
@@ -85,6 +86,16 @@ public class AtomicAnalysis extends AnalysisAlgorithmBase {
 		Logger.getLogger(getClass()).info("behaviour  = '" + serializer.serialize(behaviourSpec) + "' ast = " + AGCLSyntaxUtil.astStr(behaviourSpec));
 		Logger.getLogger(getClass()).info("assumption = '" + serializer.serialize(assumptionSpec) + "' ast = " + AGCLSyntaxUtil.astStr(assumptionSpec));
 		Logger.getLogger(getClass()).info("guarantee  = '" + serializer.serialize(guaranteeSpec) + "' ast = " + AGCLSyntaxUtil.astStr(guaranteeSpec));
+		
+//		The following commented lines were supposed to adjust the atomic propositions of specs, but that is only necessary for composite analysis.
+		
+//		ComponentClassifier container = getContainingComponent(component);
+//		PSLSpec adjustedAssumptionSpec = adjustAssumption(component, container, assumptionSpec);
+//		PSLSpec adjustedGuaranteeSpec = adjustGuarantee(component, container, guaranteeSpec);
+//		Logger.getLogger(getClass()).info("adjusted assumption = '" + serializer.serialize(adjustedAssumptionSpec) + "' ast = " + AGCLSyntaxUtil.astStr(adjustedAssumptionSpec));
+//		Logger.getLogger(getClass()).info("adjusted guarantee  = '" + serializer.serialize(adjustedGuaranteeSpec) + "' ast = " + AGCLSyntaxUtil.astStr(adjustedGuaranteeSpec));
+//		PSLSpec combinedSpec = makeCombinedFormula(behaviourSpec, adjustedAssumptionSpec, adjustedGuaranteeSpec);
+		
 		PSLSpec combinedSpec = makeCombinedFormula(behaviourSpec, assumptionSpec, guaranteeSpec);
 		Logger.getLogger(getClass()).debug("combined = '" + serializer.serialize(combinedSpec) + "' ast = " + AGCLSyntaxUtil.astStr(combinedSpec));
 		NuSMVModelChecker theChecker = (NuSMVModelChecker) checker;  // TODO: make it independent of NuSMV

@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.eclipse.xtext.serializer.ISerializer;
+import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.ComponentImplementation;
 import org.osate.xtext.aadl2.agcl.agcl.AGCLAssumption;
 import org.osate.xtext.aadl2.agcl.agcl.AGCLContract;
 import org.osate.xtext.aadl2.agcl.agcl.AGCLGuarantee;
@@ -19,6 +21,7 @@ import org.osate.xtext.aadl2.agcl.analysis.util.AGCLSyntaxUtil;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.ModelChecker;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVModelChecker;
 import org.osate.xtext.aadl2.agcl.analysis.visitors.ViewpointContext;
+import org.osate.xtext.aadl2.agcl.analysis.visitors.concrete.PSLTransformGuaranteeAtomicPropositionsSwitch;
 
 /**
  * This class is intended to provide common attributes and functionality for the concrete algorithm classes.
@@ -53,8 +56,8 @@ public abstract class AnalysisAlgorithmBase {
 	 *  
 	 *  <p> The result is collected in the model-checker's results collection ({@link ModelChecker#getResults()})
 	 *  
-	 * @param contract1		contract C1
-	 * @param contract2		contract C2
+	 * @param contract1		contract C1 of component1
+	 * @param contract2		contract C2 of component2
 	 * @param viewpointName	the name of the analysis viewpoint under verification
 	 * @param componentName	the name of the component for which this analysis is being performed. Usually it should be
 	 * 		the name of the component owning contract C1, for child/parent checks, or the name of the component
@@ -73,6 +76,22 @@ public abstract class AnalysisAlgorithmBase {
 		Logger.getLogger(getClass()).debug("assumption2 = '" + serializer.serialize(assumption2spec) + " ast = " + AGCLSyntaxUtil.astStr(assumption2spec));
 		Logger.getLogger(getClass()).debug("guarantee1 = '" + serializer.serialize(guarantee1spec) + " ast = " + AGCLSyntaxUtil.astStr(guarantee1spec));
 		Logger.getLogger(getClass()).debug("guarantee2 = '" + serializer.serialize(guarantee2spec) + " ast = " + AGCLSyntaxUtil.astStr(guarantee2spec));
+
+//		The following commented lines were supposed to adjust the atomic propositions of specs, but that is only necessary for composite analysis.
+
+//		ComponentClassifier container = getContainingComponent(component1);
+//		PSLSpec adjustedAssumption1spec = adjustAssumption(component1, container, assumption1spec);
+//		PSLSpec adjustedGuarantee1spec = adjustGuarantee(component1, container, guarantee1spec);
+//		PSLSpec adjustedAssumption2spec = adjustAssumption(component1, container, assumption2spec);
+//		PSLSpec adjustedGuarantee2spec = adjustGuarantee(component1, container, guarantee2spec);
+//		Logger.getLogger(getClass()).info("adjusted assumption1 = '" + serializer.serialize(adjustedAssumption1spec) + "' ast = " + AGCLSyntaxUtil.astStr(adjustedAssumption1spec));
+//		Logger.getLogger(getClass()).info("adjusted assumption2 = '" + serializer.serialize(adjustedAssumption2spec) + "' ast = " + AGCLSyntaxUtil.astStr(adjustedAssumption2spec));
+//		Logger.getLogger(getClass()).info("adjusted guarantee1  = '" + serializer.serialize(adjustedGuarantee1spec) + "' ast = " + AGCLSyntaxUtil.astStr(adjustedGuarantee1spec));
+//		Logger.getLogger(getClass()).info("adjusted guarantee2  = '" + serializer.serialize(adjustedGuarantee2spec) + "' ast = " + AGCLSyntaxUtil.astStr(adjustedGuarantee2spec));
+//
+//		PSLSpec assumptionsImplication = makeImplication(adjustedAssumption2spec, adjustedAssumption1spec);
+//		PSLSpec guaranteesImplication = makeImplication(adjustedGuarantee1spec, adjustedGuarantee2spec);
+
 		PSLSpec assumptionsImplication = makeImplication(assumption2spec, assumption1spec);
 		PSLSpec guaranteesImplication = makeImplication(guarantee1spec, guarantee2spec);
 		PSLSpec combined = makeConjunction(assumptionsImplication, guaranteesImplication);
@@ -148,5 +167,28 @@ public abstract class AnalysisAlgorithmBase {
 			return newExpr;
 		}
 	}
-	
+
+	/**
+	 * Transforms an assumption specification's atomic propositions to refer to connectors instead of ports.
+	 * @param component		the classifier context
+	 * @param pslSpec		a PSL specification according to the AGCL meta-model
+	 * @return a copy of the transformed spec.
+	 */
+	public PSLSpec adjustAssumption(ComponentClassifier component, ComponentImplementation container, PSLSpec assumptionSpec) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/**
+	 * Transforms a guarantee specification's atomic propositions to refer to connectors instead of ports.
+	 * @param component		the classifier context
+	 * @param pslSpec		a PSL specification according to the AGCL meta-model
+	 * @return a copy of the transformed spec.
+	 */
+	public PSLSpec adjustGuarantee(ComponentClassifier component, ComponentImplementation container, PSLSpec pslSpec) {
+		PSLTransformGuaranteeAtomicPropositionsSwitch transformer = 
+				new PSLTransformGuaranteeAtomicPropositionsSwitch(component, container);
+		return (PSLSpec) transformer.doSwitch(pslSpec);
+	}
+
 }

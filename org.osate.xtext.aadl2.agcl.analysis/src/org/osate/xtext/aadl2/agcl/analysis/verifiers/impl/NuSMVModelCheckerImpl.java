@@ -25,6 +25,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.xtext.serializer.ISerializer;
+import org.osate.aadl2.Classifier;
 import org.osate.xtext.aadl2.agcl.agcl.PSLSpec;
 import org.osate.xtext.aadl2.agcl.analysis.AGCLAnalysisPlugin;
 import org.osate.xtext.aadl2.agcl.analysis.config.IPreferenceConstants;
@@ -557,7 +558,7 @@ public class NuSMVModelCheckerImpl extends ModelCheckerImpl implements NuSMVMode
 		Component component = getComponentCollection().addComponent(componentName, null);
 		verificationUnit.setComponent(component);
 		// Perform the actual verification
-		VerificationResult result =  checkVerificationUnit(verificationUnit);
+		VerificationResult result = checkVerificationUnit(verificationUnit);
 		// Record the result
 		results.recordResult(verificationUnit, result);
 	}
@@ -567,6 +568,7 @@ public class NuSMVModelCheckerImpl extends ModelCheckerImpl implements NuSMVMode
 	public void checkSpecValidity(PSLSpec pslSpec, String viewpointName, String componentName, String label) {
 		this.label = label + "_" + viewpointName + "_" + componentName;
 		Logger.getLogger(getClass()).debug("checking validity of " + serializer.serialize(pslSpec) + " for " + label);
+		// TODO: here we add the extra transformation of atomic propositions.
 		NuSMVSpecification nusmvSpec = nusmvSpecFromPSLSpec(pslSpec);
 		checkSpecValidity(nusmvSpec, viewpointName, componentName);
 	}
@@ -588,7 +590,7 @@ public class NuSMVModelCheckerImpl extends ModelCheckerImpl implements NuSMVMode
 		Logger.getLogger(getClass()).debug("transformed nusmv spec:                " + serializer.serialize(transformed) );
 		return result;
 	}
-
+	
 	/**
 	 * @return the progressMonitor
 	 */

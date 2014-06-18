@@ -2,6 +2,7 @@
  */
 package org.osate.xtext.aadl2.agcl.analysis.verifiers;
 
+import org.osate.aadl2.Classifier;
 import org.osate.xtext.aadl2.agcl.agcl.PSLSpec;
 
 

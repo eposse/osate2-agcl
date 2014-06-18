@@ -6,6 +6,8 @@ package org.osate.xtext.aadl2.agcl.analysis.algorithms.concrete;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.ComponentImplementation;
 import org.osate.xtext.aadl2.agcl.agcl.AGCLAssumption;
 import org.osate.xtext.aadl2.agcl.agcl.AGCLContract;
 import org.osate.xtext.aadl2.agcl.agcl.AGCLGuarantee;
@@ -63,17 +65,23 @@ public class CompositeAnalysis extends AnalysisAlgorithmBase {
 		super(viewpointContext);
 	}
 
-	public AGCLContract makeContractComposition(List<AGCLContract> contracts) {
+	public AGCLContract makeContractComposition(ComponentImplementation composite, List<ComponentClassifier> subcomponents, List<AGCLContract> contracts) {
+		assert subcomponents.size() == contracts.size();
 		// Gather all assumptions and guarantees
 		List<PSLSpec> assumptionSpecs = new ArrayList<PSLSpec>();
 		List<PSLSpec> guaranteeSpecs = new ArrayList<PSLSpec>();
-		for (AGCLContract contract : contracts) {
+		for (int i = 0; i < subcomponents.size(); i++) {
+			ComponentClassifier subcomponent = subcomponents.get(i);
+			AGCLContract contract = contracts.get(i);
 			AGCLAssumption assumption = contract.getAssumption();
 			AGCLGuarantee guarantee = contract.getGuarantee();
 			PSLSpec assumptionSpec = AGCLSyntaxUtil.deepCopy(assumption.getSpec());
 			PSLSpec guaranteeSpec = AGCLSyntaxUtil.deepCopy(guarantee.getSpec());
-			assumptionSpecs.add(assumptionSpec);
-			guaranteeSpecs.add(guaranteeSpec);
+			PSLSpec adjustedAssumptionSpec = adjustAssumption(subcomponent, composite, assumptionSpec);
+			PSLSpec adjustedGuaranteeSpec = adjustGuarantee(subcomponent, composite, guaranteeSpec);
+			
+			assumptionSpecs.add(adjustedAssumptionSpec);
+			guaranteeSpecs.add(adjustedGuaranteeSpec);
 		}
 		
 		// Build new guarantee
@@ -116,9 +124,10 @@ public class CompositeAnalysis extends AnalysisAlgorithmBase {
 	}
 	
 	public void checkSubcontractsSatisfyCompositeContainerContract(
+			List<ComponentClassifier> subcomponents, ComponentImplementation component,
 			List<AGCLContract> contracts, AGCLContract containerContract, 
 			String viewpointName, String componentName) {
-		AGCLContract contractComposition = makeContractComposition(contracts);
+		AGCLContract contractComposition = makeContractComposition(component, subcomponents, contracts);
 		checkContractRefinement(contractComposition, containerContract, viewpointName, componentName);
 	}
 }

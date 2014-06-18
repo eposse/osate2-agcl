@@ -3,6 +3,7 @@ package org.osate.xtext.aadl2.agcl.analysis.visitors.concrete;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentClassifier;
 import org.osate.xtext.aadl2.agcl.agcl.AGCLAnnexSubclause;
 import org.osate.xtext.aadl2.agcl.agcl.AGCLBehaviour;
 import org.osate.xtext.aadl2.agcl.agcl.AGCLContract;
@@ -34,8 +35,13 @@ public class AtomicAnalysisSwitch extends CommonAGCLAnalysisSwitch {
 	protected void initAGCLSwitch() {
 		agclSwitch = new AgclSwitch<Void>() {
 			public Void caseAGCLAnnexSubclause(AGCLAnnexSubclause obj) {
-				Classifier component = obj.getContainingClassifier();
-				String componentName = component.getName();
+				Classifier classifier = obj.getContainingClassifier();
+				String componentName = classifier.getName();
+				if (!(classifier instanceof ComponentClassifier)) {
+					Logger.getLogger(getClass()).info("classifier '" + componentName + "' is not a component classifier; ignoring");
+					return null;
+				}
+				ComponentClassifier component = (ComponentClassifier) classifier;
 				Logger.getLogger(getClass()).info("Performing atomic analysis on '" + componentName + "'");
 				monitor.subTask("Performing atomic analysis on '" + componentName + "'");
 				if (monitor.isCanceled()) return null;
@@ -55,7 +61,6 @@ public class AtomicAnalysisSwitch extends CommonAGCLAnalysisSwitch {
 					}
 				}
 				monitor.worked(1);
-				monitor.done();
 				return null;
 			}
 		};
