@@ -6,6 +6,7 @@ package org.osate.xtext.aadl2.agcl.analysis.algorithms.concrete;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.xtext.aadl2.agcl.agcl.AGCLAssumption;
@@ -77,8 +78,15 @@ public class CompositeAnalysis extends AnalysisAlgorithmBase {
 			AGCLGuarantee guarantee = contract.getGuarantee();
 			PSLSpec assumptionSpec = AGCLSyntaxUtil.deepCopy(assumption.getSpec());
 			PSLSpec guaranteeSpec = AGCLSyntaxUtil.deepCopy(guarantee.getSpec());
+			
+			Logger.getLogger(getClass()).debug("  assumption '" + serializer.serialize(assumptionSpec) + "'");
+			Logger.getLogger(getClass()).debug("  guarantee '" + serializer.serialize(guaranteeSpec) + "'");
+			
 			PSLSpec adjustedAssumptionSpec = adjustAssumption(subcomponent, composite, assumptionSpec);
 			PSLSpec adjustedGuaranteeSpec = adjustGuarantee(subcomponent, composite, guaranteeSpec);
+			
+			Logger.getLogger(getClass()).debug("  adjusted assumption '" + serializer.serialize(adjustedAssumptionSpec) + "'");
+			Logger.getLogger(getClass()).debug("  adjusted guarantee '" + serializer.serialize(adjustedGuaranteeSpec) + "'");
 			
 			assumptionSpecs.add(adjustedAssumptionSpec);
 			guaranteeSpecs.add(adjustedGuaranteeSpec);

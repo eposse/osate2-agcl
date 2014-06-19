@@ -31,11 +31,9 @@ public class AGCLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cSubclauseAGCLAnnexSubclauseParserRuleCall_1_1_0 = (RuleCall)cSubclauseAssignment_1_1.eContents().get(0);
 		
 		//// This leads to a build-dependency cycle
-		//
 		////import "platform:/resource/org.osate.xtext.aadl2.agcl.analysis/models/verifiers.ecore" as verifiers
-		//
 		////import "http://verifiers/1.0" as verifiers
-		// AGCLGrammarRoot:
+		//AGCLGrammarRoot:
 		//	"library" lib=AGCLAnnexLibrary | "subclause" subclause=AGCLAnnexSubclause;
 		public ParserRule getRule() { return rule; }
 
@@ -84,7 +82,7 @@ public class AGCLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cAGCLAnnexSubclauseParserRuleCall = (RuleCall)rule.eContents().get(1);
 		
 		////    AGCLTypeSubclause | AGCLImplSubclause
-		// AnnexSubclause returns aadl2::AnnexSubclause:
+		//AnnexSubclause returns aadl2::AnnexSubclause:
 		//	AGCLAnnexSubclause;
 		public ParserRule getRule() { return rule; }
 
@@ -526,10 +524,9 @@ public class AGCLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cExprPSLPropertyParserRuleCall_1_0 = (RuleCall)cExprAssignment_1.eContents().get(0);
 		
 		//// This leads to a build-dependency cycle
-		// //PSLSpecification returns verifiers::Specification:
-		// //    PSLSpec
-		// //;
-		//
+		////PSLSpecification returns verifiers::Specification:
+		////    PSLSpec
+		////;
 		//PSLSpec:
 		//	"psl"? expr=PSLProperty;
 		public ParserRule getRule() { return rule; }
@@ -1118,11 +1115,9 @@ public class AGCLGrammarAccess extends AbstractGrammarElementFinder {
 
 	
 	//// This leads to a build-dependency cycle
-	//
 	////import "platform:/resource/org.osate.xtext.aadl2.agcl.analysis/models/verifiers.ecore" as verifiers
-	//
 	////import "http://verifiers/1.0" as verifiers
-	// AGCLGrammarRoot:
+	//AGCLGrammarRoot:
 	//	"library" lib=AGCLAnnexLibrary | "subclause" subclause=AGCLAnnexSubclause;
 	public AGCLGrammarRootElements getAGCLGrammarRootAccess() {
 		return (pAGCLGrammarRoot != null) ? pAGCLGrammarRoot : (pAGCLGrammarRoot = new AGCLGrammarRootElements());
@@ -1143,7 +1138,7 @@ public class AGCLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	////    AGCLTypeSubclause | AGCLImplSubclause
-	// AnnexSubclause returns aadl2::AnnexSubclause:
+	//AnnexSubclause returns aadl2::AnnexSubclause:
 	//	AGCLAnnexSubclause;
 	public AnnexSubclauseElements getAnnexSubclauseAccess() {
 		return (pAnnexSubclause != null) ? pAnnexSubclause : (pAnnexSubclause = new AnnexSubclauseElements());
@@ -1247,10 +1242,9 @@ public class AGCLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// This leads to a build-dependency cycle
-	// //PSLSpecification returns verifiers::Specification:
-	// //    PSLSpec
-	// //;
-	//
+	////PSLSpecification returns verifiers::Specification:
+	////    PSLSpec
+	////;
 	//PSLSpec:
 	//	"psl"? expr=PSLProperty;
 	public PSLSpecElements getPSLSpecAccess() {

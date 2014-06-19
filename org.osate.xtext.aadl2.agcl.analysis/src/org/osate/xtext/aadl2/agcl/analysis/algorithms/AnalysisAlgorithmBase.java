@@ -21,6 +21,7 @@ import org.osate.xtext.aadl2.agcl.analysis.util.AGCLSyntaxUtil;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.ModelChecker;
 import org.osate.xtext.aadl2.agcl.analysis.verifiers.NuSMVModelChecker;
 import org.osate.xtext.aadl2.agcl.analysis.visitors.ViewpointContext;
+import org.osate.xtext.aadl2.agcl.analysis.visitors.concrete.PSLTransformAssumptionAtomicPropositionsSwitch;
 import org.osate.xtext.aadl2.agcl.analysis.visitors.concrete.PSLTransformGuaranteeAtomicPropositionsSwitch;
 
 /**
@@ -175,8 +176,9 @@ public abstract class AnalysisAlgorithmBase {
 	 * @return a copy of the transformed spec.
 	 */
 	public PSLSpec adjustAssumption(ComponentClassifier component, ComponentImplementation container, PSLSpec assumptionSpec) {
-		// TODO Auto-generated method stub
-		return null;
+		PSLTransformAssumptionAtomicPropositionsSwitch transformer = 
+				new PSLTransformAssumptionAtomicPropositionsSwitch(component, container);
+		return (PSLSpec) transformer.doSwitch(assumptionSpec);
 	}
 
 	/**
@@ -185,10 +187,10 @@ public abstract class AnalysisAlgorithmBase {
 	 * @param pslSpec		a PSL specification according to the AGCL meta-model
 	 * @return a copy of the transformed spec.
 	 */
-	public PSLSpec adjustGuarantee(ComponentClassifier component, ComponentImplementation container, PSLSpec pslSpec) {
+	public PSLSpec adjustGuarantee(ComponentClassifier component, ComponentImplementation container, PSLSpec guaranteeSpec) {
 		PSLTransformGuaranteeAtomicPropositionsSwitch transformer = 
 				new PSLTransformGuaranteeAtomicPropositionsSwitch(component, container);
-		return (PSLSpec) transformer.doSwitch(pslSpec);
+		return (PSLSpec) transformer.doSwitch(guaranteeSpec);
 	}
 
 }

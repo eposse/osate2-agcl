@@ -7,16 +7,13 @@ import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.serializer.ISerializer;
-import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ConnectedElement;
 import org.osate.aadl2.Connection;
 import org.osate.xtext.aadl2.agcl.agcl.AgclFactory;
-import org.osate.xtext.aadl2.agcl.agcl.BooleanConstant;
 import org.osate.xtext.aadl2.agcl.agcl.Input;
 import org.osate.xtext.aadl2.agcl.agcl.Output;
-import org.osate.xtext.aadl2.agcl.agcl.Var;
 import org.osate.xtext.aadl2.agcl.analysis.AGCLAnalysisPlugin;
 import org.osate.xtext.aadl2.agcl.analysis.visitors.PSLHomomorphismExplicitSwitch;
 
@@ -27,11 +24,14 @@ import org.osate.xtext.aadl2.agcl.analysis.visitors.PSLHomomorphismExplicitSwitc
  * 
  * <p> into 
  * 
- * <p> <em>direction</em> <em>connector</em> : <em>signal</em>
+ * <p> <em>dual(direction)</em> <em>connector</em> : <em>signal</em>
  * 
- * <p> where <em>direction</em> is either {@code in} or {@code out}
+ * <p> where <em>direction</em> is either {@code in} or {@code out} and 
  * 
- * <p> This corresponds to the function <em>ghat</em> in Definition 26 of 
+ * <p> <em>dual(</em>{@code in}<em>)</em> = {@code out}
+ * <p> <em>dual(</em>{@code out}<em>)</em> = {@code in}
+ * 
+ * <p> This corresponds to the function <em>ahat</em> in Definition 26 of 
  * 
  * <p> Ernesto Posse, <em>Contract-based compositional analysis for reactive systems in RTEdge, an
  * AADL-based language</em>, Technical Report 2013-607, School of Computing, Queen's University. Sept. 2013.
@@ -45,13 +45,13 @@ import org.osate.xtext.aadl2.agcl.analysis.visitors.PSLHomomorphismExplicitSwitc
  * @author Ernesto Posse
  *
  */
-public class PSLTransformGuaranteeAtomicPropositionsSwitch extends PSLHomomorphismExplicitSwitch {
+public class PSLTransformAssumptionAtomicPropositionsSwitch extends PSLHomomorphismExplicitSwitch {
 	
 	private ISerializer serializer;
 	protected ComponentClassifier component;
 	protected ComponentImplementation container;
 	
-	public PSLTransformGuaranteeAtomicPropositionsSwitch(ComponentClassifier component, ComponentImplementation container) {
+	public PSLTransformAssumptionAtomicPropositionsSwitch(ComponentClassifier component, ComponentImplementation container) {
 		this.component = component;
 		this.container = container;
 		serializer = AGCLAnalysisPlugin.getDefault().getSerializer();
@@ -59,20 +59,20 @@ public class PSLTransformGuaranteeAtomicPropositionsSwitch extends PSLHomomorphi
 
 	public EObject caseInput(Input ap) {
 		String connectorName = getConnector(ap.getLink());
-		Input newInput = AgclFactory.eINSTANCE.createInput();
-		newInput.setLink(connectorName);
-		newInput.setEvent(ap.getEvent());
-		Logger.getLogger(getClass()).debug(serializer.serialize(newInput));
-		return newInput;
-	}
-	
-	public EObject caseOutput(Output ap) {
-		String connectorName = getConnector(ap.getLink());
 		Output newOutput = AgclFactory.eINSTANCE.createOutput();
 		newOutput.setLink(connectorName);
 		newOutput.setEvent(ap.getEvent());
 		Logger.getLogger(getClass()).debug(serializer.serialize(newOutput));
 		return newOutput;
+	}
+	
+	public EObject caseOutput(Output ap) {
+		String connectorName = getConnector(ap.getLink());
+		Input newInput = AgclFactory.eINSTANCE.createInput();
+		newInput.setLink(connectorName);
+		newInput.setEvent(ap.getEvent());
+		Logger.getLogger(getClass()).debug(serializer.serialize(newInput));
+		return newInput;
 	}
 
 	protected String getConnector(String portName) {

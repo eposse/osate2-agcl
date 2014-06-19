@@ -25,7 +25,8 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.osate.xtext.aadl2.agcl.analysis,
  org.osate.xtext.aadl2.agcl.analysis.verifiers,
  org.osate.xtext.aadl2.agcl.analysis.verifiers.impl,
- org.osate.xtext.aadl2.agcl.analysis.verifiers.util
+ org.osate.xtext.aadl2.agcl.analysis.verifiers.util,
+ org.osate.xtext.aadl2.agcl.analysis.visitors.concrete
 Bundle-ActivationPolicy: lazy
 Import-Package: org.apache.log4j,
  org.eclipse.emf.workspace.util
