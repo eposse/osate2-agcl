@@ -1,7 +1,0 @@
-org.osate.xtext.aadl2.agcl.ui/.gitignore
-org.osate.xtext.aadl2.agcl/.gitignore
-org.osate.xtext.aadl2.agcl/xtend-gen/org/osate/xtext/aadl2/agcl/formatting/.gitignore
-org.osate.xtext.aadl2.agcl/xtend-gen/org/osate/xtext/aadl2/agcl/generator/.gitignore
-org.osate.xtext.aadl2.agcl/xtend-gen/org/osate/xtext/aadl2/agcl/scoping/.gitignore
-org.osate.xtext.aadl2.agcl/xtend-gen/org/osate/xtext/aadl2/agcl/validation/.gitignore
-
