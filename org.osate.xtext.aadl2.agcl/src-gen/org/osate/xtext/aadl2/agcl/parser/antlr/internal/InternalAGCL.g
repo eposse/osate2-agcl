@@ -122,7 +122,12 @@ ruleAGCLGrammarRoot returns [EObject current=null]
 	    }
 
 )
-)))
+))
+    |	otherlv_4='agcl' 
+    {
+    	newLeafNode(otherlv_4, grammarAccess.getAGCLGrammarRootAccess().getAgclKeyword_2());
+    }
+)
 ;
 
 

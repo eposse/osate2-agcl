@@ -29,15 +29,16 @@ public class AGCLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSubclauseKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
 		private final Assignment cSubclauseAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
 		private final RuleCall cSubclauseAGCLAnnexSubclauseParserRuleCall_1_1_0 = (RuleCall)cSubclauseAssignment_1_1.eContents().get(0);
+		private final Keyword cAgclKeyword_2 = (Keyword)cAlternatives.eContents().get(2);
 		
 		//// This leads to a build-dependency cycle
 		////import "platform:/resource/org.osate.xtext.aadl2.agcl.analysis/models/verifiers.ecore" as verifiers
 		////import "http://verifiers/1.0" as verifiers
 		//AGCLGrammarRoot:
-		//	"library" lib=AGCLAnnexLibrary | "subclause" subclause=AGCLAnnexSubclause;
+		//	"library" lib=AGCLAnnexLibrary | "subclause" subclause=AGCLAnnexSubclause | "agcl";
 		public ParserRule getRule() { return rule; }
 
-		//"library" lib=AGCLAnnexLibrary | "subclause" subclause=AGCLAnnexSubclause
+		//"library" lib=AGCLAnnexLibrary | "subclause" subclause=AGCLAnnexSubclause | "agcl"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//"library" lib=AGCLAnnexLibrary
@@ -63,6 +64,9 @@ public class AGCLGrammarAccess extends AbstractGrammarElementFinder {
 
 		//AGCLAnnexSubclause
 		public RuleCall getSubclauseAGCLAnnexSubclauseParserRuleCall_1_1_0() { return cSubclauseAGCLAnnexSubclauseParserRuleCall_1_1_0; }
+
+		//"agcl"
+		public Keyword getAgclKeyword_2() { return cAgclKeyword_2; }
 	}
 
 	public class AnnexLibraryElements extends AbstractParserRuleElementFinder {
@@ -1118,7 +1122,7 @@ public class AGCLGrammarAccess extends AbstractGrammarElementFinder {
 	////import "platform:/resource/org.osate.xtext.aadl2.agcl.analysis/models/verifiers.ecore" as verifiers
 	////import "http://verifiers/1.0" as verifiers
 	//AGCLGrammarRoot:
-	//	"library" lib=AGCLAnnexLibrary | "subclause" subclause=AGCLAnnexSubclause;
+	//	"library" lib=AGCLAnnexLibrary | "subclause" subclause=AGCLAnnexSubclause | "agcl";
 	public AGCLGrammarRootElements getAGCLGrammarRootAccess() {
 		return (pAGCLGrammarRoot != null) ? pAGCLGrammarRoot : (pAGCLGrammarRoot = new AGCLGrammarRootElements());
 	}

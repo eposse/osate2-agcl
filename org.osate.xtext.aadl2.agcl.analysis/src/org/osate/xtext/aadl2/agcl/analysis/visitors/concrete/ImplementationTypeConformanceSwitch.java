@@ -1,5 +1,20 @@
 /**
+ * Copyright (c) 2014 Ernesto Posse
  * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License. 
+ * 
+ * @author Ernesto Posse
+ * @version 0.1 
  */
 package org.osate.xtext.aadl2.agcl.analysis.visitors.concrete;
 
@@ -9,6 +24,10 @@ import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.ThreadGroupImplementation;
+import org.osate.aadl2.ThreadGroupType;
 import org.osate.aadl2.ThreadImplementation;
 import org.osate.aadl2.ThreadType;
 import org.osate.xtext.aadl2.agcl.agcl.AGCLAnnexSubclause;
@@ -16,6 +35,7 @@ import org.osate.xtext.aadl2.agcl.agcl.AGCLContract;
 import org.osate.xtext.aadl2.agcl.agcl.util.AgclSwitch;
 import org.osate.xtext.aadl2.agcl.analysis.algorithms.concrete.ImplementationTypeConformanceAnalysis;
 import org.osate.xtext.aadl2.agcl.analysis.util.AGCLSyntaxUtil;
+import org.osate.xtext.aadl2.agcl.analysis.util.AGCLUtil;
 import org.osate.xtext.aadl2.agcl.analysis.visitors.CommonAGCLAnalysisSwitch;
 import org.osate.xtext.aadl2.agcl.analysis.visitors.ViewpointContext;
 
@@ -48,28 +68,23 @@ public class ImplementationTypeConformanceSwitch extends CommonAGCLAnalysisSwitc
 				Logger.getLogger(getClass()).info("Performing implementation/type conformance analysis on '" + componentName + "'");
 				monitor.subTask("Performing implementation/type conformance analysis on '" + componentName + "'");
 				if (monitor.isCanceled()) return null;
-
-				if (component instanceof ThreadImplementation) {
-					ThreadType threadType = ((ThreadImplementation) component).getType();
-					Logger.getLogger(getClass()).debug("thread type: " + ((threadType == null) ? "null" : threadType.getFullName()));
-					if (threadType == null) {
-						Logger.getLogger(getClass()).error("the thread type for this implementation is null; this is probably due to a bug in Osate. I'm ignoring this component"); 
-					}
-					else {
-						// Go through all relevant contracts in this annex sub-clause...
-						List<AGCLContract> relevantContracts = AGCLSyntaxUtil.getViewpointContracts(obj, viewpointContext);
-						Logger.getLogger(getClass()).debug("relevant contracts: " + relevantContracts);
-						for (AGCLContract contract : relevantContracts) {
+				
+				if (component instanceof ComponentImplementation) {
+					ComponentImplementation compImpl = ((ComponentImplementation) component);
+					ComponentType componentType = compImpl.getType();
+					// Go through all relevant contracts in this annex sub-clause...
+					List<AGCLContract> relevantContracts = AGCLSyntaxUtil.getViewpointContracts(obj, viewpointContext);
+					Logger.getLogger(getClass()).debug("relevant contracts: " + relevantContracts);
+					for (AGCLContract contract : relevantContracts) {
+						if (monitor.isCanceled()) return null;
+						String viewpointName = contract.getName();
+						// Go through all contracts of this component's type in the same viewpoint 
+						List<AGCLContract> relevantTypeContracts = AGCLSyntaxUtil.getViewpointContracts(componentType, viewpointName, viewpointContext);
+						Logger.getLogger(getClass()).debug("relevant type contracts: " + relevantTypeContracts);
+						for (AGCLContract typeContract : relevantTypeContracts) {
 							if (monitor.isCanceled()) return null;
-							String viewpointName = contract.getName();
-							// Go through all contracts of this component's type in the same viewpoint 
-							List<AGCLContract> relevantTypeContracts = AGCLSyntaxUtil.getViewpointContracts(threadType, viewpointName, viewpointContext);
-							Logger.getLogger(getClass()).debug("relevant type contracts: " + relevantTypeContracts);
-							for (AGCLContract typeContract : relevantTypeContracts) {
-								if (monitor.isCanceled()) return null;
-								// We verify only the contracts which belong to a viewpoint marked for verification 
-								((ImplementationTypeConformanceAnalysis)algorithm).checkThisContractSatisfiesParentContract(contract, typeContract, viewpointName, componentName);
-							}
+							// We verify only the contracts which belong to a viewpoint marked for verification 
+							((ImplementationTypeConformanceAnalysis)algorithm).checkThisContractSatisfiesParentContract(contract, typeContract, viewpointName, componentName);
 						}
 					}
 				}

@@ -15,6 +15,8 @@ import org.eclipse.xtext.generator.IFileSystemAccess
 class AGCLGenerator implements IGenerator {
 	
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
+		// dummy code
+		println("generating " + resource)
 //		fsa.generateFile('greetings.txt', 'People to greet: ' + 
 //			resource.allContents
 //				.filter(typeof(Greeting))

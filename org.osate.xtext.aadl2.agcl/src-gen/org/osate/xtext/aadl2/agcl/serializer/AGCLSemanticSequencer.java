@@ -382,7 +382,7 @@ public class AGCLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (lib=AGCLAnnexLibrary | subclause=AGCLAnnexSubclause)
+	 *     (lib=AGCLAnnexLibrary | subclause=AGCLAnnexSubclause)?
 	 */
 	protected void sequence_AGCLGrammarRoot(EObject context, AGCLGrammarRoot semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

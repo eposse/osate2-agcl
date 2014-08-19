@@ -750,6 +750,14 @@ rule__AGCLGrammarRoot__Alternatives
 { after(grammarAccess.getAGCLGrammarRootAccess().getGroup_1()); }
 )
 
+    |(
+{ before(grammarAccess.getAGCLGrammarRootAccess().getAgclKeyword_2()); }
+
+	'agcl' 
+
+{ after(grammarAccess.getAGCLGrammarRootAccess().getAgclKeyword_2()); }
+)
+
 ;
 finally {
 	restoreStackSize(stackSize);

@@ -1,5 +1,20 @@
 /**
+ * Copyright (c) 2014 Ernesto Posse
  * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License. 
+ * 
+ * @author Ernesto Posse
+ * @version 0.1 
  */
 package org.osate.xtext.aadl2.agcl.analysis.visitors.concrete;
 
@@ -52,36 +67,34 @@ public class ImplementationParentConformanceSwitch extends CommonAGCLAnalysisSwi
 				monitor.subTask("Performing implementation/parent implementation conformance analysis on '" + componentName + "'");
 				if (monitor.isCanceled()) return null;
 
-				if (component instanceof ThreadImplementation) {
-					ThreadImplementation threadImpl = ((ThreadImplementation) component);
-					Logger.getLogger(getClass()).debug("thread type: " + ((threadImpl == null) ? "null" : threadImpl.getFullName()));
+				if (component instanceof ComponentImplementation) {
+					ComponentImplementation compImpl = ((ComponentImplementation) component);
+					Logger.getLogger(getClass()).debug("component implementation: " + ((compImpl == null) ? "null" : compImpl.getFullName()));
 					
-					ComponentImplementation parentThreadImpl = threadImpl.getExtended();
-					Logger.getLogger(getClass()).debug("parent thread type: " + ((parentThreadImpl == null) ? "null" : parentThreadImpl.getFullName()));
+					ComponentImplementation parentImpl = compImpl.getExtended();
+					Logger.getLogger(getClass()).debug("parent implementation: " + ((parentImpl == null) ? "null" : parentImpl.getFullName()));
 					
-					if (parentThreadImpl instanceof ThreadImplementation) {
-						// Go through all relevant contracts in this annex sub-clause...
-						List<AGCLContract> relevantContracts = AGCLSyntaxUtil.getViewpointContracts(obj, viewpointContext);
-						Logger.getLogger(getClass()).debug("relevant contracts: " + relevantContracts);
-						for (AGCLContract contract : relevantContracts) {
+					// Go through all relevant contracts in this annex sub-clause...
+					List<AGCLContract> relevantContracts = AGCLSyntaxUtil.getViewpointContracts(obj, viewpointContext);
+					Logger.getLogger(getClass()).debug("relevant contracts: " + relevantContracts);
+					for (AGCLContract contract : relevantContracts) {
+						if (monitor.isCanceled()) return null;
+						String viewpointName = contract.getName();
+						// Go through all contracts of this component's parent in the same viewpoint 
+						List<AGCLContract> relevantParentImplContracts = AGCLSyntaxUtil.getViewpointContracts(parentImpl, viewpointName, viewpointContext);
+						Logger.getLogger(getClass()).debug("relevant implementation parent contracts: " + relevantParentImplContracts);
+						for (AGCLContract typeContract : relevantParentImplContracts) {
 							if (monitor.isCanceled()) return null;
-							String viewpointName = contract.getName();
-							// Go through all contracts of this component's parent in the same viewpoint 
-							List<AGCLContract> relevantParentImplContracts = AGCLSyntaxUtil.getViewpointContracts(parentThreadImpl, viewpointName, viewpointContext);
-							Logger.getLogger(getClass()).debug("relevant implementation parent contracts: " + relevantParentImplContracts);
-							for (AGCLContract typeContract : relevantParentImplContracts) {
-								if (monitor.isCanceled()) return null;
-								// We verify only the contracts which belong to a viewpoint marked for verification 
-								((ImplementationParentConformanceAnalysis)algorithm).checkThisContractSatisfiesParentContract(contract, typeContract, viewpointName, componentName);
-							}
+							// We verify only the contracts which belong to a viewpoint marked for verification 
+							((ImplementationParentConformanceAnalysis)algorithm).checkThisContractSatisfiesParentContract(contract, typeContract, viewpointName, componentName);
 						}
 					}
+				
 				}
 				monitor.worked(1);
 				return null;
 			}
 		};
 	}
-
 
 }

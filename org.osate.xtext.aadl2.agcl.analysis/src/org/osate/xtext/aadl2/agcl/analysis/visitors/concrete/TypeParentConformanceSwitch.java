@@ -1,5 +1,20 @@
 /**
+ * Copyright (c) 2014 Ernesto Posse
  * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License. 
+ * 
+ * @author Ernesto Posse
+ * @version 0.1 
  */
 package org.osate.xtext.aadl2.agcl.analysis.visitors.concrete;
 
@@ -51,28 +66,26 @@ public class TypeParentConformanceSwitch extends CommonAGCLAnalysisSwitch {
 				monitor.subTask("Performing type/parent type conformance analysis on '" + componentName + "'");
 				if (monitor.isCanceled()) return null;
 
-				if (component instanceof ThreadType) {
-					ThreadType threadType = ((ThreadType) component);
-					Logger.getLogger(getClass()).debug("thread type: " + ((threadType == null) ? "null" : threadType.getFullName()));
+				if (component instanceof ComponentType) {
+					ComponentType componentType = ((ComponentType) component);
+					Logger.getLogger(getClass()).debug("component type: " + ((componentType == null) ? "null" : componentType.getFullName()));
 					
-					ComponentType parentThreadType = threadType.getExtended();
-					Logger.getLogger(getClass()).debug("parent thread type: " + ((parentThreadType == null) ? "null" : parentThreadType.getFullName()));
+					ComponentType parentType = componentType.getExtended();
+					Logger.getLogger(getClass()).debug("parent thread type: " + ((parentType == null) ? "null" : parentType.getFullName()));
 					
-					if (parentThreadType instanceof ThreadType) {
-						// Go through all relevant contracts in this annex sub-clause...
-						List<AGCLContract> relevantContracts = AGCLSyntaxUtil.getViewpointContracts(obj, viewpointContext);
-						Logger.getLogger(getClass()).debug("relevant contracts: " + relevantContracts);
-						for (AGCLContract contract : relevantContracts) {
+					// Go through all relevant contracts in this annex sub-clause...
+					List<AGCLContract> relevantContracts = AGCLSyntaxUtil.getViewpointContracts(obj, viewpointContext);
+					Logger.getLogger(getClass()).debug("relevant contracts: " + relevantContracts);
+					for (AGCLContract contract : relevantContracts) {
+						if (monitor.isCanceled()) return null;
+						String viewpointName = contract.getName();
+						// Go through all contracts of this component's parent in the same viewpoint 
+						List<AGCLContract> relevantParentTypeContracts = AGCLSyntaxUtil.getViewpointContracts(parentType, viewpointName, viewpointContext);
+						Logger.getLogger(getClass()).debug("relevant type contracts: " + relevantParentTypeContracts);
+						for (AGCLContract typeContract : relevantParentTypeContracts) {
 							if (monitor.isCanceled()) return null;
-							String viewpointName = contract.getName();
-							// Go through all contracts of this component's parent in the same viewpoint 
-							List<AGCLContract> relevantParentTypeContracts = AGCLSyntaxUtil.getViewpointContracts(parentThreadType, viewpointName, viewpointContext);
-							Logger.getLogger(getClass()).debug("relevant type contracts: " + relevantParentTypeContracts);
-							for (AGCLContract typeContract : relevantParentTypeContracts) {
-								if (monitor.isCanceled()) return null;
-								// We verify only the contracts which belong to a viewpoint marked for verification 
-								((TypeParentConformanceAnalysis)algorithm).checkThisContractSatisfiesParentContract(contract, typeContract, viewpointName, componentName);
-							}
+							// We verify only the contracts which belong to a viewpoint marked for verification 
+							((TypeParentConformanceAnalysis)algorithm).checkThisContractSatisfiesParentContract(contract, typeContract, viewpointName, componentName);
 						}
 					}
 				}
